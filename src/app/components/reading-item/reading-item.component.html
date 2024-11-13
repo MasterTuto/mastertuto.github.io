@@ -1,4 +1,4 @@
-<a role="link" [href]="reading.url" [target]="reading.url" class="flex w-100 p-4 rounded-md items-center bg-blue-100 gap-6 cursor-pointer hover:bg-blue-200 transition-all group">
+<a role="link" [href]="reading.url" [target]="reading.url" class="flex w-100 p-4 rounded-md items-center bg-blue-50/90 gap-6 cursor-pointer hover:bg-blue-200 transition-all group">
   <div class="bg-blue-300 rounded-lg w-8 h-8 flex justify-center items-center">
     <ng-icon name="tablerBook" size="18px" class="text-blue-900" *ngIf="reading.type === 'book'"></ng-icon>
     <ng-icon name="tablerArticle" size="18px" class="text-blue-900" *ngIf="reading.type === 'article'"></ng-icon>
@@ -6,7 +6,7 @@
   <div class="flex-1">
     <p class="m-0 font-bold">
       <span *ngIf="reading.type === 'book'">(Book)</span>
-      <span *ngIf="reading.type === 'article'">(Book)</span>
+      <span *ngIf="reading.type === 'article'">(Article)</span>
       {{reading.title}}
     </p>
     <p class="m-0 text-sm text-">Author: {{reading.author}} ({{reading.publisher}}<span *ngIf="!!reading.publisher"> , </span>{{reading.date | date : 'shortDate' : '' : 'pt-BR'}})</p>

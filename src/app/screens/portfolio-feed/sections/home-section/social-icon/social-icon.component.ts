@@ -8,4 +8,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SocialIconComponent {
   @Input() icon: string = "";
   @Input() url: string = "";
+  @Input() download: string = "";
 }
