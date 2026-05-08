@@ -1,0 +1,42 @@
+<app-section name="home" containerClass="items-center justify-center">
+    <div class="flex justify-center gap-20 flex-wrap max-md:gap-10">
+        <div class="relative inline-block">
+            <img class="relative peer z-10 w-56 -translate-y-10 rounded-full pfp" src="assets/photo.png" alt="Foto de perfil">
+
+            <pre class="code peer-hover:-translate-x-20 peer-hover:translate-y-2">{{requestsExample}}</pre>
+
+            <pre class="code peer-hover:translate-x-20 peer-hover:translate-y-24">{{ cssExample }}</pre>
+
+            <pre class="code peer-hover:-translate-x-10 peer-hover:-translate-y-24">{{ todoList }}</pre>
+        </div>
+
+        <div class="text-white">
+            <div class="font-semibold text-3xl mb-8">
+                <h1 class="text-6xl font-extrabold text-green-500">BRENO <br/> CARVALHO</h1>
+                <h2>IS A <span>{{profession}}</span></h2>
+                <h2>DEVELOPER</h2>
+            </div>
+
+            <div class="flex items-center gap-1 text-xl text-slate-200 max-md:flex-col">
+                <div class="flex gap-1 items-center">
+                    <ng-icon name="tablerStar"></ng-icon>
+                    <span>{{yearsOfExperience}} years of experience</span>
+                </div>
+
+                <div class="flex gap-1 items-center">
+                    <ng-icon name="tablerBrandOpenSource" class="ml-2"></ng-icon>
+                    <span>Open Sourcerer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex text-white gap-2">
+        <app-social-icon icon="tablerBrandGithub" url="https://github.com/MasterTuto">GitHub</app-social-icon>
+        <app-social-icon icon="tablerBrandLinkedin" url="https://www.linkedin.com/in/brenodasilva547/">LinkedIn</app-social-icon>
+        <app-social-icon icon="tablerBrandTwitter" url="https://twitter.com/bremocs">Twitter</app-social-icon>
+        <app-social-icon icon="tablerMail" url="mailto:brenocarvalho2011@gmail.com">E-mail</app-social-icon>
+        <app-social-icon icon="tablerBrandUpwork" url="https://www.upwork.com/freelancers/~015b65b982c32771f6">Upwork</app-social-icon>
+        <app-social-icon icon="tablerDownload" download="Breno Carvalho da Silva - Resume.pdf" url="/assets/Breno Carvalho da Silva Curriculum.pdf">Resume</app-social-icon>
+    </div>
+</app-section>

@@ -1,0 +1,11 @@
+.pfp {
+    background: radial-gradient(white 60%, transparent 0);
+    background-position-y: 20px;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(90px);
+}
+
+.code {
+    @apply z-0 top-1/2 bottom-1/2 peer-hover:text-xs absolute opacity-0 pointer-events-none transition-all text-slate-100 peer-hover:opacity-75;
+    font-size: 0;
+}

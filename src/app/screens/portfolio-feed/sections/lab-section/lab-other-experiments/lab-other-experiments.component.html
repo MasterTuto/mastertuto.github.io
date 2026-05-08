@@ -1,0 +1,10 @@
+<div class="w-full flex gap-3 text-slate-100">
+    <div *ngFor="let experiment of experiments" class="max-h-14 cursor-pointer rounded-md grid grid-cols-4 p-2 gap-3 max-w-[200px] hover:bg-slate-100 hover:text-green-500 transition-all" (click)="selectExperiment(experiment)">
+        <img [src]="experiment.cover" class="object-cover block max-h-full h-auto top-0 left-0 box-border col-span-1 rounded-md">
+        <div class="col-span-3">
+            <p class="font-semibold truncate">{{experiment.name}}</p>
+            <p class="truncate text-xs">{{experiment.description}}</p>
+        </div>
+
+    </div>
+</div>
