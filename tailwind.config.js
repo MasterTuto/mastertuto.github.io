@@ -10,6 +10,9 @@ module.exports = {
       },
       colors: {
         primary: '#666'
+      },
+      height: {
+        'dvh': '100dvh',
       }
     },
   },

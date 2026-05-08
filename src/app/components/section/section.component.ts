@@ -17,7 +17,7 @@ export class SectionComponent implements OnInit {
   }
 
   getClassName() {
-    let currentClass = "w-[94vw] min-h-screen p-12 pt-0 flex flex-col max-md:px-0";
+    let currentClass = "w-[94vw] min-h-dvh p-12 pt-0 flex flex-col max-md:px-0";
     if (this.containerClass != null)
       currentClass = `${currentClass} ${this.containerClass}`
     return currentClass;
