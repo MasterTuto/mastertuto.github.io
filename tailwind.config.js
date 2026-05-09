@@ -13,7 +13,10 @@ module.exports = {
       },
       height: {
         'dvh': '100dvh',
-      }
+      },
+      minHeight: {
+        'dvh': '100dvh',
+      },
     },
   },
   plugins: [],
