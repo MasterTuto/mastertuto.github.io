@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: '[app-navigation-button]',
-  templateUrl: './navigation-button.component.html',
-  styleUrls: ['./navigation-button.component.scss']
+    selector: '[app-navigation-button]',
+    templateUrl: './navigation-button.component.html',
+    styleUrls: ['./navigation-button.component.scss'],
+    standalone: false
 })
 export class NavigationButtonComponent implements OnInit {
   @Input() title: string = '';

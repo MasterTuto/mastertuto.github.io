@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { JobExperience } from 'src/app/model/job.model';
 
 @Component({
-  selector: 'app-job-item',
-  templateUrl: './job-item.component.html',
-  styleUrls: ['./job-item.component.scss']
+    selector: 'app-job-item',
+    templateUrl: './job-item.component.html',
+    styleUrls: ['./job-item.component.scss'],
+    standalone: false
 })
 export class JobItemComponent implements OnInit {
   @Input() job!: JobExperience;

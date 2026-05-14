@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@a
 import { Experiment } from 'src/app/model/experiment.model';
 
 @Component({
-  selector: 'app-lab-item',
-  templateUrl: './lab-item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./lab-item.component.scss']
+    selector: 'app-lab-item',
+    templateUrl: './lab-item.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./lab-item.component.scss'],
+    standalone: false
 })
 export class LabItemComponent {
   @Input() experiment: Experiment = {} as Experiment;

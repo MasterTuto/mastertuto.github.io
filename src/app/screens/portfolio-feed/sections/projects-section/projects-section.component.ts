@@ -3,10 +3,11 @@ import { projectsData } from 'src/app/data/projects.data';
 import { Project } from 'src/app/model/project.model';
 
 @Component({
-  selector: 'app-projects-section',
-  templateUrl: './projects-section.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./projects-section.component.scss']
+    selector: 'app-projects-section',
+    templateUrl: './projects-section.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./projects-section.component.scss'],
+    standalone: false
 })
 export class ProjectsSectionComponent {
   projects: Project[] = [];

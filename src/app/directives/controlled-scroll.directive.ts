@@ -2,7 +2,8 @@ import { Directive, ElementRef, Input, inject } from "@angular/core";
 import { SectionStateService } from "../service/section-state.service";
 
 @Directive({
-  selector: '[scrollNavigatedTo]',
+    selector: '[scrollNavigatedTo]',
+    standalone: false
 })
 export class ControlledScrollDirective {
   intersectionObserver: IntersectionObserver;

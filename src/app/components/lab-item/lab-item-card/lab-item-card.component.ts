@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Experiment } from 'src/app/model/experiment.model';
 
 @Component({
-  selector: 'app-lab-item-card',
-  templateUrl: './lab-item-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./lab-item-card.component.scss']
+    selector: 'app-lab-item-card',
+    templateUrl: './lab-item-card.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./lab-item-card.component.scss'],
+    standalone: false
 })
 export class LabItemCardComponent {
   @Input() experiment: Experiment = {} as Experiment;

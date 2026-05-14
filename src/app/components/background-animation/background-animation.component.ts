@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ShapeElement } from './models/shape-element.model';
 
 @Component({
-  selector: 'app-background-animation',
-  templateUrl: './background-animation.component.html',
-  styleUrls: ['./background-animation.component.scss']
+    selector: 'app-background-animation',
+    templateUrl: './background-animation.component.html',
+    styleUrls: ['./background-animation.component.scss'],
+    standalone: false
 })
 export class BackgroundAnimationComponent implements OnInit {
   @Input() shape: 'circle' = 'circle';

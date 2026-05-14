@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 import { TypingEffectService } from 'src/app/service/typing-effect.service';
 
 @Component({
-  selector: 'app-home-section',
-  templateUrl: './home-section.component.html',
-  styleUrls: ['./home-section.component.scss']
+    selector: 'app-home-section',
+    templateUrl: './home-section.component.html',
+    styleUrls: ['./home-section.component.scss'],
+    standalone: false
 })
 export class HomeSectionComponent {
   typingEffectService = inject(TypingEffectService);
