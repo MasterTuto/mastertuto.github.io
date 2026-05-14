@@ -1,5 +1,7 @@
 <app-section name="readings" title="READINGS">
   <div class="flex flex-col gap-3">
-    <app-reading-item [reading]="reading" *ngFor="let reading of readings; trackBy: trackByUrl"></app-reading-item>
+    @for (reading of readings; track trackByUrl($index, reading)) {
+      <app-reading-item [reading]="reading"></app-reading-item>
+    }
   </div>
 </app-section>

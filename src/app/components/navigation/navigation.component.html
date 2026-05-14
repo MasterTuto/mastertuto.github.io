@@ -1,10 +1,12 @@
 <nav class="fixed right-4 top-0 h-dvh">
-    <ul class="flex flex-col gap-4 h-full justify-center">
+  <ul class="flex flex-col gap-4 h-full justify-center">
+    @for (item of navItems; track item; let i = $index) {
       <li app-navigation-button
-          [title]="item.title"
-          [href]="item.href"
-          [selected]="selected == i"
-          (press)="changeSelectedSection(i)"
-          *ngFor="let item of navItems; let i = index"></li>
-    </ul>
+        [title]="item.title"
+        [href]="item.href"
+        [selected]="selected == i"
+        (press)="changeSelectedSection(i)"
+      ></li>
+    }
+  </ul>
 </nav>
