@@ -6,7 +6,7 @@ import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   declarations: [ReadingsSectionComponent],
-  imports: [BrowserModule, SectionModule, ReadingItemModule],
+  imports: [SectionModule, ReadingItemModule],
   exports: [ReadingsSectionComponent]
 })
 export class ReadingsSectionModule {

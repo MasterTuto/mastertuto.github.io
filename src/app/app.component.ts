@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(localePT);
 
@@ -9,7 +10,9 @@ registerLocaleData(localePT);
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [
+      RouterModule
+    ]
 })
 export class AppComponent {
   title = 'portfolio';
