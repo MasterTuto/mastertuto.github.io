@@ -1,28 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { JobExperience } from 'src/app/model/job.model';
 
 @Component({
     selector: 'app-job-item',
+    standalone: false,
     templateUrl: './job-item.component.html',
     styleUrls: ['./job-item.component.scss'],
-    standalone: false
 })
-export class JobItemComponent implements OnInit {
-  @Input() job!: JobExperience;
-  @Input() index!: number;
+export class JobItemComponent {
+  job = input.required<JobExperience>();
 
-  period: string = "";
+  jobPeriod = computed(() => this.job().period);
 
-  ngOnInit(): void {
-    this.period = this.getPeriod();
-  }
-
-  private getPeriod(): string {
-    if (this.job.period == undefined) {
+  period = computed(() => {
+    if (this.job().period == undefined) {
       return '';
     }
 
-    const [initialDate, endDate] = this.job.period;
+    const [initialDate, endDate] = this.job().period;
 
     const toStr = (date: Date) => date.toLocaleDateString('en-US', {
       month: 'long',
@@ -37,5 +32,5 @@ export class JobItemComponent implements OnInit {
     }
 
     return formattedPeriod;
-  }
+  });
 }

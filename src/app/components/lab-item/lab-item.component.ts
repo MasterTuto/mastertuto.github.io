@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Experiment } from 'src/app/model/experiment.model';
 
 @Component({
@@ -9,5 +9,5 @@ import { Experiment } from 'src/app/model/experiment.model';
     standalone: false
 })
 export class LabItemComponent {
-  @Input() experiment: Experiment = {} as Experiment;
+  experiment = input.required<Experiment>();
 }

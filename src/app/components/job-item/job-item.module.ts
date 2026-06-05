@@ -16,7 +16,7 @@ import {
   tablerBrandTailwind,
   tablerGlobe
 } from '@ng-icons/tabler-icons';
-import { HoverIconModule } from '../hover-icon/hover-icon.module';
+import { HoverIconComponent } from '../hover-icon/hover-icon.component';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { HoverIconModule } from '../hover-icon/hover-icon.module';
   ],
   imports: [
     CommonModule,
-    HoverIconModule,
+    HoverIconComponent,
     NgIconsModule.withIcons({
       tablerBrandAngular,
       tablerBrandBootstrap,
