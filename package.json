@@ -21,7 +21,6 @@
     "@angular/router": "^21.2.13",
     "@ng-icons/core": "^22.4.0",
     "@ng-icons/tabler-icons": "^22.4.0",
-    "open-graph-scraper-lite": "^2.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
