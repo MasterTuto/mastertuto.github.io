@@ -1,12 +1,12 @@
-<a [href]="project.link" target="_blank" [class]="containerClass">
+<a [href]="project().link" target="_blank" [class]="containerClass()">
     <div class="flex flex-row items-center mb-4 relative">
-        <div [class]="iconBorderColor">
-            <ng-icon [name]="iconName" size="24" [class]="iconColor"></ng-icon>
+        <div [class]="iconBorderColor()">
+            <ng-icon [name]="iconName()" size="24" [class]="iconColor()"></ng-icon>
         </div>
 
-        <p [class]="statusTextColor">{{statusText}}</p>
+        <p [class]="statusTextColor()">{{statusText()}}</p>
     </div>
 
-    <h1 class="mb-2 font-semibold line-clamp-1">{{project.name}}</h1>
-    <p class="line-clamp-4">{{project.description}}</p>
+    <h1 class="mb-2 font-semibold line-clamp-1">{{project().name}}</h1>
+    <p class="line-clamp-4">{{project().description}}</p>
 </a>

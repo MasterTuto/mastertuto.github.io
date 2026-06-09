@@ -18,8 +18,4 @@ export class ProjectsSectionComponent {
       ...p
     }));
   }
-
-  trackById(_: number, project: Project) {
-    return project.id;
-  }
 }

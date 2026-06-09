@@ -10,9 +10,4 @@ import { Reading } from 'src/app/model/reading.model';
 })
 export class ReadingsSectionComponent {
   readings = readings;
-
-  trackByUrl(index: number, reading: Reading): string {
-    return reading.url;
-  }
-
 }

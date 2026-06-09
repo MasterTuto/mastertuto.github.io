@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { Experiment } from 'src/app/model/experiment.model';
 
 @Component({
@@ -9,12 +9,7 @@ import { Experiment } from 'src/app/model/experiment.model';
     standalone: false
 })
 export class LabOtherExperimentsComponent {
-  @Input() experiments!: Experiment[];
+  experiments = input<Experiment[]>([]);
 
-  @Output()
-  select = new EventEmitter<Experiment>();
-
-  selectExperiment(experiment: Experiment) {
-    this.select.emit(experiment);
-  }
+  select = output<Experiment>();
 }

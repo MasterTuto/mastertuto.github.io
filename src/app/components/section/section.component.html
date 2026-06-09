@@ -1,8 +1,8 @@
-<section [id]="name" [class]="className">
-  @if (title) {
+<section [id]="name()" [class]="className()">
+  @if (title()) {
     <h1 class="sticky bg-slate-900/75 backdrop-blur-sm top-0 text-8xl max-md:text-6xl font-extrabold leading-tight uppercase pointer-events-none z-50">
-      <span class="relative text-slate-100/10">{{title}}</span>
-      <span class="absolute top-0 left-0 pl-5 w-full text-green-500" aria-hidden="true">{{title}}</span>
+      <span class="relative text-slate-100/10">{{title()}}</span>
+      <span class="absolute top-0 left-0 pl-5 w-full text-green-500" aria-hidden="true">{{title()}}</span>
     </h1>
   }
   <ng-content></ng-content>

@@ -1,7 +1,7 @@
 <app-section name="projects" title="PROJECTS">
   <div class="max-md:p-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 gap-x-5 text-slate-100 bg-ra">
-    @for (project of projects; track trackById($index, project)) {
-      <app-project-item [project]="project"></app-project-item>
+    @for (project of projects; track project.id) {
+      <app-project-item [project]="project" />
     }
   </div>
 </app-section>

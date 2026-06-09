@@ -4,7 +4,6 @@ import { JobsSectionComponent } from './jobs-section.component';
 import { SectionModule } from 'src/app/components/section/section.module';
 import { JobItemModule } from 'src/app/components/job-item/job-item.module';
 import { ControlledScrollModule } from 'src/app/directives/controlled-scroll.module';
-import { BackgroundAnimationModule } from 'src/app/components/background-animation/background-animation.module';
 
 
 
@@ -17,7 +16,6 @@ import { BackgroundAnimationModule } from 'src/app/components/background-animati
     SectionModule,
     JobItemModule,
     ControlledScrollModule,
-    BackgroundAnimationModule
   ],
   exports: [
     JobsSectionComponent

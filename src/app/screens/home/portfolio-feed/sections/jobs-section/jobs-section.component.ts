@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { jobsData } from 'src/app/data/jobs.data';
 
 @Component({
@@ -9,8 +9,4 @@ import { jobsData } from 'src/app/data/jobs.data';
 })
 export class JobsSectionComponent {
   jobList = jobsData;
-
-  trackByIndex(index: number) {
-    return index;
-  }
 }

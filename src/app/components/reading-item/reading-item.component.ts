@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Reading } from 'src/app/model/reading.model';
 
 @Component({
@@ -8,5 +8,5 @@ import { Reading } from 'src/app/model/reading.model';
     standalone: false
 })
 export class ReadingItemComponent {
-  @Input() reading: Reading = {} as Reading;
+  reading = input.required<Reading>();
 }

@@ -15,5 +15,4 @@ registerLocaleData(localePT);
     ]
 })
 export class AppComponent {
-  title = 'portfolio';
 }

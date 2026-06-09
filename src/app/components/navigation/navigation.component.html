@@ -4,7 +4,7 @@
       <li app-navigation-button
         [title]="item.title"
         [href]="item.href"
-        [selected]="selected == i"
+        [selected]="selected() == i"
         (press)="changeSelectedSection(i)"
       ></li>
     }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
     selector: 'app-section',
@@ -6,21 +6,17 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./section.component.scss'],
     standalone: false
 })
-export class SectionComponent implements OnInit {
-  @Input() name: string = "";
-  @Input() title: string = "";
-  @Input() containerClass: string = "";
+export class SectionComponent {
+  name = input.required<string>();
+  title = input<string>();
+  containerClass = input<string>();
 
-  className: string = "";
-
-  ngOnInit(): void {
-    this.className = this.getClassName();
-  }
-
-  getClassName() {
+  className = computed(() => {
     let currentClass = "w-[94vw] min-h-dvh p-12 pt-0 flex flex-col max-md:px-0";
-    if (this.containerClass != null)
-      currentClass = `${currentClass} ${this.containerClass}`
+
+    if (this.containerClass() != null) {
+      return `${currentClass} ${this.containerClass()}`
+    }
     return currentClass;
-  }
+  });
 }

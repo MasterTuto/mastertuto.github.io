@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
     selector: 'app-social-icon',
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
     standalone: false
 })
 export class SocialIconComponent {
-  @Input() icon: string = "";
-  @Input() url: string = "";
-  @Input() download: string = "";
+  icon = input.required<string>();
+  url = input.required<string>();
+  download = input<string>();
 }

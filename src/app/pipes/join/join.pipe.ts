@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class JoinPipe implements PipeTransform {
 
-  transform(items: Array<any>, joiner: string): unknown {
+  transform(items: Array<any>, joiner: string): string {
     return items.map((item) => `${item}`).join(joiner);
   }
 
