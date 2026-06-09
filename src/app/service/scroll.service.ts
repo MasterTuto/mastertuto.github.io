@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { afterNextRender, Injectable } from "@angular/core";
 import { Observable, debounceTime, fromEvent } from "rxjs";
 
 @Injectable({
@@ -8,7 +8,7 @@ export class ScrollService {
   private scroll$!: Observable<Event>;
 
   constructor() {
-    this.scroll$ = fromEvent(document, "wheel");
+    afterNextRender(() => this.scroll$ = fromEvent(document, "wheel"));
   }
 
   onScroll() {

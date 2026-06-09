@@ -1,5 +1,5 @@
-import { Injectable, inject } from "@angular/core";
-import { BehaviorSubject, Observable, distinctUntilChanged, of, skip, switchMap } from "rxjs";
+import { Injectable, afterNextRender, inject } from "@angular/core";
+import { Observable, distinctUntilChanged, of, skip, switchMap } from "rxjs";
 import { ScrollService } from "./scroll.service";
 import { sections } from "../data/sections.data";
 import { SectionStateService } from "./section-state.service";
@@ -12,9 +12,11 @@ export class SectionService {
   sectionStateService = inject(SectionStateService);
 
   constructor() {
-    this.pipedObservable(this.scrollService.onScroll()).subscribe(
-      (sectionIndex) => this.sectionStateService.currentSection = sectionIndex
-    );
+    afterNextRender(() => {
+      this.pipedObservable(this.scrollService.onScroll()).subscribe(
+        (sectionIndex) => this.sectionStateService.currentSection = sectionIndex
+      );
+    });
   }
 
   private pipedObservable(observable: Observable<Event>): Observable<number> {
