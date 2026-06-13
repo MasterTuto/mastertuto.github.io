@@ -2,11 +2,10 @@
   <ul class="flex flex-col gap-4 h-full justify-center">
     @for (item of navItems; track item; let i = $index) {
       <li app-navigation-button
-        [title]="item.title"
-        [href]="item.href"
-        [selected]="selected() == i"
-        (press)="changeSelectedSection(i)"
-      ></li>
+          [title]="item.title"
+          [href]="item.href"
+          [selected]="selected() == i"
+          (press)="changeSelectedSection(i)"></li>
     }
   </ul>
 </nav>

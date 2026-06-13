@@ -1,0 +1,170 @@
+<div class="min-h-dvh bg-slate-900 font-display text-white">
+  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
+
+    <!-- Header -->
+    <div class="mb-4 flex items-center justify-between">
+      <a
+        [routerLink]="['/', lang, 'games']"
+        class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+        {{ "games" | translate }}
+      </a>
+      <h1 class="text-lg font-bold tracking-tight sm:text-xl">{{ "queens.queens" | translate }}</h1>
+      <div class="w-16"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="mb-4 flex flex-wrap items-center gap-2">
+      <label class="text-xs text-white/50 sm:text-sm">{{ "queens.level" | translate }}:</label>
+      <select
+        [value]="level()"
+        (change)="level.set(+$any($event.target).value); newGame()"
+        class="rounded-lg bg-white/10 px-3 py-1.5 text-sm text-white outline-none ring-1 ring-white/20 transition-colors focus:ring-blue-400"
+      >
+        @for (lvl of levels; track lvl) {
+          <option [value]="lvl" class="bg-slate-800">
+            {{ "queens.level-" + lvl | translate }}
+          </option>
+        }
+      </select>
+
+      <button
+        (click)="useHint()"
+        [disabled]="hintsRemaining() <= 0"
+        class="ml-auto rounded-lg px-3 py-1.5 text-sm transition-colors"
+        [class.bg-amber-500/20]="hintsRemaining() > 0"
+        [class.text-amber-300]="hintsRemaining() > 0"
+        [class.bg-white/10]="hintsRemaining() <= 0"
+        [class.text-white/30]="hintsRemaining() <= 0"
+      >
+        {{ "queens.hint" | translate }} ({{ hintsRemaining() }})
+      </button>
+
+      <button
+        (click)="newGame()"
+        class="rounded-lg bg-white/10 px-3 py-1.5 text-sm transition-colors hover:bg-white/20 active:bg-white/30"
+      >
+        {{ "queens.new-game" | translate }}
+      </button>
+    </div>
+
+    <!-- Win banner -->
+    @if (won()) {
+      <div class="mb-4 flex items-center justify-center gap-2 rounded-xl bg-green-500/20 px-4 py-3 text-center ring-1 ring-green-400/40">
+        <span class="text-2xl">👑</span>
+        <span class="font-semibold text-green-300">{{ "queens.congratulations" | translate }}</span>
+      </div>
+    }
+
+    <!-- Board -->
+    <div>
+      @if (board().length > 0) {
+        <div class="flex justify-center touch-none" #boardEl
+            (touchstart)="onTouchStart($event)"
+            (touchmove)="onTouchMove($event)"
+            (touchend)="onTouchEnd()">
+          <div
+            class="grid w-full max-w-[500px] overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10"
+            [style.grid-template-columns]="'repeat(' + size() + ', 1fr)'"
+          >
+            @for (cell of board(); track $index; let i = $index) {
+              <div
+                (click)="interact(i)"
+                class="flex aspect-square items-center justify-center text-lg font-bold sm:text-2xl"
+                [class]="getCellClass(i)"
+              >
+                @if (cell.hasQueen) {
+                  <span class="text-3xl drop-shadow-lg sm:text-4xl">♛</span>
+                } @else if (cell.hasX) {
+                  <span class="text-base text-white/50 sm:text-lg">✕</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="mt-3 text-center text-sm text-white/40">
+          {{ queenCount() }} / {{ size() }} {{ "queens.queens-placed" | translate }}
+        </div>
+
+        <div class="mt-2 flex flex-wrap justify-center gap-3 text-xs text-white/30">
+          @if (queenCount() === size() && !won()) {
+            <span class="text-amber-400/60">{{ "queens.check-errors" | translate }}</span>
+          }
+        </div>
+      } @else {
+        <div class="flex aspect-square max-w-[500px] items-center justify-center rounded-xl bg-white/5 mx-auto">
+          <div class="text-center text-white/30">
+            <div class="mb-2 h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-white/30 mx-auto"></div>
+            <span class="text-sm">{{ "queens.loading" | translate }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- How to play -->
+    <div class="mt-10 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "queens.how-to-play" | translate }}</h2>
+      <ul class="space-y-2 text-sm leading-relaxed text-white/70 sm:text-base">
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">1.</span>
+          <span>{{ "queens.rule-row" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">2.</span>
+          <span>{{ "queens.rule-col" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">3.</span>
+          <span>{{ "queens.rule-region" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">4.</span>
+          <span>{{ "queens.rule-adjacent" | translate }}</span>
+        </li>
+      </ul>
+      <div class="mt-4 text-sm text-white/50">
+        <p>{{ "queens.tip-tap" | translate }}</p>
+        <p class="mt-1">{{ "queens.tip-x" | translate }}</p>
+        <p class="mt-1">{{ "queens.tip-slide" | translate }}</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-4 text-lg font-bold sm:text-xl">{{ "queens.faq-title" | translate }}</h2>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "queens.faq-q1" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "queens.faq-a1" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "queens.faq-q2" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "queens.faq-a2" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "queens.faq-q3" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "queens.faq-a3" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "queens.faq-q4" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "queens.faq-a4" | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO text -->
+    <div class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "queens.seo-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/50 sm:text-base">
+        <p>{{ "queens.seo-p1" | translate }}</p>
+        <p>{{ "queens.seo-p2" | translate }}</p>
+        <p>{{ "queens.seo-p3" | translate }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
