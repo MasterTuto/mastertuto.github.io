@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { PosthogService } from './service/posthog.service';
 
 registerLocaleData(localePT);
 
@@ -15,4 +16,7 @@ registerLocaleData(localePT);
     ]
 })
 export class AppComponent {
+  constructor(
+    posthogService: PosthogService
+  ) {}
 }

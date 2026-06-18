@@ -10,6 +10,8 @@ export class TranslateService {
   private activatedRoute = inject(ActivatedRoute);
   private translationLoader = inject(TranslationLoader);
 
+  private _currentLang: string | null = null;
+
   translate<TranslationPath extends string>(key: TranslationKeyChecker<TranslationPath>, params?: any): string {
     const dict = this.translationLoader.load(this.currentLang ?? "en");
     const path = key.split(".");
@@ -28,6 +30,10 @@ export class TranslateService {
   }
 
   get currentLang(): string | null {
+    if (this._currentLang !== null) {
+      return this._currentLang;
+    }
+
     let params: Record<string, string> = {};
     let queue: ActivatedRouteSnapshot[] = [this.activatedRoute.root.snapshot];
 
@@ -39,6 +45,7 @@ export class TranslateService {
       i++;
     }
 
-    return params["lang"] ?? null;
+    this._currentLang = params["lang"] ?? null;
+    return this._currentLang;
   }
 }
