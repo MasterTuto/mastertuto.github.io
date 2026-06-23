@@ -1,5 +1,6 @@
-<nav class="fixed right-4 top-0 h-dvh">
-  <ul class="flex flex-col gap-4 h-full justify-center">
+<nav [class]="sizeStyling()" class="bg-slate-900/75 backdrop-blur-sm flex items-center justify-between px-8 py-4 transition-all">
+  <img class="h-16 w-16 rounded-full transition-all" [class]="logoStyling()" src="assets/icons/android-chrome-192x192.png" alt="Foto de perfil">
+  <ul class="md:flex flex-row gap-4 h-full justify-center hidden">
     @for (item of navItems; track item; let i = $index) {
       <li app-navigation-button
           [title]="item.title"

@@ -2,6 +2,15 @@ import type { Translations } from "./english";
 
 export const japaneseTranslations: Translations = {
   "games": "\u30b2\u30fc\u30e0",
+  home: {
+    relatedCompanies: "企業で使われているのと同じ技術を使用しています：",
+    cta: "お問い合わせ",
+    stopLosing: "損をするのをやめる",
+    time: "時間、",
+    startWinning: "そして勝ち始める",
+    money: "お金",
+    subtitle: "プロセスを自動化し、生産性を向上させ、コンピュータに仕事を任せましょう。"
+  },
   queens: {
     "queens": "\u30af\u30a4\u30fc\u30f3\u30ba",
     "level": "\u30ec\u30d9\u30eb",

@@ -2,6 +2,15 @@ import type { Translations } from "./english";
 
 export const russianTranslations: Translations = {
   "games": "\u0418\u0433\u0440\u044b",
+  home: {
+    relatedCompanies: "Мы используем те же технологии, что и компании:",
+    cta: "Связаться со мной",
+    stopLosing: "Перестаньте терять",
+    time: "время,",
+    startWinning: "И начните зарабатывать",
+    money: "деньги",
+    subtitle: "Автоматизируйте свои процессы, повышайте продуктивность и позвольте компьютеру работать за вас."
+  },
   queens: {
     "queens": "\u041a\u043e\u0440\u043e\u043b\u0435\u0432\u044b",
     "level": "\u0423\u0440\u043e\u0432\u0435\u043d\u044c",

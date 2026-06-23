@@ -2,6 +2,15 @@ import type { Translations } from "./english";
 
 export const germanTranslations: Translations = {
   "games": "Spiele",
+  home: {
+    relatedCompanies: "Wir verwenden die gleichen Technologien, die von Unternehmen verwendet werden:",
+    cta: "Kontaktieren Sie mich",
+    stopLosing: "Hör auf zu verlieren",
+    time: "Zeit,",
+    startWinning: "Und fang an zu gewinnen",
+    money: "Geld",
+    subtitle: "Automatisiere deine Prozesse, verbessere deine Produktivität und lass den Computer für dich arbeiten."
+  },
   queens: {
     "queens": "Damen",
     "level": "Stufe",

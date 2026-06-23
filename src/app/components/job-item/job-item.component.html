@@ -17,14 +17,14 @@
         }
       </ul>
 
-      <ul class="flex flex-row items-center w-fit">
-        <li class="flex-row flex items-center w-fit gap-1">
-          @for (tech of job().usedTechnologies; track tech) {
+      <ul class="flex flex-row items-center max-w-[200px] md:w-fit flex-wrap">
+        @for (tech of job().usedTechnologies; track tech) {
+          <li class="flex-row flex items-center w-fit gap-1">
             <app-hover-icon [icon]="tech.icon">
               {{tech.name}}
             </app-hover-icon>
-          }
-        </li>
+          </li>
+        }
       </ul>
     </div>
   </div>

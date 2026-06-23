@@ -2,6 +2,15 @@ import type { Translations } from "./english";
 
 export const italianTranslations: Translations = {
   "games": "Giochi",
+  home: {
+    relatedCompanies: "Utilizziamo le stesse tecnologie utilizzate dalle aziende:",
+    cta: "Contattami",
+    stopLosing: "Smetti di perdere",
+    time: "tempo,",
+    startWinning: "E inizia a vincere",
+    money: "denaro",
+    subtitle: "Automatizza i tuoi processi, migliora la tua produttività e lascia che il computer lavori per te."
+  },
   queens: {
     "queens": "Regine",
     "level": "Livello",

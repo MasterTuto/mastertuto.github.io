@@ -1,5 +1,14 @@
 export const englishTranslations = {
   "games": "Games",
+  home: {
+    relatedCompanies: "We use the same technologies used by companies:",
+    cta: "Contact me",
+    stopLosing: "Stop losing",
+    time: "time,",
+    startWinning: "And start earning",
+    money: "money",
+    subtitle: "Automate your processes, improve your productivity and let the computer work for you."
+  },
   queens: {
     "queens": "Queens",
     "level": "Level",

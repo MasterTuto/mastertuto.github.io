@@ -1,37 +1,82 @@
-<app-section name="home" containerClass="items-center justify-center">
-    <div class="flex justify-center gap-20 flex-wrap max-md:gap-10">
-        <div class="relative inline-block">
-            <img class="relative peer z-10 w-56 -translate-y-10 rounded-full pfp" src="assets/photo.png" alt="Foto de perfil">
+<app-section name="home" containerClass="md:justify-center md:-translate-y-[60px] translate-y-[35px]">
 
-            <pre class="code peer-hover:-translate-x-20 peer-hover:translate-y-2">{{requestsExample}}</pre>
 
-            <pre class="code peer-hover:translate-x-20 peer-hover:translate-y-24">{{ cssExample }}</pre>
+  <p class="text-3xl md:text-5xl text-slate-200 font-bold font-title leading-snug">
+    {{ "home.stopLosing" | translate }} <span class="bg-white/50 inline-flex items-end max-h-[0.7lh] max-w-fit px-2 rounded-full">
+      <picture class="hover-gif">
+        <source
+            type="image/webp"
+            srcset="
+                assets/icons/clock/stale-96x64.webp 96w,
+                assets/icons/clock/stale-192x128.webp 192w,
+                assets/icons/clock/stale-384x256.webp 384w,
+                assets/icons/clock/stale.webp 2048w"
+            sizes="(max-width: 480px) 96px,
+                  (max-width: 768px) 192px,
+                  384px">
 
-            <pre class="code peer-hover:-translate-x-10 peer-hover:-translate-y-24">{{ todoList }}</pre>
-        </div>
+        <img
+            src="assets/icons/clock/stale-384x256.png"
+            srcset="
+                assets/icons/clock/stale-96x64.png 96w,
+                assets/icons/clock/stale-192x128.png 192w,
+                assets/icons/clock/stale-384x256.png 384w,
+                assets/icons/clock/stale.png 2048w"
+            sizes="(max-width: 480px) 96px,
+                  (max-width: 768px) 192px,
+                  384px"
+            width="384"
+            height="256"
+            class="h-[1lh] object-contain max-w-fit"
+            alt="Preview">
+    </picture>
+    </span> {{ "home.time" | translate }}
+    <br/>
+    {{ "home.startWinning" | translate }} <span class="bg-white/50 inline-flex items-end max-h-[0.7lh] max-w-fit px-2 rounded-full">
+      <picture class="hover-gif">
+        <source
+            type="image/webp"
+            srcset="
+                assets/icons/line-arrow/stale-42x32.webp 32w,
+                assets/icons/line-arrow/stale-85x64.webp 96w,
+                assets/icons/line-arrow/stale-170x128.webp 192w,
+                assets/icons/line-arrow/stale-341x256.webp 384w,
+                assets/icons/line-arrow/stale.webp 2048w"
+            sizes="(max-width: 480px) 96px,
+                  (max-width: 768px) 192px,
+                  384px">
 
-        <div class="text-white">
-            <div class="font-semibold text-3xl mb-8">
-                <h1 class="text-6xl font-extrabold text-green-500">BRENO <br/> CARVALHO</h1>
-                <h2>IS A <span>{{profession()}}</span></h2>
-                <h2>DEVELOPER</h2>
-            </div>
+        <img
+            src="assets/icons/line-arrow/stale-341x256.png"
+            srcset="
+                assets/icons/line-arrow/stale-85x64.png 96w,
+                assets/icons/line-arrow/stale-170x128.png 192w,
+                assets/icons/line-arrow/stale-341x256.png 384w,
+                assets/icons/line-arrow/stale.png 2048w"
+            sizes="(max-width: 480px) 96px,
+                  (max-width: 768px) 192px,
+                  384px"
+            width="384"
+            height="256"
+            class="h-[1lh] object-contain max-w-fit"
+            alt="Preview">
+    </picture>
+    </span> {{ "home.money" | translate }}
+  </p>
 
-            <div class="flex items-center gap-1 text-xl text-slate-200 max-md:flex-col">
-                <div class="flex gap-1 items-center">
-                    <ng-icon name="tablerStar"></ng-icon>
-                    <span>{{yearsOfExperience}} years of experience</span>
-                </div>
-            </div>
-        </div>
-    </div>
+  <p class="text-lg text-slate-400 mt-6 max-w-xl">{{ "home.subtitle" | translate }}</p>
 
-    <div class="flex text-white gap-2">
-        <app-social-icon icon="tablerBrandGithub" url="https://github.com/MasterTuto">GitHub</app-social-icon>
-        <app-social-icon icon="tablerBrandLinkedin" url="https://www.linkedin.com/in/brenodasilva547/">LinkedIn</app-social-icon>
-        <app-social-icon icon="tablerBrandTwitter" url="https://twitter.com/bremocs">Twitter</app-social-icon>
-        <app-social-icon icon="tablerMail" url="mailto:brenocarvalho2011@gmail.com">E-mail</app-social-icon>
-        <app-social-icon icon="tablerBrandUpwork" url="https://www.upwork.com/freelancers/~015b65b982c32771f6">Upwork</app-social-icon>
-        <app-social-icon icon="tablerDownload" download="Breno Carvalho da Silva - Resume.pdf" url="/assets/Breno Carvalho da Silva Curriculum.pdf">Resume</app-social-icon>
-    </div>
+  <div class="mt-8">
+    <p class="text-slate-600 mb-2">{{ "home.relatedCompanies" | translate }}</p>
+    <p class="flex gap-4 sticker flex-wrap">
+      <img class="h-8" src="assets/logos/google-logo.svg">
+      <img class="h-8" src="assets/logos/ibm-logo.png">
+      <img class="h-8" src="assets/logos/amazon-logo.png">
+      <img class="h-8" src="assets/logos/linkedin-logo.png">
+    </p>
+  </div>
+
+  <a class="bg-green-500 text-white rounded-full px-8 py-2 mt-8 max-w-fit text-xl font-bold hover:bg-green-400" href="https://forms.zohopublic.com/contatobre1/form/Leadaquisition/formperma/4zz_7D-zoH8mb_iI7B3Aak4LDLzqgE_zS-hhNHqYOeU" target="_blank">
+    {{ "home.cta" | translate}}
+  </a>
 </app-section>

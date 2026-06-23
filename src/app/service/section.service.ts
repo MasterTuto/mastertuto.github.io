@@ -11,6 +11,8 @@ export class SectionService {
   scrollService = inject(ScrollService);
   sectionStateService = inject(SectionStateService);
 
+  private readonly NAVIGATION_HEIGHT = 64;
+
   constructor() {
     afterNextRender(() => {
       this.pipedObservable(this.scrollService.onScroll()).subscribe(
@@ -24,7 +26,7 @@ export class SectionService {
       skip(1),
       distinctUntilChanged(),
       switchMap(() => {
-        const elementOn0x0 = document.elementFromPoint(0, 0);
+        const elementOn0x0 = document.elementFromPoint(0, this.NAVIGATION_HEIGHT + 1);
         return of(this.numberOfSection(elementOn0x0?.id));
       })
     );

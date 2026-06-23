@@ -46,6 +46,15 @@ export class TranslateService {
     }
 
     this._currentLang = params["lang"] ?? null;
+
+    if (this._currentLang === null) {
+      this._currentLang = this.systemLang;
+    }
     return this._currentLang;
+  }
+
+  get systemLang(): string {
+    const lang = navigator.language.split("-")[0];
+    return lang;
   }
 }

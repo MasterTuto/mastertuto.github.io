@@ -9,14 +9,11 @@ import { Component, computed, input } from '@angular/core';
 export class SectionComponent {
   name = input.required<string>();
   title = input<string>();
-  containerClass = input<string>();
+  containerClass = input<string>('');
 
   className = computed(() => {
-    let currentClass = "w-[94vw] min-h-dvh p-12 pt-0 flex flex-col max-md:px-0";
+    let currentClass = "w-[94vw] min-h-dvh p-12 pt-0 flex flex-col max-md:px-2";
 
-    if (this.containerClass() != null) {
-      return `${currentClass} ${this.containerClass()}`
-    }
-    return currentClass;
+    return `${currentClass} ${this.containerClass()}`
   });
 }

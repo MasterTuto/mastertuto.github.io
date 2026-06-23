@@ -1,6 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { TypingEffectService } from 'src/app/service/typing-effect.service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-home-section',
@@ -9,18 +7,5 @@ import { TypingEffectService } from 'src/app/service/typing-effect.service';
     standalone: false
 })
 export class HomeSectionComponent {
-  typingEffectService = inject(TypingEffectService);
-
-  profession = toSignal(this.typingEffectService.typedWord(
-    ["FRONT-END", "AUTOMATION", "FULLSTACK"]
-  ), {
-    initialValue: '',
-  })
-
-  requestsExample = `import math\n\nn = int(input(“Type a number: ”))\nsqrt_n = math.sqrt(n)\nprint( f”sqrt of {n} = {sqrt_n}” )`;
-  todoList = `<p>Todo:</p>\n<ul>\n    <li>Laundry</li>\n    <li>Shopping</li>\n    <li>Fixes</li>\n</ul>`;
-  product = `let n = 1;\nfor (let i=0; i < 10; i++) {   n *= i;\n}\nconsole.log(\`n: \${n}\`);`
-  cssExample = `.title {\n    font-size: 7em;\n    font-family: Inter, sans-serif;\n}`
-
   yearsOfExperience = new Date().getFullYear() - 2020;;
 }

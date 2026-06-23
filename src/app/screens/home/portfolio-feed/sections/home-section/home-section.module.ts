@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { HomeSectionComponent } from './home-section.component';
 import { SectionModule } from 'src/app/components/section/section.module';
 import { NgIconsModule } from '@ng-icons/core';
-import { tablerBrandOpenSource, tablerBrandUpwork, tablerStar, tablerBrandGithub, tablerBrandLinkedin, tablerBrandTwitter, tablerX, tablerMail, tablerDownload } from '@ng-icons/tabler-icons';
+import { tablerBrandOpenSource, tablerBrandUpwork, tablerStar, tablerBrandGithub, tablerBrandTwitter, tablerX, tablerMail, tablerDownload } from '@ng-icons/tabler-icons';
 import { SocialIconComponent } from './social-icon/social-icon.component';
 import { HoverIconComponent } from 'src/app/components/hover-icon/hover-icon.component';
 import { ControlledScrollModule } from 'src/app/directives/controlled-scroll.module';
+import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 
 
 @NgModule({
@@ -19,7 +20,6 @@ import { ControlledScrollModule } from 'src/app/directives/controlled-scroll.mod
     SectionModule,
     NgIconsModule.withIcons({
       tablerBrandGithub,
-      tablerBrandLinkedin,
       tablerBrandOpenSource,
       tablerBrandTwitter,
       tablerBrandUpwork,
@@ -29,7 +29,8 @@ import { ControlledScrollModule } from 'src/app/directives/controlled-scroll.mod
       tablerDownload
     }),
     HoverIconComponent,
-    ControlledScrollModule
+    ControlledScrollModule,
+    TranslatePipe
   ],
   exports: [
     HomeSectionComponent
