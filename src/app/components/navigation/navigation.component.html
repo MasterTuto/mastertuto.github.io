@@ -1,12 +1,16 @@
-<nav [class]="sizeStyling()" class="bg-slate-900/75 backdrop-blur-sm flex items-center justify-between px-8 py-4 transition-all">
+<nav [class]="sizeStyling()" class="bg-surface backdrop-blur-sm flex items-center justify-between px-8 py-4 transition-all rounded-t-3xl">
   <img class="h-16 w-16 rounded-full transition-all" [class]="logoStyling()" src="assets/icons/android-chrome-192x192.png" alt="Foto de perfil">
-  <ul class="md:flex flex-row gap-4 h-full justify-center hidden">
+  <ul class="md:flex flex-row gap-6 h-full justify-center hidden">
     @for (item of navItems; track item; let i = $index) {
-      <li app-navigation-button
-          [title]="item.title"
-          [href]="item.href"
-          [selected]="selected() == i"
-          (press)="changeSelectedSection(i)"></li>
+      <li [title]="item.titleKey | translate">
+        <a [href]="item.href" class="text-foreground border-b-2 border-b-transparent hover:text-black">{{item.titleKey | translate}}</a>
+      </li>
     }
   </ul>
+
+  <a myButton="cta" [href]="whatsappLink" target="_blank" rel="noopener">
+    {{ "home.estimateBudget" | translate}}
+
+    <ng-icon name="tablerArrowRight" />
+  </a>
 </nav>

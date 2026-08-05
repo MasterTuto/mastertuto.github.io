@@ -1,0 +1,37 @@
+<div class="min-h-dvh bg-slate-900 font-display text-white">
+  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
+    <div class="mb-6 flex items-center justify-between">
+      <a
+        routerLink="/"
+        class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
+      >
+        <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+        {{ "backHome" | translate }}
+      </a>
+      <h1 class="text-lg font-bold tracking-tight sm:text-xl">{{ "games.label" | translate }}</h1>
+      <div class="w-16"></div>
+    </div>
+
+    <p class="mb-6 text-sm text-white/50 sm:text-base">{{ "games.subtitle" | translate }}</p>
+
+    <div class="grid gap-4">
+      @for (game of games; track game.route) {
+        <a
+          [routerLink]="['/', lang, 'games', game.route]"
+          class="group flex items-center gap-4 rounded-xl bg-white/5 p-5 transition-colors hover:bg-white/10"
+        >
+          <span class="grid size-12 shrink-0 place-items-center rounded-lg bg-white/10 text-2xl text-blue-400">
+            <ng-icon [name]="game.icon" />
+          </span>
+          <span class="flex min-w-0 flex-col gap-1">
+            <span class="font-semibold">{{ game.nameKey | translate }}</span>
+            <span class="text-sm text-white/50">{{ game.descriptionKey | translate }}</span>
+          </span>
+          <span class="ml-auto shrink-0 text-sm font-semibold text-blue-400 transition-transform group-hover:translate-x-0.5">
+            {{ "games.play" | translate }}
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+</div>

@@ -1,39 +1,50 @@
 import { fromEvent, map, startWith } from 'rxjs';
 import { Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { tablerArrowRight } from '@ng-icons/tabler-icons';
 
 import { sections } from 'src/app/data/sections.data';
-import { ScrollService } from 'src/app/service/scroll.service';
-import { SectionStateService } from 'src/app/service/section-state.service';
-import { SectionService } from 'src/app/service/section.service';
+import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
+import { TranslateService } from 'src/app/service/translate.service';
+import { ButtonComponent } from '../@my/button/button.component';
+import { createWhatsAppLink } from 'src/app/utils/whatsapp';
 
 const ANIMATION_THRESHOLD = 120;
 
 @Component({
-    selector: 'app-navigation',
-    templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.scss'],
-    host: {
-      class: 'sticky top-0 left-0 z-50'
-    },
-    standalone: false
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss'],
+  host: {
+    class: 'sticky top-0 left-0 z-50'
+  },
+  providers: [provideIcons({
+      tablerArrowRight
+    })],
+  imports: [
+    TranslatePipe,
+    ButtonComponent,
+    NgIconComponent
+  ]
 })
 export class NavigationComponent {
-  sectionService = inject(SectionService);
-  sectionStateService = inject(SectionStateService);
-  scrollService = inject(ScrollService);
   destroyRef = inject(DestroyRef);
+  private translateService = inject(TranslateService);
 
-  selected = toSignal(this.sectionStateService.currentSection$);
   navItems = sections;
 
   isAtBottom = signal(false);
 
+  get whatsappLink(): string {
+    return createWhatsAppLink(this.translateService.translate("home.whatsappMessage"));
+  }
+
   sizeStyling = computed(() => {
     switch (this.isAtBottom()) {
       case true:
-        // class=""
-        return 'px-2 text-xs';
+        return 'px-2 text-xs bg-surface/50';
       default:
         return 'h-full';
     }
@@ -50,14 +61,6 @@ export class NavigationComponent {
 
   constructor() {
     afterNextRender( () => {
-      let hash = window.location.hash;
-      this.navItems
-        .forEach((item, index) => {
-          if (item.href === hash) {
-            this.sectionStateService.currentSection = index;
-          }
-        });
-
       fromEvent(window, 'scroll')
         .pipe(
           startWith(null),
@@ -71,9 +74,5 @@ export class NavigationComponent {
           takeUntilDestroyed(this.destroyRef),
       ).subscribe((isAtBottom) => this.isAtBottom.set(isAtBottom));
     })
-  }
-
-  changeSelectedSection(sectionIndex: number): void {
-    this.sectionStateService.currentSection = sectionIndex;
   }
 }

@@ -2,6 +2,7 @@ import { RenderMode, ServerRoute } from "@angular/ssr";
 import { translations } from "./i18n/translations";
 import { Routes } from "@angular/router";
 import { routes } from "./app.routes";
+import { serviceLinks } from "./data/sections.data";
 
 function flattenRoutes(
   routes: Routes,
@@ -24,6 +25,17 @@ function flattenRoutes(
   return result;
 }
 
+const serviceSlugs = serviceLinks
+  .map(link => link.href.split('/').pop())
+  .filter((slug): slug is string => Boolean(slug));
+
+function paramsFor(path: string): Record<string, string>[] {
+  if (path.includes(':service')) {
+    return serviceSlugs.map(service => ({ service }));
+  }
+  return Object.keys(translations).map(lang => ({ lang }));
+}
+
 
 export const serverRoutes: ServerRoute[] = [
   {
@@ -38,8 +50,7 @@ export const serverRoutes: ServerRoute[] = [
     path,
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
-      return Object.keys(translations)
-        .map(lang => ({ lang }));
+      return paramsFor(path);
     }
   })),
 ];

@@ -1,0 +1,25 @@
+<div class="min-h-dvh bg-slate-900 font-display text-white">
+  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
+    <div class="mb-6 flex items-center justify-between">
+      <a
+        routerLink="/"
+        class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
+      >
+        <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+        {{ "backHome" | translate }}
+      </a>
+      <h1 class="text-lg font-bold tracking-tight sm:text-xl">{{ "tools.label" | translate }}</h1>
+      <div class="w-16"></div>
+    </div>
+
+    <p class="mb-6 text-sm text-white/50 sm:text-base">{{ "tools.subtitle" | translate }}</p>
+
+    <div class="flex flex-col items-center gap-3 rounded-xl bg-white/5 px-6 py-16 text-center">
+      <span class="grid size-14 place-items-center rounded-full bg-white/10 text-3xl text-white/40">
+        <ng-icon name="tablerTools" />
+      </span>
+      <p class="text-lg font-semibold text-white/80">{{ "tools.emptyTitle" | translate }}</p>
+      <p class="text-sm text-white/50">{{ "tools.emptyDescription" | translate }}</p>
+    </div>
+  </div>
+</div>

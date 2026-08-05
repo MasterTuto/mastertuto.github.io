@@ -1,7 +1,38 @@
-<app-section name="projects" title="PROJECTS">
-  <div class="max-md:p-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 gap-x-5 text-slate-100 bg-ra">
-    @for (project of projects; track project.id) {
-      <app-project-item [project]="project" />
+<app-section name="projects" title="home.projects.name" containerClass="items-center gap-6">
+  <div class="flex flex-col items-center gap-3 text-center">
+    <h3 class="text-foreground text-4xl max-w-[18ch] font-semibold">
+      {{ "home.projects.title" | translate }}
+    </h3>
+    <p class="text-foreground-light max-w-[60ch]">
+      {{ "home.projects.description" | translate }}
+    </p>
+  </div>
+
+  <div class="grid w-full max-w-full grid-cols-1 gap-6 sm:max-w-[75%] sm:grid-cols-2 lg:grid-cols-3">
+    @for (project of projects; track project.nameKey) {
+      <a [href]="project.url" class="group flex flex-col gap-3">
+        <div class="relative aspect-[4/3] overflow-hidden rounded-lg">
+          <img
+            [src]="project.cover"
+            [alt]="project.nameKey | translate"
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+          >
+          <div class="absolute inset-0 bg-primary/0 transition duration-300 group-hover:bg-primary/35"></div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <p class="text-lg font-semibold text-foreground">{{ project.nameKey | translate }}</p>
+          <p class="text-foreground-light">{{ project.descriptionKey | translate }}</p>
+        </div>
+      </a>
     }
   </div>
+
+  <a
+    href="#projects"
+    class="mt-2 flex items-center gap-2 rounded-lg border-2 border-foreground-light px-5 py-3 font-semibold text-foreground transition hover:border-foreground hover:text-primary"
+  >
+    {{ "home.projects.viewAll" | translate }}
+    <ng-icon name="tablerArrowRight" />
+  </a>
 </app-section>

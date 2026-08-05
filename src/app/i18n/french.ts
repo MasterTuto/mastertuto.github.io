@@ -1,15 +1,137 @@
 import type { Translations } from "./english";
 
 export const frenchTranslations: Translations = {
-  "games": "Jeux",
+  "backHome": "Retour \u00e0 l'accueil",
+  games: {
+    label: "Jeux",
+    subtitle: "Une collection de jeux que j'ai cr\u00e9\u00e9s.",
+    play: "Jouer",
+    queensDescription: "Un puzzle de logique quotidien inspir\u00e9 du probl\u00e8me classique des N-Reines.",
+  },
+  tools: {
+    label: "Outils",
+    subtitle: "Des outils utiles que j'ai cr\u00e9\u00e9s.",
+    emptyTitle: "Aucun outil disponible pour le moment",
+    emptyDescription: "De nouveaux outils arrivent bient\u00f4t. Revenez vite !",
+  },
   home: {
-    relatedCompanies: "Nous utilisons les mêmes technologies que celles utilisées par les entreprises:",
-    cta: "Contactez-moi",
-    stopLosing: "Arrêtez de perdre",
-    time: "temps,",
-    startWinning: "Et commencez à gagner",
-    money: "argent",
-    subtitle: "Automatisez vos processus, améliorez votre productivité et laissez l'ordinateur travailler pour vous."
+    "title": 'Développeur <span class="text-foreground-emphasis">spécialisé en landing pages</span> et <span class="text-foreground-emphasis">sites autonomes</span>.',
+    description: "Je crée des sites rapides, modernes et optimisés pour transformer les visiteurs en clients et renforcer votre présence en ligne.",
+    websiteLikeThis: "Je veux un site comme ça",
+    whatsappMessage: "Bonjour ! J'aimerais demander un devis pour un site web.",
+    "responsive": "100% Responsive",
+    optimizedSeo: "Optimisé pour les moteurs de recherche",
+    nav: {
+      home: "Accueil",
+      services: "Services",
+      whyMe: "Pourquoi moi",
+      projects: "Projets",
+      testimonials: "Témoignages",
+    },
+    services: {
+      name: "Services",
+
+
+      // title: "Soluções Completas para profissionais que querem crescer",
+      // description: "Desenvolvimento estratégico focado em perfomance, design e conversão. Tudo que você precisa para ter presença, autoridade e resultados online.",
+
+      // landingPages: "Landing Pages",
+      // landingPagesDescription: "Páginas de alta conversão para captar mais leads e fechar mais negócios.",
+
+      // websitesForFreelancers: "Sites para Autônomos",
+      // websitesForFreelancersDescription: "Sites profissionais que transmitem confiança e geram novos oportunidades.",
+
+      // blogsAndPortofolios: "Blogs e Portfólios",
+      // blogsAndPortofoliosDescription: "Mostre seu trabalho, compartilhe conhecimento e atraia seu público ideal.",
+
+      // integrations: "Integrações",
+      // integrationsDescription: "Formulários, e-mail marketing, WhatsApp, pagamentos e muito mais.",
+
+      title: "Solutions completas pour les professionnels qui veulent s'étendre",
+      description: "Développement stratégique axé sur la performance, le design et la conversion. Tout ce dont vous avez besoin pour avoir une présence, une autorité et des résultats en ligne.",
+
+      landingPages: "Pages de lancement",
+      landingPagesDescription: "Pages de conversion haute pour attraper plus de leads et fermer plus de boutiques.",
+
+      websitesForFreelancers: "Sites pour Freelancers",
+      websitesForFreelancersDescription: "Sites professionnels qui transmettent de la confiance et génèrent de nouvelles opportunités.",
+
+      blogsAndPortofolios: "Blogs et Portfolios",
+      blogsAndPortofoliosDescription: "Montrez votre travail, partagez des connaissances et attirez votre public cible.",
+
+      integrations: "Intégrations",
+      integrationsDescription: "Formulaires, marketing par e-mail, WhatsApp, paiements et bien plus.",
+    },
+    whyMe: {
+      name: "POURQUOI TRAVAILLER AVEC MOI\u00a0?",
+      title: "Compromis avec r\u00e9sultats et attention \u00e0 chaque d\u00e9tail",
+      description: "Plus que du code, je propose une strat\u00e9gie, une communication et un partenaire pour vous aider \u00e0 atteindre vos objectifs.",
+      list: {
+        '1Title': "Communication claire et directe",
+        '1Subtitle': "Suivi tout au long de toutes les \u00e9tapes",
+        '2Title': "Design moderne et personnalis\u00e9",
+        '2Subtitle': "Sites uniques qui repr\u00e9sentent votre marque",
+        '3Title': "Focus sur performance",
+        '3Subtitle': "Sites rapides qui ne perdent pas de visiteurs",
+        '4Title': "Optimis\u00e9 pour les moteurs de recherche",
+        '4Subtitle': "Plus de visibilit\u00e9 pour votre entreprise",
+      },
+      yoE: "5+ ans",
+      yoEDescription: "D\u00e9veloppement de solutions num\u00e9riques",
+    },
+    projects: {
+      name: "Portfolio",
+      title: "Des projets qui g\u00e9n\u00e8rent des r\u00e9sultats",
+      description: "Quelques travaux r\u00e9cents d\u00e9velopp\u00e9s pour des professionnels et des entreprises qui m'ont fait confiance.",
+      viewAll: "Voir tous les projets",
+      items: {
+        '1': {
+          name: "Landing page de conversion",
+          description: "Une page cibl\u00e9e pour lancer des services et capter des prospects qualifi\u00e9s.",
+        },
+        '2': {
+          name: "Site professionnel",
+          description: "Une pr\u00e9sence digitale claire pour communiquer confiance et autorit\u00e9.",
+        },
+        '3': {
+          name: "Exp\u00e9rience portfolio",
+          description: "Une vitrine soign\u00e9e pour pr\u00e9senter le travail, le processus et l'expertise.",
+        },
+      },
+    },
+    testimonials: {
+      name: "T\u00e9moignages",
+      title: "Ce que disent mes clients :",
+      previous: "T\u00e9moignages pr\u00e9c\u00e9dents",
+      next: "T\u00e9moignages suivants",
+      ctaTitle: "Pr\u00eat \u00e0 avoir un site qui apporte de vrais r\u00e9sultats ?",
+      ctaDescription: "Parlons de vos projets et donnons vie \u00e0 vos id\u00e9es.",
+      whatsapp: "Parler sur WhatsApp",
+      whatsappMessage: "Bonjour ! J'ai vu votre portfolio et j'aimerais parler d'un projet.",
+      requestBudget: "Demander un devis",
+      items: {
+        '1': { text: "Breno a compris exactement ce dont j'avais besoin et a livr\u00e9 une page rapide, belle, qui a commenc\u00e9 \u00e0 apporter des contacts qualifi\u00e9s d\u00e8s la premi\u00e8re semaine.", name: "Mariana Alves", profession: "Architecte" },
+        '2': { text: "Le processus a \u00e9t\u00e9 clair du d\u00e9but \u00e0 la fin. J'ai enfin un site professionnel qui explique mon travail et inspire confiance.", name: "Rafael Costa", profession: "Consultant d'affaires" },
+        '3': { text: "En plus du design, le soin apport\u00e9 \u00e0 la performance a fait une grande diff\u00e9rence. Le site charge vite et fonctionne parfaitement sur mobile.", name: "Camila Torres", profession: "Propri\u00e9taire d'un studio de beaut\u00e9" },
+        '4': { text: "Il a transform\u00e9 une id\u00e9e vague en une pr\u00e9sence digitale soign\u00e9e. La communication a \u00e9t\u00e9 simple et le r\u00e9sultat correspond \u00e0 ma marque.", name: "Lucas Mendes", profession: "Coach sportif" },
+      },
+    },
+    footer: {
+      ctaTitle: "Créons quelque chose d'incroyable ensemble ?",
+      ctaSubtitle: "Je suis prêt à transformer votre idée en un site professionnel, rapide et vraiment orienté résultats.",
+      cards: {
+        closeService: { title: "Accompagnement proche", subtitle: "Focalisé sur votre projet" },
+        transparentProcess: { title: "Processus transparent", subtitle: "Vous suivez chaque étape" },
+        properSupport: { title: "Support adapté", subtitle: "Je l'ajuste à votre façon" },
+      },
+      brandSubtitle: "Programmeur freelance spécialisé dans la création de sites qui génèrent des résultats pour indépendants et petites entreprises.",
+      navigation: "Navigation",
+      services: "Services",
+      letsTalk: "On échange ?",
+      downloadCurriculum: "Télécharger le CV",
+      rights: "Tous droits réservés.",
+    },
+    estimateBudget: "Demander un devis"
   },
   queens: {
     "queens": "Reines",

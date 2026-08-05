@@ -1,15 +1,121 @@
 import type { Translations } from "./english";
 
 export const spanishTranslations: Translations = {
-  "games": "Juegos",
+  "backHome": "Volver al inicio",
+  games: {
+    label: "Juegos",
+    subtitle: "Una colección de juegos que he creado.",
+    play: "Jugar",
+    queensDescription: "Un rompecabezas de lógica diario inspirado en el clásico problema de las N-Reinas.",
+  },
+  tools: {
+    label: "Herramientas",
+    subtitle: "Herramientas útiles que he creado.",
+    emptyTitle: "Aún no hay herramientas disponibles",
+    emptyDescription: "Nuevas herramientas están en camino. ¡Vuelve pronto!",
+  },
   home: {
-    relatedCompanies: "Utilizamos las mismas tecnologías que utilizan las empresas:",
-    cta: "Contáctame",
-    stopLosing: "Deja de perder",
-    time: "tiempo,",
-    startWinning: "Y empieza a ganar",
-    money: "dinero",
-    subtitle: "Automatiza tus procesos, mejora tu productividad y deja que el ordenador trabaje por ti."
+    "title": 'Programador profesional especializado en <span class="text-foreground-emphasis">landing pages</span> y <span class="text-foreground-emphasis">sitios autonomos</span>.',
+    description: "Creo sitios rápidos, modernos y optimizados para convertir visitantes en clientes y fortalecer su presencia en línea.",
+    websiteLikeThis: "Quiero un sitio como este",
+    whatsappMessage: "¡Hola! Me gustaría solicitar un presupuesto para un sitio web.",
+    responsive: "100% Responsivo",
+    optimizedSeo: "Optimizado para motores de búsqueda",
+    nav: {
+      home: "Inicio",
+      services: "Servicios",
+      whyMe: "Por qué yo",
+      projects: "Proyectos",
+      testimonials: "Testimonios",
+    },
+    services: {
+      name: "Servicios",
+
+      title: "Soluciones completas para profesionales que quieren crecer",
+      description: "Desarrollo estratégico enfocado en performance, diseño y conversión. Todo lo que necesitas para tener presencia, autoridad y resultados en línea.",
+
+      landingPages: "Páginas de lanzamiento",
+      landingPagesDescription: "Páginas de conversión alta para capturar más leads y cerrar más negocios.",
+
+      websitesForFreelancers: "Sitios para Freelancers",
+      websitesForFreelancersDescription: "Sitios profesionales que transmiten confianza y generan nuevas oportunidades.",
+
+      blogsAndPortofolios: "Blogs y Portfolios",
+      blogsAndPortofoliosDescription: "Muestre tu trabajo, comparta conocimiento y atrae tu público ideal.",
+
+      integrations: "Integraciones",
+      integrationsDescription: "Formularios, marketing por correo electrónico, WhatsApp, pagos y mucho más.",
+    },
+    whyMe: {
+      name: "¿PARA QUÉ TRABAJAR CON MI?",
+      title: "Compromiso con resultados y atención a cada detalle",
+      description: "Más que código, ofrezco estrategia, comunicación y un socio para ayudarte a alcanzar tus objetivos.",
+      list: {
+        '1Title': "Comunicación clara y directa",
+        '1Subtitle': "Seguimiento a través de todos los pasos",
+        '2Title': "Diseño moderno y personalizado",
+        '2Subtitle': "Sitios únicos que representan tu marca",
+        '3Title': "Foco en el rendimiento",
+        '3Subtitle': "Sitios rápidos que no perderán a los visitantes",
+        '4Title': "Optimizado para motores de búsqueda",
+        '4Subtitle': "Más visibilidad para tu negocio",
+      },
+      yoE: "5+ años",
+      yoEDescription: "Desarrollo de soluciones digitales",
+    },
+    projects: {
+      name: "Portfolio",
+      title: "Proyectos que generan resultados",
+      description: "Algunos trabajos recientes desarrollados para profesionales y empresas que confiaron en mi trabajo.",
+      viewAll: "Ver todos los proyectos",
+      items: {
+        '1': {
+          name: "Landing page de conversión",
+          description: "Una página enfocada en lanzar servicios y captar leads calificados.",
+        },
+        '2': {
+          name: "Sitio profesional",
+          description: "Una presencia digital clara para comunicar confianza y autoridad.",
+        },
+        '3': {
+          name: "Experiencia de portfolio",
+          description: "Una vitrina refinada para presentar trabajo, proceso y experiencia.",
+        },
+      },
+    },
+    testimonials: {
+      name: "Testimonios",
+      title: "Lo que dicen mis clientes:",
+      previous: "Testimonios anteriores",
+      next: "Siguientes testimonios",
+      ctaTitle: "¿Listo para tener un sitio que traiga resultados reales?",
+      ctaDescription: "Hablemos sobre tus proyectos y llevemos tus ideas al mundo real.",
+      whatsapp: "Hablar por WhatsApp",
+      whatsappMessage: "¡Hola! Vi tu portafolio y me gustaría hablar sobre un proyecto.",
+      requestBudget: "Solicitar presupuesto",
+      items: {
+        '1': { text: "Breno entendió exactamente lo que necesitaba y entregó una página rápida, bonita y que empezó a traer contactos calificados en la primera semana.", name: "Mariana Alves", profession: "Arquitecta" },
+        '2': { text: "El proceso fue claro de principio a fin. Por fin tengo un sitio profesional que explica mi trabajo y transmite confianza.", name: "Rafael Costa", profession: "Consultor de negocios" },
+        '3': { text: "Además del diseño, el cuidado con el rendimiento marcó una gran diferencia. El sitio carga rápido y funciona perfectamente en móvil.", name: "Camila Torres", profession: "Dueña de estudio de belleza" },
+        '4': { text: "Transformó una idea suelta en una presencia digital pulida. La comunicación fue fácil y el resultado se sintió fiel a mi marca.", name: "Lucas Mendes", profession: "Entrenador personal" },
+      },
+    },
+    footer: {
+      ctaTitle: "¿Creamos algo increíble juntos?",
+      ctaSubtitle: "Estoy listo para transformar tu idea en un sitio profesional, rápido y que realmente genere resultados.",
+      cards: {
+        closeService: { title: "Atención cercana", subtitle: "Foco en tu proyecto" },
+        transparentProcess: { title: "Proceso transparente", subtitle: "Sigues cada etapa" },
+        properSupport: { title: "Soporte adecuado", subtitle: "Lo dejo a tu manera" },
+      },
+      brandSubtitle: "Programador freelance especializado en crear sitios que generan resultados para autónomos y pequeños negocios.",
+      navigation: "Navegación",
+      services: "Servicios",
+      letsTalk: "¿Hablamos?",
+      downloadCurriculum: "Descargar currículum",
+      rights: "Todos los derechos reservados.",
+    },
+    estimateBudget: "Solicitar una cotización"
   },
   queens: {
     "queens": "Reinas",

@@ -1,4 +1,3 @@
-import { Status } from "./project.model";
 
 export type ReadingType = 'book' | 'article';
 
@@ -9,5 +8,5 @@ export interface Reading {
   author: string;
   date: Date;
   type: ReadingType;
-  status: Status;
+  status: 'finished' | 'in_progress';
 }

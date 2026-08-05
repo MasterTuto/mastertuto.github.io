@@ -1,0 +1,102 @@
+<footer class="mx-auto mt-8 flex w-[calc(100%-2rem)] max-w-7xl flex-col gap-8 rounded-xl bg-surface px-6 py-4 text-foreground">
+  <section class="grid gap-6 py-3 lg:grid-cols-[1fr_1.5fr] lg:items-center">
+    <div class="max-w-md">
+      <h2 class="text-2xl font-semibold text-foreground">{{ "home.footer.ctaTitle" | translate }}</h2>
+      <p class="mt-2 text-md text-foreground-light">{{ "home.footer.ctaSubtitle" | translate }}</p>
+    </div>
+
+    <ul class="grid gap-3 md:grid-cols-3">
+      @for (card of featureCards; track card.titleKey) {
+        <li class="flex items-start gap-3 rounded-lg p-3 text-secondary-surface-foreground-light">
+          <span class="grid size-12 p-3 shrink-0 place-items-center rounded-lg bg-gray-100 text-2xl text-foreground-emphasis">
+            <ng-icon [name]="card.icon" />
+          </span>
+          <span class="flex min-w-0 flex-col">
+            <span class="font-semibold text-surface-foreground">{{ card.titleKey | translate }}</span>
+            <span class="text-sm">{{ card.subtitleKey | translate }}</span>
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <hr class="mx-auto w-[90%] border-foreground-light/30">
+
+  <section class="grid gap-8 py-3 lg:grid-cols-[1.2fr_2fr]">
+    <div class="max-w-sm">
+      <a href="#home" class="flex items-center gap-2 text-xl font-semibold text-foreground">
+        <ng-icon name="tablerCode" />
+        BrenoCS
+      </a>
+      <p class="mt-3 text-foreground-light">{{ "home.footer.brandSubtitle" | translate }}</p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <nav aria-labelledby="footer-navigation">
+        <h3 id="footer-navigation" class="font-semibold text-foreground">{{ "home.footer.navigation" | translate }}</h3>
+        <ul class="mt-3 flex flex-col gap-2 text-sm text-foreground-light">
+          @for (item of navItems; track item.href) {
+            <li>
+              <a [href]="item.href" class="transition hover:text-foreground">{{ item.titleKey | translate }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="footer-services">
+        <h3 id="footer-services" class="font-semibold text-foreground">{{ "home.footer.services" | translate }}</h3>
+        <ul class="mt-3 flex flex-col gap-2 text-sm text-foreground-light">
+          @for (item of serviceItems; track item.href) {
+            <li>
+              <a [routerLink]="item.href" class="transition hover:text-foreground">{{ item.titleKey | translate }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="footer-contact" class="lg:col-span-2">
+        <h3 id="footer-contact" class="font-semibold text-foreground">{{ "home.footer.letsTalk" | translate }}</h3>
+        <ul class="mt-3 grid gap-2 text-sm text-foreground-light sm:grid-cols-2 lg:grid-cols-1">
+          <li>
+            <a [href]="whatsappLink" target="_blank" rel="noopener" class="flex items-center gap-2 transition hover:text-foreground">
+              <ng-icon name="tablerBrandWhatsapp" />
+              +55 (77) 9 8866-7459
+            </a>
+          </li>
+          <li>
+            <a href="mailto:contato@brenocs.dev.br" class="flex items-center gap-2 transition hover:text-foreground">
+              <ng-icon name="tablerMail" />
+              contato@brenocs.dev.br
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MasterTuto" target="_blank" rel="noopener" class="flex items-center gap-2 transition hover:text-foreground">
+              <ng-icon name="tablerBrandGithub" />
+              GitHub /MasterTuto
+            </a>
+          </li>
+          <li>
+            <a href="assets/Breno Carvalho da Silva Curriculum.pdf" download class="flex items-center gap-2 transition hover:text-foreground">
+              <ng-icon name="tablerDownload" />
+              {{ "home.footer.downloadCurriculum" | translate }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <nav aria-label="Footer secondary links" class="pb-1 text-center text-xs text-foreground-light">
+    <ul class="flex flex-wrap items-center justify-center gap-2">
+      <li>@ {{ currentYear }} BrenoCS. {{ "home.footer.rights" | translate }}</li>
+      <li aria-hidden="true">•</li>
+      <li>
+        <a routerLink="/games" class="transition hover:text-foreground">{{ "games.label" | translate }}</a>
+      </li>
+      <li aria-hidden="true">•</li>
+      <li>
+        <a routerLink="/tools" class="transition hover:text-foreground">{{ "tools.label" | translate }}</a>
+      </li>
+    </ul>
+  </nav>
+</footer>

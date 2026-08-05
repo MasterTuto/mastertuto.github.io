@@ -1,0 +1,46 @@
+<app-section name="whyMe">
+  <div class="flex flex-col justify-between px-8 py-6 md:flex-row gap-8 rounded-xl bg-secondary-surface text-secondary-surface-foreground-light">
+    <div class="flex-1 flex flex-col gap-4 self-center">
+      <p class="uppercase text-xs">{{ "home.whyMe.name" | translate }}</p>
+      <p class="text-secondary-surface-foreground font-semibold text-3xl">{{ "home.whyMe.title" | translate }}</p>
+      <p class="text-secondary-surface-foreground-light">{{ "home.whyMe.description" | translate }}</p>
+    </div>
+
+    <ul class="flex-1 flex flex-col gap-4">
+      <li>
+        <p class="font-semibold text-secondary-surface-foreground flex items-center gap-2">
+          <ng-icon name="tablerCircleCheck" class="text-foreground-emphasis" />
+          {{ "home.whyMe.list.1Title" | translate }}
+        </p>
+        <p>{{ "home.whyMe.list.1Subtitle" | translate }}</p>
+      </li>
+      <li>
+        <p class="font-semibold text-secondary-surface-foreground flex items-center gap-2">
+          <ng-icon name="tablerCircleCheck" class="text-foreground-emphasis" />
+          {{ "home.whyMe.list.2Title" | translate }}</p>
+        <p>{{ "home.whyMe.list.2Subtitle" | translate }}</p>
+      </li>
+      <li>
+        <p class="font-semibold text-secondary-surface-foreground flex items-center gap-2">
+          <ng-icon name="tablerCircleCheck" class="text-foreground-emphasis" />
+          {{ "home.whyMe.list.3Title" | translate }}</p>
+        <p>{{ "home.whyMe.list.3Subtitle" | translate }}</p>
+      </li>
+      <li>
+        <p class="font-semibold text-secondary-surface-foreground flex items-center gap-2">
+          <ng-icon name="tablerCircleCheck" class="text-foreground-emphasis" />
+          {{ "home.whyMe.list.4Title" | translate }}</p>
+        <p>{{ "home.whyMe.list.4Subtitle" | translate }}</p>
+      </li>
+    </ul>
+
+    <div class="flex-1 relative">
+      <img src="assets/photo.png" class="rounded-xl w-full object-contain max-h-64">
+
+      <div class="absolute -bottom-2 left-3 border bg-secondary-surface/80 border-primary-border gap-2 p-4 rounded-xl backdrop-blur-sm">
+        <p class="">{{ "home.whyMe.yoE" | translate }}</p>
+        <p class="text-secondary-surface-foreground-light">{{ "home.whyMe.yoEDescription" | translate }}</p>
+      </div>
+    </div>
+  </div>
+</app-section>

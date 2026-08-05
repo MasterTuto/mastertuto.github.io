@@ -1,15 +1,121 @@
 import type { Translations } from "./english";
 
 export const germanTranslations: Translations = {
-  "games": "Spiele",
+  "backHome": "Zur\u00fcck zur Startseite",
+  games: {
+    label: "Spiele",
+    subtitle: "Eine Sammlung von Spielen, die ich gebaut habe.",
+    play: "Spielen",
+    queensDescription: "Ein t\u00e4gliches Logikr\u00e4tsel, inspiriert vom klassischen N-Damen-Problem.",
+  },
+  tools: {
+    label: "Tools",
+    subtitle: "N\u00fctzliche Tools, die ich gebaut habe.",
+    emptyTitle: "Noch keine Tools verf\u00fcgbar",
+    emptyDescription: "Neue Tools sind unterwegs. Schauen Sie bald wieder vorbei!",
+  },
   home: {
-    relatedCompanies: "Wir verwenden die gleichen Technologien, die von Unternehmen verwendet werden:",
-    cta: "Kontaktieren Sie mich",
-    stopLosing: "Hör auf zu verlieren",
-    time: "Zeit,",
-    startWinning: "Und fang an zu gewinnen",
-    money: "Geld",
-    subtitle: "Automatisiere deine Prozesse, verbessere deine Produktivität und lass den Computer für dich arbeiten."
+    "title": 'Profi-Programmierer, der speziell auf <span class="text-foreground-emphasis">Landingpages</span> und <span class="text-foreground-emphasis">autonome Websites</span> spezialisiert ist.',
+    description: "Ich erstelle schnelle, moderne und optimierte Websites, um Besucher in Kunden zu konvertieren und Ihre Online-Präsenz zu stärken.",
+    websiteLikeThis: "Ich möchte eine Website wie diese",
+    whatsappMessage: "Hallo! Ich würde gerne ein Angebot für eine Website anfragen.",
+    "responsive": "100% Responsive",
+    optimizedSeo: "Optimiert für Suchmaschinen",
+    nav: {
+      home: "Start",
+      services: "Services",
+      whyMe: "Warum ich",
+      projects: "Projekte",
+      testimonials: "Referenzen",
+    },
+    services: {
+      name: "Services",
+
+      title: "Vollständige Lösungen für professionelle, die sich erweitern wollen",
+      description: "Strategische Entwicklung, die auf Leistung, Design und Konvertierung fokussiert ist. Alles, was Sie benötigen, um Präsenz, Autorität und Online-Ergebnisse zu haben.",
+
+      landingPages: "Landingpages",
+      landingPagesDescription: "Hoch-konvertierende Seiten, um mehr Leads zu erhalten und mehr Geschäfte zu schließen.",
+
+      websitesForFreelancers: "Websites für Freelancer",
+      websitesForFreelancersDescription: "Professional-Websites, die Vertrauen und neue Chancen erzeugen.",
+
+      blogsAndPortofolios: "Blogs und Portfolios",
+      blogsAndPortofoliosDescription: "Zeigen Sie Ihre Arbeit, teilen Sie Wissen und attraktieren Sie Ihren idealen Publikum.",
+
+      integrations: "Integrationen",
+      integrationsDescription: "Formulare, E-Mail-Marketing, WhatsApp, Zahlungen und vieles mehr.",
+    },
+    whyMe: {
+      name: "WIE KANN ICH MIT DIR ARBEITEN?",
+      title: "Commitment zu Ergebnissen und Aufmerksamkeit an jeder Detail",
+      description: "Mehr als Code, biete ich Strategie, Kommunikation und einen Partner, um Sie bei Ihren Zielen zu helfen.",
+      list: {
+        '1Title': "Klare und direkte Kommunikation",
+        '1Subtitle': "Verfolgung über alle Schritte",
+        '2Title': "Modernes und anpassbares Design",
+        '2Subtitle': "Einzelne Websites, die Ihre Marke darstellen",
+        '3Title': "Fokus auf Performance",
+        '3Subtitle': "Schnelle Websites, die keine Besucher verlieren",
+        '4Title': "Optimiert für Suchmaschinen",
+        '4Subtitle': "Mehr Sichtbarkeit für Ihr Geschäft",
+      },
+      yoE: "5+ Jahre",
+      yoEDescription: "Entwicklung digitaler Lösungen",
+    },
+    projects: {
+      name: "Portfolio",
+      title: "Projekte, die Ergebnisse erzielen",
+      description: "Einige aktuelle Arbeiten f\u00fcr Fachleute und Unternehmen, die meiner Arbeit vertraut haben.",
+      viewAll: "Alle Projekte ansehen",
+      items: {
+        '1': {
+          name: "Conversion-Landingpage",
+          description: "Eine fokussierte Seite zum Starten von Services und Gewinnen qualifizierter Leads.",
+        },
+        '2': {
+          name: "Professionelle Website",
+          description: "Eine klare digitale Pr\u00e4senz, die Vertrauen und Autorit\u00e4t vermittelt.",
+        },
+        '3': {
+          name: "Portfolio-Erlebnis",
+          description: "Eine saubere Pr\u00e4sentation f\u00fcr Arbeit, Prozess und Expertise.",
+        },
+      },
+    },
+    testimonials: {
+      name: "Kundenstimmen",
+      title: "Was meine Kunden sagen:",
+      previous: "Vorherige Kundenstimmen",
+      next: "N\u00e4chste Kundenstimmen",
+      ctaTitle: "Bereit f\u00fcr eine Website, die echte Ergebnisse bringt?",
+      ctaDescription: "Lass uns \u00fcber deine Projekte sprechen und deine Ideen umsetzen.",
+      whatsapp: "Auf WhatsApp sprechen",
+      whatsappMessage: "Hallo! Ich habe dein Portfolio gesehen und w\u00fcrde gerne \u00fcber ein Projekt sprechen.",
+      requestBudget: "Angebot anfordern",
+      items: {
+        '1': { text: "Breno verstand genau, was ich brauchte, und lieferte eine schnelle, sch\u00f6ne Seite, die schon in der ersten Woche qualifizierte Kontakte brachte.", name: "Mariana Alves", profession: "Architektin" },
+        '2': { text: "Der Prozess war von Anfang bis Ende klar. Endlich habe ich eine professionelle Website, die meine Arbeit erkl\u00e4rt und Vertrauen schafft.", name: "Rafael Costa", profession: "Unternehmensberater" },
+        '3': { text: "Neben dem Design machte die Sorgfalt bei der Performance einen gro\u00dfen Unterschied. Die Website l\u00e4dt schnell und funktioniert perfekt mobil.", name: "Camila Torres", profession: "Inhaberin eines Beauty-Studios" },
+        '4': { text: "Er verwandelte eine lose Idee in einen klaren digitalen Auftritt. Die Kommunikation war einfach und das Ergebnis passt zu meiner Marke.", name: "Lucas Mendes", profession: "Personal Trainer" },
+      },
+    },
+    footer: {
+      ctaTitle: "Lassen Sie uns gemeinsam etwas Großartiges schaffen?",
+      ctaSubtitle: "Ich bin bereit, Ihre Idee in eine professionelle, schnelle Website zu verwandeln, die echte Ergebnisse bringt.",
+      cards: {
+        closeService: { title: "Persönliche Betreuung", subtitle: "Fokus auf Ihr Projekt" },
+        transparentProcess: { title: "Transparenter Prozess", subtitle: "Sie verfolgen jeden Schritt" },
+        properSupport: { title: "Passender Support", subtitle: "Ich passe es an Sie an" },
+      },
+      brandSubtitle: "Freelance-Programmierer, spezialisiert auf Websites, die Ergebnisse für Selbstständige und kleine Unternehmen erzielen.",
+      navigation: "Navigation",
+      services: "Services",
+      letsTalk: "Sprechen wir?",
+      downloadCurriculum: "Lebenslauf herunterladen",
+      rights: "Alle Rechte vorbehalten.",
+    },
+    estimateBudget: "Angebot anfordern"
   },
   queens: {
     "queens": "Damen",

@@ -1,82 +1,29 @@
-<app-section name="home" containerClass="md:justify-center md:-translate-y-[60px] translate-y-[35px]">
+<app-section name="home" containerClass="bg-surface px-6">
+  <div class="flex flex-col-reverse md:flex-row items-center">
+    <div class="flex-1 flex flex-col gap-3">
+      <p class="text-4xl md:max-w-[18ch] leading-normal font-semibold text-foreground" [innerHTML]="'home.title' | translate"></p>
+      <p class="text-foreground-light">{{ "home.description" | translate }}</p>
+      <div>
+        <a myButton="cta" class="max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+          {{ "home.websiteLikeThis" | translate}}
 
+          <ng-icon name="tablerArrowRight" />
+        </a>
+      </div>
 
-  <p class="text-3xl md:text-5xl text-slate-200 font-bold font-title leading-snug">
-    {{ "home.stopLosing" | translate }} <span class="bg-white/50 inline-flex items-end max-h-[0.7lh] max-w-fit px-2 rounded-full">
-      <picture class="hover-gif">
-        <source
-            type="image/webp"
-            srcset="
-                assets/icons/clock/stale-96x64.webp 96w,
-                assets/icons/clock/stale-192x128.webp 192w,
-                assets/icons/clock/stale-384x256.webp 384w,
-                assets/icons/clock/stale.webp 2048w"
-            sizes="(max-width: 480px) 96px,
-                  (max-width: 768px) 192px,
-                  384px">
-
-        <img
-            src="assets/icons/clock/stale-384x256.png"
-            srcset="
-                assets/icons/clock/stale-96x64.png 96w,
-                assets/icons/clock/stale-192x128.png 192w,
-                assets/icons/clock/stale-384x256.png 384w,
-                assets/icons/clock/stale.png 2048w"
-            sizes="(max-width: 480px) 96px,
-                  (max-width: 768px) 192px,
-                  384px"
-            width="384"
-            height="256"
-            class="h-[1lh] object-contain max-w-fit"
-            alt="Preview">
-    </picture>
-    </span> {{ "home.time" | translate }}
-    <br/>
-    {{ "home.startWinning" | translate }} <span class="bg-white/50 inline-flex items-end max-h-[0.7lh] max-w-fit px-2 rounded-full">
-      <picture class="hover-gif">
-        <source
-            type="image/webp"
-            srcset="
-                assets/icons/line-arrow/stale-42x32.webp 32w,
-                assets/icons/line-arrow/stale-85x64.webp 96w,
-                assets/icons/line-arrow/stale-170x128.webp 192w,
-                assets/icons/line-arrow/stale-341x256.webp 384w,
-                assets/icons/line-arrow/stale.webp 2048w"
-            sizes="(max-width: 480px) 96px,
-                  (max-width: 768px) 192px,
-                  384px">
-
-        <img
-            src="assets/icons/line-arrow/stale-341x256.png"
-            srcset="
-                assets/icons/line-arrow/stale-85x64.png 96w,
-                assets/icons/line-arrow/stale-170x128.png 192w,
-                assets/icons/line-arrow/stale-341x256.png 384w,
-                assets/icons/line-arrow/stale.png 2048w"
-            sizes="(max-width: 480px) 96px,
-                  (max-width: 768px) 192px,
-                  384px"
-            width="384"
-            height="256"
-            class="h-[1lh] object-contain max-w-fit"
-            alt="Preview">
-    </picture>
-    </span> {{ "home.money" | translate }}
-  </p>
-
-  <p class="text-lg text-slate-400 mt-6 max-w-xl">{{ "home.subtitle" | translate }}</p>
-
-  <div class="mt-8">
-    <p class="text-slate-600 mb-2">{{ "home.relatedCompanies" | translate }}</p>
-    <p class="flex gap-4 sticker flex-wrap">
-      <img class="h-8" src="assets/logos/google-logo.svg">
-      <img class="h-8" src="assets/logos/ibm-logo.png">
-      <img class="h-8" src="assets/logos/amazon-logo.png">
-      <img class="h-8" src="assets/logos/linkedin-logo.png">
-    </p>
+      <p class="text-foreground flex flex-col md:flex-row gap-4">
+        <span class="flex gap-1.5 items-center">
+          <ng-icon name="tablerDeviceMobile" />
+          {{ "home.responsive" | translate}}
+        </span>
+        <span class="flex gap-1.5 items-center">
+          <ng-icon name="tablerWorldSearch" />
+          {{ "home.optimizedSeo" | translate}}
+        </span>
+      </p>
+    </div>
+    <div class="1">
+      <img src="assets/luz-render.png" class="w-full" />
+    </div>
   </div>
-
-  <a class="bg-green-500 text-white rounded-full px-8 py-2 mt-8 max-w-fit text-xl font-bold hover:bg-green-400" href="https://forms.zohopublic.com/contatobre1/form/Leadaquisition/formperma/4zz_7D-zoH8mb_iI7B3Aak4LDLzqgE_zS-hhNHqYOeU" target="_blank">
-    {{ "home.cta" | translate}}
-  </a>
 </app-section>

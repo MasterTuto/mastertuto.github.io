@@ -1,0 +1,83 @@
+<app-section name="testimonials" containerClass="justify-center px-4 py-10">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-6 rounded-xl bg-surface p-4 text-foreground sm:p-6 lg:p-8">
+    <p class="text-sm font-semibold uppercase text-foreground-light">
+      {{ "home.testimonials.name" | translate }}
+    </p>
+
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
+      <div class="flex flex-col gap-4 lg:col-span-3">
+        <div class="flex items-center justify-between gap-3">
+          <h3 class="text-2xl font-semibold text-foreground sm:text-3xl">
+            {{ "home.testimonials.title" | translate }}
+          </h3>
+
+          <div class="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              class="grid h-10 w-10 place-items-center rounded-md border border-foreground-light/40 text-foreground transition hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-foreground-light/40"
+              [disabled]="currentPage() === 0"
+              (click)="previousPage()"
+              [attr.aria-label]="'home.testimonials.previous' | translate"
+            >
+              <ng-icon name="tablerChevronLeft" />
+            </button>
+            <button
+              type="button"
+              class="grid h-10 w-10 place-items-center rounded-md border border-foreground-light/40 text-foreground transition hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-foreground-light/40"
+              [disabled]="currentPage() === lastPage()"
+              (click)="nextPage()"
+              [attr.aria-label]="'home.testimonials.next' | translate"
+            >
+              <ng-icon name="tablerChevronRight" />
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          @for (testimonial of visibleTestimonials(); track testimonial.nameKey) {
+            <article class="relative flex min-h-64 flex-col rounded-lg bg-[#fefdfe] p-5 shadow-sm">
+              <ng-icon name="tablerQuote" size="40" class="absolute right-5 top-5 text-foreground-emphasis" />
+
+              <p class="mb-8 mt-12 text-foreground-light">
+                "{{ testimonial.textKey | translate }}"
+              </p>
+
+              <div class="mt-auto">
+                <p class="font-semibold text-foreground">{{ testimonial.nameKey | translate }}</p>
+                <p class="text-sm text-foreground-light">{{ testimonial.professionKey | translate }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+
+      <aside class="flex flex-col justify-between gap-6 rounded-xl bg-secondary-surface p-5 text-secondary-surface-foreground-light">
+        <div class="flex flex-col gap-3">
+          <p class="text-xl font-semibold text-secondary-surface-foreground">
+            {{ "home.testimonials.ctaTitle" | translate }}
+          </p>
+          <p>
+            {{ "home.testimonials.ctaDescription" | translate }}
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <a
+            [href]="whatsappLink"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-center gap-2 rounded-lg bg-[#fefdfe] px-4 py-3 font-semibold text-secondary-surface transition hover:opacity-90"
+          >
+            <ng-icon name="tablerBrandWhatsapp" />
+            {{ "home.testimonials.whatsapp" | translate }}
+          </a>
+
+          <a href="#contact" class="flex items-center gap-2 text-sm font-semibold text-secondary-surface-foreground">
+            {{ "home.testimonials.requestBudget" | translate }}
+            <ng-icon name="tablerArrowRight" />
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</app-section>

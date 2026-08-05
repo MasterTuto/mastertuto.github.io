@@ -7,9 +7,6 @@ export class PosthogService {
   constructor(
     private ngZone: NgZone,
   ) {
-    this.initPostHog();
-  }
-  private initPostHog() {
     this.ngZone.runOutsideAngular(() => {
       posthog.init(environment.posthogKey, {
         api_host: environment.posthogHost,

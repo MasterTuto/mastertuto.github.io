@@ -1,15 +1,121 @@
 import type { Translations } from "./english";
 
 export const japaneseTranslations: Translations = {
-  "games": "\u30b2\u30fc\u30e0",
+  "backHome": "\u30db\u30fc\u30e0\u306b\u623b\u308b",
+  games: {
+    label: "\u30b2\u30fc\u30e0",
+    subtitle: "\u79c1\u304c\u4f5c\u3063\u305f\u30b2\u30fc\u30e0\u306e\u30b3\u30ec\u30af\u30b7\u30e7\u30f3\u3002",
+    play: "\u30d7\u30ec\u30a4",
+    queensDescription: "\u53e4\u5178\u7684\u306aN-\u30af\u30a4\u30fc\u30f3\u554f\u984c\u306b\u30a4\u30f3\u30b9\u30d1\u30a4\u30a2\u3055\u308c\u305f\u6bce\u65e5\u306e\u30ed\u30b8\u30c3\u30af\u30d1\u30ba\u30eb\u3002",
+  },
+  tools: {
+    label: "\u30c4\u30fc\u30eb",
+    subtitle: "\u79c1\u304c\u4f5c\u3063\u305f\u4fbf\u5229\u306a\u30c4\u30fc\u30eb\u3002",
+    emptyTitle: "\u307e\u3060\u30c4\u30fc\u30eb\u306f\u3042\u308a\u307e\u305b\u3093",
+    emptyDescription: "\u65b0\u3057\u3044\u30c4\u30fc\u30eb\u3092\u6e96\u5099\u4e2d\u3067\u3059\u3002\u307e\u305f\u30c1\u30a7\u30c3\u30af\u3057\u3066\u304f\u3060\u3055\u3044\uff01",
+  },
   home: {
-    relatedCompanies: "企業で使われているのと同じ技術を使用しています：",
-    cta: "お問い合わせ",
-    stopLosing: "損をするのをやめる",
-    time: "時間、",
-    startWinning: "そして勝ち始める",
-    money: "お金",
-    subtitle: "プロセスを自動化し、生産性を向上させ、コンピュータに仕事を任せましょう。"
+    "title": 'プロフェッショナルな<span class="text-foreground-emphasis">ランディングページ</span>と<span class="text-foreground-emphasis">自動ウェブサイト</span>のためのスペシャリスト。',
+    description: "私は、訪問者を顧客に変換し、オンラインのプレゼンテーションを強化するために、高速でモダンで最適化されたウェブサイトを作成します。",
+    websiteLikeThis: "私はこのようなウェブサイトを望む",
+    whatsappMessage: "\u3053\u3093\u306b\u3061\u306f\uff01\u30a6\u30a7\u30d6\u30b5\u30a4\u30c8\u306e\u898b\u7a4d\u3082\u308a\u3092\u4f9d\u983c\u3057\u305f\u3044\u3067\u3059\u3002",
+    responsive: "100%レスポンシブ",
+    optimizedSeo: "検索エンジンに最適化",
+    nav: {
+      home: "ホーム",
+      services: "サービス",
+      whyMe: "選ばれる理由",
+      projects: "プロジェクト",
+      testimonials: "お客様の声",
+    },
+    services: {
+      name: "サービス",
+
+      title: "完全なサービスを提供するための解決策",
+      description: "パフォーマンス、デザイン、コンバージョンにあるストラテジーデザインのための解決策。プレゼンテーション、権威、オンライン結果などの必要なすべてを提供する。",
+
+      landingPages: "ランディングページ",
+      landingPagesDescription: "より多くのリードを取得し、より多くのビジネスを閉じるためのページ。",
+
+      websitesForFreelancers: "フリーランサーのためのウェブサイト",
+      websitesForFreelancersDescription: "信頼を持つプロフェッショナルなウェブサイト。",
+
+      blogsAndPortofolios: "ブログとポートフォロー",
+      blogsAndPortofoliosDescription: "働き方を表示し、知識を共有し、ターゲットのパブリックを引き寄せる。",
+
+      integrations: "インテグレーション",
+      integrationsDescription: "フォーム、メールマーケティング、WhatsApp、支払いなど。",
+    },
+    whyMe: {
+      name: "私とは何かができるのか？",
+      title: "結果と各種の注意に対する承認",
+      description: "コードよりもさらに、ストラテジー、コミュニケーション、パートナーを提供して、あなたのゴールを達成するためのサポートをお待ちしています。",
+      list: {
+        '1Title': "明確で直接のコミュニケーション",
+        '1Subtitle': "すべてのステップの追跡",
+        '2Title': "モダンでカスタマイズ可能なデザイン",
+        '2Subtitle': "あなたのマークを表すサイト",
+        '3Title': "パフォーマンスにフォーカス",
+        '3Subtitle': "訪問者を失うサイト",
+        '4Title': "検索エンジンに最適化",
+        '4Subtitle': "あなたのビジネスのよりよい視覚",
+      },
+      yoE: "5以上の年",
+      yoEDescription: "デジタルソリューションの開発",
+    },
+    projects: {
+      name: "\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa",
+      title: "\u6210\u679c\u3092\u751f\u3080\u30d7\u30ed\u30b8\u30a7\u30af\u30c8",
+      description: "\u79c1\u306e\u4ed5\u4e8b\u3092\u4fe1\u983c\u3057\u3066\u304f\u308c\u305f\u5c02\u9580\u5bb6\u3084\u4f01\u696d\u306e\u305f\u3081\u306b\u5236\u4f5c\u3057\u305f\u6700\u8fd1\u306e\u4ed5\u4e8b\u3067\u3059\u3002",
+      viewAll: "\u3059\u3079\u3066\u306e\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u3092\u898b\u308b",
+      items: {
+        '1': {
+          name: "\u30b3\u30f3\u30d0\u30fc\u30b8\u30e7\u30f3\u7528\u30e9\u30f3\u30c7\u30a3\u30f3\u30b0\u30da\u30fc\u30b8",
+          description: "\u30b5\u30fc\u30d3\u30b9\u306e\u516c\u958b\u3068\u898b\u8fbc\u307f\u5ba2\u306e\u7372\u5f97\u306b\u7126\u70b9\u3092\u5f53\u3066\u305f\u30da\u30fc\u30b8\u3002",
+        },
+        '2': {
+          name: "\u30d7\u30ed\u30d5\u30a7\u30c3\u30b7\u30e7\u30ca\u30eb\u30b5\u30a4\u30c8",
+          description: "\u4fe1\u983c\u3068\u6a29\u5a01\u3092\u4f1d\u3048\u308b\u660e\u78ba\u306a\u30c7\u30b8\u30bf\u30eb\u30d7\u30ec\u30bc\u30f3\u30b9\u3002",
+        },
+        '3': {
+          name: "\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u4f53\u9a13",
+          description: "\u4ed5\u4e8b\u3001\u30d7\u30ed\u30bb\u30b9\u3001\u5c02\u9580\u6027\u3092\u7d39\u4ecb\u3059\u308b\u6d17\u7df4\u3055\u308c\u305f\u30b7\u30e7\u30fc\u30b1\u30fc\u30b9\u3002",
+        },
+      },
+    },
+    testimonials: {
+      name: "\u304a\u5ba2\u69d8\u306e\u58f0",
+      title: "\u304a\u5ba2\u69d8\u306e\u58f0:",
+      previous: "\u524d\u306e\u304a\u5ba2\u69d8\u306e\u58f0",
+      next: "\u6b21\u306e\u304a\u5ba2\u69d8\u306e\u58f0",
+      ctaTitle: "\u5b9f\u969b\u306e\u6210\u679c\u3092\u751f\u3080\u30b5\u30a4\u30c8\u3092\u6301\u3061\u307e\u305b\u3093\u304b\uff1f",
+      ctaDescription: "\u3042\u306a\u305f\u306e\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306b\u3064\u3044\u3066\u8a71\u3057\u3001\u30a2\u30a4\u30c7\u30a2\u3092\u5f62\u306b\u3057\u307e\u3057\u3087\u3046\u3002",
+      whatsapp: "WhatsApp\u3067\u76f8\u8ac7",
+      whatsappMessage: "\u3053\u3093\u306b\u3061\u306f\uff01\u3042\u306a\u305f\u306e\u30dd\u30fc\u30c8\u30d5\u30a9\u30ea\u30aa\u3092\u898b\u3066\u3001\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306b\u3064\u3044\u3066\u8a71\u3057\u305f\u3044\u3068\u601d\u3044\u307e\u3057\u305f\u3002",
+      requestBudget: "\u898b\u7a4d\u3082\u308a\u3092\u4f9d\u983c",
+      items: {
+        '1': { text: "Breno\u306f\u79c1\u306e\u5fc5\u8981\u306a\u3053\u3068\u3092\u6b63\u78ba\u306b\u7406\u89e3\u3057\u3001\u901f\u304f\u3066\u7f8e\u3057\u3044\u30da\u30fc\u30b8\u3092\u7d0d\u54c1\u3057\u3001\u6700\u521d\u306e\u9031\u304b\u3089\u8cea\u306e\u9ad8\u3044\u554f\u3044\u5408\u308f\u305b\u304c\u6765\u307e\u3057\u305f\u3002", name: "Mariana Alves", profession: "\u5efa\u7bc9\u5bb6" },
+        '2': { text: "\u6700\u521d\u304b\u3089\u6700\u5f8c\u307e\u3067\u30d7\u30ed\u30bb\u30b9\u304c\u660e\u78ba\u3067\u3057\u305f\u3002\u3084\u3063\u3068\u81ea\u5206\u306e\u4ed5\u4e8b\u3092\u8aac\u660e\u3057\u4fe1\u983c\u3092\u751f\u3080\u30d7\u30ed\u306e\u30b5\u30a4\u30c8\u304c\u3067\u304d\u307e\u3057\u305f\u3002", name: "Rafael Costa", profession: "\u30d3\u30b8\u30cd\u30b9\u30b3\u30f3\u30b5\u30eb\u30bf\u30f3\u30c8" },
+        '3': { text: "\u30c7\u30b6\u30a4\u30f3\u3060\u3051\u3067\u306a\u304f\u3001\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u3078\u306e\u914d\u616e\u304c\u5927\u304d\u306a\u5dee\u3092\u751f\u307f\u307e\u3057\u305f\u3002\u30b5\u30a4\u30c8\u306f\u901f\u304f\u8868\u793a\u3055\u308c\u3001\u30e2\u30d0\u30a4\u30eb\u3067\u3082\u5b8c\u74a7\u306b\u52d5\u304d\u307e\u3059\u3002", name: "Camila Torres", profession: "\u30d3\u30e5\u30fc\u30c6\u30a3\u30fc\u30b9\u30bf\u30b8\u30aa\u30aa\u30fc\u30ca\u30fc" },
+        '4': { text: "\u3070\u304f\u305c\u3093\u3068\u3057\u305f\u30a2\u30a4\u30c7\u30a2\u3092\u6d17\u7df4\u3055\u308c\u305f\u30c7\u30b8\u30bf\u30eb\u30d7\u30ec\u30bc\u30f3\u30b9\u306b\u5909\u3048\u3066\u304f\u308c\u307e\u3057\u305f\u3002\u9023\u7d61\u3082\u7c21\u5358\u3067\u3001\u7d50\u679c\u306f\u79c1\u306e\u30d6\u30e9\u30f3\u30c9\u3089\u3057\u3044\u3082\u306e\u3067\u3057\u305f\u3002", name: "Lucas Mendes", profession: "\u30d1\u30fc\u30bd\u30ca\u30eb\u30c8\u30ec\u30fc\u30ca\u30fc" },
+      },
+    },
+    footer: {
+      ctaTitle: "一緒に素晴らしいものを作りませんか？",
+      ctaSubtitle: "あなたのアイデアを、プロフェッショナルで高速、成果につながるサイトへ変えます。",
+      cards: {
+        closeService: { title: "身近な対応", subtitle: "あなたのプロジェクトに集中" },
+        transparentProcess: { title: "透明なプロセス", subtitle: "各ステップを確認できます" },
+        properSupport: { title: "適切なサポート", subtitle: "あなたに合わせて仕上げます" },
+      },
+      brandSubtitle: "フリーランスや小規模ビジネス向けに、成果を生むサイト制作を専門とするフリーランスプログラマー。",
+      navigation: "ナビゲーション",
+      services: "サービス",
+      letsTalk: "相談しましょう",
+      downloadCurriculum: "履歴書をダウンロード",
+      rights: "All rights reserved.",
+    },
+    estimateBudget: "提案を要求する"
   },
   queens: {
     "queens": "\u30af\u30a4\u30fc\u30f3\u30ba",

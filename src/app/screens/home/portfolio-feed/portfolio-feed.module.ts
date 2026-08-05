@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioFeedComponent } from './portfolio-feed.component';
-import { HomeSectionModule } from './sections/home-section/home-section.module';
-import { JobsSectionModule } from './sections/jobs-section/jobs-section.module';
-import { LabSectionModule } from './sections/lab-section/lab-section.module';
 import { ProjectsSectionModule } from './sections/projects-section/projects-section.module';
-import { ControlledScrollModule } from 'src/app/directives/controlled-scroll.module';
-import { ReadingsSectionModule } from './sections/readings-section/readings-section.module';
+import { HomeSectionComponent } from './sections/home-section/home-section.component';
+import { ServicesSectionComponent } from './sections/services-section/services-section.component';
+import { WhyMeSectionComponent } from './sections/why-me-section/why-me-section.component';
+import { TestimonialsSectionComponent } from './sections/testimonials-section/testimonials-section.component';
 
 
 
@@ -16,12 +15,11 @@ import { ReadingsSectionModule } from './sections/readings-section/readings-sect
   ],
   imports: [
     CommonModule,
-    HomeSectionModule,
-    JobsSectionModule,
-    LabSectionModule,
+    HomeSectionComponent,
+    ServicesSectionComponent,
+    WhyMeSectionComponent,
     ProjectsSectionModule,
-    ControlledScrollModule,
-    ReadingsSectionModule,
+    TestimonialsSectionComponent,
 ],
   exports: [
     PortfolioFeedComponent

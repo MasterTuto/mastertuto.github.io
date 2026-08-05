@@ -1,8 +1,0 @@
-.sticker {
-  --sticker-width: 2px;
-  --sticker-color: rgba(116, 116, 116, 0.333);
-  filter: drop-shadow(var(--sticker-width) var(--sticker-width) 0 var(--sticker-color))
-          drop-shadow(calc(-1 * var(--sticker-width)) var(--sticker-width) 0 var(--sticker-color))
-          drop-shadow(var(--sticker-width) var(--sticker-width) 0 var(--sticker-color))
-          drop-shadow(var(--sticker-width) calc(-1 * var(--sticker-width)) 0 var(--sticker-color));
-}

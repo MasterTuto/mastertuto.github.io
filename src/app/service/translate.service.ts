@@ -26,7 +26,7 @@ export class TranslateService {
       return result;
     }
 
-    throw new Error(`Translation key "${key}" not found`);
+    return key;
   }
 
   get currentLang(): string | null {
@@ -54,6 +54,9 @@ export class TranslateService {
   }
 
   get systemLang(): string {
+    if (!('navigator' in (globalThis['window'] ?? {}))) {
+      return 'pt';
+    }
     const lang = navigator.language.split("-")[0];
     return lang;
   }
