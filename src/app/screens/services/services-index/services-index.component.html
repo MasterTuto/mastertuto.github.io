@@ -1,0 +1,62 @@
+<div class="flex min-h-dvh flex-col font-display">
+  <header class="flex items-center justify-between gap-4">
+    <a routerLink="/" class="flex items-center gap-2 text-xl font-semibold text-foreground">
+      <ng-icon name="tablerCode" />
+      BrenoCS
+    </a>
+    <a routerLink="/" class="flex items-center gap-1 text-sm text-foreground-light transition hover:text-foreground">
+      <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+      {{ "servicesPage.common.backHome" | translate }}
+    </a>
+  </header>
+
+  <main class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 py-12">
+    <section class="flex flex-col items-center gap-4 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-foreground-emphasis">
+        {{ "home.nav.services" | translate }}
+      </p>
+      <h1 class="text-4xl font-semibold text-foreground sm:text-5xl md:max-w-[24ch]">
+        {{ "servicesPage.index.title" | translate }}
+      </h1>
+      <p class="max-w-[60ch] text-lg text-foreground-light">{{ "servicesPage.index.subtitle" | translate }}</p>
+      <p class="max-w-[70ch] text-foreground-light">{{ "servicesPage.index.description" | translate }}</p>
+    </section>
+
+    <section class="grid gap-6 md:grid-cols-2">
+      @for (service of services; track service.slug) {
+        <a
+          [routerLink]="['/', lang, 'services', service.slug]"
+          class="group flex flex-col gap-4 rounded-2xl border border-transparent bg-surface p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+        >
+          <div class="flex items-center gap-3">
+            <span class="grid size-12 shrink-0 place-items-center rounded-lg bg-surface-decoration text-2xl text-surface-decoration-foreground">
+              <ng-icon [name]="service.icon" />
+            </span>
+            <div>
+              <p class="text-sm font-medium text-foreground-light">{{ service.taglineKey | translate }}</p>
+              <h2 class="text-xl font-semibold text-foreground">{{ service.nameKey | translate }}</h2>
+            </div>
+          </div>
+          <p class="text-foreground-light">{{ service.descriptionKey | translate }}</p>
+          <span class="mt-auto flex items-center gap-1 text-sm font-semibold text-foreground-emphasis">
+            {{ "servicesPage.index.viewAll" | translate }}
+            <ng-icon name="tablerArrowRight" class="transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </a>
+      }
+    </section>
+
+    <section class="flex flex-col items-center gap-4 rounded-2xl bg-secondary-surface px-6 py-12 text-center">
+      <h2 class="max-w-[30ch] text-3xl font-semibold text-secondary-surface-foreground">
+        {{ "servicesPage.index.ctaTitle" | translate }}
+      </h2>
+      <p class="max-w-[55ch] text-secondary-surface-foreground-light">{{ "servicesPage.index.ctaSubtitle" | translate }}</p>
+      <a myButton="cta" class="mt-2 max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+        {{ "servicesPage.common.requestBudget" | translate }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
+    </section>
+  </main>
+
+  <app-footer />
+</div>

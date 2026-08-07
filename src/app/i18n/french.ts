@@ -7,6 +7,7 @@ export const frenchTranslations: Translations = {
     subtitle: "Une collection de jeux que j'ai cr\u00e9\u00e9s.",
     play: "Jouer",
     queensDescription: "Un puzzle de logique quotidien inspir\u00e9 du probl\u00e8me classique des N-Reines.",
+    sudokuDescription: "Un g\u00e9n\u00e9rateur de Sudoku avec des grilles 4\u00d74, 6\u00d76 et 9\u00d79 et une difficult\u00e9 r\u00e9glable.",
   },
   tools: {
     label: "Outils",
@@ -133,6 +134,336 @@ export const frenchTranslations: Translations = {
     },
     estimateBudget: "Demander un devis"
   },
+  servicesPage: {
+    common: {
+      backHome: "Retour à l'accueil",
+      backToServices: "Tous les services",
+      otherServices: "Découvrez nos autres services",
+      requestBudget: "Demander un devis",
+      ready: "Prêt à commencer ?",
+      whatsappMessage: "Bonjour ! J'ai vu votre portfolio et j'aimerais parler d'un projet.",
+    },
+    index: {
+      title: "Services",
+      subtitle: "Développement stratégique axé sur la performance, le design et la conversion.",
+      description: "Tout ce dont vous avez besoin pour avoir une présence, une autorité et des résultats réels en ligne. Chaque service est conçu pour résoudre un problème précis — rapide, moderne et optimisé pour les moteurs de recherche.",
+      viewAll: "En savoir plus",
+      ctaTitle: "Vous ne savez pas quel service correspond à vos besoins ?",
+      ctaSubtitle: "Envoyez-moi un message et je vous aiderai à choisir la meilleure voie pour votre projet.",
+    },
+    landingPages: {
+      name: "Landing Pages",
+      shortDescription: "Des pages à forte conversion, conçues pour transformer les visiteurs en prospects et en ventes.",
+      tagline: "Des pages axées sur la conversion",
+      heroTitle: "Des landing pages qui transforment les visiteurs en clients",
+      intro: "Une landing page est une page ciblée, à but unique : guider le visiteur vers une action claire — acheter, s'inscrire, réserver ou demander un devis. Contrairement à un site complet, elle élimine les distractions et concentre toute l'énergie sur la conversion.",
+      introP2: "Chaque élément — titre, texte, images, formulaire et appel à l'action — est conçu et testé pour faire avancer le visiteur dans son parcours. Le résultat est une page qui agit comme un vendeur qui ne dort jamais.",
+      benefitsTitle: "Pourquoi investir dans une landing page",
+      benefits: {
+        '1': {
+          title: "Plus de prospects",
+          text: "Un appel à l'action clair et un formulaire optimisé captent plus de contacts avec le même trafic.",
+        },
+        '2': {
+          title: "Meilleur taux de conversion",
+          text: "Un texte et une mise en page ciblés augmentent le pourcentage de visiteurs qui agissent réellement.",
+        },
+        '3': {
+          title: "Des résultats plus rapides",
+          text: "Une seule page est en ligne en quelques jours, pas en quelques mois — et vous pouvez tester immédiatement.",
+        },
+        '4': {
+          title: "Performance mesurable",
+          text: "Chaque clic, vue et envoi est suivi, pour savoir exactement ce qui fonctionne.",
+        },
+      },
+      detailsTitle: "Ce que je livre dans chaque landing page",
+      details: {
+        '1': {
+          title: "La stratégie avant les pixels",
+          text: "Nous commençons par définir votre offre, votre audience et l'unique action souhaitée. La structure, le texte et le design sont construits autour de cet objectif — pas autour de ce qui est simplement joli.",
+        },
+        '2': {
+          title: "Un copywriting qui vend",
+          text: "Titres, sous-titres, puces et appels à l'action sont rédigés pour convaincre. J'utilise des cadres éprouvés pour guider le visiteur de l'attention à l'action.",
+        },
+        '3': {
+          title: "Vitesse, SEO et mobile",
+          text: "Les pages chargent en moins d'une seconde, respectent les bonnes pratiques SEO et s'affichent parfaitement sur tous les appareils — car l'essentiel de votre trafic vient du mobile.",
+        },
+      },
+      processTitle: "Comment se déroule le processus",
+      process: {
+        '1': {
+          title: "Appel de découverte",
+          text: "Nous parlons de votre activité, de votre audience et de vos objectifs. Je définis l'offre et le message clé.",
+        },
+        '2': {
+          title: "Design",
+          text: "Vous recevez une maquette visuelle de la page à valider avant d'écrire le moindre code.",
+        },
+        '3': {
+          title: "Développement",
+          text: "La page est construite rapidement, responsive et optimisée pour la conversion.",
+        },
+        '4': {
+          title: "Lancement et améliorations",
+          text: "Nous mettons en ligne, suivons les résultats et affinons la page pour améliorer la performance dans le temps.",
+        },
+      },
+      faqTitle: "Questions fréquentes",
+      faqs: {
+        '1': {
+          q: "Combien de temps cela prend-il ?",
+          a: "Une landing page typique prend de 3 à 7 jours, selon le périmètre et le contenu.",
+        },
+        '2': {
+          q: "Dois-je écrire le contenu ?",
+          a: "Je peux rédiger le texte pour vous ou partir de votre matériel existant. Vous validez tout avant le lancement.",
+        },
+        '3': {
+          q: "Puis-je la modifier plus tard ?",
+          a: "Oui. La page est construite avec une structure facile à modifier et je propose un support après le lancement.",
+        },
+      },
+      ctaTitle: "Prêt à transformer votre trafic en clients ?",
+      ctaSubtitle: "Créons une landing page qui s'amortit toute seule.",
+    },
+    websitesForFreelancers: {
+      name: "Sites pour Indépendants",
+      shortDescription: "Des sites professionnels qui inspirent confiance et attirent plus de clients.",
+      tagline: "Votre carte de visite numérique",
+      heroTitle: "Un site professionnel qui vous gagne des clients",
+      intro: "En tant qu'indépendant, votre site est souvent la première impression que vous laissez à un client potentiel. Un site professionnel fait plus que bien paraître : il explique ce que vous faites, prouve votre travail et facilite l'embauche.",
+      introP2: "La plupart des indépendants dépendent d'Instagram ou du bouche-à-oreille. Un site vous donne un lieu central et crédible vers lequel diriger les gens — et il continue de travailler pendant que vous dormez, répondant aux questions et générant des opportunités.",
+      benefitsTitle: "Ce qu'un site fait pour vous",
+      benefits: {
+        '1': {
+          title: "Crédibilité",
+          text: "Un site professionnel vous rend établi et digne de confiance.",
+        },
+        '2': {
+          title: "Des prospects en pilote automatique",
+          text: "Les visiteurs vous trouvent, comprennent votre valeur et vous contactent — même en dehors des heures de bureau.",
+        },
+        '3': {
+          title: "Un portfolio qui vend",
+          text: "Présentez vos meilleurs travaux avec des études de cas qui convainquent de nouveaux clients.",
+        },
+        '4': {
+          title: "Possédez votre audience",
+          text: "Arrêtez de dépendre des plateformes sociales. Votre site, vos règles, vos données.",
+        },
+      },
+      detailsTitle: "Ce que je livre",
+      details: {
+        '1': {
+          title: "Positionnement clair",
+          text: "Nous définissons ce qui vous rend unique et le plaçons au centre de chaque page.",
+        },
+        '2': {
+          title: "Services et tarifs",
+          text: "Des pages claires expliquant vos services, votre processus et vos prix réduisent les frictions et attirent de meilleurs clients.",
+        },
+        '3': {
+          title: "Contact et réservation",
+          text: "Boutons WhatsApp, formulaires et prise de rendez-vous pour que les clients vous joignent en un clic.",
+        },
+      },
+      processTitle: "Comment se déroule le processus",
+      process: {
+        '1': {
+          title: "Découverte",
+          text: "Nous cartographions vos services, votre audience et vos objectifs lors d'une courte conversation.",
+        },
+        '2': {
+          title: "Design",
+          text: "Vous validez l'apparence et la structure avant une seule ligne de code.",
+        },
+        '3': {
+          title: "Développement",
+          text: "Votre site est construit rapidement, responsive et prêt pour les moteurs de recherche.",
+        },
+        '4': {
+          title: "Lancement",
+          text: "Nous publions, connectons votre domaine et rendons le site facile à maintenir.",
+        },
+      },
+      faqTitle: "Questions fréquentes",
+      faqs: {
+        '1': {
+          q: "Ai-je besoin d'un site si j'ai déjà Instagram ?",
+          a: "Instagram aide pour la visibilité, mais un site vous donne de la crédibilité, du contrôle et une meilleure conversion. Les deux fonctionnent mieux ensemble.",
+        },
+        '2': {
+          q: "Pouvez-vous copier le design de mon concurrent ?",
+          a: "Je crée un design unique pour votre marque. Copier nuit à votre crédibilité et à votre SEO.",
+        },
+        '3': {
+          q: "Aidez-vous avec le domaine et l'hébergement ?",
+          a: "Oui, je m'occupe de toute la partie technique pour que vous vous concentriez uniquement sur votre travail.",
+        },
+      },
+      ctaTitle: "Construisons votre présence professionnelle",
+      ctaSubtitle: "Envoyez-moi un message et planifions votre site.",
+    },
+    blogsAndPortfolios: {
+      name: "Blogs et Portfolios",
+      shortDescription: "Montrez votre travail, partagez vos connaissances et attirez votre audience idéale.",
+      tagline: "Contenu et vitrine, ensemble",
+      heroTitle: "Un lieu pour montrer votre travail et partager vos connaissances",
+      intro: "Un portfolio ou un blog est plus qu'une collection de projets ou d'articles : c'est un outil qui travaille pour vous. Il attire les personnes intéressées par ce que vous faites, construit votre autorité et transforme les lecteurs en clients.",
+      introP2: "Je conçois et construis des sites où votre travail brille : rapides, élégants, faciles à mettre à jour et structurés pour que les moteurs de recherche vous trouvent.",
+      benefitsTitle: "Pourquoi avoir un blog ou un portfolio",
+      benefits: {
+        '1': {
+          title: "Autorité",
+          text: "Un contenu constant et de qualité vous positionne comme une référence dans votre domaine.",
+        },
+        '2': {
+          title: "Trafic entrant",
+          text: "Les articles optimisés pour la recherche attirent des visiteurs qui cherchent déjà vos services.",
+        },
+        '3': {
+          title: "Montrez, ne dites pas",
+          text: "Un portfolio bien structuré prouve votre savoir-faire mieux que n'importe quel argumentaire.",
+        },
+        '4': {
+          title: "Mises à jour faciles",
+          text: "Ajouter un projet ou un article prend des minutes, pas un développeur.",
+        },
+      },
+      detailsTitle: "Ce que je livre",
+      details: {
+        '1': {
+          title: "De belles vitrines",
+          text: "Des projets présentés avec images, descriptions et résultats — conçus pour impressionner clients et partenaires.",
+        },
+        '2': {
+          title: "Un blog qui grandit",
+          text: "Une structure éditoriale avec catégories, tags et bases SEO pour que chaque article continue de travailler pour vous.",
+        },
+        '3': {
+          title: "Conçu pour être maintenu",
+          text: "Une édition simple pour que vous possédiez votre contenu et ne dépendiez jamais d'un développeur pour de petites modifications.",
+        },
+      },
+      processTitle: "Comment se déroule le processus",
+      process: {
+        '1': {
+          title: "Objectifs",
+          text: "Nous définissons ce que vous voulez attirer : clients, lecteurs ou les deux.",
+        },
+        '2': {
+          title: "Structure",
+          text: "Je cartographie les sections, catégories et pages qui ont du sens pour votre contenu.",
+        },
+        '3': {
+          title: "Design et construction",
+          text: "Votre site est créé en pensant à votre style et à votre audience.",
+        },
+        '4': {
+          title: "Formation",
+          text: "Vous apprenez à publier et modifier du contenu vous-même, sans code.",
+        },
+      },
+      faqTitle: "Questions fréquentes",
+      faqs: {
+        '1': {
+          q: "Dois-je savoir écrire ?",
+          a: "Non. Je vous aide à structurer vos idées, et vous pouvez aussi me confier la rédaction des premiers articles.",
+        },
+        '2': {
+          q: "Puis-je le mettre à jour moi-même ?",
+          a: "Oui. Le site est construit pour que vous ajoutiez projets et articles sans toucher une ligne de code.",
+        },
+        '3': {
+          q: "Écrivez-vous aussi le contenu ?",
+          a: "Oui, je peux créer les textes de votre portfolio et les premiers articles du blog.",
+        },
+      },
+      ctaTitle: "Votre travail mérite une scène",
+      ctaSubtitle: "Créons un portfolio qui vous apporte des opportunités.",
+    },
+    integrations: {
+      name: "Intégrations",
+      shortDescription: "Formulaires, email marketing, WhatsApp, paiements et bien plus.",
+      tagline: "Faites travailler tout ensemble",
+      heroTitle: "Des intégrations qui relient votre site à votre activité",
+      intro: "Un beau site n'est qu'une partie de l'équation. Pour générer de vrais résultats, il doit dialoguer avec les outils que vous utilisez déjà : email, CRM, paiements, notifications et plus. C'est exactement à cela que servent les intégrations.",
+      introP2: "Je connecte votre site aux services qui font tourner votre activité — automatisant les tâches, réduisant les erreurs et garantissant qu'aucun prospect ne se perde.",
+      benefitsTitle: "Pourquoi intégrer vos systèmes",
+      benefits: {
+        '1': {
+          title: "Fini le travail manuel",
+          text: "Les données circulent automatiquement entre votre site et vos outils.",
+        },
+        '2': {
+          title: "Aucun prospect perdu",
+          text: "Chaque envoi de formulaire atteint le bon endroit, instantanément.",
+        },
+        '3': {
+          title: "Suivi automatisé",
+          text: "Emails et messages sont déclenchés automatiquement par les actions des visiteurs.",
+        },
+        '4': {
+          title: "Données au même endroit",
+          text: "Tout ce dont vous avez besoin, synchronisé dans votre CRM, tableur ou tableau de bord.",
+        },
+      },
+      detailsTitle: "Ce que je peux connecter",
+      details: {
+        '1': {
+          title: "Formulaires et email marketing",
+          text: "Des formulaires de contact qui alimentent votre liste email, vos automatisations et vos séquences.",
+        },
+        '2': {
+          title: "WhatsApp et notifications",
+          text: "Des alertes instantanées pour ne jamais manquer un prospect, sur WhatsApp, email ou Telegram.",
+        },
+        '3': {
+          title: "Paiements et analytics",
+          text: "Checkout, liens de paiement, pixel et analytics pour vos campagnes.",
+        },
+      },
+      processTitle: "Comment se déroule le processus",
+      process: {
+        '1': {
+          title: "Audit",
+          text: "Nous listons les outils que vous utilisez et ce qui doit communiquer entre eux.",
+        },
+        '2': {
+          title: "Plan",
+          text: "Je propose l'architecture la plus simple qui résout votre problème.",
+        },
+        '3': {
+          title: "Construction",
+          text: "Les intégrations sont implémentées et testées de bout en bout.",
+        },
+        '4': {
+          title: "Support",
+          text: "Vous recevez une documentation et un support pour tout ce qui a été livré.",
+        },
+      },
+      faqTitle: "Questions fréquentes",
+      faqs: {
+        '1': {
+          q: "Quels outils prenez-vous en charge ?",
+          a: "Les plus populaires : Google Sheets, Mailchimp, WhatsApp, Stripe, Mercado Pago, Telegram et plus.",
+        },
+        '2': {
+          q: "Pouvez-vous intégrer les outils que j'utilise déjà ?",
+          a: "Oui. Je travaille avec ce que vous avez déjà et j'évite les coûts inutiles.",
+        },
+        '3': {
+          q: "Est-ce sécurisé ?",
+          a: "Oui. Je suis les bonnes pratiques de sécurité et je ne stocke jamais de données sensibles sans besoin réel.",
+        },
+      },
+      ctaTitle: "Connectons vos systèmes",
+      ctaSubtitle: "Dites-moi ce que vous utilisez et je ferai dialoguer le tout.",
+    },
+  },
   queens: {
     "queens": "Reines",
     "level": "Niveau",
@@ -168,5 +499,54 @@ export const frenchTranslations: Translations = {
     "seo-p1": "Reines est un puzzle de logique quotidien inspir\u00e9 du probl\u00e8me classique des N-Reines. Placez des reines sur le plateau en suivant quatre r\u00e8gles simples\u00a0: une par rang\u00e9e, une par colonne, une par r\u00e9gion color\u00e9e, sans qu'elles ne se touchent.",
     "seo-p2": "Choisissez parmi 5 niveaux de difficult\u00e9\u00a0: D\u00e9butant (5\u00d75), Facile (6\u00d76), Moyen (7\u00d77), Difficile (8\u00d78) et Expert (10\u00d710). Chaque puzzle est g\u00e9n\u00e9r\u00e9 d\u00e9terministiquement \u00e0 partir de la date.",
     "seo-p3": "Jouez en ligne gratuitement, sans inscription. Entra\u00eenez votre raisonnement logique et votre reconnaissance de motifs. Un nouveau puzzle vous attend chaque jour\u00a0!",
+  },
+  sudoku: {
+    "sudoku": "Sudoku",
+    "size": "Grille",
+    "size-4": "4\u00d74 Mini",
+    "size-6": "6\u00d76",
+    "size-9": "9\u00d79 Classique",
+    "difficulty": "Difficult\u00e9",
+    "difficulty-0": "Facile",
+    "difficulty-1": "Moyen",
+    "difficulty-2": "Difficile",
+    "new-game": "Nouvelle Partie",
+    "notes": "Notes",
+    "eraser": "Effacer",
+    "undo": "Annuler",
+    "hint": "Indice",
+    "mistakes": "Erreurs",
+    "congratulations": "F\u00e9licitations\u00a0! Puzzle r\u00e9solu\u00a0!",
+    "loading": "Chargement...",
+    "keyboard-hint": "Astuce\u00a0: utilisez les fl\u00e8ches du clavier pour vous d\u00e9placer dans la grille, les chiffres pour remplir, N pour activer les notes et Delete pour effacer.",
+    "how-to-play": "Comment Jouer",
+    "rule-1": "Chaque rang\u00e9e doit contenir chaque nombre de 1 \u00e0 N exactement une fois.",
+    "rule-2": "Chaque colonne doit contenir chaque nombre de 1 \u00e0 N exactement une fois.",
+    "rule-3": "Chaque bloc encadr\u00e9 doit contenir chaque nombre de 1 \u00e0 N exactement une fois.",
+    "tip-1": "Commencez par les blocs qui contiennent d\u00e9j\u00e0 le plus de chiffres et cherchez, dans chaque rang\u00e9e, colonne et bloc, les cellules qui n'ont qu'une seule valeur possible.",
+    "tip-2": "Utilisez les Notes pour inscrire les candidats possibles. Ils apparaissent en petits chiffres et vous aident \u00e0 suivre les possibilit\u00e9s.",
+    "tip-3": "Jouez \u00e0 la souris, au tactile ou au clavier. Les chiffres r\u00e9p\u00e9t\u00e9s dans la m\u00eame rang\u00e9e, colonne ou bloc sont surlign\u00e9s en rouge.",
+    "strategy-title": "Conseils et Strat\u00e9gies",
+    "strategy-p1": "Cherchez les candidats uniques\u00a0: si un seul nombre peut tenir dans une cellule, \u00e9crivez-le tout de suite. C'est la technique la plus importante pour les d\u00e9butants.",
+    "strategy-p2": "Analysez les rang\u00e9es, colonnes et blocs \u00e0 la recherche des nombres manquants. Quand un nombre occupe d\u00e9j\u00e0 deux blocs d'une rang\u00e9e, le troisi\u00e8me vous offre souvent un indice.",
+    "strategy-p3": "Utilisez les marques au crayon. Notez tous les nombres possibles dans chaque cellule, puis \u00e9liminez-les un \u00e0 un. Cela transforme les puzzles difficiles en un processus g\u00e9rable.",
+    "strategy-p4": "Entra\u00eenez-vous un peu chaque jour. Jouer au Sudoku r\u00e9guli\u00e8rement am\u00e9liore la concentration, la reconnaissance de motifs et la m\u00e9moire \u00e0 court terme \u2014 et c'est vraiment relaxant.",
+    "faq-title": "Questions Fr\u00e9quentes",
+    "faq-q1": "Qu'est-ce que le Sudoku\u00a0?",
+    "faq-a1": "Le Sudoku est un puzzle de logique bas\u00e9 sur les nombres. Le but est de remplir la grille pour que chaque rang\u00e9e, colonne et bloc contienne chaque nombre de 1 \u00e0 N exactement une fois. Pas besoin de math\u00e9matiques, juste de logique.",
+    "faq-q2": "Comment jouer au Sudoku\u00a0?",
+    "faq-a2": "Choisissez la taille de la grille (4\u00d74, 6\u00d76 ou 9\u00d79), s\u00e9lectionnez une difficult\u00e9 et touchez une cellule pour la s\u00e9lectionner. Saisissez ensuite un nombre avec le pav\u00e9 \u00e0 l'\u00e9cran ou le clavier. Chaque puzzle n'a qu'une seule solution.",
+    "faq-q3": "Que signifient les tailles de grille\u00a0?",
+    "faq-a3": "4\u00d74 est un mini-Sudoku id\u00e9al pour les d\u00e9butants et les enfants, 6\u00d76 est un d\u00e9fi compact et 9\u00d79 est le Sudoku classique jou\u00e9 dans le monde entier. Chaque taille utilise les nombres de 1 \u00e0 N.",
+    "faq-q4": "Le Sudoku est-il bon pour le cerveau\u00a0?",
+    "faq-a4": "Oui. Le Sudoku entra\u00eene le raisonnement logique, la concentration et la m\u00e9moire, et des \u00e9tudes sugg\u00e8rent que r\u00e9soudre r\u00e9guli\u00e8rement des puzzles maintient l'esprit vif. C'est aussi une pause calme et productive loin des r\u00e9seaux sociaux.",
+    "faq-q5": "Ce Sudoku est-il vraiment gratuit\u00a0?",
+    "faq-a5": "Oui, 100\u00a0% gratuit. Sans inscription, sans t\u00e9l\u00e9chargement et sans limite de temps. Vous pouvez jouer au Sudoku en ligne directement dans votre navigateur, sur n'importe quel appareil.",
+    "seo-title": "Jouer au Sudoku en Ligne \u2014 G\u00e9n\u00e9rateur de Mini Sudoku Gratuit",
+    "seo-p1": "Bienvenue sur notre g\u00e9n\u00e9rateur de Sudoku en ligne gratuit. Jouez au Sudoku en ligne dans votre navigateur avec trois tailles de grille \u2014 4\u00d74 mini, 6\u00d76 et le classique 9\u00d79 \u2014 et trois niveaux de difficult\u00e9, de l'\u00e9chauffement facile au d\u00e9fi difficile.",
+    "seo-p2": "Chaque partie est g\u00e9n\u00e9r\u00e9e instantan\u00e9ment avec une solution unique, vous obtenez donc toujours un puzzle juste et solvable. Choisissez votre grille pr\u00e9f\u00e9r\u00e9e, ajustez la difficult\u00e9 et cliquez sur Nouvelle Partie pour une grille neuve en une seconde.",
+    "seo-p3": "Le Sudoku est l'un des puzzles de logique les plus populaires au monde. Il entra\u00eene le raisonnement, aiguise la concentration et convient parfaitement \u00e0 une courte pause. Et le meilleur\u00a0: notre Sudoku fonctionne sur mobile, tablette et ordinateur sans rien installer.",
+    "seo-p4": "Que vous vouliez apprendre aux enfants avec une mini-grille 4\u00d74, vous \u00e9chauffer avec un 6\u00d76 facile ou vous tester avec un 9\u00d79 difficile, vous pouvez jouer au Sudoku en ligne ici \u00e0 tout moment. Notes, indices, annulation, raccourcis clavier et surlignage des erreurs rendent chaque partie agr\u00e9able.",
+    "seo-p5": "Ajoutez cette page \u00e0 vos favoris et revenez d\u00e8s que vous avez besoin d'un entra\u00eenement mental. Jouez au Sudoku en ligne gratuitement, am\u00e9liorez votre logique et amusez-vous \u2014 une grille \u00e0 la fois.",
   }
 };

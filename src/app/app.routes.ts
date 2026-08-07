@@ -4,7 +4,9 @@ import { LanguageWrapperComponent } from "./components/language-wrpaper/language
 import { GamesComponent } from "./screens/games/games.component";
 import { GamesListComponent } from "./screens/games/games-list/games-list.component";
 import { QueensComponent } from "./screens/games/queens/queens.component";
-import { ServicePlaceholderComponent } from "./screens/service-placeholder/service-placeholder.component";
+import { SudokuComponent } from "./screens/games/sudoku/sudoku.component";
+import { ServiceDetailComponent } from "./screens/services/service-detail/service-detail.component";
+import { ServicesIndexComponent } from "./screens/services/services-index/services-index.component";
 import { ToolsComponent } from "./screens/tools/tools.component";
 
 export const routes: Routes = [
@@ -24,6 +26,10 @@ export const routes: Routes = [
         path: 'queens',
         component: QueensComponent,
       },
+      {
+        path: 'sudoku',
+        component: SudokuComponent,
+      },
     ]
   },
   {
@@ -31,8 +37,12 @@ export const routes: Routes = [
     component: ToolsComponent,
   },
   {
+    path: 'services',
+    component: ServicesIndexComponent,
+  },
+  {
     path: 'services/:service',
-    component: ServicePlaceholderComponent,
+    component: ServiceDetailComponent,
   },
   {
     path: ':lang',
@@ -50,11 +60,23 @@ export const routes: Routes = [
             path: 'queens',
             component: QueensComponent,
           },
+          {
+            path: 'sudoku',
+            component: SudokuComponent,
+          },
         ]
       },
       {
         path: 'tools',
         component: ToolsComponent,
+      },
+      {
+        path: 'services',
+        component: ServicesIndexComponent,
+      },
+      {
+        path: 'services/:service',
+        component: ServiceDetailComponent,
       },
     ]
   }

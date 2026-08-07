@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -15,6 +15,7 @@ import {
 
 import { sections, serviceLinks } from 'src/app/data/sections.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
+import { TranslateService } from 'src/app/service/translate.service';
 import { createWhatsAppLink } from 'src/app/utils/whatsapp';
 
 @Component({
@@ -40,10 +41,16 @@ import { createWhatsAppLink } from 'src/app/utils/whatsapp';
   ]
 })
 export class FooterComponent {
+  private translateService = inject(TranslateService);
+
   currentYear = new Date().getFullYear();
   navItems = sections;
   serviceItems = serviceLinks;
   whatsappLink = createWhatsAppLink();
+
+  get lang(): string | null {
+    return this.translateService.currentLang;
+  }
   featureCards = [
     {
       icon: 'tablerMessageCircle',

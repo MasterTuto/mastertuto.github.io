@@ -1,0 +1,179 @@
+@if (service(); as service) {
+  <div class="flex min-h-dvh flex-col font-display">
+    <header class="flex items-center justify-between gap-4">
+      <a routerLink="/" class="flex items-center gap-2 text-xl font-semibold text-foreground">
+        <ng-icon name="tablerCode" />
+        BrenoCS
+      </a>
+      <div class="flex items-center gap-4">
+        <a
+          [routerLink]="['/', lang, 'services']"
+          class="hidden items-center gap-1 text-sm text-foreground-light transition hover:text-foreground sm:flex"
+        >
+          {{ "servicesPage.common.backToServices" | translate }}
+        </a>
+        <a routerLink="/" class="flex items-center gap-1 text-sm text-foreground-light transition hover:text-foreground">
+          <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+          {{ "servicesPage.common.backHome" | translate }}
+        </a>
+      </div>
+    </header>
+
+    <main class="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-16 py-12">
+      <!-- Hero -->
+      <section class="flex flex-col items-center gap-5 text-center">
+        <span class="flex items-center gap-2 rounded-full bg-surface-decoration px-4 py-1.5 text-sm font-medium text-surface-decoration-foreground">
+          <ng-icon name="tablerCheck" class="h-4 w-4" />
+          {{ service.taglineKey | translate }}
+        </span>
+        <h1 class="text-4xl font-semibold text-foreground sm:text-5xl md:max-w-[24ch]">
+          {{ service.i18nBase + '.heroTitle' | translate }}
+        </h1>
+        <p class="max-w-[65ch] text-lg leading-relaxed text-foreground-light">
+          {{ service.i18nBase + '.intro' | translate }}
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a myButton="cta" class="max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+            {{ "servicesPage.common.requestBudget" | translate }}
+            <ng-icon name="tablerArrowRight" />
+          </a>
+          <a
+            [routerLink]="['/', lang, 'services']"
+            class="flex max-w-fit items-center gap-1 rounded-xl border border-foreground/15 px-6 py-3 text-foreground transition hover:bg-surface"
+          >
+            {{ "servicesPage.common.backToServices" | translate }}
+          </a>
+        </div>
+      </section>
+
+      <!-- Long intro -->
+      <section class="flex flex-col gap-6 text-lg leading-relaxed text-foreground-light">
+        <p>{{ service.i18nBase + '.introP2' | translate }}</p>
+      </section>
+
+      <!-- Benefits -->
+      <section class="flex flex-col gap-6">
+        <h2 class="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+          {{ service.i18nBase + '.benefitsTitle' | translate }}
+        </h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          @for (step of benefitSteps; track step) {
+            <div class="flex gap-4 rounded-xl bg-surface p-5">
+              <span class="mt-1 grid size-8 shrink-0 place-items-center rounded-lg bg-surface-decoration text-surface-decoration-foreground">
+                <ng-icon name="tablerCheck" class="h-4 w-4" />
+              </span>
+              <div>
+                <h3 class="font-semibold text-foreground">{{ service.i18nBase + '.benefits.' + step + '.title' | translate }}</h3>
+                <p class="mt-1 text-foreground-light">{{ service.i18nBase + '.benefits.' + step + '.text' | translate }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- Details (long-form) -->
+      <section class="flex flex-col gap-6">
+        <h2 class="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+          {{ service.i18nBase + '.detailsTitle' | translate }}
+        </h2>
+        <div class="flex flex-col gap-8">
+          @for (step of detailSteps; track step) {
+            <article class="flex flex-col gap-2">
+              <h3 class="text-xl font-semibold text-foreground">
+                <span class="mr-2 text-foreground-emphasis">{{ step }}.</span>
+                {{ service.i18nBase + '.details.' + step + '.title' | translate }}
+              </h3>
+              <p class="leading-relaxed text-foreground-light">{{ service.i18nBase + '.details.' + step + '.text' | translate }}</p>
+            </article>
+          }
+        </div>
+      </section>
+
+      <!-- Process -->
+      <section class="flex flex-col gap-6">
+        <h2 class="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+          {{ service.i18nBase + '.processTitle' | translate }}
+        </h2>
+        <ol class="grid gap-4 sm:grid-cols-2">
+          @for (step of processSteps; track step) {
+            <li class="flex gap-4 rounded-xl bg-surface p-5">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-secondary-surface text-sm font-bold text-secondary-surface-foreground">
+                {{ step }}
+              </span>
+              <div>
+                <h3 class="font-semibold text-foreground">{{ service.i18nBase + '.process.' + step + '.title' | translate }}</h3>
+                <p class="mt-1 text-foreground-light">{{ service.i18nBase + '.process.' + step + '.text' | translate }}</p>
+              </div>
+            </li>
+          }
+        </ol>
+      </section>
+
+      <!-- FAQ -->
+      <section class="flex flex-col gap-6">
+        <h2 class="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+          {{ service.i18nBase + '.faqTitle' | translate }}
+        </h2>
+        <div class="flex flex-col gap-4">
+          @for (step of faqSteps; track step) {
+            <details class="group rounded-xl bg-surface p-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-foreground">
+                {{ service.i18nBase + '.faqs.' + step + '.q' | translate }}
+                <span class="text-foreground-light transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-foreground-light">{{ service.i18nBase + '.faqs.' + step + '.a' | translate }}</p>
+            </details>
+          }
+        </div>
+      </section>
+
+      <!-- Other services -->
+      @if (otherServices().length > 0) {
+        <section class="flex flex-col gap-6">
+          <h2 class="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+            {{ "servicesPage.common.otherServices" | translate }}
+          </h2>
+          <div class="grid gap-4 md:grid-cols-3">
+            @for (other of otherServices(); track other.slug) {
+              <a
+                [routerLink]="['/', lang, 'services', other.slug]"
+                class="group flex flex-col gap-3 rounded-xl bg-surface p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <span class="grid size-11 place-items-center rounded-lg bg-surface-decoration text-xl text-surface-decoration-foreground">
+                  <ng-icon [name]="other.icon" />
+                </span>
+                <h3 class="font-semibold text-foreground">{{ other.nameKey | translate }}</h3>
+                <p class="text-sm text-foreground-light">{{ other.descriptionKey | translate }}</p>
+                <span class="mt-auto flex items-center gap-1 text-sm font-semibold text-foreground-emphasis">
+                  {{ "servicesPage.index.viewAll" | translate }}
+                  <ng-icon name="tablerArrowRight" class="transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </a>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- CTA -->
+      <section class="flex flex-col items-center gap-4 rounded-2xl bg-secondary-surface px-6 py-12 text-center">
+        <h2 class="max-w-[30ch] text-3xl font-semibold text-secondary-surface-foreground">
+          {{ service.i18nBase + '.ctaTitle' | translate }}
+        </h2>
+        <p class="max-w-[55ch] text-secondary-surface-foreground-light">{{ service.i18nBase + '.ctaSubtitle' | translate }}</p>
+        <a myButton="cta" class="mt-2 max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+          {{ "servicesPage.common.requestBudget" | translate }}
+          <ng-icon name="tablerArrowRight" />
+        </a>
+      </section>
+    </main>
+
+    <app-footer />
+  </div>
+} @else {
+  <div class="flex min-h-dvh flex-col items-center justify-center gap-4 font-display">
+    <h1 class="text-2xl font-semibold text-foreground">404</h1>
+    <a routerLink="/" class="flex items-center gap-1 text-foreground-emphasis">
+      {{ "servicesPage.common.backHome" | translate }}
+    </a>
+  </div>
+}

@@ -1,0 +1,271 @@
+<div class="min-h-dvh bg-slate-900 font-display text-white">
+  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
+
+    <!-- Header -->
+    <div class="mb-4 grid grid-cols-3 items-center gap-2">
+      <a
+        [routerLink]="['/', lang, 'games']"
+        class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+        {{ "games.label" | translate }}
+      </a>
+      <h1 class="text-center text-lg font-bold tracking-tight sm:text-xl">{{ "sudoku.sudoku" | translate }}</h1>
+      <div></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <label class="flex flex-col gap-1 text-xs text-white/50 sm:text-sm">
+        {{ "sudoku.size" | translate }}
+        <select
+          [value]="gridSize()"
+          (change)="gridSize.set(+$any($event.target).value); newGame()"
+          class="rounded-lg bg-white/10 px-2 py-1.5 text-sm text-white outline-none ring-1 ring-white/20 transition-colors focus:ring-blue-400"
+        >
+          @for (s of sizes; track s) {
+            <option [value]="s" class="bg-slate-800">{{ "sudoku.size-" + s | translate }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="flex flex-col gap-1 text-xs text-white/50 sm:text-sm">
+        {{ "sudoku.difficulty" | translate }}
+        <select
+          [value]="difficulty()"
+          (change)="difficulty.set(+$any($event.target).value); newGame()"
+          class="rounded-lg bg-white/10 px-2 py-1.5 text-sm text-white outline-none ring-1 ring-white/20 transition-colors focus:ring-blue-400"
+        >
+          @for (d of difficulties; track d) {
+            <option [value]="d" class="bg-slate-800">{{ "sudoku.difficulty-" + d | translate }}</option>
+          }
+        </select>
+      </label>
+
+      <div class="hidden sm:block"></div>
+
+      <button
+        (click)="newGame()"
+        class="self-end rounded-lg bg-white/10 px-3 py-1.5 text-sm transition-colors hover:bg-white/20 active:bg-white/30"
+      >
+        {{ "sudoku.new-game" | translate }}
+      </button>
+    </div>
+
+    <!-- Status bar -->
+    <div class="mb-3 flex items-center justify-center gap-4 rounded-xl bg-white/5 px-4 py-2 text-sm">
+      <span class="flex items-center gap-1.5 text-white/60">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        {{ timeLabel }}
+      </span>
+      <span class="flex items-center gap-1.5 text-white/60">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h.01M6 12h.01M6 18h.01M18 6h.01M18 12h.01M18 18h.01M10 6h.01M14 6h.01M10 12h.01M14 12h.01M10 18h.01M14 18h.01"/></svg>
+        {{ "sudoku.mistakes" | translate }}: {{ mistakes() }}
+      </span>
+      <span class="flex items-center gap-1.5 text-white/60">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
+        {{ "sudoku.hint" | translate }}: {{ hintsRemaining() }}
+      </span>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="mb-3 flex flex-wrap items-center justify-center gap-2">
+      <button
+        (click)="notesMode.update(v => !v)"
+        class="rounded-lg px-3 py-1.5 text-sm transition-colors"
+        [class.bg-amber-500/30]="notesMode()"
+        [class.text-amber-300]="notesMode()"
+        [class.ring-1]="notesMode()"
+        [class.ring-amber-400/60]="notesMode()"
+        [class.bg-white/10]="!notesMode()"
+        [class.text-white/70]="!notesMode()"
+        [class.hover:bg-white/20]="!notesMode()"
+      >
+        ✎ {{ "sudoku.notes" | translate }}
+      </button>
+      <button
+        (click)="clearCell()"
+        class="rounded-lg bg-white/10 px-3 py-1.5 text-sm text-white/70 transition-colors hover:bg-white/20 active:bg-white/30"
+      >
+        ⌫ {{ "sudoku.eraser" | translate }}
+      </button>
+      <button
+        (click)="undo()"
+        [disabled]="!canUndo"
+        class="rounded-lg px-3 py-1.5 text-sm transition-colors"
+        [class.bg-white/10]="canUndo"
+        [class.text-white/70]="canUndo"
+        [class.hover:bg-white/20]="canUndo"
+        [class.bg-white/5]="!canUndo"
+        [class.text-white/30]="!canUndo"
+      >
+        ↶ {{ "sudoku.undo" | translate }}
+      </button>
+      <button
+        (click)="useHint()"
+        [disabled]="hintsRemaining() <= 0"
+        class="rounded-lg px-3 py-1.5 text-sm transition-colors"
+        [class.bg-amber-500/20]="hintsRemaining() > 0"
+        [class.text-amber-300]="hintsRemaining() > 0"
+        [class.bg-white/10]="hintsRemaining() <= 0"
+        [class.text-white/30]="hintsRemaining() <= 0"
+      >
+        💡 {{ "sudoku.hint" | translate }}
+      </button>
+    </div>
+
+    <!-- Win banner -->
+    @if (won()) {
+      <div class="mb-3 flex items-center justify-center gap-2 rounded-xl bg-green-500/20 px-4 py-3 text-center ring-1 ring-green-400/40">
+        <span class="text-2xl">🎉</span>
+        <span class="font-semibold text-green-300">{{ "sudoku.congratulations" | translate }}</span>
+      </div>
+    }
+
+    <!-- Board -->
+    <div class="flex justify-center">
+      @if (board().length > 0) {
+        <div
+          #boardEl
+          tabindex="0"
+          (keydown)="onKeydown($event)"
+          (click)="boardEl.focus()"
+          class="w-full max-w-[520px] rounded-xl p-1.5 outline-none transition-shadow focus:ring-2 focus:ring-blue-500/50"
+        >
+          <div
+            class="grid overflow-hidden rounded-lg bg-slate-800 ring-1 ring-blue-400/30"
+            [style.grid-template-columns]="'repeat(' + gridSize() + ', minmax(0, 1fr))'"
+          >
+            @for (cell of board(); track $index; let i = $index) {
+              <div
+                (click)="select(i)"
+                [class]="cellClass(i)"
+                [attr.aria-label]="'row ' + (cell.row + 1) + ', column ' + (cell.col + 1)"
+              >
+                @if (cell.value !== 0) {
+                  <span [class]="valueSizeClass()">{{ cell.value }}</span>
+                } @else if (cell.notes.length > 0) {
+                  <div class="grid h-full w-full place-content-stretch gap-0 p-0.5" [class]="noteGridClass()">
+                    @for (n of digits; track n) {
+                      <span
+                        class="grid place-items-center"
+                        [class]="noteTextClass() + ' ' + (cell.notes.includes(n) ? 'text-sky-300' : 'opacity-0')"
+                      >
+                        {{ n }}
+                      </span>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center rounded-xl bg-white/5">
+          <div class="text-center text-white/30">
+            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-white/30"></div>
+            <span class="text-sm">{{ "sudoku.loading" | translate }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Number pad -->
+    <div class="mt-4 flex flex-col items-center gap-2">
+      <div class="flex flex-wrap justify-center gap-2">
+        @for (n of digits; track n) {
+          <button
+            (click)="inputValue(n)"
+            class="grid size-12 place-items-center rounded-xl text-xl font-bold transition-colors sm:size-14 sm:text-2xl"
+            [class.bg-blue-500/40]="notesMode()"
+            [class.text-blue-200]="notesMode()"
+            [class.hover:bg-blue-500/50]="notesMode()"
+            [class.bg-white/10]="!notesMode()"
+            [class.text-white]="!notesMode()"
+            [class.hover:bg-white/20]="!notesMode()"
+            [class.active:bg-white/30]="!notesMode()"
+          >
+            {{ n }}
+          </button>
+        }
+      </div>
+      <p class="px-4 text-center text-xs text-white/40 sm:text-sm">{{ "sudoku.keyboard-hint" | translate }}</p>
+    </div>
+
+    <!-- How to play -->
+    <div class="mt-10 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.how-to-play" | translate }}</h2>
+      <ul class="space-y-2 text-sm leading-relaxed text-white/70 sm:text-base">
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">1.</span>
+          <span>{{ "sudoku.rule-1" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">2.</span>
+          <span>{{ "sudoku.rule-2" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 text-blue-400">3.</span>
+          <span>{{ "sudoku.rule-3" | translate }}</span>
+        </li>
+      </ul>
+      <div class="mt-4 text-sm text-white/50">
+        <p>{{ "sudoku.tip-1" | translate }}</p>
+        <p class="mt-1">{{ "sudoku.tip-2" | translate }}</p>
+        <p class="mt-1">{{ "sudoku.tip-3" | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Strategies -->
+    <div class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.strategy-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/50 sm:text-base">
+        <p>{{ "sudoku.strategy-p1" | translate }}</p>
+        <p>{{ "sudoku.strategy-p2" | translate }}</p>
+        <p>{{ "sudoku.strategy-p3" | translate }}</p>
+        <p>{{ "sudoku.strategy-p4" | translate }}</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-4 text-lg font-bold sm:text-xl">{{ "sudoku.faq-title" | translate }}</h2>
+
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "sudoku.faq-q1" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "sudoku.faq-a1" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "sudoku.faq-q2" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "sudoku.faq-a2" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "sudoku.faq-q3" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "sudoku.faq-a3" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "sudoku.faq-q4" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "sudoku.faq-a4" | translate }}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ "sudoku.faq-q5" | translate }}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-white/50">{{ "sudoku.faq-a5" | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO text -->
+    <div class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.seo-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/50 sm:text-base">
+        <p>{{ "sudoku.seo-p1" | translate }}</p>
+        <p>{{ "sudoku.seo-p2" | translate }}</p>
+        <p>{{ "sudoku.seo-p3" | translate }}</p>
+        <p>{{ "sudoku.seo-p4" | translate }}</p>
+        <p>{{ "sudoku.seo-p5" | translate }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="min-h-dvh bg-slate-900 font-display text-white">
   <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 grid grid-cols-3 items-center gap-2">
       <a
         routerLink="/"
         class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
@@ -8,8 +8,8 @@
         <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
         {{ "backHome" | translate }}
       </a>
-      <h1 class="text-lg font-bold tracking-tight sm:text-xl">{{ "games.label" | translate }}</h1>
-      <div class="w-16"></div>
+      <h1 class="text-center text-lg font-bold tracking-tight sm:text-xl">{{ "games.label" | translate }}</h1>
+      <div></div>
     </div>
 
     <p class="mb-6 text-sm text-white/50 sm:text-base">{{ "games.subtitle" | translate }}</p>

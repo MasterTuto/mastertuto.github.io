@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerDeviceDesktop, tablerGlobe, tablerPencil, tablerPlugConnected } from '@ng-icons/tabler-icons';
 import { SectionComponent } from 'src/app/components/section/section.component';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
+import { TranslateService } from 'src/app/service/translate.service';
 
 @Component({
     selector: 'app-services-section',
@@ -10,7 +12,8 @@ import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
     imports: [
       SectionComponent,
       TranslatePipe,
-      NgIconComponent
+      NgIconComponent,
+      RouterLink
     ],
     providers: [
       provideIcons({
@@ -22,4 +25,9 @@ import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
     ]
 })
 export class ServicesSectionComponent {
+  private translateService = inject(TranslateService);
+
+  get lang(): string | null {
+    return this.translateService.currentLang;
+  }
 }

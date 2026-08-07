@@ -8,9 +8,11 @@ export const sections: NavItem[] = [
   { href: "#testimonials", titleKey: "home.nav.testimonials" },
 ];
 
-export const serviceLinks: NavItem[] = [
-  { href: "/services/landing-pages", titleKey: "home.services.landingPages" },
-  { href: "/services/sites-para-autonomos", titleKey: "home.services.websitesForFreelancers" },
-  { href: "/services/blogs-e-portfolios", titleKey: "home.services.blogsAndPortofolios" },
-  { href: "/services/integracoes", titleKey: "home.services.integrations" },
+export type ServiceLink = NavItem & { slug: string };
+
+export const serviceLinks: ServiceLink[] = [
+  { href: "/services/landing-pages", slug: "landing-pages", titleKey: "home.services.landingPages" },
+  { href: "/services/sites-para-autonomos", slug: "sites-para-autonomos", titleKey: "home.services.websitesForFreelancers" },
+  { href: "/services/blogs-e-portfolios", slug: "blogs-e-portfolios", titleKey: "home.services.blogsAndPortofolios" },
+  { href: "/services/integracoes", slug: "integracoes", titleKey: "home.services.integrations" },
 ];

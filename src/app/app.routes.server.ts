@@ -29,11 +29,19 @@ const serviceSlugs = serviceLinks
   .map(link => link.href.split('/').pop())
   .filter((slug): slug is string => Boolean(slug));
 
+const langKeys = Object.keys(translations);
+
 function paramsFor(path: string): Record<string, string>[] {
+  if (path.includes(':service') && path.includes(':lang')) {
+    return langKeys.flatMap(lang => serviceSlugs.map(service => ({ lang, service })));
+  }
   if (path.includes(':service')) {
     return serviceSlugs.map(service => ({ service }));
   }
-  return Object.keys(translations).map(lang => ({ lang }));
+  if (path.includes(':lang')) {
+    return langKeys.map(lang => ({ lang }));
+  }
+  return [{}];
 }
 
 

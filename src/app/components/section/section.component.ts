@@ -15,7 +15,7 @@ export class SectionComponent {
   containerClass = input<string>('');
 
   className = computed(() => {
-    let currentClass = "min-h-dvh flex flex-col";
+    let currentClass = "flex flex-col";
 
     return `${currentClass} ${this.containerClass()}`
   });

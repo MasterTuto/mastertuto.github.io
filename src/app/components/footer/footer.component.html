@@ -1,4 +1,4 @@
-<footer class="mx-auto mt-8 flex w-[calc(100%-2rem)] max-w-7xl flex-col gap-8 rounded-xl bg-surface px-6 py-4 text-foreground">
+<footer class="mx-auto mt-8 flex w-[calc(100%-2rem)] max-w-7xl flex-col gap-8 rounded-t-xl bg-surface px-6 py-4 text-foreground">
   <section class="grid gap-6 py-3 lg:grid-cols-[1fr_1.5fr] lg:items-center">
     <div class="max-w-md">
       <h2 class="text-2xl font-semibold text-foreground">{{ "home.footer.ctaTitle" | translate }}</h2>
@@ -24,7 +24,7 @@
 
   <section class="grid gap-8 py-3 lg:grid-cols-[1.2fr_2fr]">
     <div class="max-w-sm">
-      <a href="#home" class="flex items-center gap-2 text-xl font-semibold text-foreground">
+      <a routerLink="/" class="flex items-center gap-2 text-xl font-semibold text-foreground">
         <ng-icon name="tablerCode" />
         BrenoCS
       </a>
@@ -37,7 +37,7 @@
         <ul class="mt-3 flex flex-col gap-2 text-sm text-foreground-light">
           @for (item of navItems; track item.href) {
             <li>
-              <a [href]="item.href" class="transition hover:text-foreground">{{ item.titleKey | translate }}</a>
+              <a [routerLink]="['/']" [fragment]="item.href.slice(1)" class="transition hover:text-foreground">{{ item.titleKey | translate }}</a>
             </li>
           }
         </ul>
@@ -48,7 +48,7 @@
         <ul class="mt-3 flex flex-col gap-2 text-sm text-foreground-light">
           @for (item of serviceItems; track item.href) {
             <li>
-              <a [routerLink]="item.href" class="transition hover:text-foreground">{{ item.titleKey | translate }}</a>
+              <a [routerLink]="['/', lang, 'services', item.slug]" class="transition hover:text-foreground">{{ item.titleKey | translate }}</a>
             </li>
           }
         </ul>

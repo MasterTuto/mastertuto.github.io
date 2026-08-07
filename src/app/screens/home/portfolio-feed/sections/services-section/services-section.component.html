@@ -3,40 +3,40 @@
   <p class="text-foreground-light max-w-[60ch] text-center mx-auto">{{ "home.services.description" | translate }}</p>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2">
+    <a routerLink="/services/landing-pages" class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2 transition hover:-translate-y-0.5 hover:shadow-md">
       <div class="bg-surface-decoration p-3 rounded-lg w-fit text-4xl">
         <ng-icon name="tablerDeviceDesktop" class="text-surface-decoration-foreground" />
       </div>
 
       <p class="font-semibold text-foreground">{{ "home.services.landingPages" | translate }}</p>
       <p class="text-foreground-light">{{ "home.services.landingPagesDescription" | translate }}</p>
-    </div>
+    </a>
 
-    <div class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2">
+    <a routerLink="/services/sites-para-autonomos" class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2 transition hover:-translate-y-0.5 hover:shadow-md">
       <div class="bg-surface-decoration p-3 rounded-lg w-fit text-4xl">
         <ng-icon name="tablerGlobe" class="text-surface-decoration-foreground" />
       </div>
 
       <p class="font-semibold text-foreground">{{ "home.services.websitesForFreelancers" | translate }}</p>
       <p class="text-foreground-light">{{ "home.services.websitesForFreelancersDescription" | translate }}</p>
-    </div>
+    </a>
 
-    <div class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2">
+    <a routerLink="/services/blogs-e-portfolios" class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2 transition hover:-translate-y-0.5 hover:shadow-md">
       <div class="bg-surface-decoration p-3 rounded-lg w-fit text-4xl">
         <ng-icon name="tablerPencil" class="text-surface-decoration-foreground" />
       </div>
 
       <p class="font-semibold text-foreground">{{ "home.services.blogsAndPortofolios" | translate }}</p>
       <p class="text-foreground-light">{{ "home.services.blogsAndPortofoliosDescription" | translate }}</p>
-    </div>
+    </a>
 
-    <div class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2">
+    <a routerLink="/services/integracoes" class="bg-surface text-foreground-light rounded-md p-3 flex flex-col gap-2 transition hover:-translate-y-0.5 hover:shadow-md">
       <div class="bg-surface-decoration p-3 rounded-lg w-fit text-4xl">
         <ng-icon name="tablerPlugConnected" class="text-surface-decoration-foreground" />
       </div>
 
       <p class="font-semibold text-foreground">{{ "home.services.integrations" | translate }}</p>
       <p class="text-foreground-light">{{ "home.services.integrationsDescription" | translate }}</p>
-    </div>
+    </a>
   </div>
 </app-section>
