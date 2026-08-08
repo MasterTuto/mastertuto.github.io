@@ -1,0 +1,417 @@
+<div class="min-h-dvh bg-slate-900 font-display text-white">
+  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-5">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-white/50">
+        <li>
+          <a routerLink="/" class="flex items-center gap-1 transition-colors hover:text-white/80">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+            {{ "wordLadder.home" | translate }}
+          </a>
+        </li>
+        <li aria-hidden="true" class="text-white/30">/</li>
+        <li>
+          <a [routerLink]="['/', lang, 'games']" class="transition-colors hover:text-white/80">
+            {{ "games.label" | translate }}
+          </a>
+        </li>
+        <li aria-hidden="true" class="text-white/30">/</li>
+        <li aria-current="page" class="font-semibold text-white/80">Word Ladder</li>
+      </ol>
+    </nav>
+
+    <!-- Hero -->
+    <header class="mb-6 text-center sm:mb-8">
+      <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Word Ladder Game</h1>
+      <p class="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">
+        {{ "wordLadder.intro" | translate }}
+      </p>
+    </header>
+
+    <!-- Game card -->
+    <section aria-label="Word Ladder game" class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 sm:p-6">
+
+      <!-- Mode + difficulty + new game -->
+      <div class="mb-4 flex flex-wrap items-center gap-2">
+        <div role="group" aria-label="{{ 'wordLadder.mode' | translate }}" class="flex rounded-lg bg-white/10 p-1">
+          @for (m of modes; track m) {
+            <button
+              type="button"
+              (click)="setMode(m)"
+              class="rounded-md px-3 py-1.5 text-sm font-semibold transition-colors"
+              [class.bg-blue-500/30]="mode() === m"
+              [class.text-blue-200]="mode() === m"
+              [class.text-white/60]="mode() !== m"
+              [class.hover:text-white/80]="mode() !== m"
+              [attr.aria-pressed]="mode() === m"
+            >
+              {{ "wordLadder.mode-" + m | translate }}
+            </button>
+          }
+        </div>
+
+        @if (mode() === "classic") {
+          <label class="flex items-center gap-1.5 text-xs text-white/50 sm:text-sm">
+            {{ "wordLadder.difficulty" | translate }}
+            <select
+              [value]="difficulty()"
+              (change)="setDifficulty($any($event.target).value)"
+              class="rounded-lg bg-white/10 px-2 py-1.5 text-sm text-white outline-none ring-1 ring-white/20 transition-colors focus:ring-blue-400"
+            >
+              @for (d of difficulties; track d) {
+                <option [value]="d" class="bg-slate-800">{{ "wordLadder.difficulty-" + d | translate }}</option>
+              }
+            </select>
+          </label>
+        } @else {
+          <span class="flex items-center gap-1.5 text-xs text-white/50 sm:text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+            {{ "wordLadder.daily-today" | translate }}
+          </span>
+        }
+
+        <button
+          type="button"
+          (click)="startGame()"
+          class="ml-auto rounded-lg bg-white/10 px-3 py-1.5 text-sm transition-colors hover:bg-white/20 active:bg-white/30"
+        >
+          {{ "wordLadder.new-game" | translate }}
+        </button>
+      </div>
+
+      <!-- Status chips -->
+      @if (puzzle(); as p) {
+        <div class="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div class="rounded-lg bg-white/5 px-3 py-2 text-center">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-white/40 sm:text-xs">{{ "wordLadder.moves" | translate }}</div>
+            <div class="text-lg font-bold text-white">{{ moves }}</div>
+          </div>
+          <div class="rounded-lg bg-white/5 px-3 py-2 text-center">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-white/40 sm:text-xs">{{ "wordLadder.best" | translate }}</div>
+            <div class="text-lg font-bold text-white">{{ currentBest ?? "—" }}</div>
+          </div>
+          <div class="rounded-lg bg-white/5 px-3 py-2 text-center">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-white/40 sm:text-xs">{{ "wordLadder.target" | translate }}</div>
+            <div class="text-lg font-bold tracking-widest text-amber-300">{{ p.target }}</div>
+          </div>
+          <div class="rounded-lg bg-white/5 px-3 py-2 text-center">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-white/40 sm:text-xs">{{ "wordLadder.time" | translate }}</div>
+            <div class="text-lg font-bold text-white">{{ timeLabel }}</div>
+          </div>
+        </div>
+      }
+
+      @if (mode() === "daily" && dailyCompleted()) {
+        <p class="mb-4 text-center text-sm text-amber-300/90">{{ "wordLadder.daily-done" | translate }}</p>
+      }
+
+      <!-- Ladder -->
+      <div class="mx-auto w-full max-w-sm">
+        <div class="rounded-xl bg-blue-500/15 px-4 py-3 text-center ring-1 ring-blue-400/30">
+          <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-blue-300/80">{{ "wordLadder.start" | translate }}</div>
+          <div class="mt-0.5 text-2xl font-bold tracking-widest text-blue-200 sm:text-3xl">
+            {{ puzzle()?.start ?? "••••" }}
+          </div>
+        </div>
+
+        @for (word of chainWords(); track word; let i = $index) {
+          <div aria-hidden="true" class="flex justify-center py-1 text-white/30">↓</div>
+          <div
+            class="wl-word rounded-xl bg-white/10 px-4 py-2.5 text-center ring-1 ring-white/10"
+            [class.wl-word-enter]="i === chainWords().length - 1 && status() === 'playing'"
+          >
+            <div class="text-2xl font-bold tracking-widest text-white sm:text-3xl">{{ word }}</div>
+          </div>
+        }
+
+        @if (status() === "playing" && puzzle(); as p) {
+          <div aria-hidden="true" class="flex justify-center py-1 text-white/30">↓</div>
+          <form
+            (ngSubmit)="submitMove()"
+            novalidate
+            id="wl-move-form"
+            class="flex items-stretch gap-2"
+          >
+            <label for="wl-move-input" class="sr-only">{{ "wordLadder.your-move" | translate }}</label>
+            <input
+              #moveInput
+              id="wl-move-input"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+              autocapitalize="characters"
+              autocorrect="off"
+              spellcheck="false"
+              [attr.maxlength]="wordLength"
+              [value]="guess()"
+              (input)="onGuessInput($event)"
+              class="min-w-0 flex-1 rounded-xl bg-white/10 px-4 py-3 text-center text-lg font-bold uppercase tracking-widest text-white caret-blue-400 outline-none ring-1 ring-white/20 transition-shadow placeholder:text-white/30 focus:ring-2 focus:ring-blue-400"
+              placeholder="{{ 'wordLadder.input-placeholder' | translate }}"
+            />
+            <button
+              type="submit"
+              class="shrink-0 rounded-xl bg-blue-500/30 px-5 text-sm font-semibold text-blue-200 ring-1 ring-blue-400/40 transition-colors hover:bg-blue-500/40 active:bg-blue-500/50"
+            >
+              {{ "wordLadder.submit" | translate }}
+            </button>
+          </form>
+
+          <div class="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm">
+            <button
+              type="button"
+              (click)="useHint()"
+              [disabled]="hintsRemaining() <= 0"
+              class="rounded-lg px-3 py-1.5 transition-colors"
+              [class.bg-amber-500/20]="hintsRemaining() > 0"
+              [class.text-amber-300]="hintsRemaining() > 0"
+              [class.bg-white/10]="hintsRemaining() <= 0"
+              [class.text-white/30]="hintsRemaining() <= 0"
+            >
+              {{ "wordLadder.hint" | translate }} ({{ hintsRemaining() }})
+            </button>
+            <button
+              type="button"
+              (click)="undoMove()"
+              [disabled]="path().length <= 1"
+              class="rounded-lg px-3 py-1.5 transition-colors"
+              [class.bg-white/10]="path().length > 1"
+              [class.text-white/70]="path().length > 1"
+              [class.hover:bg-white/20]="path().length > 1"
+              [class.bg-white/5]="path().length <= 1"
+              [class.text-white/30]="path().length <= 1"
+            >
+              {{ "wordLadder.undo" | translate }}
+            </button>
+          </div>
+        }
+
+        @if (status() === "won") {
+          <div aria-hidden="true" class="flex justify-center py-1 text-white/30">↓</div>
+          <div
+            class="rounded-xl bg-green-500/15 px-4 py-3 text-center ring-1 ring-green-400/30"
+          >
+            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-green-300/80">{{ "wordLadder.target" | translate }}</div>
+            <div class="mt-0.5 text-2xl font-bold tracking-widest text-green-300 sm:text-3xl">{{ puzzle()?.target }}</div>
+          </div>
+        }
+
+        @if (status() === "idle") {
+          <div aria-hidden="true" class="flex justify-center py-1 text-white/30">↓</div>
+          <button
+            type="button"
+            (click)="startGame()"
+            class="w-full rounded-xl bg-blue-500/30 px-5 py-3.5 text-base font-bold text-blue-200 ring-1 ring-blue-400/40 transition-colors hover:bg-blue-500/40 active:bg-blue-500/50"
+          >
+            {{ "wordLadder.start-game" | translate }}
+          </button>
+        }
+
+        @if (status() !== "won") {
+          <div class="mt-1 flex justify-center py-1 text-white/30" aria-hidden="true">↓</div>
+          <div class="rounded-xl bg-amber-500/15 px-4 py-3 text-center ring-1 ring-amber-400/30">
+            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-amber-300/80">{{ "wordLadder.target" | translate }}</div>
+            <div class="mt-0.5 text-2xl font-bold tracking-widest text-amber-200 sm:text-3xl">
+              {{ puzzle()?.target ?? "••••" }}
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Feedback -->
+      <div class="mt-4 min-h-8 text-center">
+        @if (error(); as err) {
+          <p role="alert" class="text-sm font-medium text-red-300">{{ err }}</p>
+        } @else if (hintText(); as hint) {
+          <p class="text-sm text-amber-300">{{ hint }}</p>
+        } @else if (shareMessage(); as msg) {
+          <p class="text-sm text-white/60">{{ msg }}</p>
+        } @else if (status() === "playing" && puzzle(); as p) {
+          <p class="text-xs text-white/40 sm:text-sm">{{ "wordLadder.hint-text" | translate }}</p>
+        }
+      </div>
+
+      <!-- Win result -->
+      @if (status() === "won" && puzzle(); as p) {
+        <div class="wl-win mt-4 rounded-xl bg-green-500/20 px-4 py-5 text-center ring-1 ring-green-400/40">
+          <p class="text-lg font-bold text-green-300">{{ "wordLadder.complete" | translate }}</p>
+          <p class="mt-1 text-sm text-white/80">{{ "wordLadder.result-moves" | translate }}</p>
+          <p class="mt-1 text-sm text-white/60">{{ "wordLadder.result-optimal" | translate }}</p>
+          @if (mode() === "daily" && dailyBest() !== null) {
+            <p class="mt-1 text-sm text-amber-300/90">{{ "wordLadder.daily-streak" | translate }} {{ streak() }}</p>
+          }
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <button
+              type="button"
+              (click)="startGame()"
+              class="rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/20"
+            >
+              {{ "wordLadder.play-again" | translate }}
+            </button>
+            @if (mode() === "classic") {
+              <button
+                type="button"
+                (click)="nextPuzzle()"
+                class="rounded-lg bg-blue-500/30 px-4 py-2 text-sm font-semibold text-blue-200 ring-1 ring-blue-400/40 transition-colors hover:bg-blue-500/40"
+              >
+                {{ "wordLadder.next-puzzle" | translate }}
+              </button>
+            }
+            <button
+              type="button"
+              (click)="shareResult()"
+              class="rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/20"
+            >
+              {{ "wordLadder.share" | translate }}
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- Screen-reader live region -->
+      <div aria-live="polite" class="sr-only">
+        @if (lastLiveAnnouncement(); as ann) {
+          <span>{{ ann }}</span>
+        }
+      </div>
+    </section>
+
+    <!-- How to Play -->
+    <section class="mt-8 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.how-to-play" | translate }}</h2>
+      <ol class="space-y-2 text-sm leading-relaxed text-white/70 sm:text-base">
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 font-semibold text-blue-400">1.</span>
+          <span>{{ "wordLadder.rule-1" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 font-semibold text-blue-400">2.</span>
+          <span>{{ "wordLadder.rule-2" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 font-semibold text-blue-400">3.</span>
+          <span>{{ "wordLadder.rule-3" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 font-semibold text-blue-400">4.</span>
+          <span>{{ "wordLadder.rule-4" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="mt-0.5 font-semibold text-blue-400">5.</span>
+          <span>{{ "wordLadder.rule-5" | translate }}</span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Rules -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.rules-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/60 sm:text-base">
+        <p>{{ "wordLadder.rules-p1" | translate }}</p>
+        <p>{{ "wordLadder.rules-p2" | translate }}</p>
+        <p>{{ "wordLadder.rules-p3" | translate }}</p>
+      </div>
+    </section>
+
+    <!-- Tips -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.tips-title" | translate }}</h2>
+      <ul class="space-y-2 text-sm leading-relaxed text-white/70 sm:text-base">
+        <li class="flex items-start gap-2">
+          <span aria-hidden="true" class="mt-0.5 text-blue-400">→</span>
+          <span>{{ "wordLadder.tip-1" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span aria-hidden="true" class="mt-0.5 text-blue-400">→</span>
+          <span>{{ "wordLadder.tip-2" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span aria-hidden="true" class="mt-0.5 text-blue-400">→</span>
+          <span>{{ "wordLadder.tip-3" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span aria-hidden="true" class="mt-0.5 text-blue-400">→</span>
+          <span>{{ "wordLadder.tip-4" | translate }}</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span aria-hidden="true" class="mt-0.5 text-blue-400">→</span>
+          <span>{{ "wordLadder.tip-5" | translate }}</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- What is a Word Ladder -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.whatis-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/60 sm:text-base">
+        <p>{{ "wordLadder.whatis-p1" | translate }}</p>
+        <p>{{ "wordLadder.whatis-p2" | translate }}</p>
+      </div>
+    </section>
+
+    <!-- Difficulty levels -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.levels-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/60 sm:text-base">
+        <p><span class="font-semibold text-white/80">{{ "wordLadder.levels-easy" | translate }}</span> {{ "wordLadder.levels-easy-p" | translate }}</p>
+        <p><span class="font-semibold text-white/80">{{ "wordLadder.levels-medium" | translate }}</span> {{ "wordLadder.levels-medium-p" | translate }}</p>
+        <p><span class="font-semibold text-white/80">{{ "wordLadder.levels-hard" | translate }}</span> {{ "wordLadder.levels-hard-p" | translate }}</p>
+      </div>
+    </section>
+
+    <!-- For kids -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.kids-title" | translate }}</h2>
+      <div class="space-y-3 text-sm leading-relaxed text-white/60 sm:text-base">
+        <p>{{ "wordLadder.kids-p1" | translate }}</p>
+        <p>{{ "wordLadder.kids-p2" | translate }}</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-4 text-lg font-bold sm:text-xl">{{ "wordLadder.faq-title" | translate }}</h2>
+      <div class="space-y-4">
+        @for (q of faqKeys; track q.question) {
+          <div>
+            <h3 class="text-sm font-semibold text-white/80 sm:text-base">{{ q.question | translate }}</h3>
+            <p class="mt-1 text-sm leading-relaxed text-white/50">{{ q.answer | translate }}</p>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Related games -->
+    <section class="mt-6 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
+      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.related-title" | translate }}</h2>
+      <p class="mb-4 text-sm leading-relaxed text-white/60 sm:text-base">{{ "wordLadder.related-p" | translate }}</p>
+      <div class="grid gap-3 sm:grid-cols-2">
+        <a
+          [routerLink]="['/', lang, 'games', 'sudoku']"
+          class="flex items-center gap-3 rounded-xl bg-white/5 p-4 ring-1 ring-white/10 transition-colors hover:bg-white/10"
+        >
+          <span class="grid size-11 shrink-0 place-items-center rounded-lg bg-white/10 text-white/70">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+          </span>
+          <span class="min-w-0">
+            <span class="block font-semibold">{{ "sudoku.sudoku" | translate }}</span>
+            <span class="block text-sm text-white/50">{{ "wordLadder.related-sudoku" | translate }}</span>
+          </span>
+        </a>
+        <a
+          [routerLink]="['/', lang, 'games', 'queens']"
+          class="flex items-center gap-3 rounded-xl bg-white/5 p-4 ring-1 ring-white/10 transition-colors hover:bg-white/10"
+        >
+          <span class="grid size-11 shrink-0 place-items-center rounded-lg bg-white/10 text-white/70">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M12 3a3 3 0 0 0-2 5.2c.9.8 1 1.7 1 2.8h2c0-1.1.1-2 1-2.8A3 3 0 0 0 12 3z"/></svg>
+          </span>
+          <span class="min-w-0">
+            <span class="block font-semibold">{{ "queens.queens" | translate }}</span>
+            <span class="block text-sm text-white/50">{{ "wordLadder.related-queens" | translate }}</span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</div>

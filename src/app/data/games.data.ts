@@ -13,4 +13,10 @@ export const games: Game[] = [
     descriptionKey: "games.queensDescription",
     icon: "tablerCrown",
   },
+  {
+    route: "word-ladder",
+    nameKey: "wordLadder.name",
+    descriptionKey: "games.wordLadderDescription",
+    icon: "tablerStack2",
+  },
 ];

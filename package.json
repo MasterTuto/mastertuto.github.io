@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && npm run sitemap",
+    "sitemap": "node scripts/generate-sitemap.mjs",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "deploy": "ng deploy --cname=brenocs.dev.br",

@@ -30,6 +30,13 @@ export const routes: Routes = [
         path: 'sudoku',
         component: SudokuComponent,
       },
+      {
+        path: 'word-ladder',
+        loadComponent: () =>
+          import("./screens/games/word-ladder/word-ladder.component").then(
+            (m) => m.WordLadderComponent,
+          ),
+      },
     ]
   },
   {
@@ -63,6 +70,13 @@ export const routes: Routes = [
           {
             path: 'sudoku',
             component: SudokuComponent,
+          },
+          {
+            path: 'word-ladder',
+            loadComponent: () =>
+              import("./screens/games/word-ladder/word-ladder.component").then(
+                (m) => m.WordLadderComponent,
+              ),
           },
         ]
       },

@@ -19,3 +19,40 @@ body {
         text-shadow: 1px 1px 0 #ddd5, 1px -1px 0 #ddd5, -1px 1px 0 #ddd5, -1px -1px 0 #ddd5, 1px 0px 0 #ddd5, 0px 1px 0 #ddd5, -1px 0px 0 #ddd5, 0px -1px 0 #ddd5;
     }
 }
+
+.wl-word-enter {
+    animation: wl-pop-in 0.25s ease-out;
+}
+
+.wl-win {
+    animation: wl-win-in 0.4s ease-out;
+}
+
+@keyframes wl-pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes wl-win-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wl-word-enter,
+    .wl-win {
+        animation: none;
+    }
+}
