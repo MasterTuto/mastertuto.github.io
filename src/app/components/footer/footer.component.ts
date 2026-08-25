@@ -16,7 +16,7 @@ import {
 import { sections, serviceLinks } from 'src/app/data/sections.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
-import { createWhatsAppLink } from 'src/app/utils/whatsapp';
+import { createWhatsAppLink } from 'src/app/utils/html';
 
 @Component({
   selector: 'app-footer',

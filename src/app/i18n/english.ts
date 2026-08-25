@@ -70,8 +70,8 @@ export const englishTranslations = {
       viewAll: "View all projects",
       items: {
         '1': {
-          name: "Conversion landing page",
-          description: "A focused page for launching services and capturing qualified leads.",
+          name: "Volt&Wire",
+          description: "Site para eletricista",
         },
         '2': {
           name: "Professional website",

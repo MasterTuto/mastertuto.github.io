@@ -9,8 +9,8 @@
   </div>
 
   <div class="grid w-full max-w-full grid-cols-1 gap-6 sm:max-w-[75%] sm:grid-cols-2 lg:grid-cols-3">
-    @for (project of projects; track project.nameKey) {
-      <a [href]="project.url" class="group flex flex-col gap-3">
+    @for (project of projects; track project.nameKey; let index=$index) {
+      <div role="button" (click)="openProject(index)" class="group flex flex-col gap-3">
         <div class="relative aspect-[4/3] overflow-hidden rounded-lg">
           <img
             [src]="project.cover"
@@ -24,7 +24,7 @@
           <p class="text-lg font-semibold text-foreground">{{ project.nameKey | translate }}</p>
           <p class="text-foreground-light">{{ project.descriptionKey | translate }}</p>
         </div>
-      </a>
+      </div>
     }
   </div>
 

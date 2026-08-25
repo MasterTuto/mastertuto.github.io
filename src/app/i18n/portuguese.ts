@@ -17,12 +17,12 @@ export const portugueseTranslations: Translations = {
     emptyDescription: "Novas ferramentas estão a caminho. Volte em breve!",
   },
   home: {
-    "title": 'Programador profissional especialista em <span class="text-foreground-emphasis">landing pages</span> e <span class="text-foreground-emphasis">sites para autonomos</span>.',
-    "description": "Crio sites rápidos, modernos e otimizados para converter visitantes em clientes e fortalecer sua presença online.",
-    "websiteLikeThis": "Quero um site assim",
+    "title": 'Programador profissional especialista em <span class="text-foreground-emphasis">landing pages</span> e <span class="text-foreground-emphasis">sites para autônomos</span>.',
+    "description": "Fortaleça sua presença online, atinja mais clientes e apresente seu trabalho com a sua personalidade.",
+    "websiteLikeThis": "Quero conquistar meus clientes",
     "whatsappMessage": "Olá! Gostaria de solicitar um orçamento para um site.",
-    responsive: "100% Responsivo",
-    optimizedSeo: "Otimizado para mecanismos de busca",
+    responsive: "Para todos os dispositivos",
+    optimizedSeo: "Posicionamento no Google.",
     nav: {
       home: "Início",
       services: "Serviços",
@@ -33,11 +33,11 @@ export const portugueseTranslations: Translations = {
     services: {
       name: "Serviços",
 
-      title: "Soluções Completas para profissionais que querem crescer",
+      title: "Para todos os tipos de negócios",
       description: "Desenvolvimento estratégico focado em perfomance, design e conversão. Tudo que você precisa para ter presença, autoridade e resultados online.",
 
       landingPages: "Landing Pages",
-      landingPagesDescription: "Páginas de alta conversão para captar mais leads e fechar mais negócios.",
+      landingPagesDescription: "Páginas pensadas em conversão para captar mais leads e fechar mais negócios.",
 
       websitesForFreelancers: "Sites para Autônomos",
       websitesForFreelancersDescription: "Sites profissionais que transmitem confiança e geram novos oportunidades.",

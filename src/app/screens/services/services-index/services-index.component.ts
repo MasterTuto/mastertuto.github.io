@@ -16,7 +16,7 @@ import { ButtonComponent } from "src/app/components/@my/button/button.component"
 import { services } from "src/app/data/services.data";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
 import { TranslateService } from "src/app/service/translate.service";
-import { createWhatsAppLink } from "src/app/utils/whatsapp";
+import { createWhatsAppLink } from "src/app/utils/html";
 
 @Component({
   selector: "app-services-index",

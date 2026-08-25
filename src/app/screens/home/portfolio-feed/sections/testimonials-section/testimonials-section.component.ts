@@ -4,7 +4,7 @@ import { tablerArrowRight, tablerBrandWhatsapp, tablerChevronLeft, tablerChevron
 import { SectionComponent } from 'src/app/components/section/section.component';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
-import { createWhatsAppLink } from 'src/app/utils/whatsapp';
+import { createWhatsAppLink } from 'src/app/utils/html';
 
 interface TestimonialItem {
   textKey: string;

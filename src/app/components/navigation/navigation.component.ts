@@ -9,7 +9,7 @@ import { sections } from 'src/app/data/sections.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
 import { ButtonComponent } from '../@my/button/button.component';
-import { createWhatsAppLink } from 'src/app/utils/whatsapp';
+import { createWhatsAppLink } from 'src/app/utils/html';
 
 const ANIMATION_THRESHOLD = 120;
 

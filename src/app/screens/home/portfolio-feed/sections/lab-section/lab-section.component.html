@@ -1,4 +1,0 @@
-<app-section name="lab" title="Lab" containerClass="overflow-hidden">
-    <app-lab-item [experiment]="currentExperiment()" />
-    <app-lab-other-experiments [experiments]="otherExperiments()" (select)="currentExperiment.set($event)" />
-</app-section>

@@ -1,0 +1,14 @@
+<div class='h-full w-full flex flex-col bg-surface'>
+  <div class='flex flex-row items-center gap-3 border-b border-foreground-light p-3'>
+    <p class='text-lg font-semibold text-foreground flex-1'>{{title()}}</p>
+
+    <button class='px-3 py-1' aria-label="Fechar" (click)="close()">
+      <ng-icon name='tablerX' class='text-primary' />
+    </button>
+  </div>
+  @if (url()) {
+    <iframe class="flex-1" [src]='url()' frameborder="0" allowfullscreen sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
+  } @else if (html()) {
+    <iframe class="flex-1" [srcdoc]='html()' frameborder="0" allowfullscreen sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
+  }
+</div>
