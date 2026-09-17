@@ -1,3 +1,6 @@
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
+import { SchedulingSectionComponent } from './sections/scheduling-section/scheduling-section.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioFeedComponent } from './portfolio-feed.component';
@@ -15,11 +18,14 @@ import { TestimonialsSectionComponent } from './sections/testimonials-section/te
   ],
   imports: [
     CommonModule,
+    RouterLink,
+    TranslatePipe,
     HomeSectionComponent,
     ServicesSectionComponent,
     WhyMeSectionComponent,
     ProjectsSectionModule,
     TestimonialsSectionComponent,
+    SchedulingSectionComponent,
 ],
   exports: [
     PortfolioFeedComponent

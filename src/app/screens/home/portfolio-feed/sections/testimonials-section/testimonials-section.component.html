@@ -5,7 +5,7 @@
     </p>
 
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
-      <div class="flex flex-col gap-4 lg:col-span-3">
+      <div class="flex min-w-0 flex-col gap-4 lg:col-span-3">
         <div class="flex items-center justify-between gap-3">
           <h3 class="text-2xl font-semibold text-foreground sm:text-3xl">
             {{ "home.testimonials.title" | translate }}
@@ -33,21 +33,37 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          @for (testimonial of visibleTestimonials(); track testimonial.nameKey) {
-            <article class="relative flex min-h-64 flex-col rounded-lg bg-[#fefdfe] p-5 shadow-sm">
-              <ng-icon name="tablerQuote" size="40" class="absolute right-5 top-5 text-foreground-emphasis" />
-
-              <p class="mb-8 mt-12 text-foreground-light">
-                "{{ testimonial.textKey | translate }}"
-              </p>
-
-              <div class="mt-auto">
-                <p class="font-semibold text-foreground">{{ testimonial.nameKey | translate }}</p>
-                <p class="text-sm text-foreground-light">{{ testimonial.professionKey | translate }}</p>
+        <div class="overflow-hidden">
+          <div class="testimonials-track" [style.transform]="'translateX(-' + currentPage() * 100 + '%)'">
+            @for (page of pages; track $index; let pageIndex = $index) {
+              <div class="grid min-w-0 shrink-0 basis-full grid-cols-1 gap-4 p-1 md:grid-cols-2"
+                [attr.inert]="pageIndex !== currentPage() ? '' : null"
+                [attr.aria-hidden]="pageIndex !== currentPage() ? 'true' : null">
+                @for (testimonial of page; track testimonial.title) {
+                  <article class="relative flex min-h-64 flex-col rounded-lg bg-[#fefdfe] p-5 shadow-sm">
+                    <div class="mb-5 flex items-center gap-2" aria-label="5 / 5">
+                      <span class="text-xl tracking-widest text-amber-600" aria-hidden="true">★★★★★</span>
+                      <span class="text-sm font-semibold text-foreground">5.0 / 5</span>
+                    </div>
+                    @if (testimonial.quote) {
+                      <blockquote lang="en" class="mb-6 text-foreground-light">“{{ testimonial.quote }}”</blockquote>
+                    }
+                    <div class="mt-auto flex items-center justify-between gap-3">
+                      <div class="min-w-0">
+                        <h4 lang="en" class="font-semibold text-foreground">{{ testimonial.title }}</h4>
+                        <p lang="en" class="mt-2 text-sm text-foreground-light">{{ testimonial.date }}</p>
+                      </div>
+                      <a [href]="upworkProfileUrl" target="_blank" rel="noopener noreferrer"
+                        class="grid size-11 shrink-0 place-items-center rounded-md text-[#108a00] transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#108a00]"
+                        aria-label="Upwork — Breno">
+                        <ng-icon name="tablerBrandUpwork" size="32" aria-hidden="true" />
+                      </a>
+                    </div>
+                  </article>
+                }
               </div>
-            </article>
-          }
+            }
+          </div>
         </div>
       </div>
 

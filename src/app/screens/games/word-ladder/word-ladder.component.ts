@@ -11,7 +11,7 @@ import {
 import { DOCUMENT, isPlatformBrowser } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Meta, Title } from "@angular/platform-browser";
-import { RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
 import { TranslateService } from "src/app/service/translate.service";
 import { PosthogService } from "src/app/service/posthog.service";
@@ -50,6 +50,7 @@ interface Progress {
 })
 export class WordLadderComponent {
   private platformId = inject(PLATFORM_ID);
+  private route = inject(ActivatedRoute);
   private translateService = inject(TranslateService);
   private posthog = inject(PosthogService);
   private title = inject(Title);
@@ -493,7 +494,8 @@ export class WordLadderComponent {
   }
 
   private setupSeo(): void {
-    const url = `${SITE_URL}/games/word-ladder`;
+    const path = this.route.snapshot.pathFromRoot.flatMap(route => route.url.map(segment => segment.path)).join("/");
+    const url = `${SITE_URL}/${path}`;
     this.title.setTitle("Word Ladder Game – Play Free Online Word Puzzles");
     this.meta.updateTag({
       name: "description",
@@ -568,7 +570,7 @@ export class WordLadderComponent {
               "@type": "ListItem",
               position: 2,
               name: "Games",
-              item: `${SITE_URL}/games`,
+              item: url.slice(0, url.lastIndexOf("/")),
             },
             {
               "@type": "ListItem",

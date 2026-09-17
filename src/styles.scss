@@ -56,3 +56,29 @@ body {
         animation: none;
     }
 }
+
+/* Shared games and tools pages; game boards keep their own playable max-width. */
+.catalog-page, .game-page { width: 100%; min-width: 0; margin-inline: auto; max-width: 1200px; }
+.catalog-page-header { margin-bottom: 2rem; }
+.catalog-page-header h1 { font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 750; line-height: 1.2; letter-spacing: -.025em; text-wrap: balance; }
+.catalog-page-header > p:not(.catalog-eyebrow) { max-width: 70ch; color: #94a3b8; margin-top: .85rem; line-height: 1.75; }
+.catalog-eyebrow { color: #93c5fd; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; }
+.catalog-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
+.catalog-card { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; padding: 1.25rem; border-radius: 1rem; border: 1px solid #ffffff14; background: #ffffff05; transition: background-color .15s; }
+.catalog-card:hover { background: #ffffff0c; }
+.catalog-card:focus-visible, .catalog-info a:focus-visible { outline: 2px solid #93c5fd; outline-offset: 4px; }
+.catalog-card-icon { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: .65rem; background: #3b82f61a; color: #93c5fd; font-size: 1.4rem; }
+.catalog-card h2, .catalog-empty h2 { font-size: 1.05rem; font-weight: 650; }
+.catalog-card p, .catalog-info p, .catalog-empty p { font-size: .875rem; line-height: 1.7; color: #94a3b8; }
+.catalog-card-action { display: inline-flex; gap: .75rem; align-items: center; margin-top: auto; padding-top: .5rem; color: #93c5fd; font-size: .875rem; font-weight: 600; }
+.catalog-info { border-top: 1px solid #ffffff14; margin-top: 2rem; padding-top: 1.5rem; max-width: 80ch; }
+.catalog-info h2 { margin-bottom: .75rem; font-size: 1.25rem; font-weight: 650; }
+.catalog-info a { margin-top: 1rem; }
+.catalog-empty { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border: 1px dashed #ffffff25; border-radius: 1rem; }
+.game-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: start; }
+.game-play { min-width: 0; width: 100%; max-width: 640px; margin-inline: auto; }
+.game-guide { min-width: 0; }
+.game-guide > :first-child { margin-top: 0; }
+.game-play button, .game-play select { min-height: 40px; }
+@media (min-width: 1200px) { .game-layout { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr); } }
+@media (max-width: 479px) { .catalog-empty { flex-direction: column; align-items: flex-start; } .catalog-card { padding: 1rem; } }

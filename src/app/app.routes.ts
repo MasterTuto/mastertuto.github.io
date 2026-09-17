@@ -41,7 +41,20 @@ export const routes: Routes = [
   },
   {
     path: 'tools',
-    component: ToolsComponent,
+    children: [
+      { path: '', component: ToolsComponent },
+      { path: 'dev-tools', component: ToolsComponent },
+      {
+        path: 'dev-tools/json-beautifier',
+        data: { tool: 'json' },
+        loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+      },
+      {
+        path: 'dev-tools/jwt-decoder',
+        data: { tool: 'jwt' },
+        loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+      },
+    ],
   },
   {
     path: 'services',
@@ -82,7 +95,20 @@ export const routes: Routes = [
       },
       {
         path: 'tools',
-        component: ToolsComponent,
+        children: [
+          { path: '', component: ToolsComponent },
+          { path: 'dev-tools', component: ToolsComponent },
+          {
+            path: 'dev-tools/json-beautifier',
+            data: { tool: 'json' },
+            loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+          },
+          {
+            path: 'dev-tools/jwt-decoder',
+            data: { tool: 'jwt' },
+            loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+          },
+        ],
       },
       {
         path: 'services',

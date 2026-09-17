@@ -1,0 +1,76 @@
+<app-catalog-layout #layout>
+  <article class="dev-tool" lang="en">
+    <header class="catalog-page-header">
+      <p class="catalog-eyebrow">DEV TOOLS · FREE BROWSER TOOLS</p>
+      <h1>{{ tool.name }}: {{ tool.keyword }}</h1>
+      <p>{{ tool.description }}</p>
+      <div class="badges"><span>Local processing</span><span>No account needed</span><span>Desktop &amp; mobile</span></div>
+    </header>
+
+    <section class="workspace ph-no-capture ph-no-capture-input ph-mask" aria-label="Tool workspace">
+      <div class="toolbar">
+        <button type="button" (click)="example()">Load example</button>
+        <button type="button" (click)="updateSource('')" [disabled]="!source()">Clear</button>
+        @if (isJson) {
+          <label for="indent">Indentation</label>
+          <select id="indent" [value]="indent()" (change)="indent.set($any($event.target).value)">
+            <option value="  ">2 spaces</option><option value="    ">4 spaces</option><option value="&#9;">Tabs</option>
+          </select>
+          <button type="button" [attr.aria-pressed]="!minified()" (click)="minified.set(false)">Beautify</button>
+          <button type="button" [attr.aria-pressed]="minified()" (click)="minified.set(true)">Minify</button>
+        }
+      </div>
+      <p class="hint" role="status" aria-live="polite">{{ feedback() }}</p>
+      <div class="editors" [class.single]="!isJson">
+        <div class="editor">
+          <div class="panel-heading"><label for="tool-input">{{ isJson ? 'Input JSON' : 'JWT token' }}</label><span>{{ source().length.toLocaleString('en-US') }} characters</span></div>
+          <textarea id="tool-input" class="ph-no-capture ph-no-capture-input" [class.token-input]="!isJson" [value]="source()" (input)="updateSource($any($event.target).value)" [placeholder]="isJson ? 'Paste JSON here or load an example…' : 'Paste header.payload.signature or a Bearer token…'" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" [attr.aria-invalid]="!!result().error" aria-describedby="input-help tool-status"></textarea>
+          <p id="input-help" class="hint">{{ isJson ? 'Validation and formatting update as you type. Your original input stays editable.' : 'Header and payload decode as you type. An optional Bearer prefix is accepted.' }}</p>
+        </div>
+        @if (isJson) {
+          <div class="editor">
+            <div class="panel-heading"><label for="json-output">{{ minified() ? 'Minified JSON' : 'Formatted JSON' }}</label><button type="button" (click)="copy(result().output)" [disabled]="!result().output">Copy JSON</button></div>
+            <textarea id="json-output" class="ph-no-capture ph-no-capture-input" readonly [value]="result().output" placeholder="Your formatted JSON will appear here…" spellcheck="false" aria-label="JSON output"></textarea>
+            <p class="hint">{{ result().output.length.toLocaleString('en-US') }} output characters · Original number precision preserved</p>
+          </div>
+        }
+      </div>
+      <p id="tool-status" class="status" [class.error]="!!result().error" role="status" aria-live="polite">{{ result().error || (source().trim() ? (isJson ? 'Valid JSON · Output is ready.' : 'Decoded · Signature not verified.') : (isJson ? 'Paste JSON to begin. Objects, arrays and primitive values are supported.' : 'Paste a JWT to inspect its contents.')) }}</p>
+      @if (!isJson) {
+        <p class="notice">Decoding is not verification. This tool does not check the signature, signing key, issuer or audience. Decoded claims are untrusted data; an unexpired token is not necessarily valid.</p>
+        @if (result().jwt; as jwt) {
+          <section class="timing" aria-label="Token timing">
+            <h2>Expiration &amp; token timing</h2><p>{{ timing() }}</p>
+            <p class="hint">Compared with your device clock. Dates below use UTC. No server clock or signature check is performed.</p>
+            @if (jwt.header['alg'] === 'none' || !jwt.signature) { <p class="notice">Unsigned token: the algorithm is “none” or the signature is empty. The built-in example is for inspection only.</p> }
+          </section>
+          <div class="editors decoded">
+            <div class="editor"><div class="panel-heading"><label for="jwt-header">Header</label><button type="button" (click)="copy(header())">Copy header</button></div><textarea id="jwt-header" readonly [value]="header()" spellcheck="false"></textarea></div>
+            <div class="editor"><div class="panel-heading"><label for="jwt-payload">Payload</label><button type="button" (click)="copy(payload())">Copy payload</button></div><textarea id="jwt-payload" readonly [value]="payload()" spellcheck="false"></textarea></div>
+          </div>
+          <section class="claims" aria-label="Token claims"><h2>Token claims explained</h2>
+            <dl>@for (claim of claims(); track claim.name) { <div class="claim"><dt><code>{{ claim.name }}</code><span>{{ claim.meaning }}</span></dt><dd><code>{{ claim.value }}</code>@if (claim.date) { <span>{{ claim.date }}</span> }</dd></div> } @empty { <p>The payload is an empty object. No claims were provided.</p> }</dl>
+          </section>
+        }
+      }
+      <p class="privacy">Your input is processed in this page, with no tool uploads or saved history. Clear it when you finish, especially on a shared device.</p>
+    </section>
+
+    <div class="reading">
+      @if (isJson) {
+        <section><h2>A JSON formatter online for everyday development</h2><p>JSON Beautifier Pro turns compact API responses, configuration files and test fixtures into readable JSON. Indentation makes nested objects easier to follow, while live validation helps you find syntax mistakes before you copy data into an application. All processing happens in your browser, so you can work without creating an account or sending the document to a formatting service.</p><p>Use two spaces for a compact view, four spaces for a more pronounced hierarchy, or tabs to match your editor. Switch to Minify when you need a compact one-line value for a request body or a test fixture. Formatting preserves the order of keys, number literals and string escapes, including integers larger than JavaScript’s safe integer range.</p></section>
+        <section><h2>How to format, validate and minify JSON</h2><ol><li>Paste your JSON in the input editor, or load the example to try the tool.</li><li>Read the validation status. Correct any reported syntax errors in the original input.</li><li>Choose your indentation and select Beautify for readable output, or Minify to remove unnecessary whitespace.</li><li>Copy the result. On a phone, scroll below the input to reach the output and its copy button.</li></ol><p>The input remains unchanged when you switch output modes. Invalid input clears the result so that you cannot accidentally copy an older, unrelated document. Browser error messages include a line and column when a character position is available.</p></section>
+        <section><h2>Common JSON errors and how to fix them</h2><p>JSON requires double quotes around property names and string values. Single-quoted JavaScript strings, unquoted keys, comments and trailing commas are not valid JSON. Separate object properties and array items with commas, and check that every opening brace or bracket has a matching closing character.</p><p>Use lowercase <code>true</code>, <code>false</code> and <code>null</code>. Values such as <code>undefined</code>, <code>NaN</code> and <code>Infinity</code> belong to JavaScript and cannot appear as JSON values. A line break inside a string must be escaped. This tool validates JSON syntax; it does not validate business rules or a JSON Schema.</p></section>
+        <section class="faq"><h2>JSON formatter FAQ</h2><details open><summary>What is the difference between beautifying and minifying?</summary><p>Beautifying adds line breaks and indentation to make structure easier to read. Minifying removes whitespace outside strings. Both produce the same JSON values, and spaces inside text are preserved.</p></details><details><summary>Can I format an array or a primitive value?</summary><p>Yes. A JSON document can contain an object, an array, a string, a number, a boolean or null at its top level. An empty input is not a JSON document.</p></details><details><summary>Will large numbers or duplicate keys change?</summary><p>The formatter preserves number text and duplicate keys instead of rebuilding the document with JSON.stringify. Duplicate keys can still be interpreted differently by consuming applications; avoid them for interoperable data. Formatting cannot restore precision already lost before pasting.</p></details><details><summary>Does this support JSON5, comments or very large files?</summary><p>This is a strict JSON formatter, not a JSON5 parser. Remove comments and trailing commas first. Input is limited to one million characters to keep this interactive tool practical; use a local editor for larger documents.</p></details></section>
+        <p class="reference">Format reference: <a href="https://www.rfc-editor.org/rfc/rfc8259">RFC 8259 — The JSON Data Interchange Format</a>.</p>
+      } @else {
+        <section><h2>A JWT decoder online for inspecting token contents</h2><p>JWT Token Decoder helps you examine the header and payload of a JSON Web Token while debugging an authentication flow or learning how token claims work. Paste a compact three-part token and see the decoded JSON, registered claims and UTC timestamps in one place. You can also paste an Authorization header value beginning with Bearer.</p><p>A typical signed JWT contains a header, a payload and a signature separated by dots. The first two parts use Base64URL encoding, which is reversible and does not hide their contents. This tool decodes those parts locally. It does not require a secret, contact the issuer or verify cryptographic signatures.</p></section>
+        <section><h2>How to decode a JWT and check expiration</h2><ol><li>Paste your token or load the clearly unsigned example.</li><li>Inspect the header to see the declared algorithm and any key identifier.</li><li>Read the payload and claim descriptions. Expiration, not-before and issued-at values are shown as UTC dates when they are valid NumericDates.</li><li>Review the timing status, then copy the header or payload if you need readable JSON for debugging.</li></ol><p>Time checks use your device clock. A token is marked expired when the current time reaches its <code>exp</code> value. A future <code>nbf</code> indicates it is not active yet. A missing expiration is reported explicitly, and string timestamps are flagged instead of silently converted into numbers.</p></section>
+        <section><h2>Understanding registered JWT claims</h2><p><code>iss</code> identifies the issuer, <code>sub</code> identifies the subject, and <code>aud</code> identifies the intended audience, which may be a string or an array. <code>jti</code> is a token identifier. Application-specific claims such as roles and permissions appear alongside these registered fields.</p><p><code>exp</code> is the expiration time, <code>nbf</code> is the earliest time the token may be accepted, and <code>iat</code> records when it was issued. These NumericDate values count seconds since the Unix epoch, not JavaScript milliseconds. Applications decide which claims are required and must validate them as part of their own authentication rules.</p></section>
+        <section class="faq"><h2>JWT decoder FAQ</h2><details open><summary>Does decoding prove that a JWT is valid?</summary><p>No. Anyone can construct a decodable header and payload. A trusted verifier must check the signature with the correct key, restrict allowed algorithms, and validate relevant claims such as issuer, audience and expiration. Never grant access based only on this page’s output.</p></details><details><summary>Why is my token rejected?</summary><p>The decoder expects three dot-separated parts and Base64URL-encoded UTF-8 JSON objects in the header and payload. Incomplete copies, quotes around the token, internal whitespace or non-JSON content can cause errors. A five-part encrypted JWE requires decryption and is not supported here.</p></details><details><summary>Why can I read a token without a secret?</summary><p>Encoding is different from encryption. The header and payload of a typical signed JWT are readable by anyone holding it. The signature protects integrity when correctly verified; it does not make the payload confidential.</p></details><details><summary>What if there is no exp claim?</summary><p>The tool reports that the token does not declare an expiration. This does not establish that it is acceptable: your application may require exp or apply its own lifetime policy. An issued-at timestamp alone is not an expiration date.</p></details></section>
+        <p class="reference">Protocol reference: <a href="https://www.rfc-editor.org/rfc/rfc7519">RFC 7519 — JSON Web Token (JWT)</a>.</p>
+      }
+      <section class="related"><h2>More Dev Tools</h2><a [routerLink]="layout.link('tools', 'dev-tools/' + related.slug)">{{ related.name }} →</a><p>{{ related.description }}</p><a [routerLink]="layout.link('tools', 'dev-tools')">Explore all developer tools</a></section>
+    </div>
+  </article>
+</app-catalog-layout>

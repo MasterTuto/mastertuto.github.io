@@ -1,25 +1,28 @@
-<div class="min-h-dvh bg-slate-900 w-[calc(100%+4rem)] -mx-8 -mt-16 font-display text-white">
-  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
-    <div class="mb-6 grid grid-cols-3 items-center gap-2">
-      <a
-        routerLink="/"
-        class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
-      >
-        <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
-        {{ "backHome" | translate }}
-      </a>
-      <h1 class="text-center text-lg font-bold tracking-tight sm:text-xl">{{ "tools.label" | translate }}</h1>
-      <div></div>
-    </div>
-
-    <p class="mb-6 text-sm text-white/50 sm:text-base">{{ "tools.subtitle" | translate }}</p>
-
-    <div class="flex flex-col items-center gap-3 rounded-xl bg-white/5 px-6 py-16 text-center">
-      <span class="grid size-14 place-items-center rounded-full bg-white/10 text-3xl text-white/40">
-        <ng-icon name="tablerTools" />
-      </span>
-      <p class="text-lg font-semibold text-white/80">{{ "tools.emptyTitle" | translate }}</p>
-      <p class="text-sm text-white/50">{{ "tools.emptyDescription" | translate }}</p>
-    </div>
-  </div>
-</div>
+<app-catalog-layout #layout>
+  <section class="catalog-page">
+    <header class="catalog-page-header">
+      <p class="catalog-eyebrow">{{ 'tools.label' | translate }}</p>
+      <h1>{{ 'catalog.toolsTitle' | translate }}</h1>
+      <p>{{ 'catalog.toolsIntro' | translate }}</p>
+    </header>
+    <section lang="en" aria-labelledby="dev-tools-heading">
+      <h2 id="dev-tools-heading" class="text-2xl font-semibold mb-4">Dev Tools</h2>
+      <p class="text-slate-300 mb-6">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
+      <div class="catalog-cards">
+        @for (tool of tools; track tool.slug) {
+          <a [routerLink]="layout.link('tools', 'dev-tools/' + tool.slug)" class="catalog-card">
+            <span class="catalog-card-icon"><ng-icon name="tablerTools" /></span>
+            <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
+            <p>{{ tool.description }}</p>
+            <span class="catalog-card-action">Open {{ tool.keyword }} <span aria-hidden="true">→</span></span>
+          </a>
+        }
+      </div>
+    </section>
+    <section class="catalog-info">
+      <h2>{{ 'catalog.toolsHeading' | translate }}</h2>
+      <p>{{ 'catalog.toolsText' | translate }}</p>
+      <a [routerLink]="layout.link('games')" class="catalog-card-action">{{ 'games.label' | translate }} <span aria-hidden="true">→</span></a>
+    </section>
+  </section>
+</app-catalog-layout>

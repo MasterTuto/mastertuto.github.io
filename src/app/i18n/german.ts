@@ -1,7 +1,30 @@
 import type { Translations } from "./english";
 
 export const germanTranslations: Translations = {
+  catalog: {
+    "explore": "Spiele und Werkzeuge entdecken",
+    "toggle": "Menü ein- oder ausklappen",
+    "close": "Menü schließen",
+    "skip": "Zum Inhalt springen",
+    "gamesTitle": "Kostenlose Logik- und Wortspiele online",
+    "gamesIntro": "Spiele Sudoku, Queens und Word Ladder im Browser auf dem Smartphone, Tablet oder Computer.",
+    "gamesHeading": "Wähle deine nächste Herausforderung",
+    "gamesText": "Löse Sudoku-Rätsel, plane die Position jeder Dame oder verbinde Wörter Buchstabe für Buchstabe. Öffne ein Spiel für Regeln, Steuerung und Tipps.",
+    "toolsTitle": "Online-Werkzeuge für den Alltag",
+    "toolsIntro": "Formatiere JSON und untersuche JWT-Tokens mit kostenlosen Entwicklerwerkzeugen direkt im Browser.",
+    "toolsHeading": "Werkzeuge für den Entwicklungsalltag",
+    "toolsText": "Validiere und minimiere JSON oder prüfe JWT-Claims und Ablaufzeiten. Entdecke auch unsere Logikspiele."
+},
   "backHome": "Zur\u00fcck zur Startseite",
+  showcase: {
+    jingleName: "jingle.IA",
+    jingleDescription: "Eine Plattform zum Erstellen und Verwalten personalisierter Jingles.",
+  },
+  scheduling: {
+    title: "Gespräch vereinbaren",
+    description: "Wählen Sie einen Termin für ein 30-minütiges Gespräch über Ihr Projekt.",
+    openCalendar: "Kalender öffnen",
+  },
   games: {
     label: "Spiele",
     subtitle: "Eine Sammlung von Spielen, die ich gebaut habe.",

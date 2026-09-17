@@ -9,7 +9,6 @@ import {
   ElementRef,
 } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { RouterLink } from "@angular/router";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
 import { TranslateService } from "src/app/service/translate.service";
 import { generateSeed } from "src/app/utils/generate-seed";
@@ -48,7 +47,7 @@ const REGION_BG: string[] = [
   selector: "queens",
   templateUrl: "./queens.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, TranslatePipe],
+  imports: [TranslatePipe],
 })
 export class QueensComponent {
   private platformId = inject(PLATFORM_ID);

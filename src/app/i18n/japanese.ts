@@ -1,7 +1,30 @@
 import type { Translations } from "./english";
 
 export const japaneseTranslations: Translations = {
+  catalog: {
+    "explore": "ゲームとツールを探す",
+    "toggle": "メニューを開閉",
+    "close": "メニューを閉じる",
+    "skip": "コンテンツへ移動",
+    "gamesTitle": "無料のオンライン論理・単語ゲーム",
+    "gamesIntro": "スマートフォン、タブレット、パソコンのブラウザーで数独、Queens、Word Ladderを楽しめます。",
+    "gamesHeading": "次のチャレンジを選ぶ",
+    "gamesText": "数独を解いたり、クイーンの配置を考えたり、一文字ずつ単語をつないだりできます。各ゲームでルール、操作方法、ヒントを確認できます。",
+    "toolsTitle": "日常に役立つオンラインツール",
+    "toolsIntro": "ブラウザで動作する無料の開発者ツールで JSON を整形し、JWT トークンを確認できます。",
+    "toolsHeading": "日々の開発に役立つツール",
+    "toolsText": "JSON の検証・整形・圧縮や JWT のクレームと有効期限の確認ができます。息抜きに論理ゲームもどうぞ。"
+},
   "backHome": "\u30db\u30fc\u30e0\u306b\u623b\u308b",
+  showcase: {
+    jingleName: "jingle.IA",
+    jingleDescription: "オリジナルのジングルを作成・管理するプラットフォーム。",
+  },
+  scheduling: {
+    title: "相談を予約する",
+    description: "プロジェクトについて30分間お話しする日時をお選びください。",
+    openCalendar: "カレンダーを開く",
+  },
   games: {
     label: "\u30b2\u30fc\u30e0",
     subtitle: "\u79c1\u304c\u4f5c\u3063\u305f\u30b2\u30fc\u30e0\u306e\u30b3\u30ec\u30af\u30b7\u30e7\u30f3\u3002",

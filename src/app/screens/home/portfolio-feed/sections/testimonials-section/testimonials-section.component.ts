@@ -1,20 +1,22 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { tablerArrowRight, tablerBrandWhatsapp, tablerChevronLeft, tablerChevronRight, tablerQuote } from '@ng-icons/tabler-icons';
+import { tablerArrowRight, tablerBrandWhatsapp, tablerChevronLeft, tablerChevronRight, tablerBrandUpwork } from '@ng-icons/tabler-icons';
 import { SectionComponent } from 'src/app/components/section/section.component';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
 import { createWhatsAppLink } from 'src/app/utils/html';
 
 interface TestimonialItem {
-  textKey: string;
-  nameKey: string;
-  professionKey: string;
+  title: string;
+  date: string;
+  quote?: string;
+
 }
 
 @Component({
   selector: 'app-testimonials-section',
   templateUrl: './testimonials-section.component.html',
+  styleUrl: './testimonials-section.component.scss',
   imports: [
     SectionComponent,
     TranslatePipe,
@@ -26,7 +28,7 @@ interface TestimonialItem {
       tablerBrandWhatsapp,
       tablerChevronLeft,
       tablerChevronRight,
-      tablerQuote,
+      tablerBrandUpwork,
     })
   ],
 })
@@ -38,35 +40,34 @@ export class TestimonialsSectionComponent {
     return createWhatsAppLink(this.translateService.translate("home.testimonials.whatsappMessage"));
   }
 
-  testimonials: TestimonialItem[] = [
+  readonly upworkProfileUrl = 'https://www.upwork.com/freelancers/~015b65b982c32771f6';
+  readonly testimonials: TestimonialItem[] = [
     {
-      textKey: 'home.testimonials.items.1.text',
-      nameKey: 'home.testimonials.items.1.name',
-      professionKey: 'home.testimonials.items.1.profession',
+      title: 'Design For Online Platform',
+      date: 'Mar 12, 2024 – Mar 19, 2024',
+      quote: 'Breno has great insights and was invested in the success of our project!',
     },
     {
-      textKey: 'home.testimonials.items.2.text',
-      nameKey: 'home.testimonials.items.2.name',
-      professionKey: 'home.testimonials.items.2.profession',
+      title: 'PyThon test',
+      date: 'Jul 25, 2023 – Aug 10, 2023',
+      quote: 'Did a great job for this task and proved really adept at Py. I would be happy to work with him in a similar role',
     },
     {
-      textKey: 'home.testimonials.items.3.text',
-      nameKey: 'home.testimonials.items.3.name',
-      professionKey: 'home.testimonials.items.3.profession',
+      title: 'Software Engineer needed for growing EdTech company',
+      date: 'Mar 13, 2024 – Aug 1, 2024',
     },
     {
-      textKey: 'home.testimonials.items.4.text',
-      nameKey: 'home.testimonials.items.4.name',
-      professionKey: 'home.testimonials.items.4.profession',
+      title: 'Python Developer for Refactoring',
+      date: 'May 18, 2023 – Jun 7, 2023',
     },
   ];
 
   currentPage = signal(0);
   lastPage = computed(() => Math.ceil(this.testimonials.length / this.pageSize) - 1);
-  visibleTestimonials = computed(() => {
-    const start = this.currentPage() * this.pageSize;
-    return this.testimonials.slice(start, start + this.pageSize);
-  });
+  readonly pages = Array.from(
+    { length: Math.ceil(this.testimonials.length / this.pageSize) },
+    (_, index) => this.testimonials.slice(index * this.pageSize, (index + 1) * this.pageSize),
+  );
 
   previousPage(): void {
     this.currentPage.update(page => Math.max(page - 1, 0));

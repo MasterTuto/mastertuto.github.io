@@ -18,6 +18,7 @@ interface IframeDialogOutput {
 @Component({
   selector: 'iframe-dialog',
   templateUrl: './iframe-dialog.component.html',
+  styleUrl: './iframe-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon],
   providers: [

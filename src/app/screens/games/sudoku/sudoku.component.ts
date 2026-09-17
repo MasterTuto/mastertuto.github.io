@@ -7,7 +7,6 @@ import {
   afterNextRender,
 } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
-import { RouterLink } from "@angular/router";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
 import { TranslateService } from "src/app/service/translate.service";
 import { generateSeed } from "src/app/utils/generate-seed";
@@ -31,7 +30,7 @@ interface HistoryEntry {
   selector: "sudoku",
   templateUrl: "./sudoku.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, TranslatePipe],
+  imports: [TranslatePipe],
 })
 export class SudokuComponent {
   private platformId = inject(PLATFORM_ID);

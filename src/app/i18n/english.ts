@@ -1,5 +1,28 @@
 export const englishTranslations = {
+  catalog: {
+    "explore": "Explore games and tools",
+    "toggle": "Toggle sidebar",
+    "close": "Close menu",
+    "skip": "Skip to content",
+    "gamesTitle": "Free online logic and word games",
+    "gamesIntro": "Play Sudoku, Queens and Word Ladder in your browser. Explore number, strategy and word puzzles on your phone, tablet or computer.",
+    "gamesHeading": "Choose your next challenge",
+    "gamesText": "Practice reasoning with Sudoku grids, plan each queen placement or connect words one letter at a time. Open a game to find its rules, controls and tips.",
+    "toolsTitle": "Online tools for everyday tasks",
+    "toolsIntro": "Format JSON and inspect JWT tokens with free developer tools that run in your browser. Choose a tool below for instant results, practical guides and examples.",
+    "toolsHeading": "Tools for everyday development",
+    "toolsText": "Use JSON Beautifier Pro to validate, indent and minify JSON, or JWT Token Decoder to inspect headers, payloads and expiration claims. Explore our logic games when you need a break."
+},
   "backHome": "Back to home",
+  showcase: {
+    jingleName: "jingle.IA",
+    jingleDescription: "A platform to create and manage personalized jingles.",
+  },
+  scheduling: {
+    title: "Schedule a conversation",
+    description: "Choose a time for a 30-minute conversation about your project.",
+    openCalendar: "Open calendar",
+  },
   games: {
     label: "Games",
     subtitle: "A collection of games I built.",

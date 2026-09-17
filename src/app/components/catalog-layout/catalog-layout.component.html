@@ -1,0 +1,63 @@
+<div class="catalog-shell font-display">
+  <a class="skip-link" href="#catalog-content">{{ 'catalog.skip' | translate }}</a>
+  <header class="catalog-topbar">
+    <div class="topbar-inner">
+      <button type="button" class="icon-button mobile-toggle" (click)="openMenu()" aria-controls="catalog-drawer" aria-haspopup="dialog" [attr.aria-expanded]="mobileOpen()" [attr.aria-label]="'catalog.explore' | translate">
+        <ng-icon name="tablerLayoutDashboard" />
+      </button>
+      <button type="button" class="icon-button desktop-toggle" (click)="collapsed.set(!collapsed())" aria-controls="catalog-sidebar" [attr.aria-expanded]="!collapsed()" [attr.aria-label]="'catalog.toggle' | translate" [title]="'catalog.toggle' | translate">
+        <ng-icon name="tablerLayoutSidebarLeftCollapse" />
+      </button>
+      <a routerLink="/" class="brand" [attr.aria-label]="'backHome' | translate" [title]="'backHome' | translate">
+        <img src="assets/icons/android-chrome-192x192.png" width="44" height="44" alt="" />
+      </a>
+      <nav class="category-nav" [attr.aria-label]="'catalog.explore' | translate">
+        <a [routerLink]="link('games')" routerLinkActive="active" ariaCurrentWhenActive="page">{{ 'games.label' | translate }}</a>
+        <a [routerLink]="link('tools')" routerLinkActive="active" ariaCurrentWhenActive="page">{{ 'tools.label' | translate }}</a>
+      </nav>
+    </div>
+  </header>
+  <div class="catalog-frame" [class.is-collapsed]="collapsed()">
+    <aside id="catalog-sidebar" class="catalog-sidebar" [attr.aria-label]="'catalog.explore' | translate">
+      <ng-container *ngTemplateOutlet="menu" />
+    </aside>
+    <main id="catalog-content" tabindex="-1">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a routerLink="/">{{ 'wordLadder.home' | translate }}</a><span aria-hidden="true">/</span>
+        @if (activeTool; as tool) {
+          <a [routerLink]="link('tools')">{{ 'tools.label' | translate }}</a><span aria-hidden="true">/</span>
+          <a [routerLink]="link('tools', 'dev-tools')">Dev Tools</a><span aria-hidden="true">/</span>
+          <span aria-current="page">{{ tool.name }}</span>
+        } @else if (isDevTools) {
+          <a [routerLink]="link('tools')">{{ 'tools.label' | translate }}</a><span aria-hidden="true">/</span><span aria-current="page">Dev Tools</span>
+        } @else if (activeGame; as game) {
+          <a [routerLink]="link('games')">{{ 'games.label' | translate }}</a><span aria-hidden="true">/</span>
+          <span aria-current="page">{{ game.nameKey | translate }}</span>
+        } @else {
+          <span aria-current="page">{{ (category === 'games' ? 'games.label' : 'tools.label') | translate }}</span>
+        }
+      </nav>
+      <ng-content />
+    </main>
+  </div>
+  <dialog #drawer id="catalog-drawer" [attr.aria-label]="'catalog.explore' | translate" (close)="mobileOpen.set(false)" (click)="$event.target === drawer && closeMenu()">
+    <div class="drawer-content">
+      <div class="drawer-heading"><strong>{{ 'catalog.explore' | translate }}</strong><button autofocus type="button" class="icon-button" (click)="closeMenu()" [attr.aria-label]="'catalog.close' | translate"><ng-icon name="tablerX" /></button></div>
+      <ng-container *ngTemplateOutlet="menu" />
+    </div>
+  </dialog>
+</div>
+<ng-template #menu>
+  <nav class="catalog-menu" [attr.aria-label]="'catalog.explore' | translate">
+    <a [routerLink]="link('games')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" (click)="closeMenu()"><ng-icon name="tablerLayoutDashboard" />{{ 'games.label' | translate }}</a>
+    @for (game of games; track game.route) {
+      <a [routerLink]="link('games', game.route)" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><ng-icon [name]="game.icon" />{{ game.nameKey | translate }}</a>
+    }
+    <div class="menu-divider"></div>
+    <a [routerLink]="link('tools')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" (click)="closeMenu()"><ng-icon name="tablerTools" />{{ 'tools.label' | translate }}</a>
+    <a [routerLink]="link('tools', 'dev-tools')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" (click)="closeMenu()">Dev Tools</a>
+    @for (tool of devTools; track tool.slug) {
+      <a [routerLink]="link('tools', 'dev-tools/' + tool.slug)" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">{{ tool.name }}</a>
+    }
+  </nav>
+</ng-template>

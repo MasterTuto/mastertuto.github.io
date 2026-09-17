@@ -1,7 +1,15 @@
-<main class="flex flex-col gap-8">
+<main class="flex flex-col gap-16 md:gap-24">
     <app-home-section />
+    <app-testimonials-section />
+    <app-scheduling-section />
     <app-services-section />
     <app-why-me-section />
     <app-projects-section />
-    <app-testimonials-section />
+    <section class="px-4 py-4">
+      <nav class="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 rounded-xl bg-surface px-4 py-5 text-lg font-semibold text-foreground">
+        <a routerLink="/games" class="transition hover:text-foreground-emphasis">{{ 'games.label' | translate }} →</a>
+        <span aria-hidden="true" class="text-foreground-light">·</span>
+        <a routerLink="/tools" class="transition hover:text-foreground-emphasis">{{ 'tools.label' | translate }} →</a>
+      </nav>
+    </section>
 </main>

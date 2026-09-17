@@ -1,19 +1,10 @@
-<div class="min-h-dvh bg-slate-900 font-display text-white">
-  <div class="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-6">
-
-    <!-- Header -->
-    <div class="mb-4 grid grid-cols-3 items-center gap-2">
-      <a
-        [routerLink]="['/', lang, 'games']"
-        class="flex items-center gap-1 text-sm text-white/50 transition-colors hover:text-white/80"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
-        {{ "games.label" | translate }}
-      </a>
-      <h1 class="text-center text-lg font-bold tracking-tight sm:text-xl">{{ "sudoku.sudoku" | translate }}</h1>
-      <div></div>
-    </div>
-
+<div class="game-page">
+  <header class="catalog-page-header">
+    <h1>{{ "sudoku.sudoku" | translate }}</h1>
+    <p>{{ "games.sudokuDescription" | translate }}</p>
+  </header>
+  <div class="game-layout">
+    <div class="game-play">
     <!-- Controls -->
     <div class="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
       <label class="flex flex-col gap-1 text-xs text-white/50 sm:text-sm">
@@ -192,6 +183,8 @@
       <p class="px-4 text-center text-xs text-white/40 sm:text-sm">{{ "sudoku.keyboard-hint" | translate }}</p>
     </div>
 
+    </div>
+    <div class="game-guide">
     <!-- How to play -->
     <div class="mt-10 rounded-xl bg-white/5 px-5 py-6 sm:px-6">
       <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.how-to-play" | translate }}</h2>
@@ -268,4 +261,5 @@
     </div>
 
   </div>
+</div>
 </div>

@@ -1,7 +1,30 @@
 import type { Translations } from "./english";
 
 export const italianTranslations: Translations = {
+  catalog: {
+    "explore": "Esplora giochi e strumenti",
+    "toggle": "Comprimi o espandi il menu",
+    "close": "Chiudi menu",
+    "skip": "Vai al contenuto",
+    "gamesTitle": "Giochi di logica e parole gratis online",
+    "gamesIntro": "Gioca a Sudoku, Queens e Word Ladder nel browser, da telefono, tablet o computer.",
+    "gamesHeading": "Scegli la tua prossima sfida",
+    "gamesText": "Risolvi griglie di Sudoku, pianifica la posizione delle regine o collega parole cambiando una lettera alla volta. Apri un gioco per regole, comandi e consigli.",
+    "toolsTitle": "Strumenti online per ogni giorno",
+    "toolsIntro": "Formatta JSON e analizza token JWT con strumenti gratuiti per sviluppatori nel browser.",
+    "toolsHeading": "Strumenti per lo sviluppo quotidiano",
+    "toolsText": "Valida e minimizza JSON oppure consulta i claim e le scadenze JWT. Scopri anche i nostri giochi di logica."
+},
   "backHome": "Torna alla home",
+  showcase: {
+    jingleName: "jingle.IA",
+    jingleDescription: "Una piattaforma per creare e gestire jingle personalizzati.",
+  },
+  scheduling: {
+    title: "Prenota una conversazione",
+    description: "Scegli un orario per una conversazione di 30 minuti sul tuo progetto.",
+    openCalendar: "Apri calendario",
+  },
   games: {
     label: "Giochi",
     subtitle: "Una raccolta di giochi che ho creato.",

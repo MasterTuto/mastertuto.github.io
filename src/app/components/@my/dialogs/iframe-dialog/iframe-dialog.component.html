@@ -7,8 +7,8 @@
     </button>
   </div>
   @if (url()) {
-    <iframe class="flex-1" [src]='url()' frameborder="0" allowfullscreen sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
+    <iframe class="min-h-0 w-full flex-1 border-0" [title]="title()" [src]='url()' frameborder="0" allowfullscreen sandbox="allow-same-origin allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
   } @else if (html()) {
-    <iframe class="flex-1" [srcdoc]='html()' frameborder="0" allowfullscreen sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
+    <iframe class="min-h-0 w-full flex-1 border-0" [title]="title()" [srcdoc]='html()' frameborder="0" allowfullscreen sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
   }
 </div>

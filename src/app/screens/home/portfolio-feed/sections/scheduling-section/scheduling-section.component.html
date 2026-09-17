@@ -1,0 +1,10 @@
+<app-section name="contact">
+  <div class="flex w-full flex-col text-foreground">
+    <div class="mb-4 px-4 text-center">
+      <h2 class="text-2xl font-semibold sm:text-3xl">{{ 'scheduling.title' | translate }}</h2>
+      <p class="mt-2 text-foreground-light">{{ 'scheduling.description' | translate }}</p>
+    </div>
+    <div id="my-cal-inline-30min" class="min-h-[720px] w-full overflow-auto"
+      [attr.aria-label]="'scheduling.title' | translate"></div>
+  </div>
+</app-section>
