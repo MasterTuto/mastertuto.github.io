@@ -1,0 +1,6 @@
+@use 'tokens';
+.prompt-image { margin: 0; min-height: 180px; padding: clamp(20px, 4vw, 48px); box-sizing: border-box; background: var(--tint); border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent); display: grid; place-items: center; aspect-ratio: 4 / 3; }
+.prompt-image p { max-width: 35ch; color: var(--accent); line-height: 1.7; font-size: 13px; text-align: center; }
+.prompt-image[data-variant='portrait'] { aspect-ratio: 3 / 4; } .prompt-image[data-variant='square'] { aspect-ratio: 1; }
+.prompt-image[data-size='sm'] { min-height: 120px; } .prompt-image[data-size='lg'] { min-height: 280px; }
+

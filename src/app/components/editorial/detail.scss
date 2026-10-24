@@ -1,0 +1,6 @@
+@use 'tokens';
+.detail-list { padding-block: var(--space); border-top: 1px solid #d4d7da; } .detail-list h2 { margin-bottom: 24px; }
+ol { padding: 0; margin: 0; list-style: none; } li { display: flex; gap: 20px; padding-block: 20px; border-bottom: 1px solid #d4d7da; line-height: 1.7; color: #4d5863; } .number { color: var(--accent); font-size: 12px; padding-top: 4px; }
+.detail-list[data-variant='columns'] ol, .detail-list[data-variant='steps'] ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.detail-list[data-variant='steps'] li { display: block; border-top: 1px solid var(--accent); border-bottom: 0; } .detail-list[data-variant='steps'] .number { display: block; margin-bottom: 16px; font-size: 28px; }
+@media(max-width: 700px) { [data-size='lg'] { --space: 40px; } [data-size='md'] { --space: 32px; } .detail-list[data-variant] ol { grid-template-columns: 1fr; gap: 0; } }

@@ -1,0 +1,33 @@
+<div class="industry-page" lang="pt-BR">
+ <nav aria-label="Navegação"><a routerLink="/">BrenoCS<span class="brand-dot">.</span></a><a routerLink="/services">Serviços ↗</a></nav>
+ <main>
+ @if (industry(); as page) {
+  <a class="back" routerLink="/para">← Soluções por profissão</a>
+  <app-editorial-hero [eyebrow]="'Presença digital / ' + page.name" [title]="page.title" [description]="page.intro" [variant]="page.variant" [color]="page.color" size="lg">
+   <div actions class="actions"><a class="cta" [href]="contact()" target="_blank" rel="noopener">Conversar sobre meu projeto ↗</a><a href="#necessidades">Explorar possibilidades ↓</a></div>
+   <app-prompt-image [prompt]="page.images[0]" [variant]="page.variant === 'editorial' ? 'portrait' : 'landscape'" [color]="page.color" size="lg" />
+  </app-editorial-hero>
+  <div class="context-line"><span>Sites & automações sob medida</span><span>{{ page.name }}</span><span>Do primeiro contato à rotina</span></div>
+  @for (section of page.sections; track section) {
+   @switch (section) {
+    @case ('story') { <app-text-section eyebrow="O que faz diferença" [title]="page.statement" [body]="page.body" [variant]="page.variant === 'editorial' ? 'statement' : 'split'" [color]="page.color" size="lg" /> }
+    @case ('needs') {
+     <section id="necessidades" aria-label="Necessidades do seu negócio" [class.needs-columns]="page.listVariant === 'rows'">
+      <app-detail-list eyebrow="01 / Ser encontrado" title="Presença online" [items]="page.presence" [variant]="page.listVariant" [color]="page.color" />
+      <app-detail-list eyebrow="02 / Organizar a rotina" title="Automação" [items]="page.automation" [variant]="page.listVariant" [color]="page.color" />
+     </section>
+    }
+    @case ('gallery') { <app-media-grid eyebrow="Direção de conteúdo" title="Dê espaço ao seu trabalho." [prompts]="page.images" [variant]="page.grid" [color]="page.color" /> }
+    @case ('workflow') { <app-detail-list eyebrow="Uma jornada possível" title="Do interesse ao próximo passo." [items]="page.steps" [variant]="page.variant === 'timeline' ? 'rows' : 'steps'" [color]="page.color" size="lg" /> }
+   }
+  }
+  <aside class="research"><p>As necessidades e o fluxo acima são propostas para este nicho; o escopo é definido com você.</p><a [href]="page.source.url" target="_blank" rel="noopener">Referência: {{ page.source.label }} ↗</a></aside>
+  <app-text-section eyebrow="Vamos construir" title="Um site que trabalha junto com você." body="Começamos pela sua rotina: como chegam os contatos, quais perguntas se repetem e o que precisa ficar mais simples. A partir daí, definimos o site e as integrações do projeto." variant="inset" [color]="page.color" size="lg"><a class="cta" [href]="contact()" target="_blank" rel="noopener">Planejar meu projeto ↗</a></app-text-section>
+  <section class="more"><h2>Outras profissões, outras possibilidades.</h2><div class="profession-links">@for (item of industries; track item.slug) { @if (item.slug !== page.slug) { <a [routerLink]="['/para', item.slug]">{{ item.name }} ↗</a> } }</div></section>
+ } @else {
+  <app-editorial-hero eyebrow="Soluções por profissão" title="Seu trabalho tem uma rotina própria." description="Seu site também deveria ter. Explore possibilidades de presença online e automação pensadas para o que cada profissão precisa." variant="editorial" size="lg" />
+  <section class="directory" aria-label="Profissões">@for (page of industries; track page.slug; let i = $index) { <a [routerLink]="['/para', page.slug]"><span class="index">{{ i + 1 }}</span><h2>{{ page.name }}</h2><p>{{ page.intro }}</p><span aria-hidden="true">↗</span></a> }</section>
+ }
+ </main>
+ <footer><a routerLink="/">BrenoCS — desenvolvimento web</a><a [href]="contact()" target="_blank" rel="noopener">Vamos conversar ↗</a></footer>
+</div>

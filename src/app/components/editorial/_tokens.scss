@@ -1,0 +1,10 @@
+:host { display: block; min-width: 0; }
+[data-color='primary'] { --accent: #3d4b74; --tint: #e8eaf0; }
+[data-color='secondary'] { --accent: #35675b; --tint: #e4ece5; }
+[data-color='warning'] { --accent: #855516; --tint: #f0e8d9; }
+[data-color='danger'] { --accent: #9a3e45; --tint: #f2e5e5; }
+[data-size='sm'] { --space: 24px; } [data-size='md'] { --space: 48px; } [data-size='lg'] { --space: 72px; }
+h1, h2, p { margin: 0; }
+.eyebrow { color: var(--accent, #4f5968); font-size: 11px; text-transform: uppercase; letter-spacing: .16em; font-weight: 650; margin-bottom: 20px; }
+h1 { font-size: clamp(2.5rem, 5.5vw, 5.5rem); line-height: 1.04; letter-spacing: -.055em; font-weight: 550; max-width: 15ch; text-wrap: balance; }
+h2 { font-size: clamp(1.65rem, 3vw, 2.7rem); line-height: 1.16; letter-spacing: -.035em; font-weight: 500; text-wrap: balance; }

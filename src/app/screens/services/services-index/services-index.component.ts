@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { NgIconComponent, provideIcons } from "@ng-icons/core";
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowLeft,
   tablerArrowRight,
@@ -8,21 +8,28 @@ import {
   tablerGlobe,
   tablerPencil,
   tablerPlugConnected,
-} from "@ng-icons/tabler-icons";
-import { RouterLink } from "@angular/router";
+} from '@ng-icons/tabler-icons';
+import { RouterLink } from '@angular/router';
 
-import { FooterComponent } from "src/app/components/footer/footer.component";
-import { ButtonComponent } from "src/app/components/@my/button/button.component";
-import { services } from "src/app/data/services.data";
-import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
-import { TranslateService } from "src/app/service/translate.service";
-import { createWhatsAppLink } from "src/app/utils/html";
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { services } from 'src/app/data/services.data';
+import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
+import { TranslationInitializer } from 'src/app/service/translation.initializer';
+import { createWhatsAppLink } from 'src/app/utils/html';
+import { TranslateService } from 'src/app/service/translate.service';
 
 @Component({
-  selector: "app-services-index",
-  templateUrl: "./services-index.component.html",
+  selector: 'app-services-index',
+  templateUrl: './services-index.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, NgIconComponent, TranslatePipe, ButtonComponent, FooterComponent],
+  imports: [
+    RouterLink,
+    NgIconComponent,
+    TranslatePipe,
+    ButtonComponent,
+    FooterComponent,
+  ],
   providers: [
     provideIcons({
       tablerArrowLeft,
@@ -37,14 +44,17 @@ import { createWhatsAppLink } from "src/app/utils/html";
 })
 export class ServicesIndexComponent {
   private translateService = inject(TranslateService);
+  private translationInitializer = inject(TranslationInitializer);
 
   services = services;
 
   get lang(): string | null {
-    return this.translateService.currentLang;
+    return this.translationInitializer.currentLang;
   }
 
   get whatsappLink(): string {
-    return createWhatsAppLink(this.translateService.translate("servicesPage.common.whatsappMessage"));
+    return createWhatsAppLink(
+      this.translateService.translate('servicesPage.common.whatsappMessage'),
+    );
   }
 }

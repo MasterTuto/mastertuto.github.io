@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
-import { TranslateService } from "src/app/service/translate.service";
+import { TranslationInitializer } from "src/app/service/translation.initializer";
 import { generateSeed } from "src/app/utils/generate-seed";
 import { generatePuzzle } from "src/app/utils/queens-puzzle";
 import type { Puzzle } from "src/app/utils/queens-puzzle";
@@ -51,7 +51,7 @@ const REGION_BG: string[] = [
 })
 export class QueensComponent {
   private platformId = inject(PLATFORM_ID);
-  private translateService = inject(TranslateService);
+  private translationInitializer = inject(TranslationInitializer);
 
   @ViewChild("boardEl") boardRef?: ElementRef<HTMLElement>;
 
@@ -67,7 +67,7 @@ export class QueensComponent {
   lastTouchedCell = -1;
 
   get lang(): string | null {
-    return this.translateService.currentLang;
+    return this.translationInitializer.currentLang;
   }
 
   constructor() {

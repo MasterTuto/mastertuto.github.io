@@ -1,13 +1,12 @@
-import { Injectable } from "@angular/core";
-import { translations } from "../i18n/translations"
-import { Translations } from "../i18n/english";
+import { Injectable } from '@angular/core';
+import { translations } from '../i18n/translations';
+import { Translations } from '../i18n/english';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class TranslationLoader {
-
-  load(lang: string): Translations {
-    return translations[lang];
+  load(lang: string): Promise<Translations> {
+    return translations[lang]();
   }
 }

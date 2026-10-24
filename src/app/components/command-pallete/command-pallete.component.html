@@ -1,0 +1,18 @@
+<div class="command-anchor">
+  <button #trigger class="command-trigger" type="button" aria-label="Abrir comandos" aria-haspopup="dialog" aria-controls="command-palette" [attr.aria-expanded]="isOpen()" (click)="isOpen() ? close() : open()"><span aria-hidden="true">⌘</span> Comandos <kbd>Ctrl K</kbd></button>
+  @if (isOpen()) {
+    <section id="command-palette" class="palette" role="dialog" aria-label="Comandos rápidos" [attr.aria-busy]="busy()">
+      <header><span>{{ sheet()?.title || 'Para onde vamos?' }}</span><button type="button" aria-label="Fechar comandos" (click)="close()">×</button></header>
+      <form (submit)="onSubmit($event)">
+        <input #commandInput type="search" role="combobox" aria-label="Buscar comandos" aria-autocomplete="list" aria-controls="command-suggestions" aria-expanded="true" [attr.aria-activedescendant]="suggestions()[activeIndex()] ? 'command-option-' + suggestions()[activeIndex()].id : null" [value]="query()" placeholder="Um serviço, ferramenta ou ideia…" autocomplete="off" (input)="onInput($event)" (keydown)="onInputKeydown($event)" />
+      </form>
+      <div id="command-suggestions" role="listbox" aria-label="Sugestões">
+        @for (choice of suggestions(); track choice.id; let index = $index) {
+          <button type="button" class="suggestion" role="option" [id]="'command-option-' + choice.id" [class.active]="activeIndex() === index" [attr.aria-selected]="activeIndex() === index" [disabled]="busy()" (click)="choose(choice)"><span><strong>{{ title(choice) }}</strong><small>{{ choice.description }}</small></span><span aria-hidden="true">↗</span></button>
+        } @empty { <p class="empty">Nenhum resultado. Tente “eletricista”, “JSON” ou “idioma”.</p> }
+      </div>
+      @if (status()) { <p class="status" role="status">{{ status() }}</p> }
+      <footer>@if (sheet()) { <button type="button" (click)="back()">← Voltar</button>@if (actions().length > 3) { <button type="button" (click)="nextPage()">Mais idiomas →</button> } } @else { <span>↑↓ selecionar · Enter abrir</span><span>Esc fechar</span> }</footer>
+    </section>
+  }
+</div>

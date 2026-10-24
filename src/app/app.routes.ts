@@ -1,18 +1,21 @@
-import { Routes } from "@angular/router";
-import { HomeComponent } from "./screens/home/home.component";
-import { LanguageWrapperComponent } from "./components/language-wrpaper/language-wrapper.component";
-import { GamesComponent } from "./screens/games/games.component";
-import { GamesListComponent } from "./screens/games/games-list/games-list.component";
-import { QueensComponent } from "./screens/games/queens/queens.component";
-import { SudokuComponent } from "./screens/games/sudoku/sudoku.component";
-import { ServiceDetailComponent } from "./screens/services/service-detail/service-detail.component";
-import { ServicesIndexComponent } from "./screens/services/services-index/services-index.component";
-import { ToolsComponent } from "./screens/tools/tools.component";
+import { industryRoutes } from './screens/industries/industry.routes';
+import { Routes } from '@angular/router';
+import { HomeComponent } from './screens/home/home.component';
+import { LanguageWrapperComponent } from './components/language-wrpaper/language-wrapper.component';
+import { GamesComponent } from './screens/games/games.component';
+import { GamesListComponent } from './screens/games/games-list/games-list.component';
+import { QueensComponent } from './screens/games/queens/queens.component';
+import { SudokuComponent } from './screens/games/sudoku/sudoku.component';
+import { ServiceDetailComponent } from './screens/services/service-detail/service-detail.component';
+import { ServicesIndexComponent } from './screens/services/services-index/services-index.component';
+import { ToolsComponent } from './screens/tools/tools.component';
+import { translations } from './i18n/translations';
 
 export const routes: Routes = [
+  ...industryRoutes,
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'games',
@@ -33,11 +36,11 @@ export const routes: Routes = [
       {
         path: 'word-ladder',
         loadComponent: () =>
-          import("./screens/games/word-ladder/word-ladder.component").then(
+          import('./screens/games/word-ladder/word-ladder.component').then(
             (m) => m.WordLadderComponent,
           ),
       },
-    ]
+    ],
   },
   {
     path: 'tools',
@@ -47,12 +50,18 @@ export const routes: Routes = [
       {
         path: 'dev-tools/json-beautifier',
         data: { tool: 'json' },
-        loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+        loadComponent: () =>
+          import('./screens/tools/dev-tools/dev-tool.component').then(
+            (m) => m.DevToolComponent,
+          ),
       },
       {
         path: 'dev-tools/jwt-decoder',
         data: { tool: 'jwt' },
-        loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+        loadComponent: () =>
+          import('./screens/tools/dev-tools/dev-tool.component').then(
+            (m) => m.DevToolComponent,
+          ),
       },
     ],
   },
@@ -66,8 +75,20 @@ export const routes: Routes = [
   },
   {
     path: ':lang',
+    pathMatch: 'full',
+    canMatch: [
+      (route, segments) => {
+        const lang = segments[0].parameterMap.get('lang');
+        return lang && lang in translations;
+      },
+    ],
+    component: HomeComponent,
+  },
+  {
+    path: ':lang',
     component: LanguageWrapperComponent,
     children: [
+      ...industryRoutes,
       {
         path: 'games',
         component: GamesComponent,
@@ -87,11 +108,11 @@ export const routes: Routes = [
           {
             path: 'word-ladder',
             loadComponent: () =>
-              import("./screens/games/word-ladder/word-ladder.component").then(
+              import('./screens/games/word-ladder/word-ladder.component').then(
                 (m) => m.WordLadderComponent,
               ),
           },
-        ]
+        ],
       },
       {
         path: 'tools',
@@ -101,12 +122,18 @@ export const routes: Routes = [
           {
             path: 'dev-tools/json-beautifier',
             data: { tool: 'json' },
-            loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+            loadComponent: () =>
+              import('./screens/tools/dev-tools/dev-tool.component').then(
+                (m) => m.DevToolComponent,
+              ),
           },
           {
             path: 'dev-tools/jwt-decoder',
             data: { tool: 'jwt' },
-            loadComponent: () => import('./screens/tools/dev-tools/dev-tool.component').then(m => m.DevToolComponent),
+            loadComponent: () =>
+              import('./screens/tools/dev-tools/dev-tool.component').then(
+                (m) => m.DevToolComponent,
+              ),
           },
         ],
       },
@@ -118,6 +145,6 @@ export const routes: Routes = [
         path: 'services/:service',
         component: ServiceDetailComponent,
       },
-    ]
-  }
+    ],
+  },
 ];

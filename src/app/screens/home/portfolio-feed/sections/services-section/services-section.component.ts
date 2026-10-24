@@ -4,7 +4,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerDeviceDesktop, tablerGlobe, tablerPencil, tablerPlugConnected } from '@ng-icons/tabler-icons';
 import { SectionComponent } from 'src/app/components/section/section.component';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
-import { TranslateService } from 'src/app/service/translate.service';
+import { TranslationInitializer } from 'src/app/service/translation.initializer';
 
 @Component({
     selector: 'app-services-section',
@@ -25,9 +25,9 @@ import { TranslateService } from 'src/app/service/translate.service';
     ]
 })
 export class ServicesSectionComponent {
-  private translateService = inject(TranslateService);
+  private translationInitializer = inject(TranslationInitializer);
 
   get lang(): string | null {
-    return this.translateService.currentLang;
+    return this.translationInitializer.currentLang;
   }
 }

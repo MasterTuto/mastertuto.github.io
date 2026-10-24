@@ -15,7 +15,7 @@ import {
 
 import { sections, serviceLinks } from 'src/app/data/sections.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
-import { TranslateService } from 'src/app/service/translate.service';
+import { TranslationInitializer } from 'src/app/service/translation.initializer';
 import { createWhatsAppLink } from 'src/app/utils/html';
 
 @Component({
@@ -32,16 +32,12 @@ import { createWhatsAppLink } from 'src/app/utils/html';
       tablerMail,
       tablerMessageCircle,
       tablerRoute,
-    })
+    }),
   ],
-  imports: [
-    NgIconComponent,
-    RouterLink,
-    TranslatePipe,
-  ]
+  imports: [NgIconComponent, RouterLink, TranslatePipe],
 })
 export class FooterComponent {
-  private translateService = inject(TranslateService);
+  private translationInitializer = inject(TranslationInitializer);
 
   currentYear = new Date().getFullYear();
   navItems = sections;
@@ -49,8 +45,9 @@ export class FooterComponent {
   whatsappLink = createWhatsAppLink();
 
   get lang(): string | null {
-    return this.translateService.currentLang;
+    return this.translationInitializer.currentLang;
   }
+
   featureCards = [
     {
       icon: 'tablerMessageCircle',

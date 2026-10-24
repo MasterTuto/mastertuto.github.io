@@ -1,0 +1,20 @@
+:host { display: block; color: #26303b; font-family: Inter, system-ui, sans-serif; }
+.industry-page { max-width: 1180px; margin-inline: auto; }
+a { text-decoration: none; color: inherit; } a:hover { color: #6259ac; } a:focus-visible { outline: 2px solid #6259ac; outline-offset: 5px; }
+nav, footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 24px; font-size: 13px; }
+nav > a:first-child { font-size: 24px; font-weight: 700; letter-spacing: -.07em; }.brand-dot { color: #7a70e1; }
+.back { display: inline-block; margin-top: 24px; color: #596373; font-size: 12px; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 32px; font-size: 12px; }
+.cta { display: inline-flex; align-items: center; justify-content: center; background: #253242; color: #fff; padding: 15px 22px; min-height: 48px; border-radius: 4px; font-size: 13px; line-height: 1.5; transition: background 150ms; }.cta:hover { background: #45416a; color: white; }
+app-text-section .cta { margin-top: 24px; }
+.context-line { display: flex; justify-content: space-between; gap: 20px; padding-block: 22px; border-block: 1px solid #d4d7da; font-size: 11px; color: #66707a; }
+.needs-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 8%; }
+#necessidades { scroll-margin-top: 70px; }
+.research { padding-block: 24px 48px; font-size: 12px; line-height: 1.8; color: #596373; }.research a { text-decoration: underline; text-underline-offset: 3px; }
+.more { padding-block: 64px; }.more h2 { font-size: 24px; letter-spacing: -.025em; }
+.profession-links { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-top: 28px; font-size: 13px; }
+footer { border-top: 1px solid #d4d7da; padding-block: 32px 80px; }
+.directory a { display: grid; grid-template-columns: 32px 1fr 1.3fr 24px; align-items: baseline; gap: 24px; border-top: 1px solid #d4d7da; padding-block: 30px; }
+.directory h2 { font-size: 25px; letter-spacing: -.03em; font-weight: 500; }.directory p { font-size: 14px; line-height: 1.8; color: #596373; }.index { color: #787388; font-size: 12px; }
+@media(max-width: 700px) { .needs-columns { grid-template-columns: 1fr; gap: 0; }.context-line { flex-wrap: wrap; }.context-line span:last-child { display: none; }.directory a { grid-template-columns: 24px 1fr 20px; gap: 12px; }.directory p { grid-column: 2; grid-row: 2; }.directory a > span:last-child { grid-column: 3; grid-row: 1; } footer { align-items: flex-start; flex-direction: column; } }
+@media(prefers-reduced-motion: reduce) { .cta { transition: none; } }

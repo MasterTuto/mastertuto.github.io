@@ -4,6 +4,7 @@ import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PosthogService } from './service/posthog.service';
+import { CommandPalleteComponent } from './components/command-pallete/command-pallete.component';
 
 registerLocaleData(localePT);
 
@@ -12,7 +13,8 @@ registerLocaleData(localePT);
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     imports: [
-      RouterModule
+      RouterModule,
+      CommandPalleteComponent
     ]
 })
 export class AppComponent {

@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
-import { TranslateService } from "src/app/service/translate.service";
+import { TranslationInitializer } from "src/app/service/translation.initializer";
 import { generateSeed } from "src/app/utils/generate-seed";
 import { generateSudoku } from "src/app/utils/sudoku-puzzle";
 import type { SudokuPuzzle } from "src/app/utils/sudoku-puzzle";
@@ -34,7 +34,7 @@ interface HistoryEntry {
 })
 export class SudokuComponent {
   private platformId = inject(PLATFORM_ID);
-  private translateService = inject(TranslateService);
+  private translationInitializer = inject(TranslationInitializer);
 
   sizes = [4, 6, 9];
   difficulties = [0, 1, 2];
@@ -53,7 +53,7 @@ export class SudokuComponent {
   private history: HistoryEntry[][] = [];
 
   get lang(): string | null {
-    return this.translateService.currentLang;
+    return this.translationInitializer.currentLang;
   }
 
   get digits(): number[] {
