@@ -1,54 +1,126 @@
 <section class="catalog-page">
   <header class="catalog-page-header">
-    <p class="catalog-eyebrow">{{ 'tools.label' | translate }}</p>
     <h1>{{ 'catalog.toolsTitle' | translate }}</h1>
     <p>{{ 'catalog.toolsIntro' | translate }}</p>
   </header>
 
   @if (!isDevTools) {
-    <section lang="pt-BR" aria-labelledby="invoice-heading" class="mb-12">
-      <a [routerLink]="'tools/' + invoice.slug | langLink" class="group relative flex flex-col gap-4 overflow-hidden rounded-3xl bg-primary p-6 text-primary-foreground shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground-emphasis sm:flex-row sm:items-center sm:p-8">
-        <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/10 text-3xl"><ng-icon [name]="invoice.icon" /></span>
-        <span class="flex-1">
-          <span class="text-xs font-semibold uppercase tracking-widest text-[#b3acf5]">Especial · {{ invoice.audience }}</span>
-          <h2 id="invoice-heading" class="mt-1 text-2xl font-semibold">{{ invoice.name }}</h2>
-          <span class="mt-2 block max-w-[62ch] text-sm leading-relaxed text-primary-foreground/75">{{ invoice.description }}</span>
-        </span>
-        <span class="inline-flex shrink-0 items-center gap-2 self-start rounded-xl bg-primary-foreground px-4 py-2.5 text-sm font-semibold text-primary sm:self-center">Criar invoice <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span></span>
-      </a>
-    </section>
-
-    <section lang="pt-BR" aria-labelledby="pro-tools-heading" class="mb-12">
-      <h2 id="pro-tools-heading" class="mb-2 text-2xl font-semibold">Calculadoras para profissionais</h2>
-      <p class="mb-6 max-w-[70ch] text-foreground-light">Ferramentas grátis para o dia a dia de cada profissão: poucos campos, valores comuns a um toque e resultado na hora, no celular ou no computador.</p>
-      <div class="catalog-cards">
-        @for (tool of proTools; track tool.slug) {
-          <a [routerLink]="'tools/' + tool.slug | langLink" class="catalog-card">
-            <span class="catalog-card-icon"><ng-icon [name]="tool.icon" /></span>
-            <span class="text-xs font-semibold uppercase tracking-wider text-foreground-emphasis">{{ tool.audience }}</span>
-            <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
-            <p>{{ tool.description }}</p>
-            <span class="catalog-card-action">Calcular <span aria-hidden="true">→</span></span>
-          </a>
+    <!-- Invoice generator: open split with a stack of paper previews instead of a card. -->
+    <section lang="pt-BR" aria-labelledby="invoice-heading" class="grid items-center gap-10 border-y border-foreground/10 py-10 md:grid-cols-[1.1fr_1fr] md:py-14">
+      <div class="flex flex-col gap-5">
+        <h2 id="invoice-heading" class="font-title text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+          {{ invoice.name }}<span class="text-foreground-emphasis">.</span>
+        </h2>
+        <p class="max-w-[52ch] leading-relaxed text-foreground-light">{{ invoice.description }}</p>
+        <p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-foreground">
+          @for (step of invoice.asks; track step; let last = $last) {
+            <span>{{ step }}</span><span aria-hidden="true" class="text-foreground-light">{{ last ? '⟶' : '→' }}</span>
+          }
+          @for (format of invoice.gives; track format) {
+            <span class="rounded-md bg-foreground/[.06] px-1.5 py-0.5 font-mono text-xs font-semibold">{{ format }}</span>
+          }
+        </p>
+        <a [routerLink]="'tools/' + invoice.slug | langLink" class="group mt-1 inline-flex w-fit items-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90">
+          Criar minha invoice
+          <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span>
+        </a>
+      </div>
+      <div aria-hidden="true" class="relative mx-auto h-[260px] w-full max-w-[380px] sm:h-[300px]">
+        @for (paper of papers; track paper.accent; let i = $index) {
+          <div
+            class="absolute top-0 flex aspect-[1/1.414] w-[54%] flex-col gap-2 rounded-md bg-white p-3 shadow-[0_18px_40px_-18px_rgb(21_28_37/.45)] ring-1 ring-black/5"
+            [style.left.%]="i * 21"
+            [style.top.px]="i === 1 ? 0 : 22"
+            [style.transform]="'rotate(' + paper.tilt + 'deg)'"
+            [style.z-index]="i === 1 ? 3 : 1"
+          >
+            <div class="h-2 w-1/2 rounded-full" [style.background]="paper.accent"></div>
+            <div class="h-1 w-1/3 rounded-full bg-black/10"></div>
+            <div class="mt-2 grid gap-1">
+              @for (row of [1, 2, 3, 4]; track row) {
+                <div class="flex justify-between"><span class="h-1 w-2/5 rounded-full bg-black/10"></span><span class="h-1 w-1/6 rounded-full bg-black/15"></span></div>
+              }
+            </div>
+            <div class="mt-auto flex items-end justify-between">
+              <span class="h-1 w-1/4 rounded-full bg-black/10"></span>
+              <span class="h-3 w-1/3 rounded-sm" [style.background]="paper.accent"></span>
+            </div>
+          </div>
         }
       </div>
     </section>
+
+    <!-- Calculators: one tab per profession, the panel says what you type and what you get. -->
+    <section lang="pt-BR" aria-labelledby="pro-tools-heading" class="py-12">
+      <h2 id="pro-tools-heading" class="font-title text-2xl font-semibold text-foreground sm:text-3xl">Calculadoras por profissão</h2>
+      <p class="mt-2 max-w-[62ch] text-foreground-light">Poucos campos, valores comuns a um toque e o resultado enquanto você digita.</p>
+
+      <div role="tablist" aria-label="Profissões" class="mt-8 flex gap-1 overflow-x-auto border-b border-foreground/10 [scrollbar-width:none]" (keydown)="onTabKey($event)">
+        @for (tool of proTools; track tool.slug; let i = $index) {
+          <button
+            type="button"
+            role="tab"
+            [id]="'tab-' + tool.slug"
+            [attr.aria-selected]="active() === i"
+            [attr.aria-controls]="'panel-' + tool.slug"
+            [tabIndex]="active() === i ? 0 : -1"
+            (click)="active.set(i)"
+            class="-mb-px flex min-h-[48px] shrink-0 items-center gap-2 border-b-2 px-3 text-sm font-semibold transition-colors"
+            [class.border-foreground-emphasis]="active() === i"
+            [class.text-foreground]="active() === i"
+            [class.border-transparent]="active() !== i"
+            [class.text-foreground-light]="active() !== i"
+          >
+            <ng-icon [name]="tool.icon" class="text-lg" />
+            {{ tool.audience }}
+          </button>
+        }
+      </div>
+
+      @for (tool of proTools; track tool.slug; let i = $index) {
+        <div
+          role="tabpanel"
+          [id]="'panel-' + tool.slug"
+          [attr.aria-labelledby]="'tab-' + tool.slug"
+          [hidden]="active() !== i"
+          class="grid gap-8 pt-8 md:grid-cols-[1.3fr_1fr] md:gap-12"
+        >
+          <div class="flex flex-col gap-4">
+            <h3 class="text-2xl font-semibold leading-snug text-foreground">{{ tool.name }}</h3>
+            <p class="max-w-[58ch] leading-relaxed text-foreground-light">{{ tool.description }}</p>
+            <a [routerLink]="'tools/' + tool.slug | langLink" class="group inline-flex w-fit items-center gap-2 font-semibold text-foreground-emphasis">
+              Abrir a calculadora
+              <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span>
+            </a>
+          </div>
+          <dl class="grid grid-cols-[auto_1fr] gap-x-6 self-start text-sm">
+            <dt class="border-t border-foreground/10 py-3 text-foreground-light">Você informa</dt>
+            <dd class="border-t border-foreground/10 py-3 font-medium text-foreground">{{ tool.asks.join(' · ') }}</dd>
+            <dt class="border-y border-foreground/10 py-3 text-foreground-light">Você recebe</dt>
+            <dd class="border-y border-foreground/10 py-3 font-semibold text-foreground">{{ tool.gives.join(' · ') }}</dd>
+          </dl>
+        </div>
+      }
+    </section>
   }
 
-  <section lang="en" aria-labelledby="dev-tools-heading">
-    <h2 id="dev-tools-heading" class="text-2xl font-semibold mb-4">Dev Tools</h2>
-    <p class="text-foreground-light mb-6">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
-    <div class="catalog-cards">
+  <!-- Developer tools: ruled index rows. -->
+  <section lang="en" aria-labelledby="dev-tools-heading" [class.pt-4]="!isDevTools">
+    <h2 id="dev-tools-heading" class="font-title text-2xl font-semibold text-foreground sm:text-3xl">Dev Tools</h2>
+    <p class="mt-2 max-w-[62ch] text-foreground-light">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
+    <ul class="mt-6 border-t border-foreground/10">
       @for (tool of tools; track tool.slug) {
-        <a [routerLink]="'tools/dev-tools/' + tool.slug | langLink" class="catalog-card">
-          <span class="catalog-card-icon"><ng-icon name="tablerTools" /></span>
-          <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
-          <p>{{ tool.description }}</p>
-          <span class="catalog-card-action">Open {{ tool.keyword }} <span aria-hidden="true">→</span></span>
-        </a>
+        <li class="border-b border-foreground/10">
+          <a [routerLink]="'tools/dev-tools/' + tool.slug | langLink" class="group grid gap-1 py-5 sm:grid-cols-[minmax(180px,1fr)_2fr_auto] sm:items-baseline sm:gap-6">
+            <h3 class="font-mono text-base font-semibold text-foreground">{{ tool.name }}</h3>
+            <p class="text-sm leading-relaxed text-foreground-light">{{ tool.description }}</p>
+            <span aria-hidden="true" class="hidden text-foreground-emphasis transition group-hover:translate-x-1 sm:block">→</span>
+          </a>
+        </li>
       }
-    </div>
+    </ul>
   </section>
+
   <section class="catalog-info">
     <h2>{{ 'catalog.toolsHeading' | translate }}</h2>
     <p>{{ 'catalog.toolsText' | translate }}</p>

@@ -1,5 +1,5 @@
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   tablerAirConditioning,
@@ -31,6 +31,30 @@ export class ToolsComponent {
   readonly proTools = proTools;
   readonly invoice = invoiceTool;
   readonly isDevTools = inject(ActivatedRoute).snapshot.routeConfig?.path === 'dev-tools';
+  /** Selected profession tab. */
+  readonly active = signal(0);
+  /** Three invoice sheets in different template colors for the illustration. */
+  readonly papers = [
+    { accent: '#7a70e1', tilt: -7 },
+    { accent: '#151c25', tilt: 0 },
+    { accent: '#e0844a', tilt: 7 },
+  ];
+
+  /** Arrow keys, Home and End move between tabs (WAI-ARIA tabs pattern). */
+  onTabKey(event: KeyboardEvent): void {
+    const last = this.proTools.length - 1;
+    const current = this.active();
+    const next =
+      event.key === 'ArrowRight' ? (current === last ? 0 : current + 1)
+      : event.key === 'ArrowLeft' ? (current === 0 ? last : current - 1)
+      : event.key === 'Home' ? 0
+      : event.key === 'End' ? last
+      : null;
+    if (next === null) return;
+    event.preventDefault();
+    this.active.set(next);
+    (event.currentTarget as HTMLElement).querySelectorAll<HTMLElement>('[role=tab]')[next]?.focus();
+  }
 
   constructor() {
     const translate = inject(TranslateService);

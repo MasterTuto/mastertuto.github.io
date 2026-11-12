@@ -1,19 +1,29 @@
 <section class="catalog-page">
   <header class="catalog-page-header">
-    <p class="catalog-eyebrow">{{ 'games.label' | translate }}</p>
     <h1>{{ 'catalog.gamesTitle' | translate }}</h1>
     <p>{{ 'catalog.gamesIntro' | translate }}</p>
   </header>
-  <div class="catalog-cards">
-    @for (game of games; track game.route) {
-      <a [routerLink]="[game.route]" class="catalog-card">
-        <span class="catalog-card-icon"><ng-icon [name]="game.icon" /></span>
-        <h2>{{ game.nameKey | translate }}</h2>
-        <p>{{ game.descriptionKey | translate }}</p>
-        <span class="catalog-card-action">{{ 'games.play' | translate }} <span aria-hidden="true">→</span></span>
-      </a>
+
+  <!-- A ruled index: number, a tiny drawing of the board, name and one line, then "play". -->
+  <ol class="border-t border-foreground/10">
+    @for (game of games; track game.route; let i = $index) {
+      <li class="border-b border-foreground/10">
+        <a [routerLink]="[game.route]" class="group grid grid-cols-[3.25rem_1fr_auto] items-center gap-4 py-5 transition-colors sm:grid-cols-[2.5rem_4rem_minmax(0,1fr)_auto] sm:gap-6">
+          <span class="hidden font-mono text-sm text-foreground-light sm:block">{{ (i + 1).toString().padStart(2, '0') }}</span>
+          <app-game-glyph [route]="game.route" class="size-[3.25rem] transition-transform duration-200 group-hover:-rotate-3 group-hover:scale-105 sm:size-16" />
+          <div class="flex min-w-0 flex-col gap-1">
+            <h2 class="text-lg font-semibold text-foreground transition-colors group-hover:text-foreground-emphasis sm:text-xl">{{ game.nameKey | translate }}</h2>
+            <p class="text-sm leading-relaxed text-foreground-light">{{ game.descriptionKey | translate }}</p>
+          </div>
+          <span class="flex items-center gap-2 text-sm font-semibold text-foreground-emphasis">
+            <span class="hidden sm:inline">{{ 'games.play' | translate }}</span>
+            <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        </a>
+      </li>
     }
-  </div>
+  </ol>
+
   <section class="catalog-info">
     <h2>{{ 'catalog.gamesHeading' | translate }}</h2>
     <p>{{ 'catalog.gamesText' | translate }}</p>
