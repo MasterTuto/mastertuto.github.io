@@ -132,7 +132,7 @@ const FAQ: FaqItem[] = [
             <div class="f">
               <span class="pro-label" id="wg-system">Sistema</span>
               <div class="min-w-0">
-                <div class="pro-chips" role="group" aria-labelledby="wg-system">
+                <div class="pro-chips sm:flex-wrap sm:overflow-visible" role="group" aria-labelledby="wg-system">
                   @for (s of systems; track s.id) {
                     <button type="button" class="pro-chip" [attr.aria-pressed]="system() === s.id" (click)="system.set(s.id)">{{ s.label }}</button>
                   }
@@ -172,7 +172,7 @@ const FAQ: FaqItem[] = [
                   }
                 </div>
                 @if (mode() === 'power') {
-                  <div class="pro-chips mt-2" role="group" aria-label="Cargas típicas">
+                  <div class="pro-chips mt-2 sm:flex-wrap sm:overflow-visible" role="group" aria-label="Cargas típicas">
                     @for (load of loads; track load.label) {
                       <button type="button" class="pro-chip" [attr.aria-pressed]="isLoad(load)" (click)="pickLoad(load)">{{ load.label }}</button>
                     }
