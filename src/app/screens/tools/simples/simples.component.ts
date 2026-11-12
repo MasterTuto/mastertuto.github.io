@@ -28,9 +28,9 @@ const CHOICES: { id: Choice; label: string; short: string; hint: string }[] = [
   { id: 'I', label: 'I', short: 'Comércio', hint: 'Anexo I · comércio e revenda de mercadorias.' },
   { id: 'II', label: 'II', short: 'Indústria', hint: 'Anexo II · fabricação e industrialização.' },
   { id: 'III', label: 'III', short: 'Serviços', hint: 'Anexo III · serviços fixos no anexo, como manutenção, agências de viagem, academias, contabilidade e locação de bens móveis.' },
-  { id: 'IV', label: 'IV', short: 'Obras, limpeza, advocacia', hint: 'Anexo IV · construção civil, vigilância, limpeza e advocacia. A CPP (20% sobre a folha) é paga fora do DAS.' },
+  { id: 'IV', label: 'IV', short: 'Obras e limpeza', hint: 'Anexo IV · construção civil, vigilância, limpeza e advocacia. A CPP (20% sobre a folha) é paga fora do DAS.' },
   { id: 'V', label: 'V', short: 'Serviços', hint: 'Anexo V · serviços fixos no Anexo V, como auditoria, jornalismo e publicidade.' },
-  { id: 'R', label: 'III ou V', short: 'Fator R', hint: 'Atividades do art. 18, § 5º-J e § 5º-M: medicina, odontologia, engenharia, arquitetura, TI, consultoria, representação comercial e outras. Fator R ≥ 28% → Anexo III; abaixo disso → Anexo V.' },
+  { id: 'R', label: 'III ou V', short: 'Fator R', hint: 'Medicina, odontologia, engenharia, arquitetura, TI, consultoria e outras do art. 18, §§ 5º-J e 5º-M. Fator R ≥ 28% → Anexo III; abaixo → Anexo V.' },
 ];
 
 const DEFAULTS = {
@@ -88,7 +88,7 @@ const FAQ: FaqItem[] = [
     .step output { min-width: 2.25rem; text-align: center; font-weight: 650; font-variant-numeric: tabular-nums; }
     .money .pro-input { padding-left: 2.6rem; padding-right: .9rem; }
     .money > span { position: absolute; left: .9rem; pointer-events: none; color: #8e9095; font-size: .9rem; font-weight: 550; }
-    .anx { display: flex; flex-direction: column; align-items: flex-start; min-height: 52px; line-height: 1.15; border-radius: .9rem; }
+    .anx { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 52px; padding-inline: .4rem; line-height: 1.15; border-radius: .9rem; }
     .anx small { font-weight: 450; font-size: .72rem; opacity: .75; }
     tr.on td { background: rgb(122 112 225 / .1); font-weight: 650; }
     details > summary::-webkit-details-marker { display: none; }
@@ -120,7 +120,7 @@ const FAQ: FaqItem[] = [
             <div class="f">
               <span class="pro-label" id="sn-annex">Anexo</span>
               <div class="min-w-0">
-                <div class="pro-chips" role="group" aria-labelledby="sn-annex">
+                <div class="grid grid-cols-3 gap-2 sm:grid-cols-6" role="group" aria-labelledby="sn-annex">
                   @for (c of choices; track c.id) {
                     <button type="button" class="pro-chip anx" [attr.aria-pressed]="choice() === c.id" (click)="choice.set(c.id)">
                       {{ c.label }} <small>{{ c.short }}</small>
@@ -156,7 +156,7 @@ const FAQ: FaqItem[] = [
                   <label class="pro-label" for="sn-prev">Receita desses {{ months() }} {{ months() === 1 ? 'mês' : 'meses' }}</label>
                   <div class="pro-input-wrap money">
                     <span>R$</span>
-                    <input id="sn-prev" class="pro-input" inputmode="decimal" autocomplete="off" [value]="previous()" (input)="onMoney(previous, $event)" (focus)="select($event)" />
+                    <input id="sn-prev" class="pro-input" inputmode="decimal" autocomplete="off" [value]="previous()" (input)="onMoney(previous, $event)" (blur)="tidy(previous)" (focus)="select($event)" />
                   </div>
                 </div>
               }
@@ -166,7 +166,7 @@ const FAQ: FaqItem[] = [
                 <div class="min-w-0">
                   <div class="pro-input-wrap money">
                     <span>R$</span>
-                    <input id="sn-rbt" class="pro-input" inputmode="decimal" autocomplete="off" [value]="rbt12()" (input)="onMoney(rbt12, $event)" (focus)="select($event)"
+                    <input id="sn-rbt" class="pro-input" inputmode="decimal" autocomplete="off" [value]="rbt12()" (input)="onMoney(rbt12, $event)" (blur)="tidy(rbt12)" (focus)="select($event)"
                       [attr.aria-invalid]="rbtValue() > limit" aria-describedby="sn-rbt-hint" />
                   </div>
                   <p id="sn-rbt-hint" class="pro-hint mt-1.5">Sem contar o mês que está sendo apurado.</p>
@@ -179,7 +179,7 @@ const FAQ: FaqItem[] = [
               <div class="min-w-0">
                 <div class="pro-input-wrap money">
                   <span>R$</span>
-                  <input id="sn-month" class="pro-input" inputmode="decimal" autocomplete="off" [value]="revenue()" (input)="onMoney(revenue, $event)" (focus)="select($event)" />
+                  <input id="sn-month" class="pro-input" inputmode="decimal" autocomplete="off" [value]="revenue()" (input)="onMoney(revenue, $event)" (blur)="tidy(revenue)" (focus)="select($event)" />
                 </div>
                 @if (!young() && rbtValue() > 0) {
                   <div class="pro-chips mt-2">
@@ -200,7 +200,7 @@ const FAQ: FaqItem[] = [
                 <div class="min-w-0">
                   <div class="pro-input-wrap money">
                     <span>R$</span>
-                    <input id="sn-payroll" class="pro-input" inputmode="decimal" autocomplete="off" [value]="payroll()" (input)="onMoney(payroll, $event)" (focus)="select($event)" />
+                    <input id="sn-payroll" class="pro-input" inputmode="decimal" autocomplete="off" [value]="payroll()" (input)="onMoney(payroll, $event)" (blur)="tidy(payroll)" (focus)="select($event)" />
                   </div>
                   @if (factor(); as f) {
                     <div class="mt-3" aria-hidden="true">
@@ -213,7 +213,7 @@ const FAQ: FaqItem[] = [
                     <p class="mt-1 text-sm text-foreground">
                       Fator R <strong class="tabular-nums">{{ pct(f.value) }}</strong> →
                       <strong>{{ f.annex === 'III' ? 'Anexo III' : 'Anexo V' }}</strong>
-                      @if (f.annex === 'V') { <span class="text-foreground-light">· faltam {{ money(f.missing) }} de folha em 12 meses</span> }
+                      @if (f.annex === 'V') { <span class="text-foreground-light"> · faltam {{ money(f.missing) }} de folha em 12 meses</span> }
                     </p>
                   }
                 </div>
@@ -534,9 +534,20 @@ export class SimplesCalculatorComponent {
     target.set(formatted);
   }
 
+  /** Selects the field on focus so typing replaces it, unless the user already started typing. */
+  /** On blur, completes the cents ("1.234,5" → "1.234,50"). */
+  tidy(target: WritableSignal<string>): void {
+    const value = parseMoney(target());
+    if (Number.isFinite(value)) target.set(moneyField(value));
+  }
+
+  /** Selects the field on focus so typing replaces it, unless the user already started typing. */
   select(event: Event): void {
     const el = event.target as HTMLInputElement;
-    setTimeout(() => el.select());
+    const value = el.value;
+    setTimeout(() => {
+      if (el.ownerDocument.activeElement === el && el.value === value) el.select();
+    });
   }
 
   clamp(value: number, min: number, max: number): number {

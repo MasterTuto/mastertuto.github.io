@@ -72,8 +72,8 @@
       <!-- The ladder: every row has a fixed height and the input never changes place. -->
       <div class="mx-auto w-full max-w-sm select-none">
         <!-- Start -->
-        <div class="grid h-12 grid-cols-[4rem_1fr] items-center">
-          <span class="text-xs font-medium text-foreground-emphasis">{{ "wordLadder.start" | translate }}</span>
+        <div class="grid h-12 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
+          <span class="text-[11px] font-medium leading-tight text-foreground-emphasis">{{ "wordLadder.start" | translate }}</span>
           <div class="flex justify-center gap-1">
             @for (ch of letters(puzzle()?.start ?? "····"); track $index) {
               <span class="grid h-10 w-10 place-items-center rounded-lg bg-foreground-emphasis text-xl font-bold text-white">{{ ch }}</span>
@@ -91,7 +91,7 @@
           <div class="flex min-h-full flex-col justify-end gap-1 py-1">
             @for (word of chainWords(); track $index; let i = $index) {
               @let changed = changedIndex(i + 1);
-              <div role="listitem" class="grid h-10 shrink-0 grid-cols-[4rem_1fr] items-center" [class.wl-word-enter]="i === chainWords().length - 1 && status() === 'playing'">
+              <div role="listitem" class="grid h-10 shrink-0 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center" [class.wl-word-enter]="i === chainWords().length - 1 && status() === 'playing'">
                 <span class="text-xs tabular-nums text-foreground-light">{{ i + 1 }}</span>
                 <div class="flex justify-center gap-1">
                   @for (ch of letters(word); track $index; let k = $index) {
@@ -109,7 +109,7 @@
         </div>
 
         <!-- Current move (input) or the reached target: same 52px row -->
-        <div class="grid h-[52px] grid-cols-[4rem_1fr] items-center">
+        <div class="grid h-[52px] grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
           <label for="wl-move-input" class="text-xs font-medium text-foreground">
             @if (status() === "won") { ✓ } @else { {{ moves + 1 }} }
           </label>
@@ -120,7 +120,7 @@
               }
             </div>
           } @else {
-            <form (ngSubmit)="submitMove()" novalidate id="wl-move-form" class="flex h-11 items-stretch gap-1.5">
+            <form (ngSubmit)="submitMove()" novalidate id="wl-move-form" class="contents">
               @let tick = errorTick();
               <input
                 #moveInput
@@ -140,7 +140,7 @@
                 (input)="onGuessInput($event)"
                 (focus)="onInputFocus()"
                 [disabled]="status() !== 'playing'"
-                class="min-w-0 flex-1 rounded-xl bg-surface px-3 text-center text-xl font-bold uppercase tracking-[0.4em] text-foreground caret-foreground-emphasis outline-none ring-2 transition-shadow placeholder:font-semibold placeholder:tracking-[0.3em] placeholder:text-foreground-light/50 focus:ring-foreground-emphasis"
+                class="h-11 w-full min-w-0 rounded-xl bg-surface px-2 text-center text-xl font-bold uppercase tracking-[0.4em] text-foreground caret-foreground-emphasis outline-none ring-2 transition-shadow placeholder:font-semibold placeholder:tracking-[0.3em] placeholder:text-foreground-light/50 focus:ring-foreground-emphasis"
                 [class]="error() ? 'ring-red-500 ' + (tick % 2 ? 'wl-shake' : 'wl-shake-b') : 'ring-foreground/15'"
                 placeholder="{{ 'wordLadder.input-placeholder' | translate }}"
               />
@@ -148,7 +148,7 @@
                 type="submit"
                 (mousedown)="$event.preventDefault()"
                 [attr.aria-label]="'wordLadder.submit' | translate"
-                class="inline-flex w-14 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground transition hover:opacity-90"
+                class="ml-1.5 inline-flex h-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition hover:opacity-90"
               >
                 <ng-icon name="tablerCornerDownLeft" size="20" aria-hidden="true" />
               </button>
@@ -174,8 +174,8 @@
         </p>
 
         <!-- Target -->
-        <div class="grid h-12 grid-cols-[4rem_1fr] items-center">
-          <span class="text-xs font-medium" [class]="status() === 'won' ? 'text-green-700' : 'text-amber-700'">{{ "wordLadder.target" | translate }}</span>
+        <div class="grid h-12 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
+          <span class="text-[11px] font-medium leading-tight" [class]="status() === 'won' ? 'text-green-700' : 'text-amber-700'">{{ "wordLadder.target" | translate }}</span>
           <div class="flex justify-center gap-1">
             @for (ch of letters(puzzle()?.target ?? "····"); track $index) {
               <span

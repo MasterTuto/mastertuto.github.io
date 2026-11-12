@@ -118,12 +118,12 @@ const FAQ: FaqItem[] = [
               <span class="pro-label" id="dl-kind">A data é da</span>
               <div class="pro-segmented" role="group" aria-labelledby="dl-kind">
                 <button type="button" [attr.aria-pressed]="!dje()" (click)="dje.set(false)">Intimação</button>
-                <button type="button" [attr.aria-pressed]="dje()" (click)="dje.set(true)">Disponibilização no DJe</button>
+                <button type="button" [attr.aria-pressed]="dje()" (click)="dje.set(true)">DJe</button>
               </div>
             </div>
 
             <div class="f">
-              <label class="pro-label" for="dl-date">{{ dje() ? 'Disponibilização' : 'Intimação' }} <small class="sm:hidden">dd/mm/aaaa</small></label>
+              <label class="pro-label" for="dl-date">{{ dje() ? 'Disponibilização no DJe' : 'Intimação' }} <small class="sm:hidden">dd/mm/aaaa</small></label>
               <div class="min-w-0">
                 <div class="flex items-center gap-2">
                   <div class="pro-input-wrap min-w-0 flex-1 sm:max-w-[13rem]">
@@ -248,7 +248,7 @@ const FAQ: FaqItem[] = [
             </div>
             <p class="pro-result-main">{{ br(r.end) }}</p>
             <p class="pro-result-sub">
-              <span class="capitalize">{{ weekday(r.end) }}</span> · {{ status()?.long }}
+              {{ cap(weekday(r.end)) }} · {{ status()?.long }}
             </p>
             <dl class="pro-result-list">
               <div><dt>{{ dje() ? 'Disponibilização' : 'Intimação' }}</dt><dd>{{ br(r.start) }}</dd></div>
@@ -283,7 +283,7 @@ const FAQ: FaqItem[] = [
             <summary class="flex min-h-[52px] cursor-pointer list-none items-center justify-between gap-3">
               <span class="font-semibold text-foreground">Contagem dia a dia</span>
               <span class="text-sm text-foreground-light">
-                {{ r.timeline.length }} dias no calendário
+                {{ r.total }} contados · {{ r.end - r.firstCounted + 1 }} no calendário
                 <span class="ml-1 inline-block transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
               </span>
             </summary>
@@ -497,7 +497,7 @@ export class DeadlineCalculatorComponent {
     const holidays = r.skipped.filter((s) => s.day >= r.firstCounted && !counted.has(s.day)).length;
     const recess = r.timeline.some((t) => t.kind === 'recess' || t.kind === 'suspended');
     return [
-      weekends ? `${weekends} de fim de semana` : '',
+      weekends ? `${weekends} em fins de semana` : '',
       holidays ? `${holidays} ${holidays === 1 ? 'feriado' : 'feriados'}` : '',
       recess ? 'recesso' : '',
     ]
@@ -550,9 +550,13 @@ export class DeadlineCalculatorComponent {
     return (event.target as HTMLInputElement).value;
   }
 
+  /** Selects the field on focus so typing replaces it, unless the user already started typing. */
   select(event: Event): void {
     const el = event.target as HTMLInputElement;
-    setTimeout(() => el.select());
+    const value = el.value;
+    setTimeout(() => {
+      if (el.ownerDocument.activeElement === el && el.value === value) el.select();
+    });
   }
 
   br(day: DayNum): string {
@@ -565,6 +569,10 @@ export class DeadlineCalculatorComponent {
 
   short(day: DayNum): string {
     return weekdayShort(day);
+  }
+
+  cap(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 
   weekday(day: DayNum): string {
