@@ -239,3 +239,6 @@ input:focus-visible {
         transition: none;
     }
 }
+@media (max-width: 640px) {
+    :host(.on-workspace) .command-anchor:not(:has(.palette)) { display: none; }
+}
