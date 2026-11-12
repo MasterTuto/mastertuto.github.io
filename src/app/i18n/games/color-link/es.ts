@@ -1,11 +1,65 @@
 import type { ColorLinkStrings } from './en';
 
-/** Color Link strings (es). TODO(agent): translate every placeholder below. */
+/** Color Link strings (es). */
 export const colorLink: ColorLinkStrings = {
-  name: "Une los colores",
-  description: 'TODO',
+  name: "Color Link",
+  description: 'Une cada par de puntos del mismo color con un camino y llena toda la cuadrícula: un rompecabezas de lógica relajante con reto diario.',
   seo: {
-    title: 'TODO',
-    description: 'TODO',
+    title: 'Color Link: juego de unir puntos gratis online',
+    description: 'Traza caminos para unir cada par de puntos de color sin cruces y llena todas las casillas. Reto diario gratis en 5×5, 7×7 y 9×9, ideal para el móvil.',
+  },
+  size: 'Tamaño del tablero',
+  mode: 'Reto',
+  daily: 'Diario',
+  random: 'Aleatorio',
+  newPuzzle: 'Nuevo reto',
+  undo: 'Deshacer',
+  reset: 'Borrar',
+  filled: 'Lleno',
+  pairs: 'Pares',
+  loading: 'Cargando el reto…',
+  boardLabel: 'Tablero de Color Link',
+  keyboardHint: 'Teclado: las flechas mueven, Espacio o Intro toma y suelta un color, Ctrl+Z deshace.',
+  status: {
+    drag: 'Arrastra desde un punto hasta su pareja. Vuelve por el camino para borrar un tramo.',
+    fill: 'Todos los pares están unidos. Ahora ajusta los caminos para que no quede ninguna casilla vacía.',
+    solved: '¡Resuelto! Todos los pares unidos y todas las casillas llenas.',
+  },
+  win: {
+    title: '¡Resuelto!',
+    moves: 'jugadas',
+  },
+  howTo: {
+    title: 'Cómo jugar',
+    s1: 'Cada color aparece en exactamente dos puntos. Pulsa uno y arrastra para trazar un camino hasta el otro punto del mismo color.',
+    s2: 'Los caminos avanzan arriba, abajo, a la izquierda o a la derecha, una casilla cada vez. Nunca se cruzan ni comparten casilla.',
+    s3: 'Vuelve sobre un camino para acortarlo. Si pasas por encima de otro color, su camino se corta en ese punto.',
+    s4: 'El reto se resuelve cuando todos los pares están unidos y todas las casillas de la cuadrícula están cubiertas por un camino.',
+  },
+  tips: {
+    title: 'Consejos',
+    t1Term: 'Empieza por los bordes',
+    t1: 'Los puntos en el borde y en las esquinas tienen pocas salidas. Únelos primero y el centro se resolverá con más facilidad.',
+    t2Term: 'Pégate a las paredes',
+    t2: 'Un camino que recorre el borde o va junto a otro camino rara vez deja casillas vacías atrapadas detrás.',
+    t3Term: 'Ojo con los callejones',
+    t3: 'Una casilla vacía con un solo vecino libre tiene que ser la curva de algún camino. Si ninguno puede llegar, replantea los caminos de alrededor.',
+  },
+  faq: {
+    title: 'Preguntas frecuentes',
+    q1: '¿Hay una sola solución?',
+    a1: 'No necesariamente. Cualquier relleno que una todos los pares, sin cruces, y cubra todas las casillas cuenta como victoria, aunque sea distinto del que pensó el generador.',
+    q2: '¿Qué es el reto diario?',
+    a2: 'Cada tamaño de tablero tiene un reto al día, el mismo para todos. El modo aleatorio te da un reto nuevo cuando quieras jugar otra ronda.',
+    q3: '¿Se puede jugar con el teclado?',
+    a3: 'Sí. Selecciona el tablero, mueve el cursor con las flechas, pulsa Espacio o Intro sobre un punto para tomar su color, dibuja con las flechas y pulsa Espacio otra vez para soltarlo.',
+    q4: 'Me cuesta distinguir algunos colores. ¿Qué hago?',
+    a4: 'La paleta se eligió para seguir siendo distinguible con los tipos más comunes de daltonismo, y cada par lleva además la misma letra, así que puedes unir los puntos solo por la letra.',
+  },
+  about: {
+    title: 'Sobre Color Link',
+    p1: 'Color Link pertenece a una familia de rompecabezas de caminos conocida como Numberlink, popularizada por las revistas de pasatiempos japonesas: los pares de símbolos de una cuadrícula deben unirse con líneas que nunca se cruzan. Aquí los símbolos son colores, y la regla extra de llenar todas las casillas convierte un simple ejercicio de dibujo en un auténtico reto de lógica.',
+    p2: 'Cada tablero lo crea un generador que divide la cuadrícula en caminos sinuosos y conserva solo sus extremos, así que siempre existe una solución completa. El 5×5 es un calentamiento rápido, el 7×7 exige algo de planificación y el 9×9 premia una lectura atenta de bordes y esquinas.',
+    p3: 'Es perfecto para pausas cortas: una partida dura uno o dos minutos, el reloj solo arranca con tu primer trazo y se juega igual de bien con el dedo en el móvil que con el ratón. Resuelve el reto del día, comparte tu tiempo y vuelve mañana a por otro.',
   },
 };

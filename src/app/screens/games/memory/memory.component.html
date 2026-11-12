@@ -1,0 +1,178 @@
+<div class="game-page">
+  <header class="catalog-page-header">
+    <h1>{{ 'memory.name' | translate }}</h1>
+    <p>{{ 'memory.description' | translate }}</p>
+  </header>
+
+  <div class="game-layout">
+    <div class="game-play">
+      <!-- Level + new game -->
+      <div class="flex items-stretch gap-2">
+        <div class="pro-segmented flex-1" role="group" [attr.aria-label]="'games.level' | translate">
+          @for (item of levels; track item.id) {
+            <button
+              type="button"
+              class="flex flex-col items-center justify-center !min-h-[48px] !leading-tight"
+              [attr.aria-pressed]="item.id === level()"
+              (click)="setLevel(item.id)"
+            >
+              <span>{{ 'memory.levels.' + item.id | translate }}</span>
+              <span class="text-[0.7rem] font-medium tabular-nums opacity-70">{{ item.cols }}×{{ item.rows }}</span>
+            </button>
+          }
+        </div>
+        <button
+          type="button"
+          class="grid w-14 shrink-0 place-items-center rounded-[.9rem] border border-foreground/10 text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground-emphasis"
+          [attr.aria-label]="'games.newGame' | translate"
+          [title]="'games.newGame' | translate"
+          (click)="newGame()"
+        >
+          <ng-icon name="tablerRefresh" size="1.3rem" aria-hidden="true" />
+        </button>
+      </div>
+
+      <!-- Readouts, separated by hairlines -->
+      <div class="mt-4 flex items-center border-y border-foreground/10 py-2">
+        <div class="flex w-[4.75rem] shrink-0 flex-col">
+          <span class="text-[0.7rem] text-foreground-light">{{ 'games.moves' | translate }}</span>
+          <span class="text-xl font-semibold tabular-nums text-foreground">{{ game().moves }}</span>
+        </div>
+        <div class="flex w-[5.25rem] shrink-0 flex-col border-l border-foreground/10 pl-3">
+          <span class="text-[0.7rem] text-foreground-light">{{ 'memory.pairs' | translate }}</span>
+          <span class="text-xl font-semibold tabular-nums text-foreground">{{ game().matchedPairs }}<span class="text-sm font-medium text-foreground-light">/{{ game().pairs }}</span></span>
+        </div>
+        <div class="flex w-[5.25rem] shrink-0 flex-col border-l border-foreground/10 pl-3">
+          <span class="text-[0.7rem] text-foreground-light">{{ 'games.time' | translate }}</span>
+          <span class="text-xl font-semibold tabular-nums text-foreground" role="timer">{{ timer.label() }}</span>
+        </div>
+        <p class="ml-auto line-clamp-2 h-8 max-w-[11rem] pl-3 text-right text-xs leading-4 text-foreground-light">
+          @if (status() === 'ready') {
+            {{ 'games.timerHint' | translate }}
+          } @else if (bestLabel()) {
+            {{ 'memory.best' | translate }} <span class="font-semibold tabular-nums text-foreground">{{ bestLabel() }}</span>
+          }
+        </p>
+      </div>
+
+      <!-- Board -->
+      <div class="mt-4 flex justify-center">
+        <div
+          #grid
+          class="mem-grid"
+          role="group"
+          [attr.aria-label]="boardLabel()"
+          aria-describedby="mem-keys"
+          [style.--cols]="config().cols"
+          [style.width]="boardWidth()"
+          (keydown)="onKeydown($event)"
+        >
+          @for (card of cards(); track $index; let i = $index) {
+            <button
+              type="button"
+              class="mc"
+              [class.is-up]="card.up"
+              [class.is-matched]="card.matched"
+              [class.is-missed]="card.missed"
+              [attr.data-i]="i"
+              [attr.tabindex]="i === focusIndex() ? 0 : -1"
+              [attr.aria-label]="card.label"
+              (focus)="focusIndex.set(i)"
+              (click)="flipCard(i)"
+            >
+              <span class="mc-inner">
+                <span class="mc-face mc-back" aria-hidden="true"></span>
+                <span class="mc-face mc-front" [style.background-color]="card.bg" aria-hidden="true">{{ card.emoji }}</span>
+              </span>
+            </button>
+          }
+        </div>
+      </div>
+      <p id="mem-keys" class="sr-only">{{ 'memory.keyboardHint' | translate }}</p>
+
+      <!-- Dock: progress and the result panel share one grid cell, so the page never moves. -->
+      <div class="mt-4 grid">
+        <div class="[grid-area:1/1]" [class.invisible]="won()">
+          <div class="h-1.5 overflow-hidden rounded-full bg-foreground/10" aria-hidden="true">
+            <div class="mem-progress h-full rounded-full bg-foreground-emphasis" [style.width.%]="progress()"></div>
+          </div>
+          <p class="mt-3 text-xs leading-5 text-foreground-light">{{ 'memory.playHint' | translate }}</p>
+        </div>
+
+        <div class="[grid-area:1/1] flex flex-wrap items-center gap-x-4 gap-y-3 border-t-2 border-emerald-500 pt-3" [class.invisible]="!won()">
+          <div class="min-w-0 flex-1">
+            <p class="flex items-center gap-2 font-title text-lg font-semibold text-foreground">
+              {{ 'memory.wonTitle' | translate }}
+              <span class="inline-flex text-amber-500" role="img" [attr.aria-label]="starsLabel()">
+                @for (s of [1, 2, 3]; track s) {
+                  <ng-icon [name]="s <= stars() ? 'tablerStarFill' : 'tablerStar'" size="1.1rem" aria-hidden="true" />
+                }
+              </span>
+            </p>
+            <p class="text-sm text-foreground-light">
+              {{ levelName() }} · {{ wonText() }}
+              @if (newRecord()) {
+                <span class="ml-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-700">{{ 'memory.newBest' | translate }}</span>
+              }
+            </p>
+          </div>
+          @if (won()) {
+            <div class="flex gap-2">
+              <app-game-share-button [text]="shareText()" />
+              <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
+            </div>
+          }
+        </div>
+      </div>
+      <p class="sr-only" role="status" aria-live="polite">{{ announcement() }}</p>
+    </div>
+
+    <div class="game-guide">
+      <section aria-labelledby="mem-how">
+        <h2 id="mem-how" class="font-title text-xl font-semibold text-foreground sm:text-2xl">{{ 'memory.howTo.title' | translate }}</h2>
+        <ol class="mt-4 divide-y divide-foreground/10 border-y border-foreground/10">
+          @for (n of stepKeys; track n) {
+            <li class="flex gap-4 py-3.5">
+              <span class="w-6 shrink-0 font-title text-2xl font-semibold leading-7 text-foreground-emphasis" aria-hidden="true">{{ n }}</span>
+              <p class="leading-7 text-foreground">{{ 'memory.howTo.step' + n | translate }}</p>
+            </li>
+          }
+        </ol>
+      </section>
+
+      <section class="mt-12" aria-labelledby="mem-tips">
+        <h2 id="mem-tips" class="font-title text-xl font-semibold text-foreground sm:text-2xl">{{ 'memory.tips.title' | translate }}</h2>
+        <dl class="mt-4 grid border-b border-foreground/10 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-6">
+          @for (n of stepKeys; track n) {
+            <dt class="border-t border-foreground/10 pt-3.5 font-semibold text-foreground sm:pb-3.5">{{ 'memory.tips.term' + n | translate }}</dt>
+            <dd class="pb-3.5 pt-1 leading-7 text-foreground-light sm:border-t sm:border-foreground/10 sm:pt-3.5">{{ 'memory.tips.tip' + n | translate }}</dd>
+          }
+        </dl>
+      </section>
+
+      <section class="mt-12" aria-labelledby="mem-faq">
+        <h2 id="mem-faq" class="font-title text-xl font-semibold text-foreground sm:text-2xl">{{ 'memory.faq.title' | translate }}</h2>
+        <div class="mt-4 border-t border-foreground/10">
+          @for (n of stepKeys; track n) {
+            <details class="group border-b border-foreground/10">
+              <summary class="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-4 py-3 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                {{ 'memory.faq.q' + n | translate }}
+                <ng-icon name="tablerChevronDown" size="1.1rem" class="shrink-0 text-foreground-light transition-transform group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
+              </summary>
+              <p class="pb-4 leading-7 text-foreground-light">{{ 'memory.faq.a' + n | translate }}</p>
+            </details>
+          }
+        </div>
+      </section>
+
+      <section class="mt-12" aria-labelledby="mem-about">
+        <h2 id="mem-about" class="font-title text-xl font-semibold text-foreground sm:text-2xl">{{ 'memory.about.title' | translate }}</h2>
+        <div class="mt-3 space-y-4 leading-7 text-foreground-light">
+          <p>{{ 'memory.about.p1' | translate }}</p>
+          <p>{{ 'memory.about.p2' | translate }}</p>
+          <p>{{ 'memory.about.p3' | translate }}</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

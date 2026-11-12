@@ -5,253 +5,225 @@
   </header>
   <div class="game-layout">
     <div class="game-play">
-    <!-- Controls -->
-    <div class="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-      <label class="flex flex-col gap-1 text-xs text-foreground-light sm:text-sm">
-        {{ "sudoku.size" | translate }}
-        <select
-          [value]="gridSize()"
-          (change)="gridSize.set(+$any($event.target).value); newGame()"
-          class="rounded-lg bg-foreground/5 px-2 py-1.5 text-sm text-foreground outline-none ring-1 ring-foreground/15 transition-colors focus:ring-foreground-emphasis"
-        >
+      <!-- Grid size + difficulty -->
+      <div class="mb-2 flex items-center gap-2">
+        <div class="pro-segmented flex-1" role="group" [attr.aria-label]="'sudoku.size' | translate">
           @for (s of sizes; track s) {
-            <option [value]="s" class="bg-surface">{{ "sudoku.size-" + s | translate }}</option>
+            <button type="button" class="!min-h-[44px] !px-1 tabular-nums" [attr.aria-pressed]="gridSize() === s" (click)="setSize(s)">{{ s }}×{{ s }}</button>
           }
-        </select>
-      </label>
-
-      <label class="flex flex-col gap-1 text-xs text-foreground-light sm:text-sm">
-        {{ "sudoku.difficulty" | translate }}
-        <select
-          [value]="difficulty()"
-          (change)="difficulty.set(+$any($event.target).value); newGame()"
-          class="rounded-lg bg-foreground/5 px-2 py-1.5 text-sm text-foreground outline-none ring-1 ring-foreground/15 transition-colors focus:ring-foreground-emphasis"
+        </div>
+        <button
+          type="button"
+          (click)="newGame()"
+          class="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5"
         >
-          @for (d of difficulties; track d) {
-            <option [value]="d" class="bg-surface">{{ "sudoku.difficulty-" + d | translate }}</option>
-          }
-        </select>
-      </label>
-
-      <div class="hidden sm:block"></div>
-
-      <button
-        (click)="newGame()"
-        class="self-end rounded-lg bg-foreground/5 px-3 py-1.5 text-sm transition-colors hover:bg-foreground/10 active:bg-foreground/15"
-      >
-        {{ "sudoku.new-game" | translate }}
-      </button>
-    </div>
-
-    <!-- Status bar -->
-    <div class="mb-3 flex items-center justify-center gap-4 rounded-xl bg-surface px-4 py-2 text-sm">
-      <span class="flex items-center gap-1.5 text-foreground-light">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-foreground-emphasis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        {{ timeLabel }}
-      </span>
-      <span class="flex items-center gap-1.5 text-foreground-light">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h.01M6 12h.01M6 18h.01M18 6h.01M18 12h.01M18 18h.01M10 6h.01M14 6h.01M10 12h.01M14 12h.01M10 18h.01M14 18h.01"/></svg>
-        {{ "sudoku.mistakes" | translate }}: {{ mistakes() }}
-      </span>
-      <span class="flex items-center gap-1.5 text-foreground-light">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
-        {{ "sudoku.hint" | translate }}: {{ hintsRemaining() }}
-      </span>
-    </div>
-
-    <!-- Toolbar -->
-    <div class="mb-3 flex flex-wrap items-center justify-center gap-2">
-      <button
-        (click)="notesMode.update(v => !v)"
-        class="rounded-lg px-3 py-1.5 text-sm transition-colors"
-        [class.bg-amber-500/30]="notesMode()"
-        [class.text-amber-700]="notesMode()"
-        [class.ring-1]="notesMode()"
-        [class.ring-amber-400/60]="notesMode()"
-        [class.bg-foreground/5]="!notesMode()"
-        [class.text-foreground]="!notesMode()"
-        [class.hover:bg-foreground/10]="!notesMode()"
-      >
-        ✎ {{ "sudoku.notes" | translate }}
-      </button>
-      <button
-        (click)="clearCell()"
-        class="rounded-lg bg-foreground/5 px-3 py-1.5 text-sm text-foreground transition-colors hover:bg-foreground/10 active:bg-foreground/15"
-      >
-        ⌫ {{ "sudoku.eraser" | translate }}
-      </button>
-      <button
-        (click)="undo()"
-        [disabled]="!canUndo"
-        class="rounded-lg px-3 py-1.5 text-sm transition-colors"
-        [class.bg-foreground/5]="canUndo"
-        [class.text-foreground]="canUndo"
-        [class.hover:bg-foreground/10]="canUndo"
-        [class.bg-surface]="!canUndo"
-        [class.text-foreground-light/60]="!canUndo"
-      >
-        ↶ {{ "sudoku.undo" | translate }}
-      </button>
-      <button
-        (click)="useHint()"
-        [disabled]="hintsRemaining() <= 0"
-        class="rounded-lg px-3 py-1.5 text-sm transition-colors"
-        [class.bg-amber-500/20]="hintsRemaining() > 0"
-        [class.text-amber-700]="hintsRemaining() > 0"
-        [class.bg-foreground/5]="hintsRemaining() <= 0"
-        [class.text-foreground-light/60]="hintsRemaining() <= 0"
-      >
-        💡 {{ "sudoku.hint" | translate }}
-      </button>
-    </div>
-
-    <!-- Win banner -->
-    @if (won()) {
-      <div class="mb-3 flex items-center justify-center gap-2 rounded-xl bg-green-500/20 px-4 py-3 text-center ring-1 ring-green-400/40">
-        <span class="text-2xl">🎉</span>
-        <span class="font-semibold text-green-700">{{ "sudoku.congratulations" | translate }}</span>
+          <ng-icon name="tablerRefresh" aria-hidden="true" />
+          {{ "games.newGame" | translate }}
+        </button>
       </div>
-    }
+      <div class="pro-segmented mb-4" role="group" [attr.aria-label]="'sudoku.difficulty' | translate">
+        @for (d of difficulties; track d) {
+          <button type="button" class="!min-h-[44px]" [attr.aria-pressed]="difficulty() === d" (click)="setDifficulty(d)">
+            {{ "sudoku.difficulty-" + d | translate }}
+          </button>
+        }
+      </div>
 
-    <!-- Board -->
-    <div class="flex justify-center">
+      <!-- Stats row -->
+      <dl class="grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
+        <div>
+          <dt class="text-xs text-foreground-light">{{ "games.time" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ timer.label() }}</dd>
+        </div>
+        <div>
+          <dt class="text-xs text-foreground-light">{{ "sudoku.mistakes" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums" [class]="mistakes() ? 'text-red-600' : 'text-foreground'">{{ mistakes() }}</dd>
+        </div>
+        <div>
+          <dt class="text-xs text-foreground-light">{{ "sudoku.hints-left" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ hintsRemaining() }}</dd>
+        </div>
+      </dl>
+      <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 sm:text-sm" aria-live="polite">
+        @if (won()) {
+          <span class="font-semibold text-green-700">{{ "sudoku.congratulations" | translate }}</span>
+        } @else if (notice(); as msg) {
+          <span class="font-medium text-amber-700">{{ msg }}</span>
+        } @else if (notesMode()) {
+          <span class="font-medium text-foreground-emphasis">{{ "sudoku.notes-on" | translate }}</span>
+        } @else if (!started()) {
+          <span class="text-foreground-light">{{ "games.timerHint" | translate }}</span>
+        }
+      </p>
+
+      <!-- Board -->
       @if (board().length > 0) {
         <div
           #boardEl
+          role="grid"
           tabindex="0"
+          [attr.aria-label]="'sudoku.board-label' | translate"
           (keydown)="onKeydown($event)"
-          (click)="boardEl.focus()"
-          class="w-full max-w-[520px] rounded-xl p-1.5 outline-none transition-shadow focus:ring-2 focus:ring-foreground-emphasis/50"
+          (click)="boardEl.focus({ preventScroll: true })"
+          class="mx-auto grid w-full max-w-[520px] select-none overflow-hidden rounded-xl bg-surface shadow-sm outline-none ring-1 ring-foreground-emphasis/30 [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]"
+          [style.grid-template-columns]="'repeat(' + gridSize() + ', minmax(0, 1fr))'"
         >
-          <div
-            class="grid overflow-hidden rounded-lg bg-surface ring-1 ring-foreground-emphasis/30"
-            [style.grid-template-columns]="'repeat(' + gridSize() + ', minmax(0, 1fr))'"
-          >
-            @for (cell of board(); track $index; let i = $index) {
-              <div
-                (click)="select(i)"
-                [class]="cellClass(i)"
-                [attr.aria-label]="'row ' + (cell.row + 1) + ', column ' + (cell.col + 1)"
-              >
-                @if (cell.value !== 0) {
-                  <span [class]="valueSizeClass()">{{ cell.value }}</span>
-                } @else if (cell.notes.length > 0) {
-                  <div class="grid h-full w-full place-content-stretch gap-0 p-0.5" [class]="noteGridClass()">
-                    @for (n of digits; track n) {
-                      <span
-                        class="grid place-items-center"
-                        [class]="noteTextClass() + ' ' + (cell.notes.includes(n) ? 'text-sky-700' : 'opacity-0')"
-                      >
-                        {{ n }}
-                      </span>
-                    }
-                  </div>
-                }
-              </div>
-            }
-          </div>
+          @for (cell of board(); track $index; let i = $index) {
+            <div
+              role="gridcell"
+              (click)="select(i)"
+              [class]="cellClass(i)"
+              [attr.aria-label]="cellLabel(cell)"
+              [attr.aria-selected]="isSelected(i)"
+            >
+              @if (cell.value !== 0) {
+                <span [class]="valueSizeClass()">{{ cell.value }}</span>
+              } @else if (cell.notes.length > 0) {
+                <div class="grid h-full w-full place-content-stretch gap-0 p-0.5" [class]="noteGridClass()">
+                  @for (n of digits; track n) {
+                    <span
+                      class="grid place-items-center"
+                      [class]="noteTextClass() + ' ' + (cell.notes.includes(n) ? 'text-sky-700' : 'opacity-0')"
+                    >{{ n }}</span>
+                  }
+                </div>
+              }
+            </div>
+          }
         </div>
       } @else {
-        <div class="mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center rounded-xl bg-surface">
-          <div class="text-center text-foreground-light/60">
-            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-foreground/10 border-t-foreground-emphasis"></div>
+        <div class="mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center rounded-xl bg-foreground/5">
+          <div class="text-center text-foreground-light">
+            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-foreground/10 border-t-foreground-emphasis motion-reduce:animate-none"></div>
             <span class="text-sm">{{ "sudoku.loading" | translate }}</span>
           </div>
         </div>
       }
-    </div>
 
-    <!-- Number pad -->
-    <div class="mt-4 flex flex-col items-center gap-2">
-      <div class="flex flex-wrap justify-center gap-2">
-        @for (n of digits; track n) {
-          <button
-            (click)="inputValue(n)"
-            class="grid size-12 place-items-center rounded-xl text-xl font-bold transition-colors sm:size-14 sm:text-2xl"
-            [class.bg-foreground-emphasis/40]="notesMode()"
-            [class.text-foreground-emphasis]="notesMode()"
-            [class.hover:bg-foreground-emphasis/50]="notesMode()"
-            [class.bg-foreground/5]="!notesMode()"
-            [class.text-foreground]="!notesMode()"
-            [class.hover:bg-foreground/10]="!notesMode()"
-            [class.active:bg-foreground/15]="!notesMode()"
+      <!-- Tools + number pad, or the result once solved (same place: the board never moves) -->
+      <div class="mx-auto mt-3 max-w-[520px]">
+        @if (won()) {
+          <div #winEl class="flex flex-col items-center gap-3 border-t border-green-600/30 pt-4 text-center motion-safe:animate-[wl-win-in_.4s_ease-out]">
+            <p class="text-lg font-semibold text-green-700"><span aria-hidden="true">🎉 </span>{{ "sudoku.congratulations" | translate }}</p>
+            <p class="text-sm text-foreground-light">
+              {{ "games.time" | translate }} <strong class="tabular-nums text-foreground">{{ timer.label() }}</strong>
+              · {{ "sudoku.mistakes" | translate }} <strong class="tabular-nums text-foreground">{{ mistakes() }}</strong>
+              · {{ "sudoku.hints-used" | translate }} <strong class="tabular-nums text-foreground">{{ 3 - hintsRemaining() }}</strong>
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              <app-game-share-button [text]="shareText()" />
+              <button
+                type="button"
+                (click)="newGame()"
+                class="inline-flex min-h-[44px] items-center gap-2 rounded-xl px-4 text-sm font-semibold text-foreground ring-1 ring-foreground/15 transition-colors hover:bg-foreground/5"
+              >
+                <ng-icon name="tablerArrowsShuffle" aria-hidden="true" />
+                {{ "games.newGame" | translate }}
+              </button>
+            </div>
+          </div>
+        } @else {
+          <div class="mb-2 grid grid-cols-3 gap-1" role="toolbar" [attr.aria-label]="'sudoku.sudoku' | translate">
+            <button
+              type="button"
+              (click)="notesMode.update(v => !v)"
+              [attr.aria-pressed]="notesMode()"
+              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium transition-colors"
+              [class]="notesMode() ? 'bg-foreground-emphasis/15 text-foreground-emphasis' : 'text-foreground hover:bg-foreground/5'"
+            >
+              <ng-icon name="tablerPencil" size="20" aria-hidden="true" />
+              {{ "sudoku.notes" | translate }}
+            </button>
+            <button
+              type="button"
+              (click)="undo()"
+              [disabled]="!canUndo()"
+              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-foreground transition-colors hover:bg-foreground/5 disabled:opacity-40"
+            >
+              <ng-icon name="tablerArrowBackUp" size="20" aria-hidden="true" />
+              {{ "sudoku.undo" | translate }}
+            </button>
+            <button
+              type="button"
+              (click)="useHint()"
+              [disabled]="hintsRemaining() <= 0"
+              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-amber-700 transition-colors hover:bg-amber-500/10 disabled:opacity-40"
+            >
+              <ng-icon name="tablerBulb" size="20" aria-hidden="true" />
+              {{ "sudoku.hint" | translate }} ({{ hintsRemaining() }})
+            </button>
+          </div>
+
+          <!-- Number pad: 5 columns for 9×9 (two thumb-sized rows), one row for 4×4 and 6×6 -->
+          <div
+            class="grid gap-1.5"
+            [class]="gridSize() === 9 ? 'grid-cols-5 sm:grid-cols-10' : gridSize() === 6 ? 'grid-cols-7' : 'grid-cols-5'"
           >
-            {{ n }}
-          </button>
+            @for (n of digits; track n) {
+              <button
+                type="button"
+                (click)="press(n)"
+                [disabled]="digitCounts()[n] >= gridSize()"
+                [attr.aria-label]="(notesMode() ? ('sudoku.notes' | translate) + ' ' : '') + n"
+                class="relative flex min-h-[52px] items-center justify-center rounded-xl text-2xl font-semibold tabular-nums transition-colors disabled:opacity-25"
+                [class]="notesMode() ? 'bg-foreground-emphasis/10 text-foreground-emphasis hover:bg-foreground-emphasis/20' : 'bg-foreground/5 text-foreground hover:bg-foreground/10 active:bg-foreground/15'"
+              >
+                {{ n }}
+                <span aria-hidden="true" class="absolute bottom-0.5 right-1.5 text-[0.6rem] font-medium text-foreground-light">{{ gridSize() - digitCounts()[n] }}</span>
+              </button>
+            }
+            <button
+              type="button"
+              (click)="clearCell()"
+              [attr.aria-label]="'sudoku.eraser' | translate"
+              class="flex min-h-[52px] items-center justify-center rounded-xl bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10 active:bg-foreground/15"
+            >
+              <ng-icon name="tablerBackspace" size="22" aria-hidden="true" />
+            </button>
+          </div>
+          <p class="mt-3 hidden text-center text-xs text-foreground-light sm:block">{{ "sudoku.keyboard-hint" | translate }}</p>
         }
       </div>
-      <p class="px-4 text-center text-xs text-foreground-light/80 sm:text-sm">{{ "sudoku.keyboard-hint" | translate }}</p>
     </div>
-
-    </div>
-    <div class="game-guide">
-    <!-- How to play -->
-    <div class="mt-10 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.how-to-play" | translate }}</h2>
-      <ul class="space-y-2 text-sm leading-relaxed text-foreground sm:text-base">
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 text-foreground-emphasis">1.</span>
-          <span>{{ "sudoku.rule-1" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 text-foreground-emphasis">2.</span>
-          <span>{{ "sudoku.rule-2" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 text-foreground-emphasis">3.</span>
-          <span>{{ "sudoku.rule-3" | translate }}</span>
-        </li>
-      </ul>
-      <div class="mt-4 text-sm text-foreground-light">
+    <div class="game-guide text-foreground">
+      <h2 class="text-lg font-bold sm:text-xl">{{ "sudoku.how-to-play" | translate }}</h2>
+      <ol class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+        @for (n of [1, 2, 3]; track n) {
+          <li class="flex gap-3 py-2.5">
+            <span class="w-5 shrink-0 font-semibold tabular-nums text-foreground-emphasis">{{ n }}</span>
+            <span>{{ "sudoku.rule-" + n | translate }}</span>
+          </li>
+        }
+      </ol>
+      <div class="mt-4 space-y-1.5 text-sm leading-relaxed text-foreground-light">
         <p>{{ "sudoku.tip-1" | translate }}</p>
-        <p class="mt-1">{{ "sudoku.tip-2" | translate }}</p>
-        <p class="mt-1">{{ "sudoku.tip-3" | translate }}</p>
+        <p>{{ "sudoku.tip-2" | translate }}</p>
+        <p>{{ "sudoku.tip-3" | translate }}</p>
       </div>
-    </div>
 
-    <!-- Strategies -->
-    <div class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.strategy-title" | translate }}</h2>
-      <div class="space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "sudoku.strategy-title" | translate }}</h2>
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
         <p>{{ "sudoku.strategy-p1" | translate }}</p>
         <p>{{ "sudoku.strategy-p2" | translate }}</p>
         <p>{{ "sudoku.strategy-p3" | translate }}</p>
         <p>{{ "sudoku.strategy-p4" | translate }}</p>
       </div>
-    </div>
 
-    <!-- FAQ -->
-    <div class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-4 text-lg font-bold sm:text-xl">{{ "sudoku.faq-title" | translate }}</h2>
-
-      <div class="space-y-4">
-        <div>
-          <h3 class="text-sm font-semibold text-foreground sm:text-base">{{ "sudoku.faq-q1" | translate }}</h3>
-          <p class="mt-1 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a1" | translate }}</p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-foreground sm:text-base">{{ "sudoku.faq-q2" | translate }}</h3>
-          <p class="mt-1 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a2" | translate }}</p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-foreground sm:text-base">{{ "sudoku.faq-q3" | translate }}</h3>
-          <p class="mt-1 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a3" | translate }}</p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-foreground sm:text-base">{{ "sudoku.faq-q4" | translate }}</h3>
-          <p class="mt-1 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a4" | translate }}</p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-foreground sm:text-base">{{ "sudoku.faq-q5" | translate }}</h3>
-          <p class="mt-1 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a5" | translate }}</p>
-        </div>
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "sudoku.faq-title" | translate }}</h2>
+      <div class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10">
+        @for (n of [1, 2, 3, 4, 5]; track n) {
+          <details class="group">
+            <summary class="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base [&::-webkit-details-marker]:hidden">
+              {{ "sudoku.faq-q" + n | translate }}
+              <span aria-hidden="true" class="text-lg leading-none text-foreground-light transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a" + n | translate }}</p>
+          </details>
+        }
       </div>
-    </div>
 
-    <!-- SEO text -->
-    <div class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "sudoku.seo-title" | translate }}</h2>
-      <div class="space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "sudoku.seo-title" | translate }}</h2>
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
         <p>{{ "sudoku.seo-p1" | translate }}</p>
         <p>{{ "sudoku.seo-p2" | translate }}</p>
         <p>{{ "sudoku.seo-p3" | translate }}</p>
@@ -259,7 +231,5 @@
         <p>{{ "sudoku.seo-p5" | translate }}</p>
       </div>
     </div>
-
   </div>
-</div>
 </div>

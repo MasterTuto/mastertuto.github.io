@@ -1,0 +1,19 @@
+:host { display: block; }
+.cl-board { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; outline: none; cursor: pointer; }
+.cl-board:focus-visible { outline: 3px solid #7a70e1; outline-offset: 3px; }
+.cl-pulse, .cl-pop { transform-box: fill-box; transform-origin: center; }
+.cl-pulse { animation: cl-pulse .8s ease-out forwards; pointer-events: none; }
+.cl-pop { animation: cl-pop .35s ease-out; }
+.cl-won { animation: cl-glow 1.4s ease-out; }
+.cl-win { animation: cl-in .35s ease-out; }
+.cl-bar { transition: width .2s ease-out; }
+summary::-webkit-details-marker { display: none; }
+@keyframes cl-pulse { from { transform: scale(1); opacity: .75; } to { transform: scale(2.1); opacity: 0; } }
+@keyframes cl-pop { 50% { transform: scale(1.14); } }
+@keyframes cl-glow { from { box-shadow: 0 0 0 0 rgb(122 112 225 / .45); } to { box-shadow: 0 0 0 22px rgb(122 112 225 / 0); } }
+@keyframes cl-in { from { opacity: 0; transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) {
+  .cl-pulse { display: none; }
+  .cl-pop, .cl-won, .cl-win { animation: none; }
+  .cl-bar { transition: none; }
+}
