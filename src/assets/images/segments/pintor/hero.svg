@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img"><title>Pintor com rolo de cabo longo pintando uma parede de lilás, com escada, bandeja e lata de tinta sobre o piso protegido por lona</title>
+<rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+<rect x="60" y="50" width="680" height="420" rx="28" fill="#fafafa"/>
+<path d="M88 50 H420 V470 H88 a28 28 0 0 1 -28 -28 V78 a28 28 0 0 1 28 -28 Z" fill="#7a70e1"/>
+<path d="M416 50 H480 V250 a12 12 0 0 1 -12 12 H428 a12 12 0 0 1 -12 -12 Z" fill="#7a70e1"/>
+<rect x="472" y="50" width="8" height="200" fill="#fafafa" opacity=".25"/>
+<rect x="286" y="300" width="36" height="52" rx="8" fill="#f2b880"/>
+<rect x="292" y="306" width="24" height="40" rx="5" fill="#fafafa"/>
+<rect x="300" y="316" width="8" height="20" rx="3" fill="#8e9095"/>
+<rect x="60" y="452" width="680" height="18" fill="#444a51" opacity=".25"/>
+<path d="M30 486 Q400 468 770 486 L760 548 Q400 562 40 548 Z" fill="#f4f2f2"/>
+<path d="M120 500 Q200 520 170 546 M520 492 Q600 512 640 548" stroke="#8e9095" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"/>
+<ellipse cx="400" cy="556" rx="330" ry="12" fill="#151c25" opacity=".08"/>
+<g stroke="#8e9095" stroke-linecap="round" fill="none">
+<path d="M660 530 L696 236 M736 530 L700 236" stroke-width="10"/>
+<path d="M668 470 H728 M675 410 H721 M682 350 H714 M689 290 H707" stroke-width="7"/>
+</g>
+<ellipse cx="698" cy="534" rx="52" ry="7" fill="#151c25" opacity=".1"/>
+<ellipse cx="236" cy="534" rx="46" ry="7" fill="#151c25" opacity=".1"/>
+<rect x="200" y="462" width="72" height="72" rx="10" fill="#8e9095"/>
+<rect x="200" y="462" width="72" height="18" rx="9" fill="#444a51"/>
+<path d="M214 480 v20 a6 6 0 0 0 12 0 v-20 Z" fill="#7a70e1"/>
+<rect x="216" y="500" width="40" height="22" rx="6" fill="#fafafa" opacity=".6"/>
+<path d="M206 466 Q236 428 266 466" stroke="#444a51" stroke-width="4" fill="none"/>
+<ellipse cx="350" cy="538" rx="56" ry="6" fill="#151c25" opacity=".1"/>
+<path d="M298 514 H404 L392 536 H306 Z" fill="#444a51"/>
+<path d="M310 518 H364 L360 528 H312 Z" fill="#7a70e1"/>
+<rect x="545" y="400" width="34" height="116" rx="16" fill="#444a51"/>
+<rect x="585" y="400" width="34" height="116" rx="16" fill="#444a51"/>
+<rect x="538" y="506" width="48" height="20" rx="10" fill="#151c25"/>
+<rect x="580" y="506" width="48" height="20" rx="10" fill="#151c25"/>
+<rect x="530" y="250" width="104" height="168" rx="40" fill="#9fd3c7"/>
+<rect x="548" y="250" width="14" height="150" rx="7" fill="#fafafa" opacity=".6"/>
+<rect x="602" y="250" width="14" height="150" rx="7" fill="#fafafa" opacity=".6"/>
+<rect x="570" y="232" width="26" height="26" fill="#8d5a3b"/>
+<circle cx="583" cy="210" r="34" fill="#8d5a3b"/>
+<path d="M547 206 a36 36 0 0 1 72 0 Z" fill="#f2b880"/>
+<rect x="530" y="200" width="70" height="11" rx="5.5" fill="#f2b880"/>
+<path d="M448 264 V292 L458 300" stroke="#444a51" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M458 300 L594 478" stroke="#151c25" stroke-width="10" stroke-linecap="round"/>
+<rect x="408" y="248" width="80" height="26" rx="13" fill="#646cfa"/>
+<rect x="416" y="253" width="64" height="6" rx="3" fill="#fafafa" opacity=".35"/>
+<path d="M556 282 Q520 300 506 346" stroke="#9fd3c7" stroke-width="24" stroke-linecap="round" fill="none"/>
+<path d="M614 290 Q600 352 544 396" stroke="#9fd3c7" stroke-width="24" stroke-linecap="round" fill="none"/>
+<circle cx="503" cy="358" r="12" fill="#8d5a3b"/>
+<circle cx="536" cy="402" r="12" fill="#8d5a3b"/>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img"><title>Tosadora entrega pela guia um cachorro de bandana, já de banho tomado, à tutora, com uma caixa de transporte ao lado</title>
+<rect width="600" height="400" rx="28" fill="#f4f2f2"/>
+<circle cx="300" cy="150" r="110" fill="#eaebf9"/>
+<circle cx="300" cy="150" r="70" fill="#f2b880" opacity=".18"/>
+<ellipse cx="300" cy="358" rx="240" ry="11" fill="#151c25" opacity=".08"/>
+<rect x="110" y="255" width="26" height="96" rx="13" fill="#151c25"/>
+<rect x="142" y="255" width="26" height="96" rx="13" fill="#151c25"/>
+<rect x="104" y="342" width="38" height="14" rx="7" fill="#444a51"/>
+<rect x="138" y="342" width="38" height="14" rx="7" fill="#444a51"/>
+<path d="M108 172 Q86 214 96 250" stroke="#7a70e1" stroke-width="22" stroke-linecap="round" fill="none"/>
+<circle cx="98" cy="258" r="10" fill="#f1c9a5"/>
+<rect x="98" y="150" width="86" height="125" rx="34" fill="#7a70e1"/>
+<path d="M114 176 h54 v92 a12 12 0 0 1 -12 12 h-30 a12 12 0 0 1 -12 -12 Z" fill="#9fd3c7"/>
+<rect x="130" y="132" width="22" height="22" fill="#f1c9a5"/>
+<circle cx="141" cy="112" r="28" fill="#f1c9a5"/>
+<path d="M113 110 a28 28 0 0 1 56 -4 Q154 94 128 102 Q118 108 113 120 Z" fill="#8d5a3b"/>
+<circle cx="114" cy="92" r="13" fill="#8d5a3b"/>
+<path d="M176 182 L262 206" stroke="#7a70e1" stroke-width="22" stroke-linecap="round"/>
+<circle cx="272" cy="208" r="11" fill="#f1c9a5"/>
+<rect x="432" y="255" width="26" height="96" rx="13" fill="#444a51"/>
+<rect x="464" y="255" width="26" height="96" rx="13" fill="#444a51"/>
+<rect x="426" y="342" width="38" height="14" rx="7" fill="#151c25"/>
+<rect x="460" y="342" width="38" height="14" rx="7" fill="#151c25"/>
+<rect x="418" y="150" width="86" height="125" rx="34" fill="#646cfa"/>
+<rect x="450" y="132" width="22" height="22" fill="#c68a5e"/>
+<circle cx="461" cy="112" r="28" fill="#c68a5e"/>
+<path d="M431 116 a30 30 0 0 1 60 -4 Q492 140 484 150 Q482 116 461 104 Q440 116 438 150 Q428 140 431 116 Z" fill="#151c25"/>
+<path d="M500 180 Q520 220 512 248" stroke="#646cfa" stroke-width="22" stroke-linecap="round" fill="none"/>
+<circle cx="512" cy="256" r="10" fill="#c68a5e"/>
+<path d="M424 182 L334 208" stroke="#646cfa" stroke-width="22" stroke-linecap="round"/>
+<circle cx="324" cy="210" r="11" fill="#c68a5e"/>
+<path d="M286 212 Q300 218 312 214" stroke="#444a51" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M300 216 Q306 244 322 262" stroke="#444a51" stroke-width="5" fill="none" stroke-linecap="round"/>
+<ellipse cx="300" cy="352" rx="78" ry="7" fill="#151c25" opacity=".1"/>
+<path d="M234 298 q-30 -14 -20 -46" stroke="#fafafa" stroke-width="14" fill="none" stroke-linecap="round"/>
+<rect x="240" y="306" width="20" height="44" rx="9" fill="#eaebf9"/>
+<rect x="320" y="306" width="20" height="44" rx="9" fill="#eaebf9"/>
+<rect x="228" y="276" width="124" height="54" rx="27" fill="#fafafa"/>
+<rect x="262" y="306" width="20" height="44" rx="9" fill="#fafafa"/>
+<rect x="342" y="306" width="20" height="44" rx="9" fill="#fafafa"/>
+<circle cx="340" cy="262" r="30" fill="#fafafa"/>
+<ellipse cx="318" cy="268" rx="11" ry="22" fill="#f2b880"/>
+<circle cx="358" cy="270" r="12" fill="#eaebf9"/>
+<circle cx="366" cy="266" r="5" fill="#151c25"/>
+<circle cx="348" cy="254" r="4" fill="#151c25"/>
+<path d="M314 286 L362 286 L338 312 Z" fill="#7a70e1"/>
+<ellipse cx="535" cy="352" rx="46" ry="6" fill="#151c25" opacity=".1"/>
+<rect x="492" y="290" width="86" height="60" rx="14" fill="#8e9095"/>
+<path d="M516 290 v-10 a6 6 0 0 1 6 -6 h26 a6 6 0 0 1 6 6 v10" stroke="#444a51" stroke-width="6" fill="none"/>
+<rect x="504" y="302" width="40" height="38" rx="8" fill="#444a51"/>
+<g stroke="#8e9095" stroke-width="4"><path d="M516 302 v38 M532 302 v38"/></g>
+</svg>

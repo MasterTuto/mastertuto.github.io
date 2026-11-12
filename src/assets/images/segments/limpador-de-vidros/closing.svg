@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img"><title>Limpador de vidros com balde cumprimenta a cliente ao lado de uma janela grande limpa e com reflexos</title>
+<rect width="600" height="400" rx="28" fill="#f4f2f2"/>
+<rect x="390" y="50" width="170" height="250" rx="12" fill="#444a51"/>
+<rect x="402" y="62" width="146" height="226" rx="6" fill="#eaebf9"/>
+<rect x="470" y="62" width="10" height="226" fill="#444a51"/>
+<path d="M410 170 L448 70 L462 70 L424 170 Z M416 214 L466 90 L470 90 L470 120 L432 214 Z" fill="#fafafa" opacity=".9"/>
+<path d="M490 200 L530 100 L540 100 L540 130 L512 200 Z" fill="#fafafa" opacity=".9"/>
+<path d="M516 236 l4 -11 l4 11 l11 4 l-11 4 l-4 11 l-4 -11 l-11 -4 Z" fill="#7a70e1"/>
+<path d="M436 100 l3 -8 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 Z" fill="#7a70e1"/>
+<rect x="380" y="296" width="190" height="14" rx="7" fill="#8e9095"/>
+<ellipse cx="290" cy="358" rx="230" ry="11" fill="#151c25" opacity=".08"/>
+<rect x="110" y="255" width="26" height="96" rx="13" fill="#151c25"/>
+<rect x="142" y="255" width="26" height="96" rx="13" fill="#151c25"/>
+<rect x="104" y="342" width="38" height="14" rx="7" fill="#444a51"/>
+<rect x="138" y="342" width="38" height="14" rx="7" fill="#444a51"/>
+<path d="M108 172 Q80 214 84 244" stroke="#9fd3c7" stroke-width="22" stroke-linecap="round" fill="none"/>
+<path d="M58 268 L108 268 L102 320 L64 320 Z" fill="#7a70e1"/>
+<rect x="54" y="262" width="58" height="12" rx="6" fill="#646cfa"/>
+<path d="M60 266 Q84 232 108 266" stroke="#444a51" stroke-width="4" fill="none"/>
+<circle cx="84" cy="250" r="11" fill="#8d5a3b"/>
+<rect x="98" y="150" width="86" height="125" rx="34" fill="#9fd3c7"/>
+<rect x="98" y="250" width="86" height="12" fill="#444a51"/>
+<rect x="130" y="132" width="22" height="22" fill="#8d5a3b"/>
+<circle cx="142" cy="114" r="28" fill="#8d5a3b"/>
+<path d="M112 110 a30 30 0 0 1 60 0 Z" fill="#646cfa"/>
+<rect x="108" y="104" width="76" height="9" rx="4.5" fill="#646cfa"/>
+<path d="M178 180 L248 222" stroke="#9fd3c7" stroke-width="22" stroke-linecap="round"/>
+<rect x="298" y="255" width="26" height="96" rx="13" fill="#444a51"/>
+<rect x="330" y="255" width="26" height="96" rx="13" fill="#444a51"/>
+<rect x="292" y="342" width="38" height="14" rx="7" fill="#151c25"/>
+<rect x="326" y="342" width="38" height="14" rx="7" fill="#151c25"/>
+<rect x="286" y="150" width="86" height="125" rx="34" fill="#f2b880"/>
+<rect x="318" y="132" width="22" height="22" fill="#f1c9a5"/>
+<circle cx="329" cy="114" r="28" fill="#f1c9a5"/>
+<path d="M299 118 a30 30 0 0 1 60 -4 Q360 150 352 160 L352 118 Q330 104 306 118 L306 160 Q296 150 299 118 Z" fill="#151c25"/>
+<path d="M368 180 Q384 220 376 248" stroke="#f2b880" stroke-width="22" stroke-linecap="round" fill="none"/>
+<circle cx="376" cy="254" r="10" fill="#f1c9a5"/>
+<path d="M292 180 L270 222" stroke="#f2b880" stroke-width="22" stroke-linecap="round"/>
+<circle cx="254" cy="226" r="11" fill="#8d5a3b"/>
+<circle cx="266" cy="226" r="11" fill="#f1c9a5"/>
+</svg>

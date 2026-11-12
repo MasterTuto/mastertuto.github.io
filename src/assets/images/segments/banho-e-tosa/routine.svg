@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img"><title>Celular cheio de mensagens, uma delas com o espaço da foto vazio, ao lado de uma escova de tosa, um tufo de pelo embolado e uma coleira</title>
+<rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+<circle cx="300" cy="270" r="210" fill="#fafafa" opacity=".6"/>
+<ellipse cx="300" cy="528" rx="230" ry="16" fill="#151c25" opacity=".08"/>
+<rect x="186" y="60" width="228" height="452" rx="38" fill="#151c25"/>
+<rect x="200" y="84" width="200" height="408" rx="24" fill="#fafafa"/>
+<path d="M200 108 a24 24 0 0 1 24 -24 h152 a24 24 0 0 1 24 24 v26 h-200 Z" fill="#7a70e1"/>
+<circle cx="226" cy="114" r="11" fill="#eaebf9"/>
+<rect x="244" y="108" width="70" height="10" rx="5" fill="#eaebf9"/>
+<rect x="214" y="150" width="128" height="34" rx="14" fill="#eaebf9"/>
+<rect x="226" y="164" width="96" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="214" y="194" width="150" height="104" rx="14" fill="#eaebf9"/>
+<rect x="226" y="206" width="126" height="64" rx="8" fill="none" stroke="#8e9095" stroke-width="3" stroke-dasharray="8 6"/>
+<circle cx="289" cy="238" r="10" fill="none" stroke="#8e9095" stroke-width="3"/>
+<rect x="226" y="280" width="80" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="214" y="308" width="110" height="34" rx="14" fill="#eaebf9"/>
+<rect x="226" y="322" width="76" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="214" y="352" width="140" height="44" rx="14" fill="#eaebf9"/>
+<rect x="226" y="364" width="112" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="226" y="378" width="70" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="214" y="406" width="96" height="34" rx="14" fill="#eaebf9"/>
+<rect x="226" y="420" width="60" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="214" y="452" width="172" height="26" rx="13" fill="#f4f2f2"/>
+<circle cx="404" cy="76" r="24" fill="#f2b880"/>
+<circle cx="404" cy="76" r="8" fill="#fafafa"/>
+<ellipse cx="112" cy="516" rx="66" ry="9" fill="#151c25" opacity=".1"/>
+<path d="M56 508 Q44 474 76 462 Q80 430 112 434 Q132 412 150 438 Q178 446 168 476 Q184 500 160 512 Z" fill="#f2b880"/>
+<g stroke="#c68a5e" stroke-width="4" fill="none" stroke-linecap="round">
+<circle cx="96" cy="482" r="12"/>
+<circle cx="106" cy="474" r="9"/>
+<circle cx="134" cy="490" r="10"/>
+<path d="M120 460 q10 6 4 16 q-6 8 6 14"/>
+<path d="M150 438 q14 -10 22 -4"/>
+<path d="M76 462 q-12 -8 -20 -2"/>
+</g>
+<ellipse cx="510" cy="500" rx="76" ry="10" fill="#151c25" opacity=".1"/>
+<ellipse cx="512" cy="442" rx="54" ry="18" fill="none" stroke="#7a70e1" stroke-width="12"/>
+<rect x="500" y="452" width="24" height="12" rx="4" fill="#444a51"/>
+<circle cx="512" cy="466" r="10" fill="#9fd3c7"/>
+<rect x="498" y="484" width="78" height="20" rx="10" fill="#646cfa"/>
+<rect x="436" y="472" width="68" height="34" rx="10" fill="#444a51"/>
+<g fill="#8e9095">
+<circle cx="448" cy="482" r="3"/><circle cx="462" cy="482" r="3"/><circle cx="476" cy="482" r="3"/><circle cx="490" cy="482" r="3"/>
+<circle cx="448" cy="496" r="3"/><circle cx="462" cy="496" r="3"/><circle cx="476" cy="496" r="3"/><circle cx="490" cy="496" r="3"/>
+</g>
+</svg>

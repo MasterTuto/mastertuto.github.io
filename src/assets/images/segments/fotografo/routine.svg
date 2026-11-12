@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img"><title>Celular à noite cheio de mensagens, ao lado de um calendário com o mesmo dia marcado por dois clientes e de uma câmera</title>
+<rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+<circle cx="92" cy="92" r="30" fill="#f2b880"/>
+<circle cx="106" cy="82" r="28" fill="#eaebf9"/>
+<circle cx="150" cy="140" r="4" fill="#8e9095"/><circle cx="60" cy="170" r="3" fill="#8e9095"/><circle cx="510" cy="70" r="4" fill="#8e9095"/>
+<ellipse cx="290" cy="532" rx="190" ry="16" fill="#151c25" opacity=".08"/>
+<rect x="170" y="70" width="230" height="450" rx="36" fill="#151c25"/>
+<rect x="184" y="86" width="202" height="418" rx="24" fill="#fafafa"/>
+<path d="M184 110 A24 24 0 0 1 208 86 H362 A24 24 0 0 1 386 110 V130 H184 Z" fill="#646cfa"/>
+<circle cx="208" cy="108" r="11" fill="#eaebf9"/>
+<rect x="226" y="102" width="70" height="8" rx="4" fill="#eaebf9"/>
+<circle cx="392" cy="80" r="20" fill="#f2b880"/>
+<circle cx="392" cy="80" r="7" fill="#fafafa"/>
+<rect x="196" y="144" width="140" height="44" rx="14" fill="#eaebf9"/>
+<rect x="208" y="157" width="104" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="208" y="170" width="70" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="196" y="198" width="120" height="58" rx="14" fill="#eaebf9"/>
+<rect x="208" y="210" width="38" height="34" rx="6" fill="#7a70e1"/>
+<rect x="208" y="210" width="38" height="9" rx="4" fill="#646cfa"/>
+<rect x="254" y="214" width="50" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="254" y="228" width="36" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="244" y="266" width="130" height="34" rx="14" fill="#7a70e1"/>
+<rect x="256" y="280" width="96" height="7" rx="3.5" fill="#eaebf9"/>
+<rect x="196" y="310" width="150" height="44" rx="14" fill="#eaebf9"/>
+<rect x="208" y="323" width="118" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="208" y="336" width="84" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="196" y="364" width="110" height="34" rx="14" fill="#eaebf9"/>
+<rect x="208" y="378" width="80" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="196" y="408" width="140" height="44" rx="14" fill="#eaebf9"/>
+<rect x="208" y="421" width="110" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="208" y="434" width="64" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="196" y="462" width="90" height="30" rx="14" fill="#eaebf9"/>
+<circle cx="216" cy="477" r="4" fill="#8e9095"/><circle cx="230" cy="477" r="4" fill="#8e9095"/><circle cx="244" cy="477" r="4" fill="#8e9095"/>
+<rect x="346" y="262" width="210" height="208" rx="22" fill="#fafafa"/>
+<path d="M346 284 A22 22 0 0 1 368 262 H534 A22 22 0 0 1 556 284 V306 H346 Z" fill="#7a70e1"/>
+<rect x="392" y="248" width="10" height="30" rx="5" fill="#444a51"/>
+<rect x="500" y="248" width="10" height="30" rx="5" fill="#444a51"/>
+<g fill="#eaebf9">
+<rect x="364" y="322" width="34" height="30" rx="7"/><rect x="408" y="322" width="34" height="30" rx="7"/><rect x="452" y="322" width="34" height="30" rx="7"/><rect x="496" y="322" width="34" height="30" rx="7"/>
+<rect x="364" y="362" width="34" height="30" rx="7"/><rect x="408" y="362" width="34" height="30" rx="7"/><rect x="496" y="362" width="34" height="30" rx="7"/>
+<rect x="364" y="402" width="34" height="30" rx="7"/><rect x="408" y="402" width="34" height="30" rx="7"/><rect x="452" y="402" width="34" height="30" rx="7"/><rect x="496" y="402" width="34" height="30" rx="7"/>
+</g>
+<rect x="446" y="356" width="46" height="42" rx="10" fill="#f2b880"/>
+<circle cx="462" cy="377" r="11" fill="#7a70e1"/>
+<circle cx="476" cy="377" r="11" fill="#646cfa" opacity=".85"/>
+<ellipse cx="128" cy="528" rx="92" ry="10" fill="#151c25" opacity=".1"/>
+<rect x="66" y="408" width="44" height="20" rx="6" fill="#151c25"/>
+<rect x="46" y="420" width="164" height="104" rx="22" fill="#444a51"/>
+<rect x="46" y="452" width="164" height="40" fill="#151c25" opacity=".35"/>
+<circle cx="138" cy="472" r="40" fill="#151c25"/>
+<circle cx="138" cy="472" r="28" fill="#646cfa"/>
+<circle cx="138" cy="472" r="14" fill="#151c25"/>
+<circle cx="130" cy="464" r="5" fill="#fafafa" opacity=".8"/>
+<rect x="178" y="432" width="20" height="10" rx="5" fill="#f2b880"/>
+</svg>

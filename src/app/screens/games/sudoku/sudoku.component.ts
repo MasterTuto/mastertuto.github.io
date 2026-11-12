@@ -274,10 +274,10 @@ export class SudokuComponent {
     const bottom = r === N - 1 || r % boxRows === boxRows - 1;
 
     parts.push(
-      left ? "border-l-2 border-l-blue-400/70" : "border-l border-l-slate-700",
-      top ? "border-t-2 border-t-blue-400/70" : "border-t border-t-slate-700",
-      right ? "border-r-2 border-r-blue-400/70" : "border-r border-r-slate-700",
-      bottom ? "border-b-2 border-b-blue-400/70" : "border-b border-b-slate-700",
+      left ? "border-l-2 border-l-foreground-emphasis/70" : "border-l border-l-foreground/15",
+      top ? "border-t-2 border-t-foreground-emphasis/70" : "border-t border-t-foreground/15",
+      right ? "border-r-2 border-r-foreground-emphasis/70" : "border-r border-r-foreground/15",
+      bottom ? "border-b-2 border-b-foreground-emphasis/70" : "border-b border-b-foreground/15",
     );
 
     const isSelected = sel === index;
@@ -292,11 +292,11 @@ export class SudokuComponent {
     const sameNumber = !isSelected && selectedValue !== 0 && cell.value === selectedValue;
     const conflict = !cell.given && cell.value !== 0 && this.hasConflict(index);
 
-    let bg = "bg-slate-900";
+    let bg = "bg-surface";
     if (conflict) {
       bg = "bg-red-500/30";
     } else if (isSelected) {
-      bg = "bg-blue-500/25";
+      bg = "bg-foreground-emphasis/25";
     } else if (sameNumber) {
       bg = "bg-sky-500/25";
     } else if (sameGroup) {
@@ -305,11 +305,11 @@ export class SudokuComponent {
     parts.push(bg);
 
     if (cell.given) {
-      parts.push("text-white");
+      parts.push("text-foreground");
     } else if (conflict) {
-      parts.push("text-red-300");
+      parts.push("text-red-600");
     } else {
-      parts.push("text-blue-300");
+      parts.push("text-foreground-emphasis");
     }
 
     if (!cell.given) {

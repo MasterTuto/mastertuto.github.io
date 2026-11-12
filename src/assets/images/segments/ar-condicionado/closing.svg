@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img"><title>Técnico com a caixa de ferramentas cumprimenta a cliente numa sala sob o ar-condicionado ligado, com um calendário de manutenção marcado na parede</title>
+<rect width="100%" height="100%" rx="28" fill="#eaebf9"/>
+<rect x="30" y="30" width="540" height="290" rx="22" fill="#f4f2f2"/>
+<ellipse cx="300" cy="372" rx="230" ry="12" fill="#151c25" opacity=".08"/>
+<rect x="64" y="64" width="104" height="112" rx="12" fill="#fafafa"/>
+<rect x="64" y="64" width="104" height="26" rx="12" fill="#7a70e1"/>
+<rect x="64" y="78" width="104" height="12" fill="#7a70e1"/>
+<g fill="#eaebf9">
+<rect x="76" y="102" width="16" height="14" rx="3"/><rect x="100" y="102" width="16" height="14" rx="3"/><rect x="124" y="102" width="16" height="14" rx="3"/><rect x="148" y="102" width="12" height="14" rx="3"/>
+<rect x="76" y="124" width="16" height="14" rx="3"/><rect x="124" y="124" width="16" height="14" rx="3"/><rect x="148" y="124" width="12" height="14" rx="3"/>
+<rect x="76" y="146" width="16" height="14" rx="3"/><rect x="100" y="146" width="16" height="14" rx="3"/><rect x="148" y="146" width="12" height="14" rx="3"/>
+</g>
+<rect x="100" y="124" width="16" height="14" rx="3" fill="#9fd3c7"/>
+<rect x="124" y="146" width="16" height="14" rx="3" fill="#9fd3c7"/>
+<path d="M103 131 l4 4 l7 -8" stroke="#151c25" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="232" y="58" width="200" height="56" rx="20" fill="#fafafa"/>
+<rect x="250" y="98" width="164" height="8" rx="4" fill="#8e9095"/>
+<circle cx="412" cy="76" r="4" fill="#9fd3c7"/>
+<g stroke="#9fd3c7" stroke-width="5" stroke-linecap="round" fill="none">
+<path d="M294 122 q8 7 0 14 q-8 7 0 14"/>
+<path d="M320 122 q8 7 0 14 q-8 7 0 14"/>
+<path d="M414 122 q8 7 0 14 q-8 7 0 14"/>
+</g>
+<ellipse cx="500" cy="370" rx="36" ry="6" fill="#151c25" opacity=".1"/>
+<path d="M500 300 C476 276 470 252 480 236 C494 256 500 278 500 300 Z" fill="#9fd3c7"/>
+<path d="M500 300 C522 272 536 262 544 246 C524 246 508 268 500 300 Z" fill="#9fd3c7"/>
+<path d="M476 304 h48 l-6 64 h-36 Z" fill="#f2b880"/>
+<ellipse cx="236" cy="370" rx="44" ry="6" fill="#151c25" opacity=".1"/>
+<ellipse cx="366" cy="370" rx="44" ry="6" fill="#151c25" opacity=".1"/>
+<rect x="218" y="290" width="22" height="74" rx="11" fill="#151c25"/>
+<rect x="244" y="290" width="22" height="74" rx="11" fill="#151c25"/>
+<rect x="212" y="358" width="30" height="12" rx="6" fill="#444a51"/>
+<rect x="240" y="358" width="30" height="12" rx="6" fill="#444a51"/>
+<rect x="204" y="200" width="76" height="110" rx="32" fill="#646cfa"/>
+<path d="M214 222 L196 290" stroke="#646cfa" stroke-width="18" stroke-linecap="round"/>
+<path d="M270 222 L300 258" stroke="#646cfa" stroke-width="18" stroke-linecap="round"/>
+<rect x="232" y="180" width="20" height="24" fill="#c68a5e"/>
+<circle cx="242" cy="168" r="25" fill="#c68a5e"/>
+<path d="M216 164 a26 26 0 0 1 52 0 Z" fill="#151c25"/>
+<rect x="246" y="158" width="36" height="8" rx="4" fill="#151c25"/>
+<path d="M174 312 v-12 h40 v12" stroke="#444a51" stroke-width="5" fill="none" stroke-linejoin="round"/>
+<rect x="150" y="318" width="88" height="48" rx="9" fill="#f2b880"/>
+<rect x="146" y="308" width="96" height="14" rx="7" fill="#c68a5e"/>
+<circle cx="196" cy="296" r="10" fill="#c68a5e"/>
+<rect x="346" y="290" width="22" height="74" rx="11" fill="#444a51"/>
+<rect x="372" y="290" width="22" height="74" rx="11" fill="#444a51"/>
+<rect x="340" y="358" width="30" height="12" rx="6" fill="#151c25"/>
+<rect x="368" y="358" width="30" height="12" rx="6" fill="#151c25"/>
+<rect x="332" y="204" width="76" height="106" rx="32" fill="#7a70e1"/>
+<path d="M398 226 L412 292" stroke="#7a70e1" stroke-width="18" stroke-linecap="round"/>
+<path d="M342 226 L306 258" stroke="#7a70e1" stroke-width="18" stroke-linecap="round"/>
+<circle cx="303" cy="260" r="11" fill="#f1c9a5"/>
+<circle cx="413" cy="298" r="9" fill="#f1c9a5"/>
+<rect x="360" y="184" width="20" height="24" fill="#f1c9a5"/>
+<path d="M342 172 a28 30 0 0 1 56 0 v26 h-56 Z" fill="#444a51"/>
+<circle cx="370" cy="172" r="24" fill="#f1c9a5"/>
+<path d="M346 166 a24 24 0 0 1 48 0 q-24 -10 -48 0 Z" fill="#444a51"/>
+</svg>

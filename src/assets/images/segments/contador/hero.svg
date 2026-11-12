@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+  <title>Contadora em sua mesa com notebook, calculadora e bandeja de papéis, com calendário de parede e estante de pastas ao fundo</title>
+  <rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+  <!-- wall calendar -->
+  <rect x="90" y="86" width="180" height="160" rx="16" fill="#fafafa"/>
+  <path d="M90 102 a16 16 0 0 1 16 -16 h148 a16 16 0 0 1 16 16 v24 h-180 z" fill="#7a70e1"/>
+  <rect x="122" y="74" width="8" height="24" rx="4" fill="#444a51"/>
+  <rect x="230" y="74" width="8" height="24" rx="4" fill="#444a51"/>
+  <g fill="#eaebf9">
+    <rect x="106" y="140" width="22" height="18" rx="4"/>
+    <rect x="138" y="140" width="22" height="18" rx="4"/>
+    <rect x="170" y="140" width="22" height="18" rx="4"/>
+    <rect x="202" y="140" width="22" height="18" rx="4"/>
+    <rect x="234" y="140" width="22" height="18" rx="4"/>
+    <rect x="106" y="170" width="22" height="18" rx="4"/>
+    <rect x="138" y="170" width="22" height="18" rx="4"/>
+    <rect x="170" y="170" width="22" height="18" rx="4"/>
+    <rect x="234" y="170" width="22" height="18" rx="4"/>
+    <rect x="106" y="200" width="22" height="18" rx="4"/>
+    <rect x="138" y="200" width="22" height="18" rx="4"/>
+    <rect x="170" y="200" width="22" height="18" rx="4"/>
+    <rect x="202" y="200" width="22" height="18" rx="4"/>
+    <rect x="234" y="200" width="22" height="18" rx="4"/>
+  </g>
+  <rect x="202" y="170" width="22" height="18" rx="4" fill="#f2b880"/>
+  <circle cx="213" cy="179" r="17" fill="none" stroke="#646cfa" stroke-width="3"/>
+  <!-- shelf with binders and archive boxes -->
+  <rect x="540" y="96" width="200" height="236" rx="16" fill="#fafafa"/>
+  <rect x="552" y="176" width="176" height="6" rx="3" fill="#8e9095"/>
+  <rect x="552" y="256" width="176" height="6" rx="3" fill="#8e9095"/>
+  <rect x="558" y="108" width="26" height="68" rx="4" fill="#646cfa"/>
+  <rect x="588" y="104" width="26" height="72" rx="4" fill="#7a70e1"/>
+  <rect x="618" y="110" width="26" height="66" rx="4" fill="#9fd3c7"/>
+  <rect x="648" y="106" width="26" height="70" rx="4" fill="#151c25"/>
+  <rect x="682" y="110" width="26" height="66" rx="4" fill="#f2b880" transform="rotate(14 695 176)"/>
+  <g fill="#fafafa">
+    <rect x="564" y="120" width="14" height="20" rx="3"/>
+    <rect x="594" y="116" width="14" height="20" rx="3"/>
+    <rect x="624" y="122" width="14" height="20" rx="3"/>
+    <rect x="654" y="118" width="14" height="20" rx="3"/>
+    <circle cx="571" cy="160" r="4"/>
+    <circle cx="601" cy="160" r="4"/>
+    <circle cx="631" cy="160" r="4"/>
+    <circle cx="661" cy="160" r="4"/>
+  </g>
+  <rect x="558" y="208" width="84" height="48" rx="6" fill="#f2b880"/>
+  <rect x="588" y="222" width="24" height="8" rx="4" fill="#444a51"/>
+  <rect x="652" y="196" width="24" height="60" rx="4" fill="#444a51"/>
+  <rect x="680" y="192" width="28" height="64" rx="4" fill="#646cfa"/>
+  <rect x="556" y="280" width="84" height="46" rx="6" fill="#9fd3c7"/>
+  <rect x="586" y="294" width="24" height="8" rx="4" fill="#444a51"/>
+  <rect x="648" y="280" width="80" height="46" rx="6" fill="#f2b880"/>
+  <rect x="676" y="294" width="24" height="8" rx="4" fill="#444a51"/>
+  <!-- plant on shelf -->
+  <ellipse cx="694" cy="62" rx="9" ry="22" fill="#9fd3c7" transform="rotate(-24 694 62)"/>
+  <ellipse cx="716" cy="60" rx="9" ry="24" fill="#9fd3c7" transform="rotate(22 716 60)"/>
+  <ellipse cx="705" cy="56" rx="8" ry="26" fill="#9fd3c7"/>
+  <rect x="686" y="70" width="38" height="26" rx="7" fill="#f2b880"/>
+  <!-- chair -->
+  <rect x="335" y="225" width="140" height="190" rx="36" fill="#444a51"/>
+  <!-- person -->
+  <rect x="393" y="236" width="24" height="34" rx="8" fill="#c68a5e"/>
+  <path d="M325 412 L325 312 Q325 268 372 262 L438 262 Q485 268 485 312 L485 412 Z" fill="#7a70e1"/>
+  <path d="M386 262 L405 300 L424 262 Z" fill="#fafafa"/>
+  <circle cx="405" cy="210" r="36" fill="#c68a5e"/>
+  <circle cx="405" cy="164" r="17" fill="#151c25"/>
+  <path d="M368 214 Q364 170 405 170 Q446 170 442 214 Q438 192 420 186 Q398 200 368 214 Z" fill="#151c25"/>
+  <g fill="none" stroke="#151c25" stroke-width="3">
+    <circle cx="391" cy="216" r="9"/>
+    <circle cx="419" cy="216" r="9"/>
+    <path d="M400 216 h10"/>
+  </g>
+  <!-- laptop (back of lid) -->
+  <rect x="340" y="328" width="130" height="84" rx="8" fill="#8e9095"/>
+  <rect x="328" y="408" width="154" height="6" rx="3" fill="#444a51"/>
+  <ellipse cx="314" cy="406" rx="17" ry="9" fill="#c68a5e"/>
+  <ellipse cx="496" cy="406" rx="17" ry="9" fill="#c68a5e"/>
+  <!-- desk -->
+  <ellipse cx="405" cy="556" rx="270" ry="12" fill="#151c25" opacity="0.08"/>
+  <rect x="196" y="430" width="418" height="92" rx="10" fill="#fafafa"/>
+  <rect x="172" y="430" width="20" height="124" rx="6" fill="#151c25"/>
+  <rect x="618" y="430" width="20" height="124" rx="6" fill="#151c25"/>
+  <rect x="140" y="412" width="530" height="22" rx="11" fill="#444a51"/>
+  <!-- paper tray -->
+  <rect x="180" y="366" width="92" height="40" rx="3" fill="#fafafa" transform="rotate(-4 226 386)"/>
+  <rect x="186" y="358" width="88" height="44" rx="3" fill="#fafafa" stroke="#eaebf9" stroke-width="2"/>
+  <rect x="196" y="370" width="56" height="4" rx="2" fill="#8e9095"/>
+  <rect x="196" y="380" width="40" height="4" rx="2" fill="#8e9095"/>
+  <rect x="172" y="394" width="110" height="18" rx="5" fill="#151c25"/>
+  <!-- calculator -->
+  <rect x="520" y="344" width="62" height="68" rx="8" fill="#151c25"/>
+  <rect x="528" y="352" width="46" height="14" rx="3" fill="#9fd3c7"/>
+  <g fill="#8e9095">
+    <rect x="530" y="374" width="8" height="7" rx="2"/>
+    <rect x="542" y="374" width="8" height="7" rx="2"/>
+    <rect x="554" y="374" width="8" height="7" rx="2"/>
+    <rect x="530" y="386" width="8" height="7" rx="2"/>
+    <rect x="542" y="386" width="8" height="7" rx="2"/>
+    <rect x="554" y="386" width="8" height="7" rx="2"/>
+    <rect x="530" y="398" width="8" height="7" rx="2"/>
+    <rect x="542" y="398" width="8" height="7" rx="2"/>
+    <rect x="554" y="398" width="8" height="7" rx="2"/>
+  </g>
+  <rect x="566" y="374" width="8" height="31" rx="2" fill="#f2b880"/>
+  <!-- mug -->
+  <rect x="604" y="380" width="30" height="32" rx="6" fill="#fafafa"/>
+  <path d="M634 388 a9 9 0 0 1 0 16" fill="none" stroke="#fafafa" stroke-width="5"/>
+</svg>

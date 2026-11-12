@@ -1,53 +1,31 @@
-import { Component, inject } from '@angular/core';
-import { IframeDialogComponent } from 'src/app/components/@my/dialogs/iframe-dialog/iframe-dialog.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { tablerArrowRight, tablerExternalLink } from '@ng-icons/tabler-icons';
+
+import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { CaseMockupComponent } from 'src/app/components/case-mockup/case-mockup.component';
 import { SectionComponent } from 'src/app/components/section/section.component';
-import { electricianProjectTemplate } from 'src/app/data/projects/electrian.data';
-import { dialog } from 'src/app/dunder/dialog.dunder';
+import { projectCases } from 'src/app/data/cases.data';
+import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
-import { TranslateService } from 'src/app/service/translate.service';
 
-interface PortfolioItem {
-  nameKey: string;
-  descriptionKey: string;
-  cover: string;
-  url?: string;
-  template?: string;
-}
-
+/** Home portfolio: one full-width section per case, each linking to its case page. */
 @Component({
   selector: 'app-projects-section',
   templateUrl: './projects-section.component.html',
-  imports: [SectionComponent, TranslatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    SectionComponent,
+    TranslatePipe,
+    LangLinkPipe,
+    RouterLink,
+    NgIconComponent,
+    ButtonComponent,
+    CaseMockupComponent,
+  ],
+  providers: [provideIcons({ tablerArrowRight, tablerExternalLink })],
 })
 export class ProjectsSectionComponent {
-  private showProjectDialog = dialog(IframeDialogComponent);
-  private translateService = inject(TranslateService);
-
-  readonly projects: PortfolioItem[] = [
-    {
-      nameKey: 'showcase.jingleName',
-      descriptionKey: 'showcase.jingleDescription',
-      cover: 'assets/images/jingleia.png',
-      url: 'https://jingle.ia.br/',
-    },
-    {
-      nameKey: 'home.projects.items.1.name',
-      descriptionKey: 'home.projects.items.1.description',
-      cover: 'assets/volt_wire.png',
-      template: electricianProjectTemplate,
-    },
-  ];
-
-  openProject(project: PortfolioItem): void {
-    if (!project.template && !project.url) return;
-    this.showProjectDialog.open({
-      title: this.translateService.translate(project.nameKey),
-      html: project.template,
-      url: project.url,
-    }, {
-      height: '100dvh',
-      width: '100dvw',
-      margin: '0px',
-    });
-  }
+  readonly projects = projectCases;
 }

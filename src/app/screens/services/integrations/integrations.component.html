@@ -1,0 +1,190 @@
+<div class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-20 pb-4">
+  <!-- Hero: dark panel with a hub diagram -->
+  <section class="grid items-center gap-10 overflow-hidden rounded-3xl bg-secondary-surface p-8 sm:p-12 lg:grid-cols-2">
+    <div class="flex flex-col gap-5">
+      <a
+        [routerLink]="['/', lang, 'services']"
+        class="flex w-fit items-center gap-1 text-sm text-secondary-surface-foreground-light transition hover:text-secondary-surface-foreground"
+      >
+        <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+        {{ 'servicesPage.common.backToServices' | translate }}
+      </a>
+      <h1 class="text-4xl font-semibold text-secondary-surface-foreground sm:text-5xl">
+        {{ 'servicesPage.integrations.heroTitle' | translate }}
+      </h1>
+      <p class="text-lg leading-relaxed text-secondary-surface-foreground-light">
+        {{ 'servicesPage.integrations.intro' | translate }}
+      </p>
+      <a myButton="cta" class="max-w-fit !border-secondary-surface-foreground/20" [href]="whatsappLink" target="_blank" rel="noopener">
+        {{ 'servicesPage.common.requestBudget' | translate }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
+    </div>
+
+    <div class="relative mx-auto grid aspect-square w-full max-w-md grid-cols-3 grid-rows-3 place-items-center">
+      <svg aria-hidden="true" class="absolute inset-0 h-full w-full text-secondary-surface-foreground/20" viewBox="0 0 300 300" fill="none">
+        @for (node of hubLines; track node) {
+          <line x1="150" y1="150" [attr.x2]="node[0]" [attr.y2]="node[1]" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4" />
+        }
+      </svg>
+      @for (tool of tools; track tool.step) {
+        <div
+          class="relative flex flex-col items-center gap-1.5 rounded-xl border border-secondary-surface-foreground/15 bg-secondary-surface px-3 py-2.5 text-center"
+          [class]="tool.position"
+        >
+          <ng-icon [name]="tool.icon" class="text-xl text-surface-decoration-foreground" />
+          <span class="text-xs font-medium text-secondary-surface-foreground">
+            {{ 'servicesPage.integrations.tools.' + tool.step | translate }}
+          </span>
+        </div>
+      }
+      <div class="relative col-start-2 row-start-2 flex flex-col items-center gap-1.5 rounded-2xl bg-surface-decoration-foreground px-4 py-4 text-center text-white shadow-lg shadow-surface-decoration-foreground/30">
+        <ng-icon name="tablerWorld" class="text-2xl" />
+        <span class="text-sm font-semibold">{{ 'servicesPage.integrations.hubCenter' | translate }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow: trigger → automation → result -->
+  <section class="flex flex-col gap-8">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+        {{ 'servicesPage.integrations.flowTitle' | translate }}
+      </h2>
+      <p class="max-w-[60ch] text-foreground-light">{{ 'servicesPage.integrations.flowSubtitle' | translate }}</p>
+    </div>
+    <ol class="grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
+      @for (step of flowSteps; track step; let last = $last) {
+        <li class="flex flex-col gap-2 rounded-2xl bg-surface p-6">
+          <span class="w-fit rounded-md bg-surface-decoration px-2 py-0.5 font-mono text-xs font-semibold uppercase text-surface-decoration-foreground">
+            {{ 'servicesPage.integrations.flow.' + step + '.label' | translate }}
+          </span>
+          <h3 class="text-lg font-semibold text-foreground">
+            {{ 'servicesPage.integrations.flow.' + step + '.title' | translate }}
+          </h3>
+          <p class="text-foreground-light">{{ 'servicesPage.integrations.flow.' + step + '.text' | translate }}</p>
+        </li>
+        @if (!last) {
+          <li aria-hidden="true" class="grid place-items-center text-2xl text-foreground-emphasis">
+            <span class="md:hidden"><ng-icon name="tablerArrowDown" /></span>
+            <span class="hidden md:block"><ng-icon name="tablerArrowRight" /></span>
+          </li>
+        }
+      }
+    </ol>
+  </section>
+
+  <!-- Benefits: statement on the left, checklist on the right -->
+  <section class="grid gap-10 lg:grid-cols-2">
+    <div class="flex flex-col gap-4 lg:sticky lg:top-32 lg:self-start">
+      <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+        {{ 'servicesPage.integrations.benefitsTitle' | translate }}
+      </h2>
+      <p class="text-lg leading-relaxed text-foreground-light">{{ 'servicesPage.integrations.introP2' | translate }}</p>
+    </div>
+    <ul class="flex flex-col divide-y divide-foreground/10">
+      @for (step of benefitSteps; track step) {
+        <li class="flex gap-4 py-5 first:pt-0">
+          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-surface-decoration text-surface-decoration-foreground">
+            <ng-icon name="tablerCheck" class="h-4 w-4" />
+          </span>
+          <div>
+            <h3 class="font-semibold text-foreground">
+              {{ 'servicesPage.integrations.benefits.' + step + '.title' | translate }}
+            </h3>
+            <p class="mt-1 text-foreground-light">{{ 'servicesPage.integrations.benefits.' + step + '.text' | translate }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- What can be connected -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.integrations.detailsTitle' | translate }}
+    </h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      @for (detail of details; track detail.step) {
+        <article class="flex flex-col gap-4 rounded-2xl border border-foreground/10 p-6">
+          <div class="flex gap-2 text-2xl text-surface-decoration-foreground">
+            @for (icon of detail.icons; track icon) {
+              <span class="grid size-11 place-items-center rounded-lg bg-surface-decoration">
+                <ng-icon [name]="icon" />
+              </span>
+            }
+          </div>
+          <h3 class="text-lg font-semibold text-foreground">
+            {{ 'servicesPage.integrations.details.' + detail.step + '.title' | translate }}
+          </h3>
+          <p class="leading-relaxed text-foreground-light">
+            {{ 'servicesPage.integrations.details.' + detail.step + '.text' | translate }}
+          </p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Process in a terminal-style block -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.integrations.processTitle' | translate }}
+    </h2>
+    <div class="overflow-hidden rounded-2xl bg-primary font-mono text-sm">
+      <div class="flex items-center gap-2 border-b border-primary-border px-5 py-3 text-primary-foreground/60">
+        <ng-icon name="tablerTerminal2" />
+        <span>integrations.sh</span>
+      </div>
+      <ol class="flex flex-col gap-5 p-6">
+        @for (step of processSteps; track step) {
+          <li class="grid gap-1 sm:grid-cols-[3rem_12rem_1fr] sm:gap-4">
+            <span class="text-surface-decoration-foreground">0{{ step }}</span>
+            <span class="font-semibold text-primary-foreground">
+              {{ 'servicesPage.integrations.process.' + step + '.title' | translate }}
+            </span>
+            <span class="text-primary-foreground/70">
+              {{ 'servicesPage.integrations.process.' + step + '.text' | translate }}
+            </span>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="grid gap-8 lg:grid-cols-[1fr_2fr]">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.integrations.faqTitle' | translate }}
+    </h2>
+    <div class="flex flex-col divide-y divide-foreground/10 border-y border-foreground/10">
+      @for (step of faqSteps; track step) {
+        <details class="group py-5">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-foreground">
+            {{ 'servicesPage.integrations.faqs.' + step + '.q' | translate }}
+            <ng-icon name="tablerChevronDown" class="shrink-0 text-foreground-light transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="mt-3 leading-relaxed text-foreground-light">
+            {{ 'servicesPage.integrations.faqs.' + step + '.a' | translate }}
+          </p>
+        </details>
+      }
+    </div>
+  </section>
+
+  <!-- CTA as a split card -->
+  <section class="flex flex-col gap-6 rounded-2xl bg-surface-decoration p-8 sm:p-10 md:flex-row md:items-center md:justify-between">
+    <div class="flex items-start gap-4">
+      <ng-icon name="tablerWebhook" class="mt-1 shrink-0 text-4xl text-surface-decoration-foreground" />
+      <div class="flex flex-col gap-1">
+        <h2 class="text-2xl font-semibold text-foreground">{{ 'servicesPage.integrations.ctaTitle' | translate }}</h2>
+        <p class="text-foreground-light">{{ 'servicesPage.integrations.ctaSubtitle' | translate }}</p>
+      </div>
+    </div>
+    <a myButton="cta" class="max-w-fit shrink-0" [href]="whatsappLink" target="_blank" rel="noopener">
+      {{ 'servicesPage.common.requestBudget' | translate }}
+      <ng-icon name="tablerArrowRight" />
+    </a>
+  </section>
+
+  <app-other-services current="integracoes" />
+</div>

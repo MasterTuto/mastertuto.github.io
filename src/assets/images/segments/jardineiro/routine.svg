@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img"><title>Celular cheio de mensagens, uma delas com o espaço da foto vazio, ao lado de um calendário com dias riscados sob uma nuvem de chuva e de uma tesoura de poda</title>
+<rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+<ellipse cx="225" cy="528" rx="130" ry="12" fill="#151c25" opacity=".1"/>
+<rect x="110" y="80" width="230" height="440" rx="34" fill="#151c25"/>
+<rect x="124" y="100" width="202" height="400" rx="24" fill="#fafafa"/>
+<path d="M124 124 a24 24 0 0 1 24 -24 h154 a24 24 0 0 1 24 24 v30 h-202 Z" fill="#646cfa"/>
+<circle cx="152" cy="128" r="12" fill="#eaebf9"/>
+<rect x="172" y="122" width="70" height="10" rx="5" fill="#eaebf9" opacity=".8"/>
+<rect x="138" y="170" width="140" height="40" rx="14" fill="#f4f2f2"/>
+<rect x="150" y="184" width="100" height="6" rx="3" fill="#8e9095"/><rect x="150" y="195" width="60" height="6" rx="3" fill="#8e9095"/>
+<rect x="138" y="220" width="156" height="104" rx="14" fill="#f4f2f2"/>
+<rect x="150" y="232" width="132" height="62" rx="8" fill="none" stroke="#8e9095" stroke-width="3" stroke-dasharray="8 6"/>
+<path d="M190 278 l14 -18 l12 14 l8 -8 l14 12" stroke="#8e9095" stroke-width="3" fill="none" stroke-linejoin="round" opacity=".5"/>
+<rect x="150" y="304" width="80" height="6" rx="3" fill="#8e9095"/>
+<rect x="206" y="334" width="106" height="34" rx="14" fill="#eaebf9"/>
+<rect x="218" y="348" width="80" height="6" rx="3" fill="#7a70e1"/>
+<rect x="138" y="378" width="150" height="40" rx="14" fill="#f4f2f2"/>
+<rect x="150" y="392" width="116" height="6" rx="3" fill="#8e9095"/><rect x="150" y="403" width="70" height="6" rx="3" fill="#8e9095"/>
+<rect x="138" y="428" width="110" height="34" rx="14" fill="#f4f2f2"/>
+<rect x="150" y="442" width="80" height="6" rx="3" fill="#8e9095"/>
+<circle cx="336" cy="88" r="22" fill="#f2b880"/>
+<circle cx="336" cy="88" r="8" fill="#fafafa"/>
+<ellipse cx="470" cy="402" rx="96" ry="9" fill="#151c25" opacity=".08"/>
+<rect x="378" y="218" width="184" height="176" rx="20" fill="#fafafa"/>
+<path d="M378 238 a20 20 0 0 1 20 -20 h144 a20 20 0 0 1 20 20 v20 h-184 Z" fill="#7a70e1"/>
+<rect x="414" y="206" width="10" height="26" rx="5" fill="#444a51"/>
+<rect x="516" y="206" width="10" height="26" rx="5" fill="#444a51"/>
+<g fill="#eaebf9">
+<rect x="394" y="272" width="30" height="30" rx="8"/><rect x="434" y="272" width="30" height="30" rx="8"/><rect x="474" y="272" width="30" height="30" rx="8"/><rect x="514" y="272" width="30" height="30" rx="8"/>
+<rect x="394" y="312" width="30" height="30" rx="8"/><rect x="434" y="312" width="30" height="30" rx="8"/><rect x="474" y="312" width="30" height="30" rx="8"/><rect x="514" y="312" width="30" height="30" rx="8"/>
+<rect x="394" y="352" width="30" height="30" rx="8"/><rect x="434" y="352" width="30" height="30" rx="8"/><rect x="474" y="352" width="30" height="30" rx="8"/><rect x="514" y="352" width="30" height="30" rx="8"/>
+</g>
+<rect x="474" y="312" width="30" height="30" rx="8" fill="#f2b880"/>
+<rect x="394" y="352" width="30" height="30" rx="8" fill="#9fd3c7"/>
+<g stroke="#444a51" stroke-width="4" stroke-linecap="round"><path d="M442 280 l14 14 M456 280 l-14 14 M482 280 l14 14 M496 280 l-14 14 M402 320 l14 14 M416 320 l-14 14 M442 320 l14 14 M456 320 l-14 14"/></g>
+<g fill="#8e9095"><circle cx="440" cy="126" r="34"/><circle cx="484" cy="110" r="44"/><circle cx="528" cy="132" r="30"/><rect x="410" y="124" width="140" height="40" rx="20"/></g>
+<g stroke="#646cfa" stroke-width="6" stroke-linecap="round"><path d="M432 178 l-6 14 M464 184 l-6 14 M496 178 l-6 14 M528 184 l-6 14"/></g>
+<ellipse cx="482" cy="534" rx="84" ry="9" fill="#151c25" opacity=".08"/>
+<g transform="translate(488 488) scale(.86) rotate(-16) translate(-468 -482)">
+<path d="M462 474 Q420 460 366 452" stroke="#f2b880" stroke-width="22" stroke-linecap="round" fill="none"/>
+<path d="M462 490 Q420 506 368 516" stroke="#7a70e1" stroke-width="22" stroke-linecap="round" fill="none"/>
+<path d="M400 466 Q412 484 400 502" stroke="#444a51" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M464 480 C496 438 540 432 568 448 C540 452 506 466 476 492 Z" fill="#444a51"/>
+<path d="M464 484 C498 504 530 504 552 490 C530 486 502 480 476 472 Z" fill="#8e9095"/>
+<circle cx="468" cy="482" r="9" fill="#151c25"/>
+<circle cx="468" cy="482" r="3" fill="#fafafa"/>
+</g>
+</svg>

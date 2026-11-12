@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CatalogLayoutComponent } from 'src/app/components/catalog-layout/catalog-layout.component';
+import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { decodeJwt, formatJson, jsonError, numericDate, tokenTiming } from './dev-tools.logic';
 import { devTools } from './dev-tools.data';
 
 @Component({
   selector: 'app-dev-tool',
-  imports: [CatalogLayoutComponent, RouterLink],
+  imports: [LangLinkPipe, RouterLink],
   templateUrl: './dev-tool.component.html',
   styleUrl: './dev-tool.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -13,7 +13,7 @@ module.exports = {
         background: 'rgb(244, 242, 242)',
         foreground: '#444a51',
         'foreground-emphasis': '#7a70e1',
-        'foreground-light': '#b9bbc2',
+        'foreground-light': '#8e9095',
 
         primary: "#151c25",
         'primary-foreground': "#e0e1df",

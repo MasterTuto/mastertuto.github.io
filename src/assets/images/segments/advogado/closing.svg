@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img">
+  <title>Advogado e cliente conversando em uma mesa de reunião organizada, com pasta, agenda e notebook</title>
+  <rect width="100%" height="100%" rx="28" fill="#f4f2f2"/>
+  <!-- wall calendar -->
+  <rect x="246" y="46" width="108" height="96" rx="12" fill="#fafafa"/>
+  <rect x="246" y="46" width="108" height="24" rx="12" fill="#7a70e1"/>
+  <rect x="246" y="58" width="108" height="12" fill="#7a70e1"/>
+  <g fill="#eaebf9">
+    <rect x="258" y="80" width="18" height="14" rx="3"/>
+    <rect x="282" y="80" width="18" height="14" rx="3"/>
+    <rect x="306" y="80" width="18" height="14" rx="3"/>
+    <rect x="330" y="80" width="14" height="14" rx="3"/>
+    <rect x="258" y="100" width="18" height="14" rx="3"/>
+    <rect x="306" y="100" width="18" height="14" rx="3"/>
+    <rect x="330" y="100" width="14" height="14" rx="3"/>
+    <rect x="258" y="120" width="18" height="14" rx="3"/>
+    <rect x="282" y="120" width="18" height="14" rx="3"/>
+    <rect x="306" y="120" width="18" height="14" rx="3"/>
+  </g>
+  <rect x="282" y="100" width="18" height="14" rx="3" fill="#9fd3c7"/>
+  <path d="M286 107 l4 4 l7 -8" fill="none" stroke="#151c25" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- plant -->
+  <ellipse cx="522" cy="270" rx="12" ry="34" fill="#9fd3c7" transform="rotate(-22 522 270)"/>
+  <ellipse cx="552" cy="266" rx="12" ry="36" fill="#9fd3c7" transform="rotate(20 552 266)"/>
+  <ellipse cx="537" cy="258" rx="11" ry="38" fill="#646cfa" opacity="0.35"/>
+  <rect x="514" y="296" width="46" height="54" rx="10" fill="#f2b880"/>
+  <!-- floor shadow -->
+  <ellipse cx="300" cy="352" rx="230" ry="10" fill="#151c25" opacity="0.08"/>
+  <!-- lawyer chair (left) -->
+  <rect x="104" y="196" width="14" height="110" rx="7" fill="#8e9095"/>
+  <rect x="104" y="292" width="92" height="12" rx="6" fill="#8e9095"/>
+  <rect x="144" y="304" width="10" height="46" rx="4" fill="#8e9095"/>
+  <!-- lawyer -->
+  <rect x="150" y="276" width="84" height="26" rx="13" fill="#444a51"/>
+  <rect x="210" y="282" width="24" height="66" rx="12" fill="#444a51"/>
+  <ellipse cx="228" cy="348" rx="17" ry="7" fill="#151c25"/>
+  <rect x="122" y="186" width="66" height="112" rx="28" fill="#151c25"/>
+  <path d="M168 190 L184 190 L176 214 Z" fill="#fafafa"/>
+  <circle cx="162" cy="160" r="25" fill="#c68a5e"/>
+  <path d="M137 162 Q136 132 164 134 Q184 136 186 152 Q170 146 158 152 Q150 160 150 172 Q140 172 137 162 Z" fill="#151c25"/>
+  <rect x="160" y="226" width="80" height="17" rx="8.5" fill="#151c25"/>
+  <circle cx="244" cy="236" r="9" fill="#c68a5e"/>
+  <!-- client chair (right) -->
+  <rect x="482" y="196" width="14" height="110" rx="7" fill="#8e9095"/>
+  <rect x="404" y="292" width="92" height="12" rx="6" fill="#8e9095"/>
+  <rect x="446" y="304" width="10" height="46" rx="4" fill="#8e9095"/>
+  <!-- client -->
+  <rect x="366" y="276" width="84" height="26" rx="13" fill="#646cfa"/>
+  <rect x="366" y="282" width="24" height="66" rx="12" fill="#646cfa"/>
+  <ellipse cx="372" cy="348" rx="17" ry="7" fill="#151c25"/>
+  <rect x="412" y="186" width="66" height="112" rx="28" fill="#9fd3c7"/>
+  <circle cx="438" cy="160" r="25" fill="#f1c9a5"/>
+  <path d="M463 162 Q464 132 436 134 Q416 136 414 152 Q430 146 442 152 Q450 160 450 172 Q460 172 463 162 Z" fill="#8e9095"/>
+  <rect x="360" y="226" width="80" height="17" rx="8.5" fill="#9fd3c7"/>
+  <circle cx="356" cy="236" r="9" fill="#f1c9a5"/>
+  <!-- table -->
+  <rect x="292" y="256" width="16" height="88" rx="6" fill="#444a51"/>
+  <ellipse cx="300" cy="346" rx="46" ry="7" fill="#444a51"/>
+  <rect x="214" y="244" width="172" height="14" rx="7" fill="#444a51"/>
+  <!-- on the table -->
+  <rect x="252" y="234" width="54" height="10" rx="3" fill="#7a70e1"/>
+  <rect x="258" y="228" width="44" height="6" rx="3" fill="#fafafa"/>
+  <path d="M316 244 L330 206 L364 206 L352 244 Z" fill="#8e9095"/>
+  <rect x="312" y="240" width="46" height="4" rx="2" fill="#151c25"/>
+</svg>
