@@ -18,16 +18,16 @@ export const frenchTranslations: Translations = {
     skip: 'Aller au contenu',
     gamesTitle: 'Jeux de logique et de lettres gratuits en ligne',
     gamesIntro:
-      'Jouez au Sudoku, à Queens et à Word Ladder dans votre navigateur, sur téléphone, tablette ou ordinateur.',
+      "Jouez au Sudoku, à Queens, à Word Ladder, au Démineur, au Logimage, au Puzzle binaire, au Jeu de mémoire et à Relie les couleurs dans votre navigateur, gratuitement, sur téléphone, tablette ou ordinateur.",
     gamesHeading: 'Choisissez votre prochain défi',
     gamesText:
-      'Résolvez des grilles de Sudoku, placez chaque reine ou reliez des mots en changeant une lettre à la fois. Chaque jeu propose ses règles, commandes et conseils.',
-    toolsTitle: 'Outils en ligne pour le quotidien',
+      "Entraînez votre logique avec le Sudoku, Queens, le Logimage et le Puzzle binaire, testez votre mémoire, évitez les mines ou reliez couleurs et mots. Chaque jeu propose des niveaux, un chrono qui démarre à votre premier coup et un résultat à partager.",
+    toolsTitle: "Outils en ligne gratuits pour les professionnels",
     toolsIntro:
-      'Formatez du JSON et inspectez des jetons JWT avec des outils gratuits pour développeurs dans votre navigateur.',
-    toolsHeading: 'Des outils pour le développement au quotidien',
+      "Créez des factures, dimensionnez câbles et climatiseurs, comptez des délais juridiques et plus encore, ou formatez du JSON et décodez des JWT. Des outils gratuits qui fonctionnent dans votre navigateur.",
+    toolsHeading: "Des outils pour le travail au quotidien",
     toolsText:
-      'Validez et minifiez du JSON ou consultez les claims et les dates d’expiration JWT. Découvrez aussi nos jeux de logique.',
+      "Les calculateurs professionnels et le générateur de factures sont en portugais et suivent les règles brésiliennes. Les outils pour développeurs formatent du JSON et décodent des jetons JWT. Pour une pause, essayez nos jeux de logique.",
   },
   backHome: "Retour à l'accueil",
   cases: {

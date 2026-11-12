@@ -17,16 +17,16 @@ export const englishTranslations = {
     skip: 'Skip to content',
     gamesTitle: 'Free online logic and word games',
     gamesIntro:
-      'Play Sudoku, Queens and Word Ladder in your browser. Explore number, strategy and word puzzles on your phone, tablet or computer.',
+      "Play Sudoku, Queens, Word Ladder, Minesweeper, Nonogram, Binary Puzzle, Memory and Color Link in your browser, free, on your phone, tablet or computer.",
     gamesHeading: 'Choose your next challenge',
     gamesText:
-      'Practice reasoning with Sudoku grids, plan each queen placement or connect words one letter at a time. Open a game to find its rules, controls and tips.',
-    toolsTitle: 'Online tools for everyday tasks',
+      "Train logic with Sudoku, Queens, Nonogram and Binary Puzzle, test your memory, sweep for mines or connect colors and words. Every game has levels, a timer that starts on your first move and a result you can share.",
+    toolsTitle: "Free online tools for professionals",
     toolsIntro:
-      'Format JSON and inspect JWT tokens with free developer tools that run in your browser. Choose a tool below for instant results, practical guides and examples.',
-    toolsHeading: 'Tools for everyday development',
+      "Create invoices, size cables and air conditioners, count legal deadlines, estimate Simples Nacional taxes and pregnancy dates, or format JSON and decode JWTs. Free tools that run in your browser.",
+    toolsHeading: "Tools for everyday work",
     toolsText:
-      'Use JSON Beautifier Pro to validate, indent and minify JSON, or JWT Token Decoder to inspect headers, payloads and expiration claims. Explore our logic games when you need a break.',
+      "The professional calculators and the invoice generator are in Brazilian Portuguese and follow Brazilian rules. The developer tools format JSON and decode JWT tokens. When you need a break, try our logic games.",
   },
   backHome: 'Back to home',
   cases: {

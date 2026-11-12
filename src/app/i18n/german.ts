@@ -18,16 +18,16 @@ export const germanTranslations: Translations = {
     skip: 'Zum Inhalt springen',
     gamesTitle: 'Kostenlose Logik- und Wortspiele online',
     gamesIntro:
-      'Spiele Sudoku, Queens und Word Ladder im Browser auf dem Smartphone, Tablet oder Computer.',
+      "Spiele Sudoku, Queens, Word Ladder, Minensucher, Nonogramm, Binärpuzzle, Gedächtnisspiel und Farben verbinden kostenlos im Browser, auf Smartphone, Tablet oder Computer.",
     gamesHeading: 'Wähle deine nächste Herausforderung',
     gamesText:
-      'Löse Sudoku-Rätsel, plane die Position jeder Dame oder verbinde Wörter Buchstabe für Buchstabe. Öffne ein Spiel für Regeln, Steuerung und Tipps.',
-    toolsTitle: 'Online-Werkzeuge für den Alltag',
+      "Trainiere Logik mit Sudoku, Queens, Nonogramm und Binärpuzzle, teste dein Gedächtnis, weiche Minen aus oder verbinde Farben und Wörter. Jedes Spiel hat Stufen, eine Uhr, die mit deinem ersten Zug startet, und ein Ergebnis zum Teilen.",
+    toolsTitle: "Kostenlose Online-Werkzeuge für Profis",
     toolsIntro:
-      'Formatiere JSON und untersuche JWT-Tokens mit kostenlosen Entwicklerwerkzeugen direkt im Browser.',
-    toolsHeading: 'Werkzeuge für den Entwicklungsalltag',
+      "Erstelle Rechnungen, dimensioniere Kabel und Klimaanlagen, berechne Fristen und mehr, oder formatiere JSON und dekodiere JWTs. Kostenlose Werkzeuge direkt im Browser.",
+    toolsHeading: "Werkzeuge für den Arbeitsalltag",
     toolsText:
-      'Validiere und minimiere JSON oder prüfe JWT-Claims und Ablaufzeiten. Entdecke auch unsere Logikspiele.',
+      "Die Fachrechner und der Rechnungsgenerator sind auf Portugiesisch und folgen brasilianischen Regeln. Die Entwicklerwerkzeuge formatieren JSON und dekodieren JWT-Tokens. Für eine Pause gibt es unsere Logikspiele.",
   },
   backHome: 'Zurück zur Startseite',
   cases: {

@@ -18,16 +18,16 @@ export const italianTranslations: Translations = {
     skip: 'Vai al contenuto',
     gamesTitle: 'Giochi di logica e parole gratis online',
     gamesIntro:
-      'Gioca a Sudoku, Queens e Word Ladder nel browser, da telefono, tablet o computer.',
+      "Gioca a Sudoku, Queens, Word Ladder, Campo minato, Nonogramma, Puzzle binario, Gioco di memoria e Collega i colori nel browser, gratis, da telefono, tablet o computer.",
     gamesHeading: 'Scegli la tua prossima sfida',
     gamesText:
-      'Risolvi griglie di Sudoku, pianifica la posizione delle regine o collega parole cambiando una lettera alla volta. Apri un gioco per regole, comandi e consigli.',
-    toolsTitle: 'Strumenti online per ogni giorno',
+      "Allena la logica con Sudoku, Queens, Nonogramma e Puzzle binario, metti alla prova la memoria, evita le mine o collega colori e parole. Ogni gioco ha livelli, un cronometro che parte alla prima mossa e un risultato da condividere.",
+    toolsTitle: "Strumenti online gratuiti per professionisti",
     toolsIntro:
-      'Formatta JSON e analizza token JWT con strumenti gratuiti per sviluppatori nel browser.',
-    toolsHeading: 'Strumenti per lo sviluppo quotidiano',
+      "Crea fatture, dimensiona cavi e condizionatori, calcola scadenze legali e altro, oppure formatta JSON e decodifica JWT. Strumenti gratuiti che funzionano nel browser.",
+    toolsHeading: "Strumenti per il lavoro di ogni giorno",
     toolsText:
-      'Valida e minimizza JSON oppure consulta i claim e le scadenze JWT. Scopri anche i nostri giochi di logica.',
+      "I calcolatori professionali e il generatore di fatture sono in portoghese e seguono le regole brasiliane. Gli strumenti per sviluppatori formattano JSON e decodificano token JWT. Per una pausa, prova i nostri giochi di logica.",
   },
   backHome: 'Torna alla home',
   cases: {

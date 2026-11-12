@@ -151,6 +151,22 @@
       </ol>
     </section>
 
+    <!-- Free tool for this profession, when there is one -->
+    @if (tool(); as tool) {
+      <section aria-labelledby="ferramenta" class="flex flex-col gap-5 rounded-3xl bg-surface-decoration p-6 sm:flex-row sm:items-center sm:p-8">
+        <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-surface text-3xl text-surface-decoration-foreground shadow-sm"><ng-icon [name]="tool.icon" /></span>
+        <div class="flex flex-1 flex-col gap-1">
+          <p class="text-xs font-semibold uppercase tracking-widest text-surface-decoration-foreground">Ferramenta grátis</p>
+          <h2 id="ferramenta" class="text-xl font-semibold text-foreground sm:text-2xl">{{ tool.name }}</h2>
+          <p class="max-w-[60ch] text-sm leading-relaxed text-foreground-light">{{ tool.description }}</p>
+        </div>
+        <a [routerLink]="'tools/' + tool.slug | langLink" class="flex w-fit shrink-0 items-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90">
+          Usar agora
+          <ng-icon name="tablerArrowRight" />
+        </a>
+      </section>
+    }
+
     <!-- FAQ: accordion -->
     <section class="grid gap-8 md:grid-cols-[1fr_2fr] md:gap-16" aria-labelledby="duvidas">
       <h2 id="duvidas" class="text-2xl font-semibold text-foreground sm:text-3xl">Perguntas frequentes</h2>

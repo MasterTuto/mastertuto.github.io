@@ -1,5 +1,6 @@
 import { industries } from '../data/industries.data';
 import { services } from '../data/services.data';
+import { allProTools } from '../screens/tools/pro-tools/pro-tools.data';
 import { inject, Provider } from '@angular/core';
 import { Router } from '@angular/router';
 import { translations } from '../i18n/translations';
@@ -17,6 +18,13 @@ const destinations: Record<string, NavigationCommand> = {
   queens: ['Queens', 'Play Queens', '/games/queens', ['queens', 'rainhas', 'play queens']],
   sudoku: ['Sudoku', 'Play Sudoku', '/games/sudoku', ['sudoku', 'play sudoku']],
   wordLadder: ['Word Ladder', 'Play Word Ladder', '/games/word-ladder', ['word ladder', 'words', 'palavras']],
+  minesweeper: ['Campo Minado', 'Play Minesweeper', '/games/minesweeper', ['minesweeper', 'campo minado', 'buscaminas', 'minas']],
+  nonogram: ['Nonograma', 'Play Nonogram', '/games/nonogram', ['nonogram', 'nonograma', 'picross', 'griddlers', 'logimage']],
+  binaryPuzzle: ['Quebra-cabeça Binário', 'Play Binary Puzzle', '/games/binary-puzzle', ['binary puzzle', 'takuzu', 'binairo', 'binário', 'zeros e uns']],
+  memory: ['Jogo da Memória', 'Play Memory Game', '/games/memory', ['memory', 'jogo da memória', 'memoria', 'pares', 'cartas']],
+  colorLink: ['Ligue as Cores', 'Play Color Link', '/games/color-link', ['color link', 'ligue as cores', 'ligar pontos', 'numberlink', 'conectar cores']],
+  proTools: ['Ferramentas', 'Calculadoras grátis para profissionais', '/tools', ['ferramentas', 'calculadoras', 'calculadora', 'tools']],
+  ...Object.fromEntries(allProTools.map((tool): [string, NavigationCommand] => [tool.slug, [tool.name, tool.description, `/tools/${tool.slug}`, [...tool.queries, tool.keyword, `calculadora para ${tool.audience.toLowerCase()}`]]])),
   tools: ['Developer tools', 'Browse developer tools', '/tools/dev-tools', ['tools', 'dev tools', 'ferramentas']],
   jsonBeautifier: ['JSON Beautifier', 'Format and validate JSON', '/tools/dev-tools/json-beautifier', ['json', 'format json', 'beautify json', 'formatar json']],
   jwtDecoder: ['JWT Decoder', 'Inspect a JWT token', '/tools/dev-tools/jwt-decoder', ['jwt', 'decode token', 'decodificar token']],

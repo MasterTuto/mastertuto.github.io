@@ -18,16 +18,16 @@ export const portugueseTranslations: Translations = {
     skip: 'Pular para o conteúdo',
     gamesTitle: 'Jogos de lógica e palavras online grátis',
     gamesIntro:
-      'Jogue Sudoku, Queens e Word Ladder no navegador. Explore desafios de números, estratégia e palavras no celular, tablet ou computador.',
+      "Jogue Sudoku, Queens, Word Ladder, Campo Minado, Nonograma, Quebra-cabeça Binário, Jogo da Memória e Ligue as Cores no navegador, grátis, no celular, tablet ou computador.",
     gamesHeading: 'Escolha seu próximo desafio',
     gamesText:
-      'Pratique o raciocínio com grades de Sudoku, planeje a posição de cada rainha ou conecte palavras mudando uma letra por vez. Abra um jogo para consultar suas regras, controles e dicas.',
-    toolsTitle: 'Ferramentas online para o dia a dia',
+      "Treine a lógica com Sudoku, Queens, Nonograma e Quebra-cabeça Binário, exercite a memória, desvie das minas ou ligue cores e palavras. Todos têm níveis, cronômetro que começa no primeiro movimento e resultado para compartilhar.",
+    toolsTitle: "Ferramentas online grátis para profissionais",
     toolsIntro:
-      'Formate JSON e inspecione tokens JWT com ferramentas gratuitas para desenvolvedores que funcionam no navegador. Escolha uma ferramenta para obter resultados imediatos, guias e exemplos.',
-    toolsHeading: 'Ferramentas para o desenvolvimento diário',
+      "Gere invoices, dimensione cabos e ar-condicionado, conte prazos processuais, calcule o Simples Nacional e a idade gestacional, ou formate JSON e decodifique JWT. Tudo grátis, direto no navegador.",
+    toolsHeading: "Ferramentas para o trabalho do dia a dia",
     toolsText:
-      'Use JSON Beautifier Pro para validar, indentar e minificar JSON, ou JWT Token Decoder para inspecionar headers, payloads e claims de expiração. Explore nossos jogos de lógica quando precisar de uma pausa.',
+      "As calculadoras seguem as regras brasileiras e mostram o resultado enquanto você digita, com valores comuns a um toque. As ferramentas para desenvolvedores formatam JSON e decodificam tokens JWT. Na pausa, experimente nossos jogos de lógica.",
   },
   backHome: 'Voltar ao início',
   cases: {
