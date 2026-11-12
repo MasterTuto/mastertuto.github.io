@@ -127,7 +127,7 @@
           <p class="mt-2 text-xs leading-5 text-foreground-light">{{ 'minesweeper.controlsHint' | translate }}</p>
         </div>
 
-        <div class="ms-result [grid-area:1/1] border-t-2 border-emerald-500" [class.invisible]="status() !== 'won'">
+        <div class="[grid-area:1/1] flex flex-col gap-3 pt-3 sm:flex-row sm:items-center sm:justify-between border-t-2 border-emerald-500" [class.invisible]="status() !== 'won'">
           <div>
             <p class="font-title text-lg font-semibold text-foreground">🏆 {{ 'minesweeper.wonTitle' | translate }}</p>
             <p class="text-sm text-foreground-light">
@@ -137,18 +137,18 @@
               }
             </p>
           </div>
-          <div class="ms-actions">
+          <div class="grid shrink-0 grid-cols-2 gap-2 [&>*]:grid">
             <app-game-share-button [text]="shareText()" />
             <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
           </div>
         </div>
 
-        <div class="ms-result [grid-area:1/1] border-t-2 border-[#e0565b]" [class.invisible]="status() !== 'lost'">
+        <div class="[grid-area:1/1] flex flex-col gap-3 pt-3 sm:flex-row sm:items-center sm:justify-between border-t-2 border-[#e0565b]" [class.invisible]="status() !== 'lost'">
           <div>
             <p class="font-title text-lg font-semibold text-foreground">💥 {{ 'minesweeper.lostTitle' | translate }}</p>
             <p class="text-sm text-foreground-light">{{ lostText() }}</p>
           </div>
-          <div class="ms-actions">
+          <div class="grid shrink-0 grid-cols-2 gap-2 [&>*]:grid">
             <app-game-share-button [text]="shareText()" />
             <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
           </div>

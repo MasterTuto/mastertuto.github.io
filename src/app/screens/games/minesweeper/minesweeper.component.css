@@ -15,10 +15,6 @@ button.c{aspect-ratio:1;display:grid;place-items:center;min-width:0;min-height:0
 .k-wrong::after{content:"";position:absolute;inset:20%;background:linear-gradient(to top right,transparent calc(50% - 1px),#151c25 50%,transparent calc(50% + 1px))}
 .k-boom{background:#e0565b;color:#fff;animation:ms-boom .6s ease-out}
 .n1{color:#5b63e8}.n2{color:#2f9466}.n3{color:#d9484e}.n4{color:#4a3fae}.n5{color:#b25418}.n6{color:#11868a}.n7{color:#151c25}.n8{color:#8e9095}
-.ms-result{display:flex;flex-direction:column;gap:.75rem;padding-top:.75rem}
-.ms-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.ms-actions>*{display:grid}
-@media (min-width:640px){.ms-result{flex-direction:row;align-items:center;justify-content:space-between}.ms-actions{flex-shrink:0}}
 .mode-flag[aria-checked=true]{color:#d9484e}
 @keyframes ms-open{from{transform:scale(.8);opacity:.3}}
 @keyframes ms-boom{from{box-shadow:0 0 0 0 rgb(224 86 91/.7);transform:scale(1.25)}to{box-shadow:0 0 0 12px rgb(224 86 91/0)}}

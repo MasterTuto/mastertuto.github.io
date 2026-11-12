@@ -13,7 +13,3 @@ button.mc{aspect-ratio:1;min-width:0;min-height:0;padding:0;border-radius:16%;pe
 .mem-progress{transition:width .3s ease-out}
 @keyframes mem-pop{50%{transform:rotateY(180deg) scale(1.08)}}
 @media (prefers-reduced-motion:reduce){.mc-inner,.mem-progress{transition:none}.is-matched .mc-front{animation:none}}
-.mem-result{display:flex;flex-direction:column;gap:.75rem;padding-top:.75rem}
-.mem-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.mem-actions>*{display:grid}
-@media (min-width:640px){.mem-result{flex-direction:row;align-items:center;justify-content:space-between}}

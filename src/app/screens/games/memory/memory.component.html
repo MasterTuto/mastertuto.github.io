@@ -99,7 +99,7 @@
           <p class="mt-3 text-xs leading-5 text-foreground-light">{{ 'memory.playHint' | translate }}</p>
         </div>
 
-        <div class="mem-result [grid-area:1/1] border-t-2 border-emerald-500" [class.invisible]="!won()">
+        <div class="[grid-area:1/1] flex flex-col gap-3 pt-3 sm:flex-row sm:items-center sm:justify-between border-t-2 border-emerald-500" [class.invisible]="!won()">
           <div>
             <p class="flex items-center gap-2 font-title text-lg font-semibold text-foreground">
               {{ 'memory.wonTitle' | translate }}
@@ -116,7 +116,7 @@
               }
             </p>
           </div>
-          <div class="mem-actions">
+          <div class="grid shrink-0 grid-cols-2 gap-2 [&>*]:grid">
             <app-game-share-button [text]="shareText()" />
             <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
           </div>
