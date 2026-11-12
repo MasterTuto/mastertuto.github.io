@@ -21,7 +21,7 @@
 .menu-list .danger { color: #dc2626; }
 
 .pre { position: absolute; left: .85rem; color: #8e9095; font-size: .875rem; font-weight: 550; pointer-events: none; }
-.pro-input-wrap .has-pre { padding-left: 2.6rem; padding-right: .9rem; }
+.pro-input-wrap .has-pre { padding-right: .9rem; }
 
 .tax { display: grid; grid-template-columns: minmax(0, 1fr) 6.5rem auto 40px; align-items: center; gap: .5rem; }
 .tax .rate .pro-input { padding-right: 2rem; }

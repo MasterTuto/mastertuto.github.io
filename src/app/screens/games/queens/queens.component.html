@@ -60,7 +60,7 @@
       </dl>
       <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 sm:text-sm" aria-live="polite">
         @if (won()) {
-          <span class="font-semibold text-green-700">{{ "queens.congratulations" | translate }}</span>
+          <span class="text-foreground-light">{{ "games.time" | translate }} {{ timer.label() }}</span>
         } @else if (errorCells().size > 0) {
           <span class="font-medium text-red-700">{{ "queens.check-errors" | translate }}</span>
         } @else if (!started()) {

@@ -256,7 +256,12 @@ export class InvoiceStore {
       });
     }
     if (party.kind === 'client' && (inv.clientId === saved.id || (select && !this.shared()))) {
-      this.update({ clientId: saved.id, client: { ...saved } });
+      this.update({
+        clientId: saved.id,
+        client: { ...saved },
+        ...(saved.lang ? { lang: saved.lang } : {}),
+        ...(saved.currency ? { currency: saved.currency } : {}),
+      });
     }
   }
 

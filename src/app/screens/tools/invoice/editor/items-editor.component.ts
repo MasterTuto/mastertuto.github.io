@@ -46,7 +46,7 @@ import { NumberInputDirective } from './number-input.directive';
               <label class="lbl" [for]="'item-price-' + item.id">Preço unitário</label>
               <div class="pro-input-wrap">
                 <span class="pre" aria-hidden="true">{{ symbol() }}</span>
-                <input class="pro-input" [id]="'item-price-' + item.id" appNumber [decimals]="decimals()" [value]="item.price" (valueChange)="set(item, 'price', $event)" placeholder="0,00" />
+                <input class="pro-input" [id]="'item-price-' + item.id" [style.padding-left]="'calc(' + symbol().length + 'ch + 1.2rem)'" appNumber [decimals]="decimals()" [value]="item.price" (valueChange)="set(item, 'price', $event)" placeholder="0,00" />
               </div>
             </div>
             <div class="pro-field">
@@ -87,7 +87,7 @@ import { NumberInputDirective } from './number-input.directive';
     .nums { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin-top: .6rem; padding-left: 2.35rem; }
     @media (min-width: 560px) { .nums { grid-template-columns: .8fr .9fr 1.4fr .85fr 1.2fr; } }
     .pre { position: absolute; left: .85rem; color: #8e9095; font-size: .875rem; font-weight: 550; pointer-events: none; }
-    .price .pro-input { padding-left: 2.6rem; padding-right: .9rem; }
+    .price .pro-input { padding-right: .6rem; }
     .amount { display: flex; flex-direction: column; justify-content: flex-end; gap: .4rem; min-width: 0; text-align: right; }
     .amount strong { display: flex; min-height: 48px; align-items: center; justify-content: flex-end; color: #151c25; font-size: 1rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
     @media (max-width: 559px) { .amount { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; } .amount strong { min-height: 0; } }

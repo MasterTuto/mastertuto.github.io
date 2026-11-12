@@ -189,7 +189,7 @@
           <label class="pro-label" for="inv-shipping">Frete e outros</label>
           <div class="pro-input-wrap">
             <span class="pre" aria-hidden="true">{{ symbol() }}</span>
-            <input id="inv-shipping" class="pro-input has-pre" appNumber [decimals]="decimals()" [value]="i.shipping" (valueChange)="patch({ shipping: $event })" placeholder="0,00" />
+            <input id="inv-shipping" class="pro-input has-pre" [style.padding-left]="'calc(' + symbol().length + 'ch + 1.2rem)'" appNumber [decimals]="decimals()" [value]="i.shipping" (valueChange)="patch({ shipping: $event })" placeholder="0,00" />
           </div>
         </div>
       </div>

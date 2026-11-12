@@ -46,7 +46,7 @@
       </dl>
       <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 sm:text-sm" aria-live="polite">
         @if (won()) {
-          <span class="font-semibold text-green-700">{{ "sudoku.congratulations" | translate }}</span>
+          <span class="text-foreground-light">{{ "games.time" | translate }} {{ timer.label() }}</span>
         } @else if (notice(); as msg) {
           <span class="font-medium text-amber-700">{{ msg }}</span>
         } @else if (notesMode()) {
