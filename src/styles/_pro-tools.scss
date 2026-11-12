@@ -16,7 +16,7 @@
 .pro-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
 @media (min-width: 960px) {
   .pro-layout { grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: 1.5rem; }
-  .pro-layout > .pro-result { position: sticky; top: 1.25rem; }
+  .pro-layout > .pro-result { position: sticky; top: calc(var(--site-nav-h, 0px) + 1.25rem); }
 }
 
 .pro-card { @apply bg-surface border-foreground/10; min-width: 0; padding: 1.25rem; border-width: 1px; border-radius: 1.25rem; box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 8px 24px -12px rgb(21 28 37 / .12); }
@@ -94,7 +94,7 @@
 .pro-result .pro-pill.bad { color: #fca5a5; }
 
 /* Phone-only compact bar with the main figure; sticks to the top while the keyboard covers the bottom. */
-.pro-sticky-summary { @apply bg-primary text-primary-foreground; position: sticky; top: .5rem; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .7rem 1rem; border-radius: 1rem; box-shadow: 0 10px 24px -12px rgb(21 28 37 / .6); font-size: .875rem; }
+.pro-sticky-summary { @apply bg-primary text-primary-foreground; position: sticky; top: calc(var(--site-nav-h, 0px) + .5rem); z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .7rem 1rem; border-radius: 1rem; box-shadow: 0 10px 24px -12px rgb(21 28 37 / .6); font-size: .875rem; }
 .pro-sticky-summary strong { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
 @media (min-width: 960px) { .pro-sticky-summary { display: none; } }
 
