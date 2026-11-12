@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { tablerArrowBackUp, tablerEraser, tablerArrowsShuffle } from '@ng-icons/tabler-icons';
+import { tablerArrowBackUp, tablerArrowsShuffle, tablerCalendarEvent, tablerEraser, tablerRefresh } from '@ng-icons/tabler-icons';
 
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
@@ -66,7 +66,7 @@ interface Pulse {
   selector: 'app-color-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TranslatePipe, NgIconComponent, GameShareButtonComponent],
-  providers: [provideIcons({ tablerArrowBackUp, tablerEraser, tablerArrowsShuffle })],
+  providers: [provideIcons({ tablerArrowBackUp, tablerArrowsShuffle, tablerCalendarEvent, tablerEraser, tablerRefresh })],
   templateUrl: './color-link.component.html',
   styleUrl: './color-link.component.css',
 })

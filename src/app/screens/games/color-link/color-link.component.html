@@ -7,15 +7,22 @@
   <div class="game-layout">
     <div class="game-play">
       <!-- Size and puzzle source -->
-      <div class="mb-4 grid gap-2 sm:grid-cols-[3fr_2fr]">
+      <div class="mb-4 grid grid-cols-[1fr_auto] gap-2 sm:grid-cols-[3fr_2fr]">
         <div class="pro-segmented" role="group" [attr.aria-label]="'colorLink.size' | translate">
           @for (s of sizes; track s) {
-            <button type="button" class="tabular-nums" [attr.aria-pressed]="size() === s" (click)="setSize(s)">{{ s }}×{{ s }}</button>
+            <button type="button" class="!min-h-[44px] tabular-nums" [attr.aria-pressed]="size() === s" (click)="setSize(s)">{{ s }}×{{ s }}</button>
           }
         </div>
+        <!-- Daily / random: icons on phones to keep one row, text from sm up -->
         <div class="pro-segmented" role="group" [attr.aria-label]="'colorLink.mode' | translate">
-          <button type="button" [attr.aria-pressed]="mode() === 'daily'" (click)="setMode('daily')">{{ 'colorLink.daily' | translate }}</button>
-          <button type="button" [attr.aria-pressed]="mode() === 'random'" (click)="setMode('random')">{{ 'colorLink.random' | translate }}</button>
+          <button type="button" class="inline-flex !min-h-[44px] min-w-[44px] items-center justify-center gap-1.5" [attr.aria-pressed]="mode() === 'daily'" [attr.title]="'colorLink.daily' | translate" (click)="setMode('daily')">
+            <ng-icon name="tablerCalendarEvent" class="text-base sm:hidden" aria-hidden="true" />
+            <span class="sr-only sm:not-sr-only">{{ 'colorLink.daily' | translate }}</span>
+          </button>
+          <button type="button" class="inline-flex !min-h-[44px] min-w-[44px] items-center justify-center gap-1.5" [attr.aria-pressed]="mode() === 'random'" [attr.title]="'colorLink.random' | translate" (click)="setMode('random')">
+            <ng-icon name="tablerArrowsShuffle" class="text-base sm:hidden" aria-hidden="true" />
+            <span class="sr-only sm:not-sr-only">{{ 'colorLink.random' | translate }}</span>
+          </button>
         </div>
       </div>
 
@@ -48,7 +55,7 @@
       </p>
 
       <!-- Board -->
-      <div class="cl-frame relative mx-auto aspect-square w-full max-w-[560px] rounded-2xl shadow-sm ring-1 ring-foreground/10" [class.cl-won]="won()">
+      <div class="cl-frame relative -mx-5 aspect-square w-[calc(100%+2.5rem)] rounded-2xl sm:mx-auto sm:w-full sm:max-w-[560px] shadow-sm ring-1 ring-foreground/10" [class.cl-won]="won()">
         @if (view(); as v) {
           <svg
             #board
@@ -149,18 +156,18 @@
       <p class="sr-only" aria-live="polite">{{ liveText() }}</p>
 
       <!-- Actions and win panel share one cell, so the page never jumps when the puzzle is solved -->
-      <div class="mt-4 grid min-h-[6rem]">
+      <div class="mt-4 grid min-h-[9.5rem] sm:min-h-[6rem]">
         <div class="flex items-start justify-center gap-2 [grid-area:1/1]" [class.invisible]="won()" [attr.aria-hidden]="won()">
-          <button type="button" class="pro-btn ghost" [disabled]="!history().length || won()" (click)="undo()">
+          <button type="button" class="pro-btn ghost !min-h-[44px]" [disabled]="!history().length || won()" (click)="undo()">
             <ng-icon name="tablerArrowBackUp" aria-hidden="true" />
             <span>{{ 'colorLink.undo' | translate }}</span>
           </button>
-          <button type="button" class="pro-btn ghost" [disabled]="!canReset() || won()" (click)="reset()">
+          <button type="button" class="pro-btn ghost !min-h-[44px]" [disabled]="!canReset() || won()" (click)="reset()">
             <ng-icon name="tablerEraser" aria-hidden="true" />
             <span>{{ 'colorLink.reset' | translate }}</span>
           </button>
-          <button type="button" class="pro-btn ghost" (click)="newRandom()" [attr.aria-label]="'colorLink.newPuzzle' | translate" [attr.title]="'colorLink.newPuzzle' | translate">
-            <ng-icon name="tablerArrowsShuffle" aria-hidden="true" />
+          <button type="button" class="pro-btn ghost !min-h-[44px]" (click)="newRandom()" [attr.aria-label]="'colorLink.newPuzzle' | translate" [attr.title]="'colorLink.newPuzzle' | translate">
+            <ng-icon name="tablerRefresh" aria-hidden="true" />
             <span class="hidden sm:inline">{{ 'colorLink.newPuzzle' | translate }}</span>
           </button>
         </div>
@@ -172,7 +179,7 @@
             </p>
             <div class="flex flex-wrap justify-center gap-2">
               <app-game-share-button [text]="shareText()" />
-              <button type="button" class="pro-btn ghost" (click)="newRandom()">{{ 'games.playAgain' | translate }}</button>
+              <button type="button" class="pro-btn ghost !min-h-[44px]" (click)="newRandom()">{{ 'games.playAgain' | translate }}</button>
             </div>
           </div>
         }

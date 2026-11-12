@@ -142,3 +142,17 @@ test('orthogonal interpolation steps one cell at a time', () => {
   }
   assert.equal(prev, 12);
 });
+
+test('many seeds: full coverage, no adjacent endpoints, paths of at least 3 cells', () => {
+  for (const size of COLOR_LINK_SIZES) {
+    for (let seed = 1; seed <= 60; seed++) {
+      const p = generateColorLink(size, seed * 7919);
+      const cells = p.solution.flat();
+      assert.equal(new Set(cells).size, size * size);
+      assert.equal(cells.length, size * size);
+      for (const { a, b } of p.pairs) assert.ok(!areAdjacent(size, a, b));
+      assert.ok(p.solution.every((path) => path.length >= 3));
+      assert.equal(evaluate(p, p.solution).solved, true);
+    }
+  }
+});
