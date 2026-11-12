@@ -51,7 +51,7 @@ export class BinaryPuzzleComponent {
   readonly canUndo = computed(() => this.history().length > 0 && !this.won());
   private stroke: Stroke | null = null;
 
-  readonly indexes = computed(() => Array.from({ length: this.size() * this.size() }, (_, i) => i));
+  readonly lines = computed(() => Array.from({ length: this.size() }, (_, i) => i));
   readonly givens = computed(() => this.puzzle()?.givens ?? this.cells().map(() => -1));
   readonly violations = computed(() => findViolations(this.cells(), this.size()));
   readonly filledCount = computed(() => {

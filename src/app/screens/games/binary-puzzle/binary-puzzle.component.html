@@ -70,24 +70,29 @@
             (contextmenu)="$event.preventDefault()"
             (keydown)="onKeydown($event)"
           >
-            @for (i of indexes(); track i) {
-              @let v = cells()[i];
-              <div
-                role="gridcell"
-                [id]="'bp-' + i"
-                [attr.data-i]="i"
-                class="bp-cell"
-                [class.v0]="v === 0"
-                [class.v1]="v === 1"
-                [class.given]="givens()[i] !== -1"
-                [class.bad]="violations().has(i)"
-                [class.hinted]="hint()?.index === i"
-                [class.is-cursor]="i === cursor()"
-                [attr.aria-label]="cellLabel(i)"
-                [attr.aria-readonly]="givens()[i] !== -1"
-              >
-                @if (v !== -1) {
-                  <span class="bp-tile" aria-hidden="true" [style.animation-delay]="won() ? (((i - (i % size())) / size()) + (i % size())) * 35 + 'ms' : null">{{ v }}</span>
+            @for (r of lines(); track r) {
+              <div role="row" class="contents">
+                @for (c of lines(); track c) {
+                  @let i = r * size() + c;
+                  @let v = cells()[i];
+                  <div
+                    role="gridcell"
+                    [id]="'bp-' + i"
+                    [attr.data-i]="i"
+                    class="bp-cell"
+                    [class.v0]="v === 0"
+                    [class.v1]="v === 1"
+                    [class.given]="givens()[i] !== -1"
+                    [class.bad]="violations().has(i)"
+                    [class.hinted]="hint()?.index === i"
+                    [class.is-cursor]="i === cursor()"
+                    [attr.aria-label]="cellLabel(i)"
+                    [attr.aria-readonly]="givens()[i] !== -1"
+                  >
+                    @if (v !== -1) {
+                      <span class="bp-tile" aria-hidden="true" [style.animation-delay]="won() ? (r + c) * 35 + 'ms' : null">{{ v }}</span>
+                    }
+                  </div>
                 }
               </div>
             }

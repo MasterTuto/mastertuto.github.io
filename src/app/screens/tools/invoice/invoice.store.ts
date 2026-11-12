@@ -50,7 +50,7 @@ export class InvoiceStore {
   readonly toast = signal<Toast | null>(null);
 
   readonly inHistory = computed(() => this.history().some((item) => item.id === this.invoice().id));
-  readonly needsSetup = computed(() => this.ready() && !this.shared() && !this.onboarded() && !this.emitters().length);
+  readonly needsSetup = computed(() => !this.shared() && !this.onboarded() && !this.emitters().length);
 
   private toastTimer: ReturnType<typeof setTimeout> | undefined;
   private saveTimer: ReturnType<typeof setTimeout> | undefined;

@@ -51,7 +51,6 @@ import { TplReceiptComponent } from './tpl-receipt.component';
       text-align: left; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
     .inv-doc *, .inv-doc *::before, .inv-doc *::after { box-sizing: border-box; }
     .inv-doc p, .inv-doc dl, .inv-doc dd, .inv-doc h1, .inv-doc h2, .inv-doc figure { margin: 0; }
-    .inv-doc > * { display: block; }
     .inv-doc .ip-label, .inv-doc .in-title, .inv-doc .ipay-title { margin-bottom: 4px; color: #6b7280; font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
     .inv-doc .ip-name { color: #111827; font-size: 14px; font-weight: 650; }
     .inv-doc .ip-line { color: #4b5563; font-size: 12px; }
