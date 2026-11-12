@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { PageShellComponent } from 'src/app/components/page-shell/page-shell.component';
 import { NavLink } from 'src/app/model/nav-item.model';
 import { devTools } from 'src/app/screens/tools/dev-tools/dev-tools.data';
-import { CatalogSeoService } from 'src/app/service/catalog-seo.service';
 import { injectCurrentPath } from './current-url';
 
 /** Route wrapper for /tools: the shared page shell with breadcrumbs. */
@@ -15,8 +14,7 @@ import { injectCurrentPath } from './current-url';
   template: `<app-page-shell [crumbs]="crumbs()"><router-outlet /></app-page-shell>`,
 })
 export class ToolsLayoutComponent {
-  private seo = inject(CatalogSeoService);
-  private path = injectCurrentPath((url) => this.seo.update(url));
+  private path = injectCurrentPath();
 
   readonly crumbs = computed<NavLink[]>(() => {
     const path = this.path();
@@ -29,8 +27,4 @@ export class ToolsLayoutComponent {
       ...(tool ? [{ label: tool.name, literal: true, path: `tools/dev-tools/${tool.slug}` }] : []),
     ];
   });
-
-  constructor() {
-    inject(DestroyRef).onDestroy(() => this.seo.clearToolSchema());
-  }
 }

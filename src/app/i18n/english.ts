@@ -1034,6 +1034,45 @@ export const englishTranslations = {
     'related-sudoku': 'Classic logic puzzle with three grid sizes.',
     'related-queens': 'A daily placement puzzle inspired by N-Queens.',
   },
+  seo: {
+    cardTagline: 'Websites, landing pages and automation',
+    home: {
+      title: 'Breno Carvalho — Landing pages and websites that convert',
+      description: 'Fast, modern, search-optimized landing pages and websites that turn visitors into customers. Design, development, hosting and automation in one place.',
+    },
+    services: {
+      title: 'Website and landing page development services',
+      description: 'Landing pages, professional websites, blogs, portfolios and integrations with WhatsApp, CRM and payments. Find the right service for your business.',
+    },
+    landingPages: {
+      title: 'Landing page design that turns visitors into customers',
+      description: 'High-converting landing pages with persuasive copy, social proof and a clear call to action. Fast, mobile-first and ready for paid traffic.',
+    },
+    websitesForFreelancers: {
+      title: 'Professional websites for freelancers and the self-employed',
+      description: 'A professional website that builds trust and brings new clients: services, portfolio, testimonials and WhatsApp contact, fast and easy to find on Google.',
+    },
+    blogsAndPortfolios: {
+      title: 'Blog and portfolio websites to showcase your work',
+      description: 'A blog or portfolio to show your work, publish content and attract your ideal audience, with SEO, fast loading and easy updates.',
+    },
+    integrations: {
+      title: 'Website integrations with WhatsApp, CRM, email and payments',
+      description: 'Connect your website to WhatsApp, CRM, email marketing, payments and spreadsheets to capture and follow up on leads automatically.',
+    },
+    sudoku: {
+      title: 'Free online Sudoku with 4×4, 6×6 and 9×9 grids',
+      description: 'Play Sudoku for free in your browser: 4×4, 6×6 and 9×9 grids, three difficulty levels, notes, hints and undo. Works on mobile and desktop.',
+    },
+    queens: {
+      title: 'Queens puzzle — free online logic game',
+      description: 'Place one queen in every row, column and colored region without two queens touching. Five difficulty levels and hints. Play free online.',
+    },
+    wordLadder: {
+      title: 'Word Ladder — free online word puzzle game',
+      description: 'Change one letter at a time to turn the starting word into the target word. Daily puzzles and three difficulty levels, free in your browser.',
+    },
+  },
 };
 
 export type Translations = typeof englishTranslations;

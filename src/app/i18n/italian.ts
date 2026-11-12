@@ -1046,4 +1046,43 @@ export const italianTranslations: Translations = {
     'related-queens':
       'Un puzzle di posizionamento quotidiano ispirato alle N-Regine.',
   },
+  seo: {
+    cardTagline: 'Siti web, landing page e automazione',
+    home: {
+      title: 'Breno Carvalho — Landing page e siti web che convertono',
+      description: 'Landing page e siti web veloci, moderni e ottimizzati per i motori di ricerca, pensati per trasformare i visitatori in clienti. Design, sviluppo, hosting e automazione.',
+    },
+    services: {
+      title: 'Realizzazione di siti web e landing page',
+      description: 'Landing page, siti professionali, blog, portfolio e integrazioni con WhatsApp, CRM e pagamenti. Trova il servizio giusto per la tua attività.',
+    },
+    landingPages: {
+      title: 'Landing page che trasformano i visitatori in clienti',
+      description: 'Landing page ad alta conversione con testi persuasivi, riprova sociale e una call to action chiara. Veloci, mobile-first e pronte per le campagne.',
+    },
+    websitesForFreelancers: {
+      title: 'Siti professionali per freelance e liberi professionisti',
+      description: 'Un sito professionale che trasmette fiducia e porta nuovi clienti: servizi, portfolio, testimonianze e contatto WhatsApp, veloce e facile da trovare su Google.',
+    },
+    blogsAndPortfolios: {
+      title: 'Blog e portfolio per mostrare il tuo lavoro',
+      description: 'Un blog o un portfolio per mostrare il tuo lavoro, pubblicare contenuti e attirare il pubblico giusto, con SEO, caricamento veloce e aggiornamenti semplici.',
+    },
+    integrations: {
+      title: 'Integrazioni web con WhatsApp, CRM, email e pagamenti',
+      description: 'Collega il tuo sito a WhatsApp, CRM, email marketing, pagamenti e fogli di calcolo per raccogliere e seguire i contatti in automatico.',
+    },
+    sudoku: {
+      title: 'Sudoku online gratis con griglie 4×4, 6×6 e 9×9',
+      description: 'Gioca a Sudoku gratis nel browser: griglie 4×4, 6×6 e 9×9, tre livelli di difficoltà, note, suggerimenti e annulla. Su smartphone e computer.',
+    },
+    queens: {
+      title: 'Queens — gioco di logica online gratis',
+      description: 'Posiziona una regina in ogni riga, colonna e regione colorata senza che due si tocchino. Cinque livelli di difficoltà e suggerimenti. Gioca gratis online.',
+    },
+    wordLadder: {
+      title: 'Word Ladder — gioco di parole online gratis',
+      description: 'Cambia una lettera alla volta per trasformare la parola iniziale in quella finale. Sfida giornaliera e tre livelli di difficoltà, gratis nel browser.',
+    },
+  },
 };

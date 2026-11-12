@@ -4,13 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && npm run sitemap",
+    "build": "ng build && npm run og-images && npm run sitemap",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "build:prod": "ng build --configuration production && npm run sitemap",
+    "build:prod": "ng build --configuration production && npm run og-images && npm run sitemap",
     "watch": "ng build --watch --configuration development",
     "deploy": "ng deploy --cname=brenocs.dev.br",
     "test": "ng test",
-    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs"
+    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
+    "og-images": "node scripts/generate-og-images.mjs",
+    "test:ssg": "node --test scripts/test-*.mjs"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +38,7 @@
     "@angular/build": "^21.2.11",
     "@angular/cli": "~21.2.11",
     "@angular/compiler-cli": "^21.2.16",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^20.17.19",
