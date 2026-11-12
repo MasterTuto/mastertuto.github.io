@@ -39,7 +39,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <text x="15" y="20" text-anchor="middle" font-size="10" font-weight="800" fill="#646cfa">1</text>
           <text x="31" y="36" text-anchor="middle" font-size="10" font-weight="800" fill="#16a34a">2</text>
           <path d="M48 50V38l8 3-8 3" stroke="#dc2626" stroke-width="2" fill="#dc2626" />
-          <circle cx="16" cy="50" r="5" fill="#151c25" /><path d="M16 42v-2M16 60v-2M8 50h-2M26 50h-2" stroke="#151c25" stroke-width="2" />
+          <path d="M19 41v18M10 50h18M12.6 43.6l12.8 12.8M25.4 43.6L12.6 56.4" stroke="#151c25" stroke-width="2" />
+          <circle cx="19" cy="50" r="5.5" fill="#151c25" /><circle cx="17.2" cy="48.2" r="1.4" fill="#fafafa" />
         }
         @case ('nonogram') {
           <path d="M18 18h42v42H18z" fill="#fafafa" stroke="#444a51" stroke-width="2" />

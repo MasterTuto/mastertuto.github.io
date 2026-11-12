@@ -1,7 +1,7 @@
 // Page layout of the invoice generator. Editor and paper side by side from 960px; the paper column is
 // wide (it is the product) and sized so the whole A4 page fits the viewport height.
 :host { display: block; }
-.inv-page { max-width: 1320px; }
+.inv-page { max-width: 1200px; }
 .facts { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; margin-top: .9rem; color: #8e9095; font-size: .85rem; }
 .facts span::before { content: '✓'; margin-right: .4rem; color: #7a70e1; font-weight: 700; }
 
