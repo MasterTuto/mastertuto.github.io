@@ -20,10 +20,163 @@ export const italianTranslations: Translations = {
       'Valida e minimizza JSON oppure consulta i claim e le scadenze JWT. Scopri anche i nostri giochi di logica.',
   },
   backHome: 'Torna alla home',
-  showcase: {
-    jingleName: 'jingle.IA',
-    jingleDescription:
-      'Una piattaforma per creare e gestire jingle personalizzati.',
+  cases: {
+    viewCase: "Vedi il case completo",
+    visitSite: "Visita il sito",
+    backToProjects: "Torna ai progetti",
+    myRole: "Cosa ho fatto",
+    aboutTitle: "Il progetto",
+    highlightsTitle: "In evidenza",
+    galleryTitle: "Su computer e smartphone",
+    techTitle: "Sotto il cofano",
+    desktop: "versione desktop",
+    mobile: "versione mobile",
+    ctaTitle: "Hai in mente un progetto simile?",
+    ctaText: "Raccontami di cosa hai bisogno e ti rispondo con i prossimi passi.",
+    ctaButton: "Parliamo del mio progetto",
+    roles: {
+      design: "Design",
+      implementation: "Implementazione",
+      hosting: "Hosting",
+      maintenance: "Manutenzione",
+    },
+    items: {
+      jingle: {
+        tagline: "Piattaforma per creare jingle con l’intelligenza artificiale",
+        summary: "Una piattaforma in cui chiunque trasforma un’idea in un jingle: l’intelligenza artificiale scrive il testo, crea la musica e genera la voce, con download in MP3. Ho curato design, implementazione e hosting, e mi occupo della manutenzione.",
+        about: "jingle.ia.br porta il jingle fuori dallo studio. Panetterie, pizzerie, supermercati, radio e agenzie descrivono il messaggio, scelgono un ritmo brasiliano come forró, sertanejo o pagode, confrontano tre proposte di testo e scaricano la canzone pronta. La stessa piattaforma serve per compleanni, eventi, podcast e campagne, senza bisogno di saper comporre.",
+        work: {
+          design: {
+            intro: "Il pubblico non ha mai scritto una canzone. Ogni scelta di design toglie un dubbio dal percorso.",
+            decisions: {
+              '1': {
+                title: "Quattro passaggi, una domanda alla volta",
+                text: "Idea, tono, testo e download. Passaggi brevi evitano la pagina bianca a chi non sa da dove cominciare.",
+              },
+              '2': {
+                title: "Scegliere invece di scrivere",
+                text: "Si confrontano tre testi prima di generare l’audio. Scegliere è più facile che scrivere, e il credito si usa solo per ciò che è stato approvato.",
+              },
+              '3': {
+                title: "Un look tutto brasiliano",
+                text: "Verde e giallo, un megafono e ritmi regionali chiariscono dalla prima schermata a chi si rivolge il prodotto.",
+              },
+            },
+          },
+          implementation: {
+            intro: "Generare musica richiede tempo e può fallire. L’implementazione evita che questo pesi sull’utente.",
+            decisions: {
+              '1': {
+                title: "Generazione in background",
+                text: "Il jingle continua a essere generato anche se la pagina viene chiusa. Si segue lo stato e si scarica l’MP3 quando è pronto.",
+              },
+              '2': {
+                title: "Un errore non costa credito",
+                text: "Se la creazione del testo fallisce, il jingle torna nel saldo del piano e la schermata spiega cosa è successo.",
+              },
+              '3': {
+                title: "Piani in abbonamento",
+                text: "Tre piani mensili con una quota di jingle e disdetta in qualsiasi momento. Il piano base include una filigrana vocale.",
+              },
+            },
+          },
+          hosting: {
+            intro: "L’uso arriva a picchi, come feste e campagne. L’infrastruttura segue questo ritmo.",
+            decisions: {
+              '1': {
+                title: "Paghi ciò che usi",
+                text: "Architettura serverless: nessun server inattivo in attesa di visite, e la capacità cresce da sola quando aumenta il traffico.",
+              },
+              '2': {
+                title: "Un dominio che si spiega da solo",
+                text: "Il .ia.br dice cosa fa il prodotto e che è brasiliano, ancora prima di aprire il sito.",
+              },
+            },
+          },
+          maintenance: {
+            intro: "Il prodotto continua a evolversi dopo il lancio.",
+            decisions: {
+              '1': {
+                title: "Evoluzione continua",
+                text: "Nuovi tipi di jingle, idee di brief e contenuti arrivano man mano che l’uso reale mostra cosa manca.",
+              },
+              '2': {
+                title: "Correzioni rapide",
+                text: "Monitoro errori e costi dei servizi di IA per risolvere i problemi prima che diventino reclami.",
+              },
+            },
+          },
+        },
+        tech: {
+          intro: "Uno stack serverless su AWS, che orchestra diversi modelli di IA e viene servito dall’edge.",
+          frontend: "SPA in Angular in un monorepo insieme al back-end: un repository, un unico flusso di build e deploy.",
+          backend: "Back-end serverless in Node.js su AWS Lambda, con DynamoDB come database NoSQL. Scala on demand e si paga per esecuzione.",
+          ai: "Pipeline asincrona che orchestra LLM di OpenAI e Gemini, inferenza di modelli su Replicate e sintesi vocale con ElevenLabs.",
+          payments: "Abbonamenti ricorrenti su Asaas, integrati via API e webhook per sbloccare la quota di ogni piano.",
+          infra: "Asset statici serviti dalla CDN di CloudFront, DNS e proxy all’edge con Cloudflare e dominio .ia.br registrato su Registro.br.",
+        },
+        highlights: {
+          '1': {
+            value: "3",
+            label: "proposte di testo per ogni jingle",
+          },
+          '2': {
+            value: "8",
+            label: "generi musicali brasiliani",
+          },
+          '3': {
+            value: "60 s",
+            label: "di jingle, scaricabile in MP3",
+          },
+          '4': {
+            value: "R$ 9,90",
+            label: "al mese con il piano base",
+          },
+        },
+      },
+      supervegetariano: {
+        tagline: "Ristorante vegetariano a Santos (Brasile) dal 1986",
+        summary: "Il sito di un ristorante vegetariano storico di Santos, in Brasile. Il sito esisteva già: l’ho migrato su un nuovo hosting in 1 giorno, ho configurato l’e-mail su KingHost e fatto piccoli ritocchi.",
+        about: "Super Vegetariano serve cucina casalinga, gustosa e sana a Santos dal febbraio 1986. Il sito presenta la storia del locale, le sedi, il menù del giorno sui social e il contatto via WhatsApp. È stato realizzato in WordPress da un altro team.",
+        work: {
+          hosting: {
+            intro: "Il sito funzionava già e i clienti lo conoscevano. L’obiettivo era cambiare l’infrastruttura senza che nessuno se ne accorgesse.",
+            decisions: {
+              '1': {
+                title: "Migrazione in 1 giorno",
+                text: "File, database e dominio del sito WordPress sono passati al nuovo hosting in un solo giorno, mantenendo contenuti e grafica.",
+              },
+              '2': {
+                title: "E-mail su KingHost",
+                text: "Ho configurato le caselle e-mail del dominio su KingHost, così il ristorante continua a ricevere messaggi al proprio indirizzo.",
+              },
+              '3': {
+                title: "Piccoli ritocchi",
+                text: "Dopo la migrazione ho corretto alcuni dettagli senza toccare l’identità che i clienti riconoscono.",
+              },
+            },
+          },
+        },
+        highlights: {
+          '1': {
+            value: "40",
+            label: "anni di cucina sana",
+          },
+          '2': {
+            value: "2",
+            label: "sedi a Santos, Brasile",
+          },
+          '3': {
+            value: "1 giorno",
+            label: "per completare la migrazione",
+          },
+          '4': {
+            value: "1986",
+            label: "anno di fondazione",
+          },
+        },
+      },
+    },
   },
   scheduling: {
     title: 'Prenota una conversazione',
@@ -38,9 +191,9 @@ export const italianTranslations: Translations = {
     queensDescription:
       'Un puzzle logico quotidiano ispirato al classico problema delle N-Regine.',
     sudokuDescription:
-      'Un generatore di Sudoku con griglie 4\u00d74, 6\u00d76 e 9\u00d79 e difficolt\u00e0 regolabile.',
+      'Un generatore di Sudoku con griglie 4×4, 6×6 e 9×9 e difficoltà regolabile.',
     wordLadderDescription:
-      "Un gioco di parole in cui cambi una lettera alla volta per trasformare una parola in un'altra, con puzzle quotidiani e tre livelli di difficolt\u00e0.",
+      "Un gioco di parole in cui cambi una lettera alla volta per trasformare una parola in un'altra, con puzzle quotidiani e tre livelli di difficoltà.",
   },
   tools: {
     label: 'Strumenti',
@@ -61,6 +214,9 @@ export const italianTranslations: Translations = {
       whyMe: 'Perché me',
       projects: 'Progetti',
       testimonials: 'Testimonianze',
+      allServices: "Tutti i servizi",
+      segments: "Settori",
+      gamesAndTools: "Giochi e strumenti",
     },
     services: {
       name: 'Servizi',
@@ -109,23 +265,6 @@ export const italianTranslations: Translations = {
       description:
         'Alcuni lavori recenti sviluppati per professionisti e aziende che si sono fidati del mio lavoro.',
       viewAll: 'Vedi tutti i progetti',
-      items: {
-        '1': {
-          name: 'Landing page di conversione',
-          description:
-            'Una pagina focalizzata sul lancio di servizi e sulla raccolta di lead qualificati.',
-        },
-        '2': {
-          name: 'Sito professionale',
-          description:
-            'Una presenza digitale chiara per comunicare fiducia e autorevolezza.',
-        },
-        '3': {
-          name: 'Esperienza portfolio',
-          description:
-            'Una vetrina curata per presentare lavoro, processo ed esperienza.',
-        },
-      },
     },
     testimonials: {
       name: 'Testimonianze',
@@ -134,19 +273,19 @@ export const italianTranslations: Translations = {
       next: 'Testimonianze successive',
       ctaTitle: 'Pronto ad avere un sito che porta risultati reali?',
       ctaDescription:
-        'Parliamo dei tuoi progetti e trasformiamo le tue idee in realt\u00e0.',
+        'Parliamo dei tuoi progetti e trasformiamo le tue idee in realtà.',
       whatsapp: 'Parla su WhatsApp',
       whatsappMessage:
         'Ciao! Ho visto il tuo portfolio e vorrei parlare di un progetto.',
       requestBudget: 'Richiedi un preventivo',
       items: {
         '1': {
-          text: 'Breno ha capito esattamente ci\u00f2 di cui avevo bisogno e ha consegnato una pagina veloce, bella, che ha iniziato a portare contatti qualificati nella prima settimana.',
+          text: 'Breno ha capito esattamente ciò di cui avevo bisogno e ha consegnato una pagina veloce, bella, che ha iniziato a portare contatti qualificati nella prima settimana.',
           name: 'Mariana Alves',
           profession: 'Architetta',
         },
         '2': {
-          text: "Il processo \u00e8 stato chiaro dall'inizio alla fine. Finalmente ho un sito professionale che spiega il mio lavoro e trasmette fiducia.",
+          text: "Il processo è stato chiaro dall'inizio alla fine. Finalmente ho un sito professionale che spiega il mio lavoro e trasmette fiducia.",
           name: 'Rafael Costa',
           profession: 'Consulente aziendale',
         },
@@ -156,7 +295,7 @@ export const italianTranslations: Translations = {
           profession: 'Titolare di studio beauty',
         },
         '4': {
-          text: "Ha trasformato un'idea libera in una presenza digitale curata. La comunicazione \u00e8 stata semplice e il risultato rispecchia il mio brand.",
+          text: "Ha trasformato un'idea libera in una presenza digitale curata. La comunicazione è stata semplice e il risultato rispecchia il mio brand.",
           name: 'Lucas Mendes',
           profession: 'Personal trainer',
         },
@@ -212,6 +351,45 @@ export const italianTranslations: Translations = {
         'Mandami un messaggio e ti aiuto a scegliere la strada migliore per il tuo progetto.',
     },
     landingPages: {
+      proofTitle: "Progetti già online",
+      formTitle: "Richiedi un preventivo",
+      formSubtitle: "Solo due campi. La conversazione continua su WhatsApp.",
+      formName: "Il tuo nome",
+      formOffer: "Cosa vuoi vendere o promuovere?",
+      formOfferPlaceholder: "Es.: un corso, una consulenza, un lancio",
+      messageIntro: "Ciao Breno! Voglio una landing page.",
+      messageName: "Nome",
+      messageOffer: "Offerta",
+      anatomyTitle: 'Anatomia di una pagina che converte',
+      anatomySubtitle: "Ogni blocco ha un compito. Ecco cosa fa ogni parte della tua landing page per portare il visitatore all'azione.",
+      anatomy: {
+        '1': {
+          title: 'Titolo',
+          text: 'Una promessa chiara che dice al visitatore, in pochi secondi, cosa ottiene e perché è importante.',
+        },
+        '2': {
+          title: 'Riprova sociale',
+          text: 'Testimonianze, loghi e numeri che dimostrano che altre persone si fidano già di te.',
+        },
+        '3': {
+          title: 'Offerta e vantaggi',
+          text: 'Cosa è incluso, presentato come risultati per il cliente e non come elenco di funzionalità.',
+        },
+        '4': {
+          title: 'Modulo',
+          text: 'Solo i campi davvero necessari, così compilarlo è semplice.',
+        },
+        '5': {
+          title: "Invito all'azione",
+          text: "Un'unica azione, ripetuta nei momenti giusti, con un pulsante impossibile da ignorare.",
+        },
+      },
+      timeline: {
+        '1': 'Giorno 1',
+        '2': 'Giorni 2–3',
+        '3': 'Giorni 3–6',
+        '4': 'Dal giorno 7',
+      },
       name: 'Landing Page',
       shortDescription:
         'Pagine ad alta conversione, progettate per trasformare i visitatori in contatti e vendite.',
@@ -293,6 +471,45 @@ export const italianTranslations: Translations = {
       ctaSubtitle: 'Creiamo una landing page che si ripaga da sola.',
     },
     websitesForFreelancers: {
+      compareTitle: 'Solo social vs. il tuo sito',
+      compareWithoutTitle: 'Solo social',
+      compareWithTitle: 'Con il tuo sito',
+      compareWithout: {
+        '1': "La tua visibilità dipende dall'algoritmo",
+        '2': 'Le informazioni sui tuoi servizi sono sparse tra i post',
+        '3': 'Il cliente deve scriverti per chiedere le cose di base',
+        '4': 'Il tuo profilo può essere limitato o perso in qualsiasi momento',
+      },
+      compareWith: {
+        '1': 'I clienti ti trovano su Google quando cercano ciò che fai',
+        '2': 'Servizi, prezzi e metodo spiegati in un unico posto',
+        '3': 'Domande risolte prima del primo messaggio',
+        '4': 'Un indirizzo che è tuo, per sempre',
+      },
+      pagesTitle: 'Le pagine che il tuo sito può avere',
+      pagesSubtitle: 'Una struttura semplice che risponde a ciò che ogni potenziale cliente vuole sapere.',
+      pages: {
+        '1': {
+          title: 'Home',
+          text: "Chi sei, cosa fai e come ingaggiarti, a colpo d'occhio.",
+        },
+        '2': {
+          title: 'Servizi',
+          text: 'Ogni servizio spiegato, con cosa include e come funziona.',
+        },
+        '3': {
+          title: 'Chi sono',
+          text: 'La tua storia, la tua esperienza e il tuo modo di lavorare.',
+        },
+        '4': {
+          title: 'Portfolio',
+          text: 'Progetti e risultati reali che dimostrano le tue capacità.',
+        },
+        '5': {
+          title: 'Contatti',
+          text: 'WhatsApp, modulo e prenotazioni a portata di clic.',
+        },
+      },
       name: 'Siti per Liberi Professionisti',
       shortDescription:
         'Siti professionali che generano fiducia e ti fanno ottenere più clienti.',
@@ -374,6 +591,26 @@ export const italianTranslations: Translations = {
       ctaSubtitle: 'Mandami un messaggio e pianifichiamo il tuo sito.',
     },
     blogsAndPortfolios: {
+      splitTitle: 'Due formati, un obiettivo: farsi ricordare',
+      portfolio: {
+        title: 'Portfolio',
+        text: 'Quando il tuo lavoro parla da sé e merita di essere mostrato al meglio.',
+        items: {
+          '1': 'Pagine progetto con immagini, contesto e risultati',
+          '2': 'Filtri per categoria o tipo di lavoro',
+          '3': 'Testimonianze dei clienti accanto a ogni progetto',
+        },
+      },
+      blog: {
+        title: 'Blog',
+        text: 'Quando la tua competenza fa la differenza e vuoi essere trovato nelle ricerche.',
+        items: {
+          '1': 'Articoli organizzati per categorie e tag',
+          '2': 'Struttura pronta per la SEO in ogni articolo',
+          '3': 'Iscrizione alla newsletter per tenere vicini i lettori',
+        },
+      },
+      chapter: 'Capitolo',
       name: 'Blog e Portfolio',
       shortDescription:
         'Mostra il tuo lavoro, condividi conoscenza e attira il tuo pubblico ideale.',
@@ -456,6 +693,34 @@ export const italianTranslations: Translations = {
       ctaSubtitle: 'Creiamo un portfolio che ti porti opportunità.',
     },
     integrations: {
+      hubCenter: 'Il tuo sito',
+      tools: {
+        '1': 'WhatsApp',
+        '2': 'E-mail',
+        '3': 'CRM',
+        '4': 'Pagamenti',
+        '5': 'Fogli di calcolo',
+        '6': 'Analytics',
+      },
+      flowTitle: 'Come funziona in pratica',
+      flowSubtitle: 'Un solo invio di modulo può avviare tutto ciò che prima si faceva a mano.',
+      flow: {
+        '1': {
+          label: 'Attivatore',
+          title: 'Un visitatore compila il modulo',
+          text: 'Nome, contatto e interesse vengono raccolti sul tuo sito.',
+        },
+        '2': {
+          label: 'Automazione',
+          title: 'I dati vanno dove servono',
+          text: 'Il contatto viene salvato nel tuo CRM o foglio di calcolo e ricevi un avviso su WhatsApp.',
+        },
+        '3': {
+          label: 'Risultato',
+          title: 'Rispondi in pochi minuti',
+          text: "Il visitatore riceve un'e-mail di conferma e tu lo ricontatti mentre l'interesse è alto.",
+        },
+      },
       name: 'Integrazioni',
       shortDescription:
         'Form, email marketing, WhatsApp, pagamenti e molto altro.',
@@ -557,39 +822,39 @@ export const italianTranslations: Translations = {
     'rule-region': 'Metti esattamente una regina in ogni regione colorata.',
     'rule-adjacent': 'Due regine non possono toccarsi, nemmeno in diagonale.',
     'tip-tap':
-      'Tocca una volta per segnare \u2715, ancora per mettere \u266b, ancora per pulire.',
+      'Tocca una volta per segnare ✕, ancora per mettere ♫, ancora per pulire.',
     'tip-x':
-      'Scorri il dito sulle celle per segnare rapidamente pi\u00f9 \u2715.',
+      'Scorri il dito sulle celle per segnare rapidamente più ✕.',
     'tip-slide':
-      'Usa i segni \u2715 per indicare celle che non possono avere regine.',
+      'Usa i segni ✕ per indicare celle che non possono avere regine.',
     'faq-title': 'Domande Frequenti',
-    'faq-q1': "Cos'\u00e8 il gioco Regine?",
+    'faq-q1': "Cos'è il gioco Regine?",
     'faq-a1':
-      'Regine \u00e8 un puzzle di logica dove posizioni regine sulla scacchiera in modo che ogni riga, colonna e regione colorata contenga esattamente una regina, senza che si tocchino.',
+      'Regine è un puzzle di logica dove posizioni regine sulla scacchiera in modo che ogni riga, colonna e regione colorata contenga esattamente una regina, senza che si tocchino.',
     'faq-q2': 'Come si gioca?',
     'faq-a2':
-      'Tocca una cella per alternare tra: \u2715 segno \u2192 \u266b regina \u2192 vuoto. Scorri il dito sulla scacchiera per segnare rapidamente pi\u00f9 \u2715. Le violazioni sono evidenziate in rosso.',
+      'Tocca una cella per alternare tra: ✕ segno → ♫ regina → vuoto. Scorri il dito sulla scacchiera per segnare rapidamente più ✕. Le violazioni sono evidenziate in rosso.',
     'faq-q3': 'Cosa succede se sbaglio?',
     'faq-a3':
-      "Le regine in conflitto vengono evidenziate in rosso. Rivedi e aggiusta fino a soddisfare tutte le regole. Non c'\u00e8 limite di mosse!",
-    'faq-q4': "C'\u00e8 un nuovo puzzle ogni giorno?",
+      "Le regine in conflitto vengono evidenziate in rosso. Rivedi e aggiusta fino a soddisfare tutte le regole. Non c'è limite di mosse!",
+    'faq-q4': "C'è un nuovo puzzle ogni giorno?",
     'faq-a4':
-      'S\u00ec! La scacchiera viene generata quotidianamente in base alla data corrente, offrendo una nuova sfida ogni giorno. Condividi i tuoi risultati!',
+      'Sì! La scacchiera viene generata quotidianamente in base alla data corrente, offrendo una nuova sfida ogni giorno. Condividi i tuoi risultati!',
     'seo-title': 'Gioca a Regine — Puzzle di Logica Quotidiano',
     'seo-p1':
-      'Regine \u00e8 un puzzle di logica quotidiano ispirato al classico problema delle N-Regine. Posiziona regine sulla scacchiera seguendo quattro semplici regole: una per riga, una per colonna, una per regione colorata, senza che si tocchino.',
+      'Regine è un puzzle di logica quotidiano ispirato al classico problema delle N-Regine. Posiziona regine sulla scacchiera seguendo quattro semplici regole: una per riga, una per colonna, una per regione colorata, senza che si tocchino.',
     'seo-p2':
-      'Scegli tra 5 livelli di difficolt\u00e0 — Principiante (5\u00d75), Facile (6\u00d76), Medio (7\u00d77), Difficile (8\u00d78) ed Esperto (10\u00d710). Ogni puzzle \u00e8 generato deterministicamente dalla data.',
+      'Scegli tra 5 livelli di difficoltà — Principiante (5×5), Facile (6×6), Medio (7×7), Difficile (8×8) ed Esperto (10×10). Ogni puzzle è generato deterministicamente dalla data.',
     'seo-p3':
-      'Gioca online gratuitamente, senza registrazione. Allena il tuo ragionamento logico e le capacit\u00e0 di riconoscimento di pattern. Un nuovo puzzle ti aspetta ogni giorno!',
+      'Gioca online gratuitamente, senza registrazione. Allena il tuo ragionamento logico e le capacità di riconoscimento di pattern. Un nuovo puzzle ti aspetta ogni giorno!',
   },
   sudoku: {
     sudoku: 'Sudoku',
     size: 'Griglia',
-    'size-4': '4\u00d74 Mini',
-    'size-6': '6\u00d76',
-    'size-9': '9\u00d79 Classica',
-    difficulty: 'Difficolt\u00e0',
+    'size-4': '4×4 Mini',
+    'size-6': '6×6',
+    'size-9': '9×9 Classica',
+    difficulty: 'Difficoltà',
     'difficulty-0': 'Facile',
     'difficulty-1': 'Medio',
     'difficulty-2': 'Difficile',
@@ -611,58 +876,58 @@ export const italianTranslations: Translations = {
     'rule-3':
       'Ogni blocco evidenziato deve contenere ogni numero da 1 a N esattamente una volta.',
     'tip-1':
-      'Inizia dai blocchi che hanno gi\u00e0 pi\u00f9 numeri e cerca, in ogni riga, colonna e blocco, celle con un solo valore possibile.',
+      'Inizia dai blocchi che hanno già più numeri e cerca, in ogni riga, colonna e blocco, celle con un solo valore possibile.',
     'tip-2':
-      'Usa le Note per scrivere i numeri candidati. Appaiono come cifre piccole e ti aiutano a seguire le possibilit\u00e0.',
+      'Usa le Note per scrivere i numeri candidati. Appaiono come cifre piccole e ti aiutano a seguire le possibilità.',
     'tip-3':
       'Gioca con il mouse, il touchscreen o la tastiera. I numeri ripetuti nella stessa riga, colonna o blocco vengono evidenziati in rosso.',
     'strategy-title': 'Consigli e Strategie',
     'strategy-p1':
-      'Cerca candidati unici: se in una cella pu\u00f2 entrare un solo numero, scrivilo subito. \u00c8 la tecnica pi\u00f9 importante per i principianti.',
+      'Cerca candidati unici: se in una cella può entrare un solo numero, scrivilo subito. È la tecnica più importante per i principianti.',
     'strategy-p2':
-      'Analizza righe, colonne e blocchi cercando i numeri mancanti. Quando un numero \u00e8 gi\u00e0 in due blocchi di una riga, il terzo spesso regala un indizio.',
+      'Analizza righe, colonne e blocchi cercando i numeri mancanti. Quando un numero è già in due blocchi di una riga, il terzo spesso regala un indizio.',
     'strategy-p3':
-      'Usa i segni a matita. Annota tutti i numeri possibili in ogni cella ed eliminali uno a uno mentre risolvi. Cos\u00ec i puzzle difficili diventano gestibili.',
+      'Usa i segni a matita. Annota tutti i numeri possibili in ogni cella ed eliminali uno a uno mentre risolvi. Così i puzzle difficili diventano gestibili.',
     'strategy-p4':
-      "Allenati un po' ogni giorno. Giocare a Sudoku con regolarit\u00e0 migliora concentrazione, riconoscimento di pattern e memoria a breve termine \u2014 ed \u00e8 davvero rilassante.",
+      "Allenati un po' ogni giorno. Giocare a Sudoku con regolarità migliora concentrazione, riconoscimento di pattern e memoria a breve termine — ed è davvero rilassante.",
     'faq-title': 'Domande Frequenti',
-    'faq-q1': "Cos'\u00e8 il Sudoku?",
+    'faq-q1': "Cos'è il Sudoku?",
     'faq-a1':
-      "Il Sudoku \u00e8 un puzzle di logica basato sui numeri. L'obiettivo \u00e8 riempire la griglia cos\u00ec che ogni riga, colonna e blocco contenga ogni numero da 1 a N esattamente una volta. Niente matematica, solo logica.",
+      "Il Sudoku è un puzzle di logica basato sui numeri. L'obiettivo è riempire la griglia così che ogni riga, colonna e blocco contenga ogni numero da 1 a N esattamente una volta. Niente matematica, solo logica.",
     'faq-q2': 'Come si gioca a Sudoku?',
     'faq-a2':
-      'Scegli la dimensione della griglia (4\u00d74, 6\u00d76 o 9\u00d79), seleziona una difficolt\u00e0 e tocca una cella per selezionarla. Poi inserisci un numero con la tastiera a schermo o la tastiera fisica. Ogni puzzle ha esattamente una soluzione.',
+      'Scegli la dimensione della griglia (4×4, 6×6 o 9×9), seleziona una difficoltà e tocca una cella per selezionarla. Poi inserisci un numero con la tastiera a schermo o la tastiera fisica. Ogni puzzle ha esattamente una soluzione.',
     'faq-q3': 'Cosa significano le dimensioni della griglia?',
     'faq-a3':
-      '4\u00d74 \u00e8 un mini-Sudoku perfetto per principianti e bambini, 6\u00d76 \u00e8 una sfida compatta e 9\u00d79 \u00e8 il Sudoku classico giocato in tutto il mondo. Ogni dimensione usa i numeri da 1 a N.',
+      '4×4 è un mini-Sudoku perfetto per principianti e bambini, 6×6 è una sfida compatta e 9×9 è il Sudoku classico giocato in tutto il mondo. Ogni dimensione usa i numeri da 1 a N.',
     'faq-q4': 'Il Sudoku fa bene al cervello?',
     'faq-a4':
-      'S\u00ec. Il Sudoku allena il ragionamento logico, la concentrazione e la memoria, e gli studi suggeriscono che risolvere puzzle con regolarit\u00e0 mantiene la mente attiva. \u00c8 anche una pausa calma e produttiva lontano dai social.',
-    'faq-q5': 'Questo Sudoku \u00e8 davvero gratis?',
+      'Sì. Il Sudoku allena il ragionamento logico, la concentrazione e la memoria, e gli studi suggeriscono che risolvere puzzle con regolarità mantiene la mente attiva. È anche una pausa calma e produttiva lontano dai social.',
+    'faq-q5': 'Questo Sudoku è davvero gratis?',
     'faq-a5':
-      'S\u00ec, 100% gratis. Nessuna registrazione, nessun download e nessun limite di tempo. Puoi giocare a Sudoku online direttamente nel browser, su qualsiasi dispositivo.',
+      'Sì, 100% gratis. Nessuna registrazione, nessun download e nessun limite di tempo. Puoi giocare a Sudoku online direttamente nel browser, su qualsiasi dispositivo.',
     'seo-title':
-      'Gioca a Sudoku Online \u2014 Generatore di Mini Sudoku Gratis',
+      'Gioca a Sudoku Online — Generatore di Mini Sudoku Gratis',
     'seo-p1':
-      'Benvenuto nel nostro generatore di Sudoku online gratuito. Gioca a Sudoku online nel browser con tre dimensioni di griglia \u2014 4\u00d74 mini, 6\u00d76 e la classica 9\u00d79 \u2014 e tre livelli di difficolt\u00e0, dal riscaldamento facile alla sfida difficile.',
+      'Benvenuto nel nostro generatore di Sudoku online gratuito. Gioca a Sudoku online nel browser con tre dimensioni di griglia — 4×4 mini, 6×6 e la classica 9×9 — e tre livelli di difficoltà, dal riscaldamento facile alla sfida difficile.',
     'seo-p2':
-      "Ogni partita viene generata all'istante con una soluzione unica, quindi ottieni sempre un puzzle corretto e risolvibile. Scegli la tua griglia preferita, regola la difficolt\u00e0 e clicca su Nuova Partita per ricevere un tabellone nuovo in un secondo.",
+      "Ogni partita viene generata all'istante con una soluzione unica, quindi ottieni sempre un puzzle corretto e risolvibile. Scegli la tua griglia preferita, regola la difficoltà e clicca su Nuova Partita per ricevere un tabellone nuovo in un secondo.",
     'seo-p3':
-      'Il Sudoku \u00e8 uno dei puzzle di logica pi\u00f9 popolari al mondo. Allena il ragionamento, affina la concentrazione ed \u00e8 perfetto per una pausa breve. E il bello: il nostro Sudoku funziona su mobile, tablet e computer senza installare nulla.',
+      'Il Sudoku è uno dei puzzle di logica più popolari al mondo. Allena il ragionamento, affina la concentrazione ed è perfetto per una pausa breve. E il bello: il nostro Sudoku funziona su mobile, tablet e computer senza installare nulla.',
     'seo-p4':
-      'Che tu voglia insegnare ai bambini con una mini-griglia 4\u00d74, scaldarti con un 6\u00d76 facile o metterti alla prova con un 9\u00d79 difficile, puoi giocare a Sudoku online qui in qualsiasi momento. Note, suggerimenti, annulla, scorciatoie da tastiera ed evidenziazione degli errori rendono ogni partita facile da godere.',
+      'Che tu voglia insegnare ai bambini con una mini-griglia 4×4, scaldarti con un 6×6 facile o metterti alla prova con un 9×9 difficile, puoi giocare a Sudoku online qui in qualsiasi momento. Note, suggerimenti, annulla, scorciatoie da tastiera ed evidenziazione degli errori rendono ogni partita facile da godere.',
     'seo-p5':
-      'Aggiungi questa pagina ai preferiti e torna quando ti serve un allenamento mentale. Gioca a Sudoku online gratis, migliora la tua logica e divertiti \u2014 una griglia alla volta.',
+      'Aggiungi questa pagina ai preferiti e torna quando ti serve un allenamento mentale. Gioca a Sudoku online gratis, migliora la tua logica e divertiti — una griglia alla volta.',
   },
   wordLadder: {
     name: 'Scala di Parole',
     home: 'Home',
     intro:
-      'Cambia una lettera alla volta per trasformare la parola iniziale nella parola obiettivo. Ogni passaggio deve essere una vera parola inglese. Gioca gratis nel tuo browser, con puzzle quotidiani e tre livelli di difficolt\u00e0.',
-    mode: 'Modalit\u00e0',
+      'Cambia una lettera alla volta per trasformare la parola iniziale nella parola obiettivo. Ogni passaggio deve essere una vera parola inglese. Gioca gratis nel tuo browser, con puzzle quotidiani e tre livelli di difficoltà.',
+    mode: 'Modalità',
     'mode-classic': 'Classica',
     'mode-daily': 'Quotidiana',
-    difficulty: 'Difficolt\u00e0',
+    difficulty: 'Difficoltà',
     'difficulty-easy': 'Facile',
     'difficulty-medium': 'Media',
     'difficulty-hard': 'Difficile',
@@ -673,7 +938,7 @@ export const italianTranslations: Translations = {
     target: 'Obiettivo',
     time: 'Tempo',
     'daily-done':
-      'Hai gi\u00e0 risolto il puzzle di oggi. Torna domani per uno nuovo!',
+      'Hai già risolto il puzzle di oggi. Torna domani per uno nuovo!',
     start: 'Partenza',
     'your-move': 'La tua prossima parola',
     'input-placeholder': 'PAROLA',
@@ -685,13 +950,13 @@ export const italianTranslations: Translations = {
     'err-length':
       'La parola deve avere la stessa lunghezza della parola iniziale.',
     'err-dictionary':
-      "Questa parola non \u00e8 nel nostro dizionario. Provane un'altra.",
+      "Questa parola non è nel nostro dizionario. Provane un'altra.",
     'err-one-letter': 'Cambia esattamente una lettera.',
     'hint-text':
       'Pensa a una parola che dista una lettera dalla tua parola attuale.',
     'hint-1': 'La tua prossima parola inizia con {letter}.',
     'hint-2': 'Prova a cambiare la lettera in posizione {position}.',
-    'hint-3': 'Una possibile prossima parola \u00e8 {word}.',
+    'hint-3': 'Una possibile prossima parola è {word}.',
     'live-move': 'Ora sei a {word}.',
     'live-undo': 'Mossa annullata.',
     complete: 'Scala di Parole completata!',
@@ -710,33 +975,33 @@ export const italianTranslations: Translations = {
       'Inserisci una nuova parola che differisca dalla tua parola attuale per esattamente una lettera.',
     'rule-3': 'Ogni parola inserita deve essere una vera parola inglese.',
     'rule-4':
-      'Continua, un passo alla volta, finch\u00e9 raggiungi la parola obiettivo ambra.',
+      'Continua, un passo alla volta, finché raggiungi la parola obiettivo ambra.',
     'rule-5':
       'Cerca di finire con il minor numero di mosse per battere il tuo record.',
     'rules-title': 'Regole ufficiali della Scala di Parole',
     'rules-p1':
-      'Una scala di parole \u00e8 risolta quando trasformi la parola iniziale nella parola obiettivo usando solo parole vere, cambiando esattamente una lettera a ogni passo. Per esempio, CAT \u2192 COT \u2192 COG \u2192 DOG.',
+      'Una scala di parole è risolta quando trasformi la parola iniziale nella parola obiettivo usando solo parole vere, cambiando esattamente una lettera a ogni passo. Per esempio, CAT → COT → COG → DOG.',
     'rules-p2':
-      'Puoi cambiare la posizione della lettera e il suo valore, ma a ogni mossa pu\u00f2 cambiare solo una lettera. Puoi usare un suggerimento (fino a tre per partita) se ti blocchi, e annullare una mossa in qualsiasi momento.',
+      'Puoi cambiare la posizione della lettera e il suo valore, ma a ogni mossa può cambiare solo una lettera. Puoi usare un suggerimento (fino a tre per partita) se ti blocchi, e annullare una mossa in qualsiasi momento.',
     'rules-p3':
-      "Nella modalit\u00e0 Classica scegli la difficolt\u00e0 e giochi tutti i puzzle che vuoi. Nella modalit\u00e0 Quotidiana c'\u00e8 un puzzle condiviso al giorno, e completarlo mantiene viva la tua serie.",
+      "Nella modalità Classica scegli la difficoltà e giochi tutti i puzzle che vuoi. Nella modalità Quotidiana c'è un puzzle condiviso al giorno, e completarlo mantiene viva la tua serie.",
     'tips-title': 'Consigli e strategie',
     'tip-1':
-      'Concentrati sulle vocali. Le parole che differiscono per una sola vocale sono quasi sempre valide e le vocali aprono pi\u00f9 percorsi.',
+      'Concentrati sulle vocali. Le parole che differiscono per una sola vocale sono quasi sempre valide e le vocali aprono più percorsi.',
     'tip-2':
-      "Lavora anche all'indietro dalla parola obiettivo. Spesso il percorso migliore diventa chiaro quando pianifichi da entrambe le estremit\u00e0.",
+      "Lavora anche all'indietro dalla parola obiettivo. Spesso il percorso migliore diventa chiaro quando pianifichi da entrambe le estremità.",
     'tip-3':
-      'Tieni a mente le posizioni delle lettere. Cambiare una lettera vicino alla fine della parola di solito lascia pi\u00f9 opzioni.',
+      'Tieni a mente le posizioni delle lettere. Cambiare una lettera vicino alla fine della parola di solito lascia più opzioni.',
     'tip-4':
-      'Cerca schemi comuni come -ATE, -ING o -IDE. Riusare uno schema ti permette di attraversare pi\u00f9 parole rapidamente.',
+      'Cerca schemi comuni come -ATE, -ING o -IDE. Riusare uno schema ti permette di attraversare più parole rapidamente.',
     'tip-5':
       "Usa i tuoi tre suggerimenti con saggezza. L'ultimo rivela l'esatta prossima parola, molto prezioso nei puzzle difficili.",
-    'whatis-title': "Cos'\u00e8 una Scala di Parole?",
+    'whatis-title': "Cos'è una Scala di Parole?",
     'whatis-p1':
-      'La scala di parole \u00e8 un gioco di parole inventato da Lewis Carroll nel 1877, che lo chiamava Doublets. Inizi con due parole della stessa lunghezza e le colleghi attraverso una catena di parole vere, cambiando una lettera alla volta.',
+      'La scala di parole è un gioco di parole inventato da Lewis Carroll nel 1877, che lo chiamava Doublets. Inizi con due parole della stessa lunghezza e le colleghi attraverso una catena di parole vere, cambiando una lettera alla volta.',
     'whatis-p2':
-      'Per esempio, trasformare COLD in WARM pu\u00f2 avvenire cos\u00ec: COLD \u2192 CORD \u2192 WORD \u2192 WARD \u2192 WARM. Il gioco \u00e8 popolare in classe perch\u00e9 sviluppa ortografia, vocabolario e ragionamento logico in modo divertente.',
-    'levels-title': 'Livelli di difficolt\u00e0',
+      'Per esempio, trasformare COLD in WARM può avvenire così: COLD → CORD → WORD → WARD → WARM. Il gioco è popolare in classe perché sviluppa ortografia, vocabolario e ragionamento logico in modo divertente.',
+    'levels-title': 'Livelli di difficoltà',
     'levels-easy': 'Facile:',
     'levels-easy-p':
       'Catene corte di 2-4 mosse tra parole molto comuni. Perfetto per bambini e principianti.',
@@ -745,37 +1010,37 @@ export const italianTranslations: Translations = {
       'Catene di 5-7 mosse. Un buon allenamento quotidiano per i giocatori abituali.',
     'levels-hard': 'Difficile:',
     'levels-hard-p':
-      'Lunghe catene di 8 mosse o pi\u00f9. Solo i pi\u00f9 esperti appassionati di parole le risolveranno.',
+      'Lunghe catene di 8 mosse o più. Solo i più esperti appassionati di parole le risolveranno.',
     'kids-title': 'Scala di Parole per bambini',
     'kids-p1':
-      "Le scale di parole sono un'attivit\u00e0 fantastica per i bambini che imparano a leggere e scrivere. Ogni mossa richiede di confrontare le lettere, pronunciare le parole e ragionare sul vocabolario, tutto mentre giocano.",
+      "Le scale di parole sono un'attività fantastica per i bambini che imparano a leggere e scrivere. Ogni mossa richiede di confrontare le lettere, pronunciare le parole e ragionare sul vocabolario, tutto mentre giocano.",
     'kids-p2':
-      "Fai iniziare i bambini in modalit\u00e0 Facile, dove parole corte come CAT e DOG si collegano in poche mosse. \u00c8 un'attivit\u00e0 tranquilla, adatta agli schermi e segretamente educativa.",
+      "Fai iniziare i bambini in modalità Facile, dove parole corte come CAT e DOG si collegano in poche mosse. È un'attività tranquilla, adatta agli schermi e segretamente educativa.",
     'faq-title': 'Domande frequenti',
-    'faq-q1': "Cos'\u00e8 il gioco Scala di Parole?",
+    'faq-q1': "Cos'è il gioco Scala di Parole?",
     'faq-a1':
-      "Una scala di parole \u00e8 un puzzle in cui trasformi una parola in un'altra cambiando una singola lettera alla volta, usando una parola vera a ogni passo. Fu inventato da Lewis Carroll nel 1877.",
+      "Una scala di parole è un puzzle in cui trasformi una parola in un'altra cambiando una singola lettera alla volta, usando una parola vera a ogni passo. Fu inventato da Lewis Carroll nel 1877.",
     'faq-q2': 'Come si gioca a Scala di Parole?',
     'faq-a2':
-      'Parti dalla parola iniziale blu, poi inserisci parole che differiscano dalla precedente per esattamente una lettera. Continua finch\u00e9 raggiungi la parola obiettivo ambra. Meno mosse fai, meglio \u00e8.',
+      'Parti dalla parola iniziale blu, poi inserisci parole che differiscano dalla precedente per esattamente una lettera. Continua finché raggiungi la parola obiettivo ambra. Meno mosse fai, meglio è.',
     'faq-q3': 'Quali sono le regole della Scala di Parole?',
     'faq-a3':
-      'Ogni mossa cambia esattamente una lettera e ogni parola deve essere una vera parola inglese della stessa lunghezza delle parole iniziale e obiettivo. Non puoi ripetere una parola gi\u00e0 presente nella tua scala.',
-    'faq-q4': 'Si possono cambiare pi\u00f9 lettere in una scala di parole?',
+      'Ogni mossa cambia esattamente una lettera e ogni parola deve essere una vera parola inglese della stessa lunghezza delle parole iniziale e obiettivo. Non puoi ripetere una parola già presente nella tua scala.',
+    'faq-q4': 'Si possono cambiare più lettere in una scala di parole?',
     'faq-a4':
-      'No. Esattamente una lettera pu\u00f2 cambiare per mossa. Cambiare due o pi\u00f9 lettere contemporaneamente viola le regole del puzzle.',
+      'No. Esattamente una lettera può cambiare per mossa. Cambiare due o più lettere contemporaneamente viola le regole del puzzle.',
     'faq-q5': 'Cosa rende difficile una scala di parole?',
     'faq-a5':
-      'La difficolt\u00e0 dipende dalla distanza tra le due parole, da quante parole vere esistono tra di esse e da quanto \u00e8 facile rimanere bloccati in vicoli ciechi lungo il percorso.',
+      'La difficoltà dipende dalla distanza tra le due parole, da quante parole vere esistono tra di esse e da quanto è facile rimanere bloccati in vicoli ciechi lungo il percorso.',
     'faq-q6': 'Le scale di parole fanno bene ai bambini?',
     'faq-a6':
-      "S\u00ec. Le scale di parole sono molto usate a scuola per esercitare ortografia, corrispondenza lettera-suono e vocabolario, e sono un'attivit\u00e0 sullo schermo calma ed educativa.",
-    'faq-q7': 'Questo gioco di Scala di Parole \u00e8 gratuito?',
+      "Sì. Le scale di parole sono molto usate a scuola per esercitare ortografia, corrispondenza lettera-suono e vocabolario, e sono un'attività sullo schermo calma ed educativa.",
+    'faq-q7': 'Questo gioco di Scala di Parole è gratuito?',
     'faq-a7':
-      'S\u00ec, completamente gratuito. Nessuna registrazione, nessun download e nessun limite di tempo. Gioca nel browser su qualsiasi dispositivo, incluso il telefono.',
+      'Sì, completamente gratuito. Nessuna registrazione, nessun download e nessun limite di tempo. Gioca nel browser su qualsiasi dispositivo, incluso il telefono.',
     'related-title': 'Altri giochi gratuiti online',
     'related-p':
-      'Se ti piacciono i giochi di parole, prova gli altri nostri giochi di logica gratuiti \u2014 funzionano tutti su mobile e desktop.',
+      'Se ti piacciono i giochi di parole, prova gli altri nostri giochi di logica gratuiti — funzionano tutti su mobile e desktop.',
     'related-sudoku':
       'Il classico gioco di logica con tre dimensioni di griglia.',
     'related-queens':

@@ -19,11 +19,164 @@ export const germanTranslations: Translations = {
     toolsText:
       'Validiere und minimiere JSON oder prüfe JWT-Claims und Ablaufzeiten. Entdecke auch unsere Logikspiele.',
   },
-  backHome: 'Zur\u00fcck zur Startseite',
-  showcase: {
-    jingleName: 'jingle.IA',
-    jingleDescription:
-      'Eine Plattform zum Erstellen und Verwalten personalisierter Jingles.',
+  backHome: 'Zurück zur Startseite',
+  cases: {
+    viewCase: "Ganze Fallstudie ansehen",
+    visitSite: "Website besuchen",
+    backToProjects: "Zurück zu den Projekten",
+    myRole: "Was ich gemacht habe",
+    aboutTitle: "Über das Projekt",
+    highlightsTitle: "Highlights",
+    galleryTitle: "Auf Desktop und Smartphone",
+    techTitle: "Unter der Haube",
+    desktop: "Desktop-Version",
+    mobile: "Mobile Version",
+    ctaTitle: "Hast du ein ähnliches Projekt im Kopf?",
+    ctaText: "Erzähl mir, was du brauchst, und ich antworte mit den nächsten Schritten.",
+    ctaButton: "Über mein Projekt sprechen",
+    roles: {
+      design: "Design",
+      implementation: "Umsetzung",
+      hosting: "Hosting",
+      maintenance: "Wartung",
+    },
+    items: {
+      jingle: {
+        tagline: "Plattform zur Erstellung von Jingles mit künstlicher Intelligenz",
+        summary: "Eine Plattform, auf der jeder eine Idee in einen Jingle verwandelt: Künstliche Intelligenz schreibt den Text, erstellt die Musik und erzeugt den Gesang, mit Download als MP3. Ich habe Design, Umsetzung und Hosting übernommen und kümmere mich um die Wartung.",
+        about: "jingle.ia.br holt den Jingle aus dem Studio. Bäckereien, Pizzerien, Supermärkte, Radiosender und Agenturen beschreiben ihre Botschaft, wählen einen brasilianischen Rhythmus wie Forró, Sertanejo oder Pagode, vergleichen drei Textvorschläge und laden den fertigen Song herunter. Dieselbe Plattform eignet sich für Geburtstage, Events, Podcasts und Kampagnen, ganz ohne Songwriting-Kenntnisse.",
+        work: {
+          design: {
+            intro: "Die Zielgruppe hat noch nie einen Song geschrieben. Jede Designentscheidung räumt einen Zweifel aus dem Weg.",
+            decisions: {
+              '1': {
+                title: "Vier Schritte, eine Frage nach der anderen",
+                text: "Idee, Ton, Text und Download. Kurze Schritte verhindern das leere Blatt bei Menschen, die nicht wissen, wo sie anfangen sollen.",
+              },
+              '2': {
+                title: "Auswählen statt schreiben",
+                text: "Man vergleicht drei Texte, bevor das Audio erzeugt wird. Auswählen ist leichter als Schreiben, und Guthaben wird nur für Freigegebenes verbraucht.",
+              },
+              '3': {
+                title: "Ein typisch brasilianischer Look",
+                text: "Grün und Gelb, ein Megafon und regionale Rhythmen zeigen schon auf dem ersten Screen, für wen das Produkt ist.",
+              },
+            },
+          },
+          implementation: {
+            intro: "Musik zu erzeugen dauert und kann scheitern. Die Umsetzung sorgt dafür, dass das den Nutzer nicht belastet.",
+            decisions: {
+              '1': {
+                title: "Generierung im Hintergrund",
+                text: "Der Jingle wird weiter erzeugt, auch wenn die Seite geschlossen wird. Man verfolgt den Status und lädt das MP3 herunter, sobald es fertig ist.",
+              },
+              '2': {
+                title: "Fehler kosten kein Guthaben",
+                text: "Schlägt die Texterstellung fehl, geht der Jingle zurück ins Guthaben des Plans und der Screen erklärt, was passiert ist.",
+              },
+              '3': {
+                title: "Abo-Pläne",
+                text: "Drei Monatspläne mit Jingle-Kontingent und jederzeit kündbar. Der Einstiegsplan hat ein gesprochenes Wasserzeichen.",
+              },
+            },
+          },
+          hosting: {
+            intro: "Die Nutzung kommt in Spitzen, etwa an Feiertagen und bei Kampagnen. Die Infrastruktur folgt diesem Rhythmus.",
+            decisions: {
+              '1': {
+                title: "Zahlen, was man nutzt",
+                text: "Serverless-Architektur: keine Server, die untätig auf Besucher warten, und die Kapazität wächst automatisch mit dem Traffic.",
+              },
+              '2': {
+                title: "Eine Domain, die sich selbst erklärt",
+                text: "Die .ia.br-Domain sagt, was das Produkt tut und dass es brasilianisch ist, noch bevor die Seite geöffnet wird.",
+              },
+            },
+          },
+          maintenance: {
+            intro: "Das Produkt entwickelt sich nach dem Launch weiter.",
+            decisions: {
+              '1': {
+                title: "Kontinuierliche Weiterentwicklung",
+                text: "Neue Jingle-Typen, Briefing-Ideen und Inhalte kommen dazu, sobald die echte Nutzung zeigt, was fehlt.",
+              },
+              '2': {
+                title: "Schnelle Fehlerbehebung",
+                text: "Ich beobachte Fehler und die Kosten der KI-Dienste, um Probleme zu lösen, bevor daraus Beschwerden werden.",
+              },
+            },
+          },
+        },
+        tech: {
+          intro: "Ein Serverless-Stack auf AWS, der mehrere KI-Modelle orchestriert und über die Edge ausgeliefert wird.",
+          frontend: "Angular-SPA in einem Monorepo zusammen mit dem Backend: ein Repository, ein Build- und Deploy-Flow.",
+          backend: "Serverless-Backend in Node.js auf AWS Lambda, mit DynamoDB als NoSQL-Datenbank. Skaliert nach Bedarf und wird pro Ausführung abgerechnet.",
+          ai: "Asynchrone Pipeline, die LLMs von OpenAI und Gemini, Modell-Inferenz auf Replicate und Sprachsynthese mit ElevenLabs orchestriert.",
+          payments: "Wiederkehrende Abos über Asaas, per API und Webhooks angebunden, um das Kontingent jedes Plans freizugeben.",
+          infra: "Statische Assets über das CloudFront-CDN, DNS und Edge-Proxy mit Cloudflare und die .ia.br-Domain bei Registro.br.",
+        },
+        highlights: {
+          '1': {
+            value: "3",
+            label: "Textvorschläge pro Jingle",
+          },
+          '2': {
+            value: "8",
+            label: "brasilianische Musikgenres",
+          },
+          '3': {
+            value: "60 s",
+            label: "Jingle, als MP3 herunterladbar",
+          },
+          '4': {
+            value: "R$ 9,90",
+            label: "pro Monat im Einstiegsplan",
+          },
+        },
+      },
+      supervegetariano: {
+        tagline: "Vegetarisches Restaurant in Santos (Brasilien) seit 1986",
+        summary: "Die Website eines traditionellen vegetarischen Restaurants in Santos, Brasilien. Die Website gab es bereits: Ich habe sie an einem Tag zu einem neuen Hosting umgezogen, die E-Mails bei KingHost eingerichtet und kleine Anpassungen vorgenommen.",
+        about: "Super Vegetariano serviert seit Februar 1986 hausgemachtes, leckeres und gesundes Essen in Santos. Die Website zeigt die Geschichte des Hauses, die Standorte, das Tagesmenü in den sozialen Medien und den Kontakt per WhatsApp. Sie wurde von einem anderen Team mit WordPress erstellt.",
+        work: {
+          hosting: {
+            intro: "Die Website funktionierte bereits und die Gäste kannten sie. Ziel war es, die Infrastruktur zu wechseln, ohne dass es jemand merkt.",
+            decisions: {
+              '1': {
+                title: "Umzug an einem Tag",
+                text: "Dateien, Datenbank und Domain der WordPress-Seite zogen an einem einzigen Tag zum neuen Hosting um, Inhalt und Design blieben erhalten.",
+              },
+              '2': {
+                title: "E-Mail bei KingHost",
+                text: "Ich habe die E-Mail-Konten der Domain bei KingHost eingerichtet, damit das Restaurant weiter unter der eigenen Adresse erreichbar ist.",
+              },
+              '3': {
+                title: "Kleine Anpassungen",
+                text: "Nach dem Umzug habe ich einzelne Details korrigiert, ohne die Identität zu verändern, die die Gäste kennen.",
+              },
+            },
+          },
+        },
+        highlights: {
+          '1': {
+            value: "40",
+            label: "Jahre gesundes Essen",
+          },
+          '2': {
+            value: "2",
+            label: "Standorte in Santos, Brasilien",
+          },
+          '3': {
+            value: "1 Tag",
+            label: "für den kompletten Umzug",
+          },
+          '4': {
+            value: "1986",
+            label: "Gründungsjahr",
+          },
+        },
+      },
+    },
   },
   scheduling: {
     title: 'Gespräch vereinbaren',
@@ -36,16 +189,16 @@ export const germanTranslations: Translations = {
     subtitle: 'Eine Sammlung von Spielen, die ich gebaut habe.',
     play: 'Spielen',
     queensDescription:
-      'Ein t\u00e4gliches Logikr\u00e4tsel, inspiriert vom klassischen N-Damen-Problem.',
+      'Ein tägliches Logikrätsel, inspiriert vom klassischen N-Damen-Problem.',
     sudokuDescription:
-      'Ein Sudoku-Generator mit 4\u00d74-, 6\u00d76- und 9\u00d79-Gittern und einstellbarem Schwierigkeitsgrad.',
+      'Ein Sudoku-Generator mit 4×4-, 6×6- und 9×9-Gittern und einstellbarem Schwierigkeitsgrad.',
     wordLadderDescription:
-      'Ein Wortr\u00e4tsel, bei dem du jeweils einen Buchstaben \u00e4nderst, um ein Wort in ein anderes zu verwandeln, mit t\u00e4glichen R\u00e4tseln und drei Schwierigkeitsgraden.',
+      'Ein Worträtsel, bei dem du jeweils einen Buchstaben änderst, um ein Wort in ein anderes zu verwandeln, mit täglichen Rätseln und drei Schwierigkeitsgraden.',
   },
   tools: {
     label: 'Tools',
-    subtitle: 'N\u00fctzliche Tools, die ich gebaut habe.',
-    emptyTitle: 'Noch keine Tools verf\u00fcgbar',
+    subtitle: 'Nützliche Tools, die ich gebaut habe.',
+    emptyTitle: 'Noch keine Tools verfügbar',
     emptyDescription:
       'Neue Tools sind unterwegs. Schauen Sie bald wieder vorbei!',
   },
@@ -63,6 +216,9 @@ export const germanTranslations: Translations = {
       whyMe: 'Warum ich',
       projects: 'Projekte',
       testimonials: 'Referenzen',
+      allServices: "Alle Leistungen",
+      segments: "Branchen",
+      gamesAndTools: "Spiele und Tools",
     },
     services: {
       name: 'Services',
@@ -110,51 +266,34 @@ export const germanTranslations: Translations = {
       name: 'Portfolio',
       title: 'Projekte, die Ergebnisse erzielen',
       description:
-        'Einige aktuelle Arbeiten f\u00fcr Fachleute und Unternehmen, die meiner Arbeit vertraut haben.',
+        'Einige aktuelle Arbeiten für Fachleute und Unternehmen, die meiner Arbeit vertraut haben.',
       viewAll: 'Alle Projekte ansehen',
-      items: {
-        '1': {
-          name: 'Conversion-Landingpage',
-          description:
-            'Eine fokussierte Seite zum Starten von Services und Gewinnen qualifizierter Leads.',
-        },
-        '2': {
-          name: 'Professionelle Website',
-          description:
-            'Eine klare digitale Pr\u00e4senz, die Vertrauen und Autorit\u00e4t vermittelt.',
-        },
-        '3': {
-          name: 'Portfolio-Erlebnis',
-          description:
-            'Eine saubere Pr\u00e4sentation f\u00fcr Arbeit, Prozess und Expertise.',
-        },
-      },
     },
     testimonials: {
       name: 'Kundenstimmen',
       title: 'Was meine Kunden sagen:',
       previous: 'Vorherige Kundenstimmen',
-      next: 'N\u00e4chste Kundenstimmen',
-      ctaTitle: 'Bereit f\u00fcr eine Website, die echte Ergebnisse bringt?',
+      next: 'Nächste Kundenstimmen',
+      ctaTitle: 'Bereit für eine Website, die echte Ergebnisse bringt?',
       ctaDescription:
-        'Lass uns \u00fcber deine Projekte sprechen und deine Ideen umsetzen.',
+        'Lass uns über deine Projekte sprechen und deine Ideen umsetzen.',
       whatsapp: 'Auf WhatsApp sprechen',
       whatsappMessage:
-        'Hallo! Ich habe dein Portfolio gesehen und w\u00fcrde gerne \u00fcber ein Projekt sprechen.',
+        'Hallo! Ich habe dein Portfolio gesehen und würde gerne über ein Projekt sprechen.',
       requestBudget: 'Angebot anfordern',
       items: {
         '1': {
-          text: 'Breno verstand genau, was ich brauchte, und lieferte eine schnelle, sch\u00f6ne Seite, die schon in der ersten Woche qualifizierte Kontakte brachte.',
+          text: 'Breno verstand genau, was ich brauchte, und lieferte eine schnelle, schöne Seite, die schon in der ersten Woche qualifizierte Kontakte brachte.',
           name: 'Mariana Alves',
           profession: 'Architektin',
         },
         '2': {
-          text: 'Der Prozess war von Anfang bis Ende klar. Endlich habe ich eine professionelle Website, die meine Arbeit erkl\u00e4rt und Vertrauen schafft.',
+          text: 'Der Prozess war von Anfang bis Ende klar. Endlich habe ich eine professionelle Website, die meine Arbeit erklärt und Vertrauen schafft.',
           name: 'Rafael Costa',
           profession: 'Unternehmensberater',
         },
         '3': {
-          text: 'Neben dem Design machte die Sorgfalt bei der Performance einen gro\u00dfen Unterschied. Die Website l\u00e4dt schnell und funktioniert perfekt mobil.',
+          text: 'Neben dem Design machte die Sorgfalt bei der Performance einen großen Unterschied. Die Website lädt schnell und funktioniert perfekt mobil.',
           name: 'Camila Torres',
           profession: 'Inhaberin eines Beauty-Studios',
         },
@@ -215,6 +354,45 @@ export const germanTranslations: Translations = {
         'Schreib mir eine Nachricht und ich helfe dir, den besten Weg für dein Projekt zu wählen.',
     },
     landingPages: {
+      proofTitle: "Projekte, die bereits online sind",
+      formTitle: "Angebot anfordern",
+      formSubtitle: "Nur zwei Felder. Das Gespräch geht auf WhatsApp weiter.",
+      formName: "Dein Name",
+      formOffer: "Was möchtest du verkaufen oder bewerben?",
+      formOfferPlaceholder: "Z. B. ein Kurs, eine Beratung, ein Launch",
+      messageIntro: "Hallo Breno! Ich möchte eine Landingpage.",
+      messageName: "Name",
+      messageOffer: "Angebot",
+      anatomyTitle: 'Anatomie einer Seite, die konvertiert',
+      anatomySubtitle: 'Jeder Block hat eine Aufgabe. So bringt jeder Teil Ihrer Landingpage den Besucher zum Handeln.',
+      anatomy: {
+        '1': {
+          title: 'Überschrift',
+          text: 'Ein klares Versprechen, das dem Besucher in Sekunden sagt, was er bekommt und warum es wichtig ist.',
+        },
+        '2': {
+          title: 'Social Proof',
+          text: 'Bewertungen, Logos und Zahlen, die zeigen, dass andere Ihnen bereits vertrauen.',
+        },
+        '3': {
+          title: 'Angebot und Vorteile',
+          text: 'Was enthalten ist – als Ergebnis für den Kunden dargestellt, nicht als Liste von Funktionen.',
+        },
+        '4': {
+          title: 'Formular',
+          text: 'Nur die Felder, die wirklich nötig sind, damit das Ausfüllen mühelos ist.',
+        },
+        '5': {
+          title: 'Call to Action',
+          text: 'Eine einzige Aktion, an den richtigen Stellen wiederholt, mit einem Button, den man nicht übersehen kann.',
+        },
+      },
+      timeline: {
+        '1': 'Tag 1',
+        '2': 'Tag 2–3',
+        '3': 'Tag 3–6',
+        '4': 'Ab Tag 7',
+      },
       name: 'Landing Pages',
       shortDescription:
         'Konversionsstarke Seiten, die Besucher in Leads und Verkäufe verwandeln.',
@@ -296,6 +474,45 @@ export const germanTranslations: Translations = {
       ctaSubtitle: 'Lass uns eine Landing Page bauen, die sich selbst bezahlt.',
     },
     websitesForFreelancers: {
+      compareTitle: 'Nur Social Media vs. eigene Website',
+      compareWithoutTitle: 'Nur Social Media',
+      compareWithTitle: 'Mit eigener Website',
+      compareWithout: {
+        '1': 'Ihre Reichweite hängt vom Algorithmus ab',
+        '2': 'Infos zu Ihren Leistungen sind über viele Beiträge verstreut',
+        '3': 'Kunden müssen Ihnen schreiben, um das Grundlegende zu erfragen',
+        '4': 'Ihr Profil kann jederzeit eingeschränkt werden oder verloren gehen',
+      },
+      compareWith: {
+        '1': 'Kunden finden Sie bei Google, wenn sie nach Ihrer Leistung suchen',
+        '2': 'Leistungen, Preise und Ablauf an einem Ort erklärt',
+        '3': 'Fragen beantwortet, bevor die erste Nachricht kommt',
+        '4': 'Eine Adresse, die dauerhaft Ihnen gehört',
+      },
+      pagesTitle: 'Seiten, die Ihre Website haben kann',
+      pagesSubtitle: 'Eine einfache Struktur, die beantwortet, was jeder potenzielle Kunde wissen will.',
+      pages: {
+        '1': {
+          title: 'Startseite',
+          text: 'Wer Sie sind, was Sie tun und wie man Sie beauftragt – auf einen Blick.',
+        },
+        '2': {
+          title: 'Leistungen',
+          text: 'Jede Leistung erklärt, mit Umfang und Ablauf.',
+        },
+        '3': {
+          title: 'Über mich',
+          text: 'Ihre Geschichte, Ihre Erfahrung und Ihre Arbeitsweise.',
+        },
+        '4': {
+          title: 'Portfolio',
+          text: 'Echte Projekte und Ergebnisse, die Ihr Können belegen.',
+        },
+        '5': {
+          title: 'Kontakt',
+          text: 'WhatsApp, Formular und Terminbuchung – nur einen Klick entfernt.',
+        },
+      },
       name: 'Websites für Freelancer',
       shortDescription:
         'Professionelle Websites, die Vertrauen aufbauen und dir mehr Kunden sichern.',
@@ -377,6 +594,26 @@ export const germanTranslations: Translations = {
       ctaSubtitle: 'Schreib mir und wir planen deine Website.',
     },
     blogsAndPortfolios: {
+      splitTitle: 'Zwei Formate, ein Ziel: in Erinnerung bleiben',
+      portfolio: {
+        title: 'Portfolio',
+        text: 'Wenn Ihre Arbeit für sich spricht und im besten Licht gezeigt werden soll.',
+        items: {
+          '1': 'Projektseiten mit Bildern, Kontext und Ergebnissen',
+          '2': 'Filter nach Kategorie oder Art der Arbeit',
+          '3': 'Kundenstimmen direkt bei jedem Projekt',
+        },
+      },
+      blog: {
+        title: 'Blog',
+        text: 'Wenn Ihr Wissen der Unterschied ist und Sie in Suchmaschinen gefunden werden wollen.',
+        items: {
+          '1': 'Artikel nach Kategorien und Tags geordnet',
+          '2': 'SEO-fertige Struktur für jeden Beitrag',
+          '3': 'Newsletter-Anmeldung, um Leser an sich zu binden',
+        },
+      },
+      chapter: 'Kapitel',
       name: 'Blogs und Portfolios',
       shortDescription:
         'Zeige deine Arbeit, teile Wissen und ziehe deine ideale Zielgruppe an.',
@@ -458,6 +695,34 @@ export const germanTranslations: Translations = {
       ctaSubtitle: 'Lass uns ein Portfolio schaffen, das dir Chancen bringt.',
     },
     integrations: {
+      hubCenter: 'Ihre Website',
+      tools: {
+        '1': 'WhatsApp',
+        '2': 'E-Mail',
+        '3': 'CRM',
+        '4': 'Zahlungen',
+        '5': 'Tabellen',
+        '6': 'Analytics',
+      },
+      flowTitle: 'So sieht das in der Praxis aus',
+      flowSubtitle: 'Ein einziges abgeschicktes Formular kann alles auslösen, was früher von Hand erledigt wurde.',
+      flow: {
+        '1': {
+          label: 'Auslöser',
+          title: 'Ein Besucher füllt das Formular aus',
+          text: 'Name, Kontakt und Anliegen werden auf Ihrer Website erfasst.',
+        },
+        '2': {
+          label: 'Automatisierung',
+          title: 'Die Daten landen, wo sie hingehören',
+          text: 'Der Lead wird in Ihrem CRM oder Ihrer Tabelle gespeichert und Sie erhalten eine Benachrichtigung per WhatsApp.',
+        },
+        '3': {
+          label: 'Ergebnis',
+          title: 'Sie antworten innerhalb von Minuten',
+          text: 'Der Besucher erhält eine Bestätigungs-E-Mail und Sie melden sich, solange das Interesse groß ist.',
+        },
+      },
       name: 'Integrationen',
       shortDescription:
         'Formulare, E-Mail-Marketing, WhatsApp, Zahlungen und vieles mehr.',
@@ -543,166 +808,166 @@ export const germanTranslations: Translations = {
   queens: {
     queens: 'Damen',
     level: 'Stufe',
-    'level-1': 'Anf\u00e4nger',
+    'level-1': 'Anfänger',
     'level-2': 'Leicht',
     'level-3': 'Mittel',
     'level-4': 'Schwer',
     'level-5': 'Experte',
     'new-game': 'Neues Spiel',
     hint: 'Hinweis',
-    congratulations: 'Gl\u00fcckwunsch! Puzzle gel\u00f6st!',
+    congratulations: 'Glückwunsch! Puzzle gelöst!',
     'queens-placed': 'Damen platziert',
-    'check-errors': 'Regelverst\u00f6\u00dfe pr\u00fcfen',
-    loading: 'L\u00e4dt...',
+    'check-errors': 'Regelverstöße prüfen',
+    loading: 'Lädt...',
     'how-to-play': 'Spielanleitung',
     'rule-row': 'Platziere genau eine Dame in jeder Zeile.',
     'rule-col': 'Platziere genau eine Dame in jeder Spalte.',
     'rule-region': 'Platziere genau eine Dame in jeder farbigen Region.',
     'rule-adjacent':
-      'Keine zwei Damen d\u00fcrfen sich ber\u00fchren, auch nicht diagonal.',
+      'Keine zwei Damen dürfen sich berühren, auch nicht diagonal.',
     'tip-tap':
-      'Tippe einmal f\u00fcr \u2715-Markierung, nochmal f\u00fcr \u266b-Dame, nochmal zum L\u00f6schen.',
+      'Tippe einmal für ✕-Markierung, nochmal für ♫-Dame, nochmal zum Löschen.',
     'tip-x':
-      'Wische mit dem Finger \u00fcber Felder, um schnell mehrere \u2715 zu setzen.',
+      'Wische mit dem Finger über Felder, um schnell mehrere ✕ zu setzen.',
     'tip-slide':
-      'Nutze \u2715-Markierungen f\u00fcr Felder, die keine Dame enthalten k\u00f6nnen.',
-    'faq-title': 'H\u00e4ufig gestellte Fragen',
+      'Nutze ✕-Markierungen für Felder, die keine Dame enthalten können.',
+    'faq-title': 'Häufig gestellte Fragen',
     'faq-q1': 'Was ist das Damen-Spiel?',
     'faq-a1':
-      'Damen ist ein Logikpuzzle, bei dem du Damen so auf dem Brett platzierst, dass jede Zeile, Spalte und farbige Region genau eine Dame enth\u00e4lt und sich keine zwei Damen ber\u00fchren.',
+      'Damen ist ein Logikpuzzle, bei dem du Damen so auf dem Brett platzierst, dass jede Zeile, Spalte und farbige Region genau eine Dame enthält und sich keine zwei Damen berühren.',
     'faq-q2': 'Wie spielt man?',
     'faq-a2':
-      'Tippe auf ein Feld, um zu wechseln: \u2715 Markierung \u2192 \u266b Dame \u2192 leer. Wische mit dem Finger \u00fcber das Brett, um schnell mehrere \u2715 zu setzen. Regelverst\u00f6\u00dfe werden rot markiert.',
+      'Tippe auf ein Feld, um zu wechseln: ✕ Markierung → ♫ Dame → leer. Wische mit dem Finger über das Brett, um schnell mehrere ✕ zu setzen. Regelverstöße werden rot markiert.',
     'faq-q3': 'Was passiert bei einem Fehler?',
     'faq-a3':
-      'Konflikte werden rot markiert. \u00dcberpr\u00fcfe und korrigiere, bis alle Regeln erf\u00fcllt sind. Es gibt keine Zugbegrenzung!',
+      'Konflikte werden rot markiert. Überprüfe und korrigiere, bis alle Regeln erfüllt sind. Es gibt keine Zugbegrenzung!',
     'faq-q4': 'Gibt es jeden Tag ein neues Puzzle?',
     'faq-a4':
-      'Ja! Das Brett wird t\u00e4glich basierend auf dem aktuellen Datum generiert. Teile deine Ergebnisse mit Freunden!',
-    'seo-title': 'Spiele Damen — T\u00e4gliches Logikpuzzle',
+      'Ja! Das Brett wird täglich basierend auf dem aktuellen Datum generiert. Teile deine Ergebnisse mit Freunden!',
+    'seo-title': 'Spiele Damen — Tägliches Logikpuzzle',
     'seo-p1':
-      'Damen ist ein t\u00e4gliches Logikpuzzle, inspiriert vom klassischen N-Damen-Problem. Platziere Damen auf dem Brett nach vier einfachen Regeln: eine pro Zeile, eine pro Spalte, eine pro farbiger Region, und keine Dame darf eine andere ber\u00fchren.',
+      'Damen ist ein tägliches Logikpuzzle, inspiriert vom klassischen N-Damen-Problem. Platziere Damen auf dem Brett nach vier einfachen Regeln: eine pro Zeile, eine pro Spalte, eine pro farbiger Region, und keine Dame darf eine andere berühren.',
     'seo-p2':
-      'W\u00e4hle aus 5 Schwierigkeitsstufen — Anf\u00e4nger (5\u00d75), Leicht (6\u00d76), Mittel (7\u00d77), Schwer (8\u00d78) und Experte (10\u00d710). Jedes Puzzle wird deterministisch aus dem Datum generiert.',
+      'Wähle aus 5 Schwierigkeitsstufen — Anfänger (5×5), Leicht (6×6), Mittel (7×7), Schwer (8×8) und Experte (10×10). Jedes Puzzle wird deterministisch aus dem Datum generiert.',
     'seo-p3':
       'Spiele online kostenlos, ohne Registrierung. Trainiere dein logisches Denken und deine Mustererkennung. Ein brandneues Puzzle wartet jeden Tag auf dich!',
   },
   sudoku: {
     sudoku: 'Sudoku',
     size: 'Raster',
-    'size-4': '4\u00d74 Mini',
-    'size-6': '6\u00d76',
-    'size-9': '9\u00d79 Klassisch',
+    'size-4': '4×4 Mini',
+    'size-6': '6×6',
+    'size-9': '9×9 Klassisch',
     difficulty: 'Schwierigkeit',
     'difficulty-0': 'Leicht',
     'difficulty-1': 'Mittel',
     'difficulty-2': 'Schwer',
     'new-game': 'Neues Spiel',
     notes: 'Notizen',
-    eraser: 'L\u00f6schen',
-    undo: 'R\u00fcckg\u00e4ngig',
+    eraser: 'Löschen',
+    undo: 'Rückgängig',
     hint: 'Hinweis',
     mistakes: 'Fehler',
-    congratulations: 'Gl\u00fcckwunsch! Puzzle gel\u00f6st!',
-    loading: 'L\u00e4dt...',
+    congratulations: 'Glückwunsch! Puzzle gelöst!',
+    loading: 'Lädt...',
     'keyboard-hint':
-      'Tipp: Nutze die Pfeiltasten zum Navigieren im Raster, die Zahlen zum Ausf\u00fcllen, N zum Umschalten der Notizen und Entf zum L\u00f6schen.',
+      'Tipp: Nutze die Pfeiltasten zum Navigieren im Raster, die Zahlen zum Ausfüllen, N zum Umschalten der Notizen und Entf zum Löschen.',
     'how-to-play': 'Spielanleitung',
     'rule-1': 'Jede Zeile muss jede Zahl von 1 bis N genau einmal enthalten.',
     'rule-2': 'Jede Spalte muss jede Zahl von 1 bis N genau einmal enthalten.',
     'rule-3':
       'Jeder fett umrandete Block muss jede Zahl von 1 bis N genau einmal enthalten.',
     'tip-1':
-      'Beginne mit den Bl\u00f6cken, die bereits die meisten Zahlen haben, und suche in jeder Zeile, Spalte und jedem Block nach Zellen mit nur einer m\u00f6glichen Zahl.',
+      'Beginne mit den Blöcken, die bereits die meisten Zahlen haben, und suche in jeder Zeile, Spalte und jedem Block nach Zellen mit nur einer möglichen Zahl.',
     'tip-2':
-      'Nutze Notizen, um m\u00f6gliche Zahlen zu markieren. Sie erscheinen als kleine Ziffern und helfen dir, die M\u00f6glichkeiten im Blick zu behalten.',
+      'Nutze Notizen, um mögliche Zahlen zu markieren. Sie erscheinen als kleine Ziffern und helfen dir, die Möglichkeiten im Blick zu behalten.',
     'tip-3':
       'Spiele mit Maus, Touchscreen oder Tastatur. Zahlen, die sich in derselben Zeile, Spalte oder demselben Block wiederholen, werden rot markiert.',
     'strategy-title': 'Tipps und Strategien',
     'strategy-p1':
-      'Suche nach eindeutigen Kandidaten: Wenn nur eine Zahl in eine Zelle passt, trage sie sofort ein. Das ist die wichtigste Technik f\u00fcr Anf\u00e4nger.',
+      'Suche nach eindeutigen Kandidaten: Wenn nur eine Zahl in eine Zelle passt, trage sie sofort ein. Das ist die wichtigste Technik für Anfänger.',
     'strategy-p2':
-      'Analysiere Zeilen, Spalten und Bl\u00f6cke auf fehlende Zahlen. Steht eine Zahl bereits in zwei Bl\u00f6cken einer Zeile, verr\u00e4t der dritte Block oft eine freie Zelle.',
+      'Analysiere Zeilen, Spalten und Blöcke auf fehlende Zahlen. Steht eine Zahl bereits in zwei Blöcken einer Zeile, verrät der dritte Block oft eine freie Zelle.',
     'strategy-p3':
-      'Nutze Bleistift-Markierungen. Notiere alle m\u00f6glichen Zahlen in jeder Zelle und streiche sie beim L\u00f6sen eine nach der anderen. So werden schwere Puzzles \u00fcberschaubar.',
+      'Nutze Bleistift-Markierungen. Notiere alle möglichen Zahlen in jeder Zelle und streiche sie beim Lösen eine nach der anderen. So werden schwere Puzzles überschaubar.',
     'strategy-p4':
-      '\u00dcbe ein wenig jeden Tag. Regelm\u00e4\u00dfiges Sudoku-Spielen verbessert Konzentration, Mustererkennung und Kurzzeitged\u00e4chtnis \u2014 und es entspannt wirklich.',
-    'faq-title': 'H\u00e4ufig gestellte Fragen',
+      'Übe ein wenig jeden Tag. Regelmäßiges Sudoku-Spielen verbessert Konzentration, Mustererkennung und Kurzzeitgedächtnis — und es entspannt wirklich.',
+    'faq-title': 'Häufig gestellte Fragen',
     'faq-q1': 'Was ist Sudoku?',
     'faq-a1':
-      'Sudoku ist ein Logikr\u00e4tsel auf Zahlenbasis. Ziel ist es, das Raster so auszuf\u00fcllen, dass jede Zeile, Spalte und jeder Block jede Zahl von 1 bis N genau einmal enth\u00e4lt. Es braucht keine Mathematik \u2014 nur Logik.',
+      'Sudoku ist ein Logikrätsel auf Zahlenbasis. Ziel ist es, das Raster so auszufüllen, dass jede Zeile, Spalte und jeder Block jede Zahl von 1 bis N genau einmal enthält. Es braucht keine Mathematik — nur Logik.',
     'faq-q2': 'Wie spielt man Sudoku?',
     'faq-a2':
-      'W\u00e4hle die Rastergr\u00f6\u00dfe (4\u00d74, 6\u00d76 oder 9\u00d79), stelle die Schwierigkeit ein und tippe auf eine Zelle, um sie auszuw\u00e4hlen. Gib dann eine Zahl \u00fcber die Bildschirmtastatur oder die Tastatur ein. Jedes Puzzle hat genau eine L\u00f6sung.',
-    'faq-q3': 'Was bedeuten die Rastergr\u00f6\u00dfen?',
+      'Wähle die Rastergröße (4×4, 6×6 oder 9×9), stelle die Schwierigkeit ein und tippe auf eine Zelle, um sie auszuwählen. Gib dann eine Zahl über die Bildschirmtastatur oder die Tastatur ein. Jedes Puzzle hat genau eine Lösung.',
+    'faq-q3': 'Was bedeuten die Rastergrößen?',
     'faq-a3':
-      '4\u00d74 ist ein Mini-Sudoku, perfekt f\u00fcr Anf\u00e4nger und Kinder, 6\u00d76 ist eine kompakte Herausforderung und 9\u00d79 ist das klassische Sudoku, das weltweit gespielt wird. Jede Gr\u00f6\u00dfe verwendet die Zahlen von 1 bis N.',
-    'faq-q4': 'Ist Sudoku gut f\u00fcr das Gehirn?',
+      '4×4 ist ein Mini-Sudoku, perfekt für Anfänger und Kinder, 6×6 ist eine kompakte Herausforderung und 9×9 ist das klassische Sudoku, das weltweit gespielt wird. Jede Größe verwendet die Zahlen von 1 bis N.',
+    'faq-q4': 'Ist Sudoku gut für das Gehirn?',
     'faq-a4':
-      'Ja. Sudoku trainiert logisches Denken, Konzentration und Ged\u00e4chtnis, und Studien legen nahe, dass regelm\u00e4\u00dfiges R\u00e4tsell\u00f6sen den Geist fit h\u00e4lt. Es ist auch eine ruhige, produktive Pause von den sozialen Medien.',
+      'Ja. Sudoku trainiert logisches Denken, Konzentration und Gedächtnis, und Studien legen nahe, dass regelmäßiges Rätsellösen den Geist fit hält. Es ist auch eine ruhige, produktive Pause von den sozialen Medien.',
     'faq-q5': 'Ist dieses Sudoku wirklich kostenlos?',
     'faq-a5':
-      'Ja, 100\u00a0% kostenlos. Ohne Registrierung, ohne Downloads und ohne Zeitlimit. Du kannst Sudoku direkt im Browser auf jedem Ger\u00e4t online spielen.',
+      'Ja, 100 % kostenlos. Ohne Registrierung, ohne Downloads und ohne Zeitlimit. Du kannst Sudoku direkt im Browser auf jedem Gerät online spielen.',
     'seo-title':
-      'Sudoku Online Spielen \u2014 Kostenloser Mini-Sudoku-Generator',
+      'Sudoku Online Spielen — Kostenloser Mini-Sudoku-Generator',
     'seo-p1':
-      'Willkommen bei unserem kostenlosen Sudoku-Generator. Spiele Sudoku online im Browser mit drei Rastergr\u00f6\u00dfen \u2014 4\u00d74 Mini, 6\u00d76 und das klassische 9\u00d79 \u2014 und drei Schwierigkeitsgraden, vom leichten Aufw\u00e4rmen bis zur harten Herausforderung.',
+      'Willkommen bei unserem kostenlosen Sudoku-Generator. Spiele Sudoku online im Browser mit drei Rastergrößen — 4×4 Mini, 6×6 und das klassische 9×9 — und drei Schwierigkeitsgraden, vom leichten Aufwärmen bis zur harten Herausforderung.',
     'seo-p2':
-      'Jedes Spiel wird sofort mit einer eindeutigen L\u00f6sung generiert, sodass du immer ein faires und l\u00f6sbares Puzzle erh\u00e4ltst. W\u00e4hle dein Lieblingsraster, stelle die Schwierigkeit ein und klicke auf Neues Spiel \u2014 in einer Sekunde ist ein frisches Brett da.',
+      'Jedes Spiel wird sofort mit einer eindeutigen Lösung generiert, sodass du immer ein faires und lösbares Puzzle erhältst. Wähle dein Lieblingsraster, stelle die Schwierigkeit ein und klicke auf Neues Spiel — in einer Sekunde ist ein frisches Brett da.',
     'seo-p3':
-      'Sudoku ist eines der beliebtesten Logikr\u00e4tsel der Welt. Es trainiert das Denken, sch\u00e4rft die Konzentration und ist perfekt f\u00fcr eine kurze Pause. Und das Beste: Unser Sudoku funktioniert auf Handy, Tablet und Computer, ohne etwas zu installieren.',
+      'Sudoku ist eines der beliebtesten Logikrätsel der Welt. Es trainiert das Denken, schärft die Konzentration und ist perfekt für eine kurze Pause. Und das Beste: Unser Sudoku funktioniert auf Handy, Tablet und Computer, ohne etwas zu installieren.',
     'seo-p4':
-      'Ob du Kindern mit einem 4\u00d74-Miniraster etwas beibringen, dich mit einem leichten 6\u00d76 aufw\u00e4rmen oder mit einem schweren 9\u00d79 testen m\u00f6chtest \u2014 hier kannst du jederzeit Sudoku online spielen. Notizen, Hinweise, R\u00fcckg\u00e4ngig, Tastaturk\u00fcrzel und Fehlermarkierung machen jede Partie einfach genie\u00dfbar.',
+      'Ob du Kindern mit einem 4×4-Miniraster etwas beibringen, dich mit einem leichten 6×6 aufwärmen oder mit einem schweren 9×9 testen möchtest — hier kannst du jederzeit Sudoku online spielen. Notizen, Hinweise, Rückgängig, Tastaturkürzel und Fehlermarkierung machen jede Partie einfach genießbar.',
     'seo-p5':
-      'Setze ein Lesezeichen und komm wieder, wann immer du ein mentales Training brauchst. Spiele kostenlos Sudoku online, verbessere deine Logik und hab Spa\u00df \u2014 ein Raster nach dem anderen.',
+      'Setze ein Lesezeichen und komm wieder, wann immer du ein mentales Training brauchst. Spiele kostenlos Sudoku online, verbessere deine Logik und hab Spaß — ein Raster nach dem anderen.',
   },
   wordLadder: {
     name: 'Wortleiter',
     home: 'Startseite',
     intro:
-      '\u00c4ndere jeweils einen Buchstaben, um das Startwort in das Zielwort zu verwandeln. Jeder Schritt muss ein echtes englisches Wort sein. Spiele kostenlos im Browser, mit t\u00e4glichen R\u00e4tseln und drei Schwierigkeitsgraden.',
+      'Ändere jeweils einen Buchstaben, um das Startwort in das Zielwort zu verwandeln. Jeder Schritt muss ein echtes englisches Wort sein. Spiele kostenlos im Browser, mit täglichen Rätseln und drei Schwierigkeitsgraden.',
     mode: 'Modus',
     'mode-classic': 'Klassisch',
-    'mode-daily': 'T\u00e4glich',
+    'mode-daily': 'Täglich',
     difficulty: 'Schwierigkeit',
     'difficulty-easy': 'Leicht',
     'difficulty-medium': 'Mittel',
     'difficulty-hard': 'Schwer',
     'daily-today': 'Die Wortleiter von heute',
     'new-game': 'Neues Spiel',
-    moves: 'Z\u00fcge',
+    moves: 'Züge',
     best: 'Rekord',
     target: 'Ziel',
     time: 'Zeit',
     'daily-done':
-      'Du hast das R\u00e4tsel von heute schon gel\u00f6st. Komm morgen f\u00fcr ein neues wieder!',
+      'Du hast das Rätsel von heute schon gelöst. Komm morgen für ein neues wieder!',
     start: 'Start',
-    'your-move': 'Dein n\u00e4chstes Wort',
+    'your-move': 'Dein nächstes Wort',
     'input-placeholder': 'WORT',
     submit: 'OK',
     hint: 'Hinweis',
-    undo: 'R\u00fcckg\u00e4ngig',
+    undo: 'Rückgängig',
     'start-game': 'Spiel starten',
     'err-empty': 'Gib zuerst ein Wort ein.',
-    'err-length': 'Das Wort muss dieselbe L\u00e4nge wie das Startwort haben.',
+    'err-length': 'Das Wort muss dieselbe Länge wie das Startwort haben.',
     'err-dictionary':
-      'Das Wort ist nicht in unserem W\u00f6rterbuch. Versuch ein anderes.',
-    'err-one-letter': '\u00c4ndere genau einen Buchstaben.',
+      'Das Wort ist nicht in unserem Wörterbuch. Versuch ein anderes.',
+    'err-one-letter': 'Ändere genau einen Buchstaben.',
     'hint-text':
       'Denke an ein Wort, das einen Buchstaben von deinem aktuellen Wort entfernt ist.',
-    'hint-1': 'Dein n\u00e4chstes Wort beginnt mit {letter}.',
-    'hint-2': 'Versuche, den Buchstaben an Position {position} zu \u00e4ndern.',
-    'hint-3': 'Ein m\u00f6gliches n\u00e4chstes Wort ist {word}.',
+    'hint-1': 'Dein nächstes Wort beginnt mit {letter}.',
+    'hint-2': 'Versuche, den Buchstaben an Position {position} zu ändern.',
+    'hint-3': 'Ein mögliches nächstes Wort ist {word}.',
     'live-move': 'Du bist jetzt bei {word}.',
-    'live-undo': 'Zug r\u00fcckg\u00e4ngig gemacht.',
+    'live-undo': 'Zug rückgängig gemacht.',
     complete: 'Wortleiter geschafft!',
     'result-moves':
-      'Du hast das Startwort in das Zielwort verwandelt. Gro\u00dfartig!',
+      'Du hast das Startwort in das Zielwort verwandelt. Großartig!',
     'result-optimal':
-      'Versuche beim n\u00e4chsten Mal, in so wenigen Z\u00fcgen wie m\u00f6glich zu enden.',
-    'daily-streak': 'T\u00e4gliche Serie:',
+      'Versuche beim nächsten Mal, in so wenigen Zügen wie möglich zu enden.',
+    'daily-streak': 'Tägliche Serie:',
     'play-again': 'Nochmal spielen',
-    'next-puzzle': 'N\u00e4chstes R\u00e4tsel',
+    'next-puzzle': 'Nächstes Rätsel',
     share: 'Teilen',
     'share-copied': 'Ergebnis in die Zwischenablage kopiert.',
     'how-to-play': 'So spielst du Wortleiter',
@@ -711,76 +976,76 @@ export const germanTranslations: Translations = {
       'Gib ein neues Wort ein, das sich von deinem aktuellen Wort um genau einen Buchstaben unterscheidet.',
     'rule-3': 'Jedes eingegebene Wort muss ein echtes englisches Wort sein.',
     'rule-4':
-      'Mache Schritt f\u00fcr Schritt weiter, bis du das bernsteinfarbene Zielwort erreichst.',
+      'Mache Schritt für Schritt weiter, bis du das bernsteinfarbene Zielwort erreichst.',
     'rule-5':
-      'Versuche, in so wenigen Z\u00fcgen wie m\u00f6glich zu enden, um deinen Rekord zu schlagen.',
+      'Versuche, in so wenigen Zügen wie möglich zu enden, um deinen Rekord zu schlagen.',
     'rules-title': 'Offizielle Wortleiter-Regeln',
     'rules-p1':
-      'Eine Wortleiter ist gel\u00f6st, wenn du das Startwort mithilfe echter W\u00f6rter in das Zielwort verwandelst und dabei bei jedem Schritt genau einen Buchstaben \u00e4nderst. Zum Beispiel CAT \u2192 COT \u2192 COG \u2192 DOG.',
+      'Eine Wortleiter ist gelöst, wenn du das Startwort mithilfe echter Wörter in das Zielwort verwandelst und dabei bei jedem Schritt genau einen Buchstaben änderst. Zum Beispiel CAT → COT → COG → DOG.',
     'rules-p2':
-      'Du kannst die Position des Buchstabens und seinen Wert \u00e4ndern, aber pro Zug darf sich nur ein Buchstabe \u00e4ndern. Du kannst einen Hinweis verwenden (bis zu drei pro Spiel), wenn du feststeckst, und jederzeit einen Zug r\u00fcckg\u00e4ngig machen.',
+      'Du kannst die Position des Buchstabens und seinen Wert ändern, aber pro Zug darf sich nur ein Buchstabe ändern. Du kannst einen Hinweis verwenden (bis zu drei pro Spiel), wenn du feststeckst, und jederzeit einen Zug rückgängig machen.',
     'rules-p3':
-      'Im Modus Klassisch w\u00e4hlst du die Schwierigkeit und spielst so viele R\u00e4tsel, wie du m\u00f6chtest. Im Modus T\u00e4glich gibt es ein gemeinsames R\u00e4tsel pro Tag, und das L\u00f6sen h\u00e4lt deine Serie am Leben.',
+      'Im Modus Klassisch wählst du die Schwierigkeit und spielst so viele Rätsel, wie du möchtest. Im Modus Täglich gibt es ein gemeinsames Rätsel pro Tag, und das Lösen hält deine Serie am Leben.',
     'tips-title': 'Tipps & Strategien',
     'tip-1':
-      'Konzentriere dich auf die Vokale. W\u00f6rter, die sich nur durch einen Vokal unterscheiden, sind fast immer g\u00fcltig, und Vokale \u00f6ffnen die meisten Wege.',
+      'Konzentriere dich auf die Vokale. Wörter, die sich nur durch einen Vokal unterscheiden, sind fast immer gültig, und Vokale öffnen die meisten Wege.',
     'tip-2':
-      'Arbeite auch r\u00fcckw\u00e4rts vom Zielwort. Oft wird der beste Weg klar, wenn du von beiden Enden aus planst.',
+      'Arbeite auch rückwärts vom Zielwort. Oft wird der beste Weg klar, wenn du von beiden Enden aus planst.',
     'tip-3':
-      'Behalte die Buchstabenpositionen im Kopf. Das \u00c4ndern eines Buchstabens am Wortende l\u00e4sst meist mehr Optionen offen.',
+      'Behalte die Buchstabenpositionen im Kopf. Das Ändern eines Buchstabens am Wortende lässt meist mehr Optionen offen.',
     'tip-4':
-      'Achte auf h\u00e4ufige Muster wie -ATE, -ING oder -IDE. Ein Muster wiederzuverwenden l\u00e4sst dich schnell mehrere W\u00f6rter \u00fcberqueren.',
+      'Achte auf häufige Muster wie -ATE, -ING oder -IDE. Ein Muster wiederzuverwenden lässt dich schnell mehrere Wörter überqueren.',
     'tip-5':
-      'Setze deine drei Hinweise mit Bedacht ein. Der letzte Hinweis verr\u00e4t das genaue n\u00e4chste Wort, was bei schweren R\u00e4tseln sehr wertvoll ist.',
+      'Setze deine drei Hinweise mit Bedacht ein. Der letzte Hinweis verrät das genaue nächste Wort, was bei schweren Rätseln sehr wertvoll ist.',
     'whatis-title': 'Was ist eine Wortleiter?',
     'whatis-p1':
-      'Die Wortleiter ist ein Wortr\u00e4tsel, das Lewis Carroll 1877 erfunden hat und Doublets nannte. Du beginnst mit zwei W\u00f6rtern gleicher L\u00e4nge und verbindest sie durch eine Kette echter W\u00f6rter, wobei du jeweils einen Buchstaben \u00e4nderst.',
+      'Die Wortleiter ist ein Worträtsel, das Lewis Carroll 1877 erfunden hat und Doublets nannte. Du beginnst mit zwei Wörtern gleicher Länge und verbindest sie durch eine Kette echter Wörter, wobei du jeweils einen Buchstaben änderst.',
     'whatis-p2':
-      'Zum Beispiel kann die Verwandlung von COLD in WARM so ablaufen: COLD \u2192 CORD \u2192 WORD \u2192 WARD \u2192 WARM. Das R\u00e4tsel ist in Klassenzimmern beliebt, weil es Rechtschreibung, Wortschatz und logisches Denken spielerisch f\u00f6rdert.',
+      'Zum Beispiel kann die Verwandlung von COLD in WARM so ablaufen: COLD → CORD → WORD → WARD → WARM. Das Rätsel ist in Klassenzimmern beliebt, weil es Rechtschreibung, Wortschatz und logisches Denken spielerisch fördert.',
     'levels-title': 'Schwierigkeitsgrade',
     'levels-easy': 'Leicht:',
     'levels-easy-p':
-      'Kurze Ketten von 2 bis 4 Z\u00fcgen zwischen sehr gebr\u00e4uchlichen W\u00f6rtern. Perfekt f\u00fcr Kinder und Anf\u00e4nger.',
+      'Kurze Ketten von 2 bis 4 Zügen zwischen sehr gebräuchlichen Wörtern. Perfekt für Kinder und Anfänger.',
     'levels-medium': 'Mittel:',
     'levels-medium-p':
-      'Ketten von 5 bis 7 Z\u00fcgen. Ein gutes t\u00e4gliches Training f\u00fcr regelm\u00e4\u00dfige Spieler.',
+      'Ketten von 5 bis 7 Zügen. Ein gutes tägliches Training für regelmäßige Spieler.',
     'levels-hard': 'Schwer:',
     'levels-hard-p':
-      'Lange Ketten von 8 Z\u00fcgen oder mehr. Nur die sch\u00e4rfsten Wortr\u00e4tsel-Fans knacken diese.',
-    'kids-title': 'Wortleiter f\u00fcr Kinder',
+      'Lange Ketten von 8 Zügen oder mehr. Nur die schärfsten Worträtsel-Fans knacken diese.',
+    'kids-title': 'Wortleiter für Kinder',
     'kids-p1':
-      'Wortleitern sind eine fantastische Aktivit\u00e4t f\u00fcr Kinder, die Lesen und Rechtschreibung lernen. Jeder Zug erfordert, Buchstaben zu vergleichen, W\u00f6rter laut auszusprechen und \u00fcber den Wortschatz nachzudenken \u2014 und dabei spielen sie ein Spiel.',
+      'Wortleitern sind eine fantastische Aktivität für Kinder, die Lesen und Rechtschreibung lernen. Jeder Zug erfordert, Buchstaben zu vergleichen, Wörter laut auszusprechen und über den Wortschatz nachzudenken — und dabei spielen sie ein Spiel.',
     'kids-p2':
-      'Lass Kinder im Modus Leicht beginnen, wo kurze W\u00f6rter wie CAT und DOG in wenigen Z\u00fcgen verbunden werden. Es ist bildschirmfreundlich, ruhig und heimlich lehrreich.',
-    'faq-title': 'H\u00e4ufige Fragen',
+      'Lass Kinder im Modus Leicht beginnen, wo kurze Wörter wie CAT und DOG in wenigen Zügen verbunden werden. Es ist bildschirmfreundlich, ruhig und heimlich lehrreich.',
+    'faq-title': 'Häufige Fragen',
     'faq-q1': 'Was ist eine Wortleiter?',
     'faq-a1':
-      'Eine Wortleiter ist ein Wortr\u00e4tsel, bei dem du ein Wort in ein anderes verwandelst, indem du jedes Mal nur einen Buchstaben \u00e4nderst und nach jedem Schritt ein echtes Wort verwendest. Erfunden wurde sie 1877 von Lewis Carroll.',
+      'Eine Wortleiter ist ein Worträtsel, bei dem du ein Wort in ein anderes verwandelst, indem du jedes Mal nur einen Buchstaben änderst und nach jedem Schritt ein echtes Wort verwendest. Erfunden wurde sie 1877 von Lewis Carroll.',
     'faq-q2': 'Wie spielt man Wortleiter?',
     'faq-a2':
-      'Beginne mit dem blauen Startwort und gib dann W\u00f6rter ein, die sich vom vorherigen um genau einen Buchstaben unterscheiden. Mache weiter, bis du das bernsteinfarbene Zielwort erreichst. Je weniger Z\u00fcge, desto besser.',
+      'Beginne mit dem blauen Startwort und gib dann Wörter ein, die sich vom vorherigen um genau einen Buchstaben unterscheiden. Mache weiter, bis du das bernsteinfarbene Zielwort erreichst. Je weniger Züge, desto besser.',
     'faq-q3': 'Was sind die Regeln der Wortleiter?',
     'faq-a3':
-      'Jeder Zug \u00e4ndert genau einen Buchstaben, und jedes Wort muss ein echtes englisches Wort derselben L\u00e4nge wie Start- und Zielwort sein. Du darfst ein bereits in deiner Leiter verwendetes Wort nicht wiederholen.',
+      'Jeder Zug ändert genau einen Buchstaben, und jedes Wort muss ein echtes englisches Wort derselben Länge wie Start- und Zielwort sein. Du darfst ein bereits in deiner Leiter verwendetes Wort nicht wiederholen.',
     'faq-q4':
-      'Darf man in einer Wortleiter mehr als einen Buchstaben \u00e4ndern?',
+      'Darf man in einer Wortleiter mehr als einen Buchstaben ändern?',
     'faq-a4':
-      'Nein. Pro Zug darf sich genau ein Buchstabe \u00e4ndern. Zwei oder mehr Buchstaben auf einmal zu \u00e4ndern, verst\u00f6\u00dft gegen die Regeln des R\u00e4tsels.',
+      'Nein. Pro Zug darf sich genau ein Buchstabe ändern. Zwei oder mehr Buchstaben auf einmal zu ändern, verstößt gegen die Regeln des Rätsels.',
     'faq-q5': 'Was macht eine Wortleiter schwer?',
     'faq-a5':
-      'Die Schwierigkeit h\u00e4ngt von der Entfernung zwischen den beiden W\u00f6rtern ab, davon, wie viele echte W\u00f6rter dazwischen liegen, und davon, wie leicht man unterwegs in Sackgassen ger\u00e4t.',
-    'faq-q6': 'Sind Wortleitern gut f\u00fcr Kinder?',
+      'Die Schwierigkeit hängt von der Entfernung zwischen den beiden Wörtern ab, davon, wie viele echte Wörter dazwischen liegen, und davon, wie leicht man unterwegs in Sackgassen gerät.',
+    'faq-q6': 'Sind Wortleitern gut für Kinder?',
     'faq-a6':
-      'Ja. Wortleitern werden in Schulen h\u00e4ufig eingesetzt, um Rechtschreibung, Laut-Buchstaben-Zuordnung und Wortschatz zu \u00fcben, und sie sind eine ruhige, lehrreiche Bildschirmaktivit\u00e4t.',
+      'Ja. Wortleitern werden in Schulen häufig eingesetzt, um Rechtschreibung, Laut-Buchstaben-Zuordnung und Wortschatz zu üben, und sie sind eine ruhige, lehrreiche Bildschirmaktivität.',
     'faq-q7': 'Ist dieses Wortleiter-Spiel kostenlos?',
     'faq-a7':
-      'Ja, v\u00f6llig kostenlos. Ohne Registrierung, ohne Downloads und ohne Zeitlimit. Spiele im Browser auf jedem Ger\u00e4t, auch auf dem Handy.',
+      'Ja, völlig kostenlos. Ohne Registrierung, ohne Downloads und ohne Zeitlimit. Spiele im Browser auf jedem Gerät, auch auf dem Handy.',
     'related-title': 'Weitere kostenlose Online-Spiele',
     'related-p':
-      'Wenn dir Wortr\u00e4tsel gefallen, probiere unsere anderen kostenlosen Logikspiele \u2014 alle funktionieren auf Mobilger\u00e4ten und am Computer.',
+      'Wenn dir Worträtsel gefallen, probiere unsere anderen kostenlosen Logikspiele — alle funktionieren auf Mobilgeräten und am Computer.',
     'related-sudoku':
-      'Das klassische Logikr\u00e4tsel mit drei Rastergr\u00f6\u00dfen.',
+      'Das klassische Logikrätsel mit drei Rastergrößen.',
     'related-queens':
-      'Ein t\u00e4gliches Platzierungsr\u00e4tsel, inspiriert vom N-Damen-Problem.',
+      'Ein tägliches Platzierungsrätsel, inspiriert vom N-Damen-Problem.',
   },
 };

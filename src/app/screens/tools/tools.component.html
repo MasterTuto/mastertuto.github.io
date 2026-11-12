@@ -1,28 +1,26 @@
-<app-catalog-layout #layout>
-  <section class="catalog-page">
-    <header class="catalog-page-header">
-      <p class="catalog-eyebrow">{{ 'tools.label' | translate }}</p>
-      <h1>{{ 'catalog.toolsTitle' | translate }}</h1>
-      <p>{{ 'catalog.toolsIntro' | translate }}</p>
-    </header>
-    <section lang="en" aria-labelledby="dev-tools-heading">
-      <h2 id="dev-tools-heading" class="text-2xl font-semibold mb-4">Dev Tools</h2>
-      <p class="text-slate-300 mb-6">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
-      <div class="catalog-cards">
-        @for (tool of tools; track tool.slug) {
-          <a [routerLink]="layout.link('tools', 'dev-tools/' + tool.slug)" class="catalog-card">
-            <span class="catalog-card-icon"><ng-icon name="tablerTools" /></span>
-            <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
-            <p>{{ tool.description }}</p>
-            <span class="catalog-card-action">Open {{ tool.keyword }} <span aria-hidden="true">→</span></span>
-          </a>
-        }
-      </div>
-    </section>
-    <section class="catalog-info">
-      <h2>{{ 'catalog.toolsHeading' | translate }}</h2>
-      <p>{{ 'catalog.toolsText' | translate }}</p>
-      <a [routerLink]="layout.link('games')" class="catalog-card-action">{{ 'games.label' | translate }} <span aria-hidden="true">→</span></a>
-    </section>
+<section class="catalog-page">
+  <header class="catalog-page-header">
+    <p class="catalog-eyebrow">{{ 'tools.label' | translate }}</p>
+    <h1>{{ 'catalog.toolsTitle' | translate }}</h1>
+    <p>{{ 'catalog.toolsIntro' | translate }}</p>
+  </header>
+  <section lang="en" aria-labelledby="dev-tools-heading">
+    <h2 id="dev-tools-heading" class="text-2xl font-semibold mb-4">Dev Tools</h2>
+    <p class="text-foreground-light mb-6">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
+    <div class="catalog-cards">
+      @for (tool of tools; track tool.slug) {
+        <a [routerLink]="'tools/dev-tools/' + tool.slug | langLink" class="catalog-card">
+          <span class="catalog-card-icon"><ng-icon name="tablerTools" /></span>
+          <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
+          <p>{{ tool.description }}</p>
+          <span class="catalog-card-action">Open {{ tool.keyword }} <span aria-hidden="true">→</span></span>
+        </a>
+      }
+    </div>
   </section>
-</app-catalog-layout>
+  <section class="catalog-info">
+    <h2>{{ 'catalog.toolsHeading' | translate }}</h2>
+    <p>{{ 'catalog.toolsText' | translate }}</p>
+    <a [routerLink]="'games' | langLink" class="catalog-card-action">{{ 'games.label' | translate }} <span aria-hidden="true">→</span></a>
+  </section>
+</section>

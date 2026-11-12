@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img"><title>Montador com parafusadeira fixando a porta de um guarda-roupa, ao lado de uma caixa de papelão aberta com peças e de uma maleta de ferramentas</title>
+<rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+<rect x="60" y="50" width="680" height="420" rx="28" fill="#fafafa"/>
+<ellipse cx="420" cy="522" rx="330" ry="16" fill="#151c25" opacity=".08"/>
+<rect x="440" y="140" width="220" height="372" rx="12" fill="#444a51"/>
+<rect x="454" y="154" width="94" height="344" rx="4" fill="#f4f2f2"/>
+<rect x="454" y="220" width="94" height="8" fill="#8e9095"/>
+<rect x="462" y="238" width="78" height="5" rx="2.5" fill="#8e9095"/>
+<path d="M478 243 v40 M500 243 v52 M522 243 v36" stroke="#9fd3c7" stroke-width="10" stroke-linecap="round"/>
+<rect x="454" y="400" width="94" height="8" fill="#8e9095"/>
+<rect x="462" y="414" width="78" height="36" rx="5" fill="#eaebf9"/>
+<rect x="462" y="456" width="78" height="36" rx="5" fill="#eaebf9"/>
+<rect x="490" y="428" width="22" height="6" rx="3" fill="#8e9095"/>
+<rect x="490" y="470" width="22" height="6" rx="3" fill="#8e9095"/>
+<rect x="552" y="154" width="94" height="344" rx="4" fill="#eaebf9"/>
+<rect x="560" y="300" width="7" height="46" rx="3.5" fill="#444a51"/>
+<polygon points="452,158 400,180 400,486 452,496" fill="#7a70e1"/>
+<polygon points="440,190 412,201 412,250 440,242" fill="#fafafa" opacity=".25"/>
+<rect x="446" y="196" width="10" height="20" rx="3" fill="#8e9095"/>
+<rect x="446" y="440" width="10" height="20" rx="3" fill="#8e9095"/>
+<rect x="276" y="392" width="34" height="120" rx="16" fill="#151c25"/>
+<rect x="316" y="392" width="34" height="120" rx="16" fill="#151c25"/>
+<rect x="268" y="500" width="48" height="20" rx="10" fill="#444a51"/>
+<rect x="312" y="500" width="48" height="20" rx="10" fill="#444a51"/>
+<rect x="260" y="246" width="104" height="166" rx="40" fill="#646cfa"/>
+<rect x="260" y="380" width="104" height="16" fill="#444a51"/>
+<rect x="300" y="226" width="26" height="26" fill="#8d5a3b"/>
+<circle cx="313" cy="204" r="34" fill="#8d5a3b"/>
+<path d="M279 198 a34 34 0 0 1 68 -4 q-30 -12 -68 4 Z" fill="#151c25"/>
+<path d="M340 282 L398 236" stroke="#646cfa" stroke-width="28" stroke-linecap="round"/>
+<path d="M290 300 L368 290" stroke="#646cfa" stroke-width="26" stroke-linecap="round"/>
+<circle cx="372" cy="290" r="13" fill="#8d5a3b"/>
+<rect x="384" y="212" width="46" height="24" rx="9" fill="#151c25"/>
+<rect x="430" y="219" width="22" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="392" y="230" width="18" height="40" rx="7" fill="#444a51"/>
+<rect x="388" y="266" width="28" height="12" rx="4" fill="#9fd3c7"/>
+<circle cx="402" cy="242" r="13" fill="#8d5a3b"/>
+<ellipse cx="170" cy="519" rx="84" ry="8" fill="#151c25" opacity=".1"/>
+<rect x="112" y="354" width="18" height="120" rx="4" fill="#8e9095" transform="rotate(-10 121 414)"/>
+<rect x="134" y="340" width="20" height="130" rx="4" fill="#7a70e1" transform="rotate(-4 144 405)"/>
+<rect x="160" y="370" width="16" height="100" rx="4" fill="#444a51" transform="rotate(6 168 420)"/>
+<rect x="96" y="420" width="148" height="94" rx="8" fill="#f2b880"/>
+<polygon points="96,420 76,388 116,388 132,420" fill="#c68a5e"/>
+<polygon points="244,420 266,392 228,392 212,420" fill="#c68a5e"/>
+<rect x="156" y="420" width="28" height="94" fill="#c68a5e" opacity=".5"/>
+<ellipse cx="712" cy="521" rx="56" ry="8" fill="#151c25" opacity=".1"/>
+<path d="M692 466 v-16 h40 v16" stroke="#444a51" stroke-width="6" fill="none" stroke-linejoin="round"/>
+<rect x="664" y="474" width="96" height="44" rx="10" fill="#7a70e1"/>
+<rect x="660" y="464" width="104" height="16" rx="8" fill="#646cfa"/>
+<ellipse cx="376" cy="524" rx="22" ry="5" fill="#151c25" opacity=".1"/>
+<circle cx="366" cy="516" r="5" fill="#8e9095"/>
+<circle cx="380" cy="519" r="5" fill="#8e9095"/>
+<circle cx="390" cy="513" r="5" fill="#8e9095"/>
+</svg>

@@ -2,14 +2,15 @@ import { industryRoutes } from './screens/industries/industry.routes';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './screens/home/home.component';
 import { LanguageWrapperComponent } from './components/language-wrpaper/language-wrapper.component';
-import { GamesComponent } from './screens/games/games.component';
-import { GamesListComponent } from './screens/games/games-list/games-list.component';
-import { QueensComponent } from './screens/games/queens/queens.component';
-import { SudokuComponent } from './screens/games/sudoku/sudoku.component';
-import { ServiceDetailComponent } from './screens/services/service-detail/service-detail.component';
-import { ServicesIndexComponent } from './screens/services/services-index/services-index.component';
-import { ToolsComponent } from './screens/tools/tools.component';
+import { gamesRoute } from './screens/games/games.routes';
+import { toolsRoute } from './screens/tools/tools.routes';
+import {
+  serviceRedirectRoutes,
+  servicesIndexRoute,
+  servicesRoute,
+} from './screens/services/service.routes';
 import { translations } from './i18n/translations';
+import { caseRedirectRoutes, casesRoute } from './screens/cases/cases.routes';
 
 export const routes: Routes = [
   ...industryRoutes,
@@ -17,62 +18,11 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
   },
-  {
-    path: 'games',
-    component: GamesComponent,
-    children: [
-      {
-        path: '',
-        component: GamesListComponent,
-      },
-      {
-        path: 'queens',
-        component: QueensComponent,
-      },
-      {
-        path: 'sudoku',
-        component: SudokuComponent,
-      },
-      {
-        path: 'word-ladder',
-        loadComponent: () =>
-          import('./screens/games/word-ladder/word-ladder.component').then(
-            (m) => m.WordLadderComponent,
-          ),
-      },
-    ],
-  },
-  {
-    path: 'tools',
-    children: [
-      { path: '', component: ToolsComponent },
-      { path: 'dev-tools', component: ToolsComponent },
-      {
-        path: 'dev-tools/json-beautifier',
-        data: { tool: 'json' },
-        loadComponent: () =>
-          import('./screens/tools/dev-tools/dev-tool.component').then(
-            (m) => m.DevToolComponent,
-          ),
-      },
-      {
-        path: 'dev-tools/jwt-decoder',
-        data: { tool: 'jwt' },
-        loadComponent: () =>
-          import('./screens/tools/dev-tools/dev-tool.component').then(
-            (m) => m.DevToolComponent,
-          ),
-      },
-    ],
-  },
-  {
-    path: 'services',
-    component: ServicesIndexComponent,
-  },
-  {
-    path: 'services/:service',
-    component: ServiceDetailComponent,
-  },
+  gamesRoute,
+  toolsRoute,
+  ...serviceRedirectRoutes,
+  ...caseRedirectRoutes,
+  servicesIndexRoute,
   {
     path: ':lang',
     pathMatch: 'full',
@@ -87,64 +37,6 @@ export const routes: Routes = [
   {
     path: ':lang',
     component: LanguageWrapperComponent,
-    children: [
-      ...industryRoutes,
-      {
-        path: 'games',
-        component: GamesComponent,
-        children: [
-          {
-            path: '',
-            component: GamesListComponent,
-          },
-          {
-            path: 'queens',
-            component: QueensComponent,
-          },
-          {
-            path: 'sudoku',
-            component: SudokuComponent,
-          },
-          {
-            path: 'word-ladder',
-            loadComponent: () =>
-              import('./screens/games/word-ladder/word-ladder.component').then(
-                (m) => m.WordLadderComponent,
-              ),
-          },
-        ],
-      },
-      {
-        path: 'tools',
-        children: [
-          { path: '', component: ToolsComponent },
-          { path: 'dev-tools', component: ToolsComponent },
-          {
-            path: 'dev-tools/json-beautifier',
-            data: { tool: 'json' },
-            loadComponent: () =>
-              import('./screens/tools/dev-tools/dev-tool.component').then(
-                (m) => m.DevToolComponent,
-              ),
-          },
-          {
-            path: 'dev-tools/jwt-decoder',
-            data: { tool: 'jwt' },
-            loadComponent: () =>
-              import('./screens/tools/dev-tools/dev-tool.component').then(
-                (m) => m.DevToolComponent,
-              ),
-          },
-        ],
-      },
-      {
-        path: 'services',
-        component: ServicesIndexComponent,
-      },
-      {
-        path: 'services/:service',
-        component: ServiceDetailComponent,
-      },
-    ],
+    children: [...industryRoutes, gamesRoute, toolsRoute, servicesRoute, casesRoute],
   },
 ];

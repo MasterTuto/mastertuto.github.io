@@ -1,0 +1,159 @@
+<div class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-24 pb-4">
+  <!-- Hero: magazine cover -->
+  <section class="flex flex-col gap-10">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-foreground/20 pb-4 text-sm">
+      <a
+        [routerLink]="['/', lang, 'services']"
+        class="flex items-center gap-1 text-foreground-light transition hover:text-foreground"
+      >
+        <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+        {{ 'servicesPage.common.backToServices' | translate }}
+      </a>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
+      <h1 class="font-title text-5xl font-semibold leading-[1.05] text-foreground sm:text-7xl">
+        {{ 'servicesPage.blogsAndPortfolios.heroTitle' | translate }}
+      </h1>
+      <div aria-hidden="true" class="grid grid-cols-3 grid-rows-3 gap-2">
+        <div class="col-span-2 row-span-2 rounded-xl bg-secondary-surface"></div>
+        <div class="rounded-xl bg-surface-decoration"></div>
+        <div class="rounded-xl bg-foreground-emphasis/60"></div>
+        <div class="aspect-square rounded-xl bg-foreground/10"></div>
+        <div class="col-span-2 aspect-[2/1] rounded-xl bg-surface-decoration-foreground/30"></div>
+      </div>
+    </div>
+
+    <div class="grid gap-6 border-t border-foreground/20 pt-6 md:grid-cols-[1fr_1fr_auto] md:items-start">
+      <p class="text-lg leading-relaxed text-foreground">{{ 'servicesPage.blogsAndPortfolios.intro' | translate }}</p>
+      <p class="leading-relaxed text-foreground-light">{{ 'servicesPage.blogsAndPortfolios.introP2' | translate }}</p>
+      <a myButton="cta" class="max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+        {{ 'servicesPage.common.requestBudget' | translate }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
+    </div>
+  </section>
+
+  <!-- Portfolio | Blog split -->
+  <section class="flex flex-col gap-10">
+    <h2 class="font-title text-3xl font-semibold text-foreground sm:text-4xl md:max-w-[20ch]">
+      {{ 'servicesPage.blogsAndPortfolios.splitTitle' | translate }}
+    </h2>
+    <div class="grid gap-10 md:grid-cols-2 md:divide-x md:divide-foreground/20">
+      @for (format of formats; track format.key) {
+        <article class="flex flex-col gap-4 md:px-8 md:first:pl-0 md:last:pr-0">
+          <ng-icon [name]="format.icon" class="text-4xl text-foreground-emphasis" />
+          <h3 class="font-title text-2xl font-semibold text-foreground">
+            {{ 'servicesPage.blogsAndPortfolios.' + format.key + '.title' | translate }}
+          </h3>
+          <p class="text-foreground-light">{{ 'servicesPage.blogsAndPortfolios.' + format.key + '.text' | translate }}</p>
+          <ul class="flex flex-col gap-2 border-t border-foreground/10 pt-4">
+            @for (item of formatItems; track item) {
+              <li class="flex gap-3 text-foreground">
+                <span class="text-foreground-emphasis">—</span>
+                {{ 'servicesPage.blogsAndPortfolios.' + format.key + '.items.' + item | translate }}
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Benefits as an editorial numbered list -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.blogsAndPortfolios.benefitsTitle' | translate }}
+    </h2>
+    <ol class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      @for (step of benefitSteps; track step) {
+        <li class="flex flex-col gap-3 border-t-2 border-foreground pt-4">
+          <span class="font-title text-5xl font-semibold text-foreground/20">0{{ step }}</span>
+          <h3 class="text-lg font-semibold text-foreground">
+            {{ 'servicesPage.blogsAndPortfolios.benefits.' + step + '.title' | translate }}
+          </h3>
+          <p class="text-foreground-light">{{ 'servicesPage.blogsAndPortfolios.benefits.' + step + '.text' | translate }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Deliverables as article cards -->
+  <section class="flex flex-col gap-8">
+    <h2 class="font-title text-3xl font-semibold text-foreground sm:text-4xl">
+      {{ 'servicesPage.blogsAndPortfolios.detailsTitle' | translate }}
+    </h2>
+    <div class="grid gap-6 md:grid-cols-3">
+      @for (detail of details; track detail.step) {
+        <article class="flex flex-col overflow-hidden rounded-2xl bg-surface">
+          <div aria-hidden="true" class="grid aspect-[16/10] place-items-center text-5xl" [class]="detail.cover">
+            <ng-icon [name]="detail.icon" />
+          </div>
+          <div class="flex flex-col gap-2 p-6">
+            <h3 class="font-title text-xl font-semibold text-foreground">
+              {{ 'servicesPage.blogsAndPortfolios.details.' + detail.step + '.title' | translate }}
+            </h3>
+            <p class="leading-relaxed text-foreground-light">
+              {{ 'servicesPage.blogsAndPortfolios.details.' + detail.step + '.text' | translate }}
+            </p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Process as chapters -->
+  <section class="flex flex-col gap-8">
+    <h2 class="font-title text-3xl font-semibold text-foreground sm:text-4xl">
+      {{ 'servicesPage.blogsAndPortfolios.processTitle' | translate }}
+    </h2>
+    <ol class="flex flex-col divide-y divide-foreground/15 border-y border-foreground/15">
+      @for (step of processSteps; track step) {
+        <li class="grid gap-2 py-6 md:grid-cols-[10rem_1fr_2fr] md:items-baseline md:gap-8">
+          <span class="text-sm uppercase tracking-widest text-foreground-light">
+            {{ 'servicesPage.blogsAndPortfolios.chapter' | translate }} 0{{ step }}
+          </span>
+          <h3 class="font-title text-2xl font-semibold text-foreground">
+            {{ 'servicesPage.blogsAndPortfolios.process.' + step + '.title' | translate }}
+          </h3>
+          <p class="text-foreground-light">{{ 'servicesPage.blogsAndPortfolios.process.' + step + '.text' | translate }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- FAQ as a plain Q&A column -->
+  <section class="grid gap-8 md:grid-cols-[1fr_2fr]">
+    <h2 class="font-title text-3xl font-semibold text-foreground sm:text-4xl">
+      {{ 'servicesPage.blogsAndPortfolios.faqTitle' | translate }}
+    </h2>
+    <dl class="flex flex-col gap-8">
+      @for (step of faqSteps; track step) {
+        <div class="flex flex-col gap-2">
+          <dt class="text-lg font-semibold text-foreground">
+            {{ 'servicesPage.blogsAndPortfolios.faqs.' + step + '.q' | translate }}
+          </dt>
+          <dd class="leading-relaxed text-foreground-light">
+            {{ 'servicesPage.blogsAndPortfolios.faqs.' + step + '.a' | translate }}
+          </dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <!-- CTA as a closing editorial band -->
+  <section class="flex flex-col gap-6 border-y-2 border-foreground py-10 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-2">
+      <h2 class="font-title text-4xl font-semibold text-foreground">
+        {{ 'servicesPage.blogsAndPortfolios.ctaTitle' | translate }}
+      </h2>
+      <p class="text-foreground-light">{{ 'servicesPage.blogsAndPortfolios.ctaSubtitle' | translate }}</p>
+    </div>
+    <a myButton="cta" class="max-w-fit shrink-0" [href]="whatsappLink" target="_blank" rel="noopener">
+      {{ 'servicesPage.common.requestBudget' | translate }}
+      <ng-icon name="tablerArrowRight" />
+    </a>
+  </section>
+
+  <app-other-services current="blogs-e-portfolios" />
+</div>

@@ -1,0 +1,228 @@
+<div class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-20 pb-4">
+  <!-- Hero: centered copy above a mock personal website -->
+  <section class="flex flex-col items-center gap-6 text-center">
+    <a
+      [routerLink]="['/', lang, 'services']"
+      class="flex items-center gap-1 text-sm text-foreground-light transition hover:text-foreground"
+    >
+      <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+      {{ 'servicesPage.common.backToServices' | translate }}
+    </a>
+    <h1 class="font-title text-4xl font-semibold text-foreground sm:text-6xl md:max-w-[18ch]">
+      {{ 'servicesPage.websitesForFreelancers.heroTitle' | translate }}
+    </h1>
+    <p class="max-w-[62ch] text-lg leading-relaxed text-foreground-light">
+      {{ 'servicesPage.websitesForFreelancers.intro' | translate }}
+    </p>
+    <a myButton="cta" class="max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+      {{ 'servicesPage.common.requestBudget' | translate }}
+      <ng-icon name="tablerArrowRight" />
+    </a>
+
+    <div aria-hidden="true" class="mt-6 w-full overflow-hidden rounded-2xl border border-foreground/10 bg-surface text-left shadow-xl shadow-foreground/5">
+      <div class="flex items-center gap-3 border-b border-foreground/10 px-4 py-3">
+        <div class="flex gap-1.5">
+          <span class="size-2.5 rounded-full bg-foreground/15"></span>
+          <span class="size-2.5 rounded-full bg-foreground/15"></span>
+          <span class="size-2.5 rounded-full bg-foreground/15"></span>
+        </div>
+        <div class="h-6 flex-1 rounded-md bg-background"></div>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-3 px-6 py-4">
+        <div class="flex items-center gap-2">
+          <span class="grid size-8 place-items-center rounded-full bg-surface-decoration text-surface-decoration-foreground">
+            <ng-icon name="tablerUser" />
+          </span>
+          <div class="h-3 w-24 rounded bg-foreground/60"></div>
+        </div>
+        <ul class="hidden gap-5 text-sm text-foreground-light sm:flex">
+          @for (page of pageSteps; track page.step) {
+            <li>{{ 'servicesPage.websitesForFreelancers.pages.' + page.step + '.title' | translate }}</li>
+          }
+        </ul>
+      </div>
+      <div class="grid gap-6 px-6 pb-8 pt-2 sm:grid-cols-[1.4fr_1fr]">
+        <div class="flex flex-col gap-3 py-4">
+          <div class="h-6 w-4/5 rounded bg-foreground/70"></div>
+          <div class="h-6 w-3/5 rounded bg-foreground/70"></div>
+          <div class="h-3 w-full rounded bg-foreground/15"></div>
+          <div class="h-3 w-5/6 rounded bg-foreground/15"></div>
+          <div class="mt-2 flex items-center gap-2 self-start rounded-lg bg-[#25d366] px-4 py-2 text-sm font-semibold text-white">
+            <ng-icon name="tablerBrandWhatsapp" />
+            WhatsApp
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="aspect-square rounded-lg bg-surface-decoration"></div>
+          <div class="aspect-square rounded-lg bg-foreground/10"></div>
+          <div class="aspect-square rounded-lg bg-foreground/10"></div>
+          <div class="aspect-square rounded-lg bg-surface-decoration"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social media only vs. own website -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-center text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.websitesForFreelancers.compareTitle' | translate }}
+    </h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="flex flex-col gap-4 rounded-2xl border border-foreground/10 p-6">
+        <h3 class="font-semibold text-foreground-light">
+          {{ 'servicesPage.websitesForFreelancers.compareWithoutTitle' | translate }}
+        </h3>
+        <ul class="flex flex-col gap-3">
+          @for (step of compareSteps; track step) {
+            <li class="flex gap-3 text-foreground-light">
+              <ng-icon name="tablerX" class="mt-1 shrink-0 text-foreground-light" />
+              {{ 'servicesPage.websitesForFreelancers.compareWithout.' + step | translate }}
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4 rounded-2xl bg-primary p-6 shadow-lg">
+        <h3 class="font-semibold text-primary-foreground">
+          {{ 'servicesPage.websitesForFreelancers.compareWithTitle' | translate }}
+        </h3>
+        <ul class="flex flex-col gap-3">
+          @for (step of compareSteps; track step) {
+            <li class="flex gap-3 text-primary-foreground">
+              <ng-icon name="tablerCheck" class="mt-1 shrink-0 text-surface-decoration-foreground" />
+              {{ 'servicesPage.websitesForFreelancers.compareWith.' + step | translate }}
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement -->
+  <p class="mx-auto max-w-[48ch] text-center font-title text-2xl leading-relaxed text-foreground">
+    {{ 'servicesPage.websitesForFreelancers.introP2' | translate }}
+  </p>
+
+  <!-- Benefits 2x2 -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.websitesForFreelancers.benefitsTitle' | translate }}
+    </h2>
+    <div class="grid gap-4 sm:grid-cols-2">
+      @for (benefit of benefits; track benefit.step) {
+        <div class="flex flex-col gap-3 rounded-2xl bg-surface p-6">
+          <ng-icon [name]="benefit.icon" class="text-3xl text-surface-decoration-foreground" />
+          <h3 class="text-lg font-semibold text-foreground">
+            {{ 'servicesPage.websitesForFreelancers.benefits.' + benefit.step + '.title' | translate }}
+          </h3>
+          <p class="text-foreground-light">
+            {{ 'servicesPage.websitesForFreelancers.benefits.' + benefit.step + '.text' | translate }}
+          </p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Site map: the pages a freelancer website can have -->
+  <section class="flex flex-col gap-8">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+        {{ 'servicesPage.websitesForFreelancers.pagesTitle' | translate }}
+      </h2>
+      <p class="text-foreground-light">{{ 'servicesPage.websitesForFreelancers.pagesSubtitle' | translate }}</p>
+    </div>
+    <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      @for (page of pageSteps; track page.step) {
+        <li class="flex flex-col gap-3 rounded-xl border border-foreground/10 p-5">
+          <span class="flex items-center gap-2 font-semibold text-foreground">
+            <ng-icon [name]="page.icon" class="text-foreground-emphasis" />
+            {{ 'servicesPage.websitesForFreelancers.pages.' + page.step + '.title' | translate }}
+          </span>
+          <p class="text-sm text-foreground-light">
+            {{ 'servicesPage.websitesForFreelancers.pages.' + page.step + '.text' | translate }}
+          </p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Deliverables as alternating rows -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.websitesForFreelancers.detailsTitle' | translate }}
+    </h2>
+    <div class="flex flex-col gap-4">
+      @for (step of detailSteps; track step; let odd = $odd) {
+        <article class="flex flex-col gap-4 rounded-2xl bg-surface p-6 md:items-center md:gap-10" [class]="odd ? 'md:flex-row-reverse' : 'md:flex-row'">
+          <span class="font-title text-6xl font-semibold text-surface-decoration">0{{ step }}</span>
+          <div class="flex flex-col gap-2" [class]="odd ? 'md:text-right' : ''">
+            <h3 class="text-xl font-semibold text-foreground">
+              {{ 'servicesPage.websitesForFreelancers.details.' + step + '.title' | translate }}
+            </h3>
+            <p class="leading-relaxed text-foreground-light">
+              {{ 'servicesPage.websitesForFreelancers.details.' + step + '.text' | translate }}
+            </p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Process as a vertical stepper -->
+  <section class="grid gap-8 md:grid-cols-[1fr_2fr]">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.websitesForFreelancers.processTitle' | translate }}
+    </h2>
+    <ol class="flex flex-col border-l-2 border-surface-decoration">
+      @for (step of processSteps; track step) {
+        <li class="relative flex flex-col gap-1 pb-8 pl-8 last:pb-0">
+          <span class="absolute -left-[0.9rem] top-0 grid size-7 place-items-center rounded-full bg-surface-decoration-foreground text-xs font-bold text-white">
+            {{ step }}
+          </span>
+          <h3 class="font-semibold text-foreground">
+            {{ 'servicesPage.websitesForFreelancers.process.' + step + '.title' | translate }}
+          </h3>
+          <p class="text-foreground-light">
+            {{ 'servicesPage.websitesForFreelancers.process.' + step + '.text' | translate }}
+          </p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- FAQ, always open -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      {{ 'servicesPage.websitesForFreelancers.faqTitle' | translate }}
+    </h2>
+    <dl class="grid gap-4 md:grid-cols-3">
+      @for (step of faqSteps; track step) {
+        <div class="flex flex-col gap-2 rounded-2xl bg-surface p-6">
+          <dt class="flex gap-2 font-semibold text-foreground">
+            <ng-icon name="tablerMessageCircle" class="mt-1 shrink-0 text-foreground-emphasis" />
+            {{ 'servicesPage.websitesForFreelancers.faqs.' + step + '.q' | translate }}
+          </dt>
+          <dd class="leading-relaxed text-foreground-light">
+            {{ 'servicesPage.websitesForFreelancers.faqs.' + step + '.a' | translate }}
+          </dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <!-- CTA -->
+  <section class="flex flex-col items-center gap-4 rounded-2xl bg-surface-decoration px-6 py-12 text-center">
+    <ng-icon name="tablerBrandWhatsapp" class="text-4xl text-surface-decoration-foreground" />
+    <h2 class="max-w-[30ch] text-3xl font-semibold text-foreground">
+      {{ 'servicesPage.websitesForFreelancers.ctaTitle' | translate }}
+    </h2>
+    <p class="max-w-[55ch] text-foreground-light">
+      {{ 'servicesPage.websitesForFreelancers.ctaSubtitle' | translate }}
+    </p>
+    <a myButton="cta" class="mt-2 max-w-fit" [href]="whatsappLink" target="_blank" rel="noopener">
+      {{ 'servicesPage.common.requestBudget' | translate }}
+      <ng-icon name="tablerArrowRight" />
+    </a>
+  </section>
+
+  <app-other-services current="sites-para-autonomos" />
+</div>

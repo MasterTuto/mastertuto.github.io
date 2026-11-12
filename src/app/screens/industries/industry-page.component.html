@@ -1,33 +1,197 @@
-<div class="industry-page" lang="pt-BR">
- <nav aria-label="Navegação"><a routerLink="/">BrenoCS<span class="brand-dot">.</span></a><a routerLink="/services">Serviços ↗</a></nav>
- <main>
- @if (industry(); as page) {
-  <a class="back" routerLink="/para">← Soluções por profissão</a>
-  <app-editorial-hero [eyebrow]="'Presença digital / ' + page.name" [title]="page.title" [description]="page.intro" [variant]="page.variant" [color]="page.color" size="lg">
-   <div actions class="actions"><a class="cta" [href]="contact()" target="_blank" rel="noopener">Conversar sobre meu projeto ↗</a><a href="#necessidades">Explorar possibilidades ↓</a></div>
-   <app-prompt-image [prompt]="page.images[0]" [variant]="page.variant === 'editorial' ? 'portrait' : 'landscape'" [color]="page.color" size="lg" />
-  </app-editorial-hero>
-  <div class="context-line"><span>Sites & automações sob medida</span><span>{{ page.name }}</span><span>Do primeiro contato à rotina</span></div>
-  @for (section of page.sections; track section) {
-   @switch (section) {
-    @case ('story') { <app-text-section eyebrow="O que faz diferença" [title]="page.statement" [body]="page.body" [variant]="page.variant === 'editorial' ? 'statement' : 'split'" [color]="page.color" size="lg" /> }
-    @case ('needs') {
-     <section id="necessidades" aria-label="Necessidades do seu negócio" [class.needs-columns]="page.listVariant === 'rows'">
-      <app-detail-list eyebrow="01 / Ser encontrado" title="Presença online" [items]="page.presence" [variant]="page.listVariant" [color]="page.color" />
-      <app-detail-list eyebrow="02 / Organizar a rotina" title="Automação" [items]="page.automation" [variant]="page.listVariant" [color]="page.color" />
-     </section>
-    }
-    @case ('gallery') { <app-media-grid eyebrow="Direção de conteúdo" title="Dê espaço ao seu trabalho." [prompts]="page.images" [variant]="page.grid" [color]="page.color" /> }
-    @case ('workflow') { <app-detail-list eyebrow="Uma jornada possível" title="Do interesse ao próximo passo." [items]="page.steps" [variant]="page.variant === 'timeline' ? 'rows' : 'steps'" [color]="page.color" size="lg" /> }
-   }
-  }
-  <aside class="research"><p>As necessidades e o fluxo acima são propostas para este nicho; o escopo é definido com você.</p><a [href]="page.source.url" target="_blank" rel="noopener">Referência: {{ page.source.label }} ↗</a></aside>
-  <app-text-section eyebrow="Vamos construir" title="Um site que trabalha junto com você." body="Começamos pela sua rotina: como chegam os contatos, quais perguntas se repetem e o que precisa ficar mais simples. A partir daí, definimos o site e as integrações do projeto." variant="inset" [color]="page.color" size="lg"><a class="cta" [href]="contact()" target="_blank" rel="noopener">Planejar meu projeto ↗</a></app-text-section>
-  <section class="more"><h2>Outras profissões, outras possibilidades.</h2><div class="profession-links">@for (item of industries; track item.slug) { @if (item.slug !== page.slug) { <a [routerLink]="['/para', item.slug]">{{ item.name }} ↗</a> } }</div></section>
- } @else {
-  <app-editorial-hero eyebrow="Soluções por profissão" title="Seu trabalho tem uma rotina própria." description="Seu site também deveria ter. Explore possibilidades de presença online e automação pensadas para o que cada profissão precisa." variant="editorial" size="lg" />
-  <section class="directory" aria-label="Profissões">@for (page of industries; track page.slug; let i = $index) { <a [routerLink]="['/para', page.slug]"><span class="index">{{ i + 1 }}</span><h2>{{ page.name }}</h2><p>{{ page.intro }}</p><span aria-hidden="true">↗</span></a> }</section>
- }
- </main>
- <footer><a routerLink="/">BrenoCS — desenvolvimento web</a><a [href]="contact()" target="_blank" rel="noopener">Vamos conversar ↗</a></footer>
-</div>
+@if (industry(); as page) {
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-20 overflow-x-clip px-4 md:gap-28" lang="pt-BR">
+    <!-- Hero: copy and illustration -->
+    <section class="grid items-center gap-10 pt-4 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <h1 class="text-4xl font-semibold leading-tight text-foreground sm:text-6xl">{{ page.title }}</h1>
+          <p class="max-w-[52ch] text-lg leading-relaxed text-foreground-light">{{ page.intro }}</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a myButton="cta" class="max-w-fit" [href]="contact()" target="_blank" rel="noopener">
+            Conversar sobre meu projeto
+            <ng-icon name="tablerArrowRight" />
+          </a>
+          <a href="#problemas" class="flex items-center gap-1 px-2 py-3 font-medium text-foreground transition hover:text-foreground-emphasis">
+            Ver o que muda
+            <ng-icon name="tablerArrowDown" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+      <div class="relative isolate">
+        <div aria-hidden="true" class="pointer-events-none absolute -inset-10 -z-10 bg-[radial-gradient(closest-side,rgba(122,112,225,0.14),transparent)]"></div>
+        <img [src]="page.images.hero.src" [alt]="page.images.hero.alt" width="800" height="600" class="w-full rounded-3xl">
+      </div>
+    </section>
+
+    <!-- Routine: a pull quote of a typical message -->
+    <section class="grid items-center gap-10 md:grid-cols-[1fr_0.8fr] md:gap-16" aria-labelledby="rotina">
+      <div class="flex flex-col gap-6">
+        <h2 id="rotina" class="text-2xl font-semibold text-foreground sm:text-3xl">A rotina hoje</h2>
+        <figure class="flex flex-col gap-3 border-l-4 border-foreground-emphasis pl-6">
+          <blockquote class="text-2xl font-medium leading-snug text-foreground sm:text-3xl">“{{ page.routine.quote }}”</blockquote>
+          <figcaption class="text-sm text-foreground-light">{{ page.routine.context }}</figcaption>
+        </figure>
+        <p class="max-w-[60ch] leading-relaxed text-foreground-light">{{ page.routine.body }}</p>
+      </div>
+      <img [src]="page.images.routine.src" [alt]="page.images.routine.alt" width="600" height="600" loading="lazy" class="mx-auto w-full max-w-md">
+    </section>
+
+    <!-- Problems: tabs -->
+    <section id="problemas" class="flex scroll-mt-28 flex-col gap-8" aria-labelledby="problemas-titulo">
+      <h2 id="problemas-titulo" class="text-2xl font-semibold text-foreground sm:text-3xl">Onde o tempo se perde</h2>
+      <div role="tablist" aria-label="Problemas do dia a dia" class="flex flex-wrap gap-x-8 gap-y-2 border-b border-foreground/10" (keydown)="onTabKey($event, page.problems.length)">
+        @for (problem of page.problems; track problem.title; let i = $index) {
+          <button
+            type="button"
+            role="tab"
+            [id]="'tab-' + i"
+            [attr.aria-selected]="activeProblem() === i"
+            [attr.aria-controls]="'painel-' + i"
+            [attr.tabindex]="activeProblem() === i ? 0 : -1"
+            class="-mb-px border-b-2 py-3 text-left font-medium transition"
+            [class]="activeProblem() === i ? 'border-foreground-emphasis text-foreground' : 'border-transparent text-foreground-light hover:text-foreground'"
+            (click)="activeProblem.set(i)"
+          >{{ problem.title }}</button>
+        }
+      </div>
+      @for (problem of page.problems; track problem.title; let i = $index) {
+        <div
+          role="tabpanel"
+          [id]="'painel-' + i"
+          [attr.aria-labelledby]="'tab-' + i"
+          [hidden]="activeProblem() !== i"
+          class="grid gap-8 md:grid-cols-[1fr_auto_1fr] md:gap-12"
+          [class.!hidden]="activeProblem() !== i"
+        >
+          <div class="flex flex-col gap-2">
+            <h3 class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-foreground-light">
+              <ng-icon name="tablerClockExclamation" /> Hoje
+            </h3>
+            <p class="text-lg leading-relaxed text-foreground">{{ problem.today }}</p>
+          </div>
+          <div aria-hidden="true" class="hidden w-px bg-foreground/10 md:block"></div>
+          <div class="flex flex-col gap-2">
+            <h3 class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-foreground-emphasis">
+              <ng-icon name="tablerSparkles" /> O que muda
+            </h3>
+            <p class="text-lg leading-relaxed text-foreground">{{ problem.change }}</p>
+          </div>
+        </div>
+      }
+    </section>
+
+    <!-- Before and after: table -->
+    <section class="flex flex-col gap-8" aria-labelledby="antes-depois">
+      <h2 id="antes-depois" class="text-2xl font-semibold text-foreground sm:text-3xl">Antes e depois</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-left text-sm sm:text-base">
+          <thead>
+            <tr class="text-sm text-foreground-light">
+              <th scope="col" class="w-1/2 pb-4 pr-6 font-medium">Hoje</th>
+              <th scope="col" class="w-1/2 pb-4 font-medium text-foreground-emphasis">Com site e automação</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of page.contrast; track row.today) {
+              <tr class="border-t border-foreground/10 align-top">
+                <td class="py-5 pr-6 text-foreground-light">
+                  <span class="flex gap-3"><ng-icon name="tablerX" class="mt-1 shrink-0 text-foreground-light" />{{ row.today }}</span>
+                </td>
+                <td class="py-5 text-foreground">
+                  <span class="flex gap-3"><ng-icon name="tablerCheck" class="mt-1 shrink-0 text-foreground-emphasis" />{{ row.withSite }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Automation in practice: chat mockup -->
+    <section class="grid items-center gap-10 md:grid-cols-[1fr_minmax(0,22rem)] md:gap-16" aria-labelledby="na-pratica">
+      <div class="flex flex-col gap-4">
+        <h2 id="na-pratica" class="text-2xl font-semibold text-foreground sm:text-3xl">{{ page.chat.title }}</h2>
+        <p class="max-w-[55ch] text-lg leading-relaxed text-foreground-light">{{ page.chat.body }}</p>
+      </div>
+      <div class="mx-auto w-full max-w-[22rem] overflow-hidden rounded-[2rem] border-8 border-primary bg-background shadow-2xl shadow-foreground/10" aria-label="Exemplo de conversa" role="img">
+        <div class="flex items-center gap-3 bg-primary px-4 py-3 text-primary-foreground">
+          <span class="grid size-9 place-items-center rounded-full bg-foreground-emphasis text-sm font-semibold text-white">{{ page.name.charAt(0) }}</span>
+          <span class="flex flex-col leading-tight">
+            <span class="text-sm font-semibold">{{ page.name }}</span>
+            <span class="text-xs opacity-70">resposta automática</span>
+          </span>
+        </div>
+        <div class="flex flex-col gap-2 p-4">
+          @for (line of page.chat.lines; track $index) {
+            <p
+              class="max-w-[85%] rounded-2xl px-3.5 py-2 text-sm leading-snug shadow-sm"
+              [class]="line.from === 'client' ? 'self-start rounded-tl-sm bg-surface text-foreground' : 'self-end rounded-tr-sm bg-surface-decoration text-primary'"
+            >{{ line.text }}</p>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Journey: timeline -->
+    <section class="flex flex-col gap-10" aria-labelledby="jornada">
+      <h2 id="jornada" class="text-2xl font-semibold text-foreground sm:text-3xl">Do primeiro contato ao serviço</h2>
+      <ol class="relative grid grid-cols-1 gap-8 md:grid-cols-[repeat(var(--steps),minmax(0,1fr))] md:gap-6" [style.--steps]="page.steps.length">
+        <span aria-hidden="true" class="absolute left-5 top-5 hidden h-px bg-foreground/15 md:block" [style.right]="'calc(100% / ' + page.steps.length + ' - 1.25rem)'"></span>
+        <span aria-hidden="true" class="absolute bottom-5 left-5 top-5 w-px bg-foreground/15 md:hidden"></span>
+        @for (step of page.steps; track step.title; let i = $index) {
+          <li class="relative flex gap-4 md:flex-col">
+            <span class="z-10 grid size-10 shrink-0 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground ring-8 ring-background">{{ i + 1 }}</span>
+            <span class="flex flex-col gap-1 md:pr-6">
+              <span class="font-semibold text-foreground">{{ step.title }}</span>
+              <span class="text-sm leading-relaxed text-foreground-light">{{ step.text }}</span>
+            </span>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <!-- FAQ: accordion -->
+    <section class="grid gap-8 md:grid-cols-[1fr_2fr] md:gap-16" aria-labelledby="duvidas">
+      <h2 id="duvidas" class="text-2xl font-semibold text-foreground sm:text-3xl">Perguntas frequentes</h2>
+      <div class="flex flex-col divide-y divide-foreground/10 border-y border-foreground/10">
+        @for (item of page.faq; track item.question) {
+          <details class="group">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-medium text-foreground [&::-webkit-details-marker]:hidden">
+              {{ item.question }}
+              <ng-icon name="tablerPlus" class="shrink-0 text-foreground-light transition-transform group-open:rotate-45" />
+            </summary>
+            <p class="pb-5 leading-relaxed text-foreground-light">{{ item.answer }}</p>
+          </details>
+        }
+      </div>
+    </section>
+
+    <!-- Closing: dark band with illustration -->
+    <section class="grid items-center gap-8 rounded-3xl bg-secondary-surface p-8 text-secondary-surface-foreground-light sm:p-12 md:grid-cols-[1.2fr_1fr]">
+      <div class="flex flex-col gap-4">
+        <h2 class="text-3xl font-semibold text-secondary-surface-foreground">{{ page.closing.title }}</h2>
+        <p class="max-w-[55ch] leading-relaxed">{{ page.closing.body }}</p>
+        <a [href]="contact()" target="_blank" rel="noopener" class="mt-2 flex w-fit items-center gap-2 rounded-xl bg-surface px-5 py-3 font-semibold text-primary">
+          <ng-icon name="tablerBrandWhatsapp" />
+          Planejar meu projeto
+        </a>
+      </div>
+      <img [src]="page.images.closing.src" [alt]="page.images.closing.alt" width="600" height="400" loading="lazy" class="w-full rounded-2xl">
+    </section>
+
+    <!-- Reference and other segments: plain text -->
+    <footer class="flex flex-col gap-4 border-t border-foreground/10 pt-8 text-sm text-foreground-light">
+      <p>
+        O conteúdo desta página considera as regras e práticas do setor. Referência:
+        <a [href]="page.source.url" target="_blank" rel="noopener" class="underline underline-offset-4 hover:text-foreground">{{ page.source.label }} ↗</a>
+      </p>
+      <p class="leading-loose">
+        <span class="text-foreground">{{ 'Outros segmentos: ' }}</span>
+        @for (item of others(); track item.slug; let last = $last) {
+          <a [routerLink]="'para/' + item.slug | langLink" class="transition hover:text-foreground-emphasis">{{ item.name }}</a>@if (!last) {<span aria-hidden="true">{{ ' · ' }}</span>}
+        }
+      </p>
+    </footer>
+  </div>
+}

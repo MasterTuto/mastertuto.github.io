@@ -1,0 +1,169 @@
+@if (project(); as project) {
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-16 overflow-x-clip px-4 md:gap-20">
+    <!-- Hero -->
+    <section class="grid items-center gap-10 pt-4 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+      <div class="flex flex-col gap-5">
+        <a
+          [routerLink]="'' | langLink"
+          fragment="projects"
+          class="flex w-fit items-center gap-1 text-sm text-foreground-light transition hover:text-foreground"
+        >
+          <ng-icon name="tablerArrowLeft" class="h-4 w-4" />
+          {{ 'cases.backToProjects' | translate }}
+        </a>
+        <div class="flex flex-col gap-1">
+          <h1
+            class="w-fit text-4xl font-semibold text-foreground sm:text-6xl"
+            [style.view-transition-name]="'case-title-' + project.slug"
+          >{{ project.name }}</h1>
+          <p class="text-xl font-medium text-foreground">{{ 'cases.items.' + project.key + '.tagline' | translate }}</p>
+        </div>
+        <p class="max-w-[60ch] text-lg leading-relaxed text-foreground-light">
+          {{ 'cases.items.' + project.key + '.summary' | translate }}
+        </p>
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a myButton="cta" class="max-w-fit" [href]="project.url" target="_blank" rel="noopener">
+            {{ 'cases.visitSite' | translate }}
+            <ng-icon name="tablerExternalLink" />
+          </a>
+        </div>
+      </div>
+      <app-case-mockup [project]="project" eager />
+    </section>
+
+    <hr class="border-foreground/10">
+
+    <!-- About + highlights -->
+    <section class="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+      <div class="flex flex-col gap-4">
+        <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">{{ 'cases.aboutTitle' | translate }}</h2>
+        <p class="text-lg leading-relaxed text-foreground-light">{{ 'cases.items.' + project.key + '.about' | translate }}</p>
+      </div>
+      <dl class="grid grid-cols-2 gap-4 self-start" [attr.aria-label]="'cases.highlightsTitle' | translate">
+        @for (item of project.highlights; track item) {
+          <div class="flex flex-col gap-1 rounded-xl bg-surface p-5">
+            <dt class="order-2 text-sm text-foreground-light">{{ 'cases.items.' + project.key + '.highlights.' + item + '.label' | translate }}</dt>
+            <dd class="order-1 text-3xl font-semibold" [style.color]="project.accent">
+              {{ 'cases.items.' + project.key + '.highlights.' + item + '.value' | translate }}
+            </dd>
+          </div>
+        }
+      </dl>
+    </section>
+
+    <!-- What I did: one short subsection per role, with the decisions behind it -->
+    <section class="flex flex-col gap-10">
+      <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">{{ 'cases.myRole' | translate }}</h2>
+      @for (work of project.work; track work.role; let first = $first) {
+        @if (!first) {
+          <hr class="border-foreground/10">
+        }
+        <section class="grid gap-6 lg:grid-cols-[1fr_2fr] lg:gap-16" [attr.aria-labelledby]="'role-' + work.role">
+          <div class="flex flex-col gap-3">
+            <span
+              class="grid size-11 place-items-center rounded-lg text-xl"
+              [style.background-color]="project.tint"
+              [style.color]="project.accent"
+            >
+              <ng-icon [name]="roleIcons[work.role]" />
+            </span>
+            <h3 [id]="'role-' + work.role" class="text-xl font-semibold text-foreground">{{ 'cases.roles.' + work.role | translate }}</h3>
+            <p class="text-foreground-light">{{ 'cases.items.' + project.key + '.work.' + work.role + '.intro' | translate }}</p>
+          </div>
+          <ol class="grid gap-4 sm:grid-cols-2">
+            @for (decision of work.decisions; track decision) {
+              <li class="flex flex-col gap-1.5 rounded-xl bg-surface p-5">
+                <h4 class="font-semibold text-foreground">
+                  {{ 'cases.items.' + project.key + '.work.' + work.role + '.decisions.' + decision + '.title' | translate }}
+                </h4>
+                <p class="text-sm leading-relaxed text-foreground-light">
+                  {{ 'cases.items.' + project.key + '.work.' + work.role + '.decisions.' + decision + '.text' | translate }}
+                </p>
+              </li>
+            }
+          </ol>
+        </section>
+      }
+    </section>
+
+    <!-- Technical stack -->
+    @if (project.tech; as tech) {
+      <section class="flex flex-col gap-8 rounded-2xl bg-secondary-surface p-6 text-secondary-surface-foreground-light sm:p-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="flex items-center gap-2 text-2xl font-semibold text-secondary-surface-foreground sm:text-3xl">
+            <ng-icon name="tablerTerminal2" />
+            {{ 'cases.techTitle' | translate }}
+          </h2>
+          <p class="max-w-[60ch]">{{ 'cases.items.' + project.key + '.tech.intro' | translate }}</p>
+        </div>
+        <dl class="grid gap-x-10 gap-y-6 md:grid-cols-2">
+          @for (group of tech; track group.key) {
+            <div class="flex flex-col gap-2 border-t border-white/10 pt-4">
+              <dt class="flex flex-wrap gap-2">
+                @for (tool of group.tools; track tool) {
+                  <span class="rounded-md bg-white/10 px-2 py-0.5 font-mono text-sm text-secondary-surface-foreground">{{ tool }}</span>
+                }
+              </dt>
+              <dd class="text-sm leading-relaxed">{{ 'cases.items.' + project.key + '.tech.' + group.key | translate }}</dd>
+            </div>
+          }
+        </dl>
+      </section>
+    }
+
+    <!-- Desktop and mobile screenshots -->
+    <section class="flex flex-col gap-8">
+      <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">{{ 'cases.galleryTitle' | translate }}</h2>
+      <div class="grid items-start gap-6 md:grid-cols-[3fr_1fr]">
+        <img
+          [src]="project.desktop"
+          [alt]="project.name + ' — ' + ('cases.desktop' | translate)"
+          loading="lazy"
+          width="1440"
+          height="900"
+          class="w-full rounded-xl border border-foreground/10 shadow-lg"
+        >
+        <img
+          [src]="project.mobile"
+          [alt]="project.name + ' — ' + ('cases.mobile' | translate)"
+          loading="lazy"
+          width="390"
+          height="844"
+          class="mx-auto w-full max-w-[260px] rounded-2xl border-4 border-primary shadow-lg"
+        >
+      </div>
+    </section>
+
+    <hr class="border-foreground/10">
+
+    <!-- Other case + contact -->
+    <section class="grid gap-6 md:grid-cols-2">
+      @for (other of others(); track other.slug) {
+        <a
+          [routerLink]="'cases/' + other.slug | langLink"
+          class="group flex flex-col gap-2 rounded-xl bg-surface p-6 transition hover:-translate-y-0.5 hover:shadow-md"
+        >
+          <span class="text-2xl font-semibold text-foreground">{{ other.name }}</span>
+          <span class="text-foreground-light">{{ 'cases.items.' + other.key + '.tagline' | translate }}</span>
+          <span class="mt-auto flex items-center gap-1 pt-2 font-semibold" [style.color]="other.accent">
+            {{ 'cases.viewCase' | translate }}
+            <ng-icon name="tablerArrowRight" class="transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </a>
+      }
+      <div class="flex flex-col gap-3 rounded-xl bg-secondary-surface p-6 text-secondary-surface-foreground-light">
+        <h2 class="text-2xl font-semibold text-secondary-surface-foreground">{{ 'cases.ctaTitle' | translate }}</h2>
+        <p>{{ 'cases.ctaText' | translate }}</p>
+        <a
+          [href]="whatsappLink"
+          target="_blank"
+          rel="noopener"
+          class="mt-auto flex w-fit items-center gap-2 rounded-xl bg-surface px-5 py-3 font-semibold text-primary"
+        >
+          <ng-icon name="tablerBrandWhatsapp" />
+          {{ 'cases.ctaButton' | translate }}
+        </a>
+      </div>
+    </section>
+  </div>
+}

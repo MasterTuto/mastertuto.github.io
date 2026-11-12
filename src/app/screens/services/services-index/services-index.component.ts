@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
-  tablerArrowLeft,
   tablerArrowRight,
-  tablerCode,
   tablerDeviceDesktop,
   tablerGlobe,
   tablerPencil,
@@ -11,7 +9,6 @@ import {
 } from '@ng-icons/tabler-icons';
 import { RouterLink } from '@angular/router';
 
-import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { ButtonComponent } from 'src/app/components/@my/button/button.component';
 import { services } from 'src/app/data/services.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
@@ -28,13 +25,10 @@ import { TranslateService } from 'src/app/service/translate.service';
     NgIconComponent,
     TranslatePipe,
     ButtonComponent,
-    FooterComponent,
   ],
   providers: [
     provideIcons({
-      tablerArrowLeft,
       tablerArrowRight,
-      tablerCode,
       tablerDeviceDesktop,
       tablerGlobe,
       tablerPencil,

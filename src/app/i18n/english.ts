@@ -18,9 +18,163 @@ export const englishTranslations = {
       'Use JSON Beautifier Pro to validate, indent and minify JSON, or JWT Token Decoder to inspect headers, payloads and expiration claims. Explore our logic games when you need a break.',
   },
   backHome: 'Back to home',
-  showcase: {
-    jingleName: 'jingle.IA',
-    jingleDescription: 'A platform to create and manage personalized jingles.',
+  cases: {
+    viewCase: "View full case",
+    visitSite: "Visit website",
+    backToProjects: "Back to projects",
+    myRole: "What I did",
+    aboutTitle: "About the project",
+    highlightsTitle: "Highlights",
+    galleryTitle: "On desktop and mobile",
+    techTitle: "Under the hood",
+    desktop: "desktop version",
+    mobile: "mobile version",
+    ctaTitle: "Have a similar project in mind?",
+    ctaText: "Tell me what you need and I will reply with the next steps.",
+    ctaButton: "Talk about my project",
+    roles: {
+      design: "Design",
+      implementation: "Implementation",
+      hosting: "Hosting",
+      maintenance: "Maintenance",
+    },
+    items: {
+      jingle: {
+        tagline: "A jingle creation platform powered by artificial intelligence",
+        summary: "A platform where anyone turns an idea into a jingle: artificial intelligence writes the lyrics, creates the music and generates the vocals, with an MP3 download. I did the design, implementation and hosting, and I handle maintenance.",
+        about: "jingle.ia.br takes the jingle out of the studio. Bakeries, pizzerias, supermarkets, radio stations and agencies describe their message, pick a Brazilian rhythm such as forró, sertanejo or pagode, compare three lyric options and download the finished song. The same platform serves birthdays, events, podcasts and campaigns, with no songwriting skills required.",
+        work: {
+          design: {
+            intro: "The audience has never written a song. Every design decision removes a doubt along the way.",
+            decisions: {
+              '1': {
+                title: "Four steps, one question at a time",
+                text: "Idea, tone, lyrics and download. Short steps avoid the blank page for people who don’t know where to start.",
+              },
+              '2': {
+                title: "Choose instead of write",
+                text: "People compare three lyrics before generating the audio. Choosing is easier than writing, and credits are only spent on what they approved.",
+              },
+              '3': {
+                title: "A distinctly Brazilian look",
+                text: "Green and yellow, a megaphone and regional rhythms make it clear on the first screen who the product is for.",
+              },
+            },
+          },
+          implementation: {
+            intro: "Generating music takes time and can fail. The implementation keeps that from weighing on the user.",
+            decisions: {
+              '1': {
+                title: "Background generation",
+                text: "The jingle keeps generating even if the page is closed. Users follow the status and download the MP3 when it’s ready.",
+              },
+              '2': {
+                title: "Failures don’t cost credits",
+                text: "If lyric creation fails, the jingle goes back to the plan balance and the screen explains what happened.",
+              },
+              '3': {
+                title: "Subscription plans",
+                text: "Three monthly plans with a jingle quota and cancellation at any time. The entry plan includes a spoken watermark.",
+              },
+            },
+          },
+          hosting: {
+            intro: "Usage comes in peaks, such as holidays and campaigns. The infrastructure follows that rhythm.",
+            decisions: {
+              '1': {
+                title: "Pay for what you use",
+                text: "Serverless architecture: no idle servers waiting for visits, and capacity grows on its own when traffic increases.",
+              },
+              '2': {
+                title: "A domain that explains itself",
+                text: "The .ia.br domain says what the product does and that it’s Brazilian, before the site even opens.",
+              },
+            },
+          },
+          maintenance: {
+            intro: "The product keeps evolving after launch.",
+            decisions: {
+              '1': {
+                title: "Continuous evolution",
+                text: "New jingle types, briefing ideas and content are added as real usage shows what’s missing.",
+              },
+              '2': {
+                title: "Fast fixes",
+                text: "I monitor errors and AI service costs to fix problems before they become complaints.",
+              },
+            },
+          },
+        },
+        tech: {
+          intro: "A serverless stack on AWS, orchestrating several AI models and delivered from the edge.",
+          frontend: "Angular SPA in a monorepo alongside the back end: one repository, one build and deploy flow.",
+          backend: "Serverless Node.js back end on AWS Lambda, with DynamoDB as the NoSQL database. Scales on demand and bills per execution.",
+          ai: "An asynchronous pipeline orchestrating OpenAI and Gemini LLMs, model inference on Replicate and voice synthesis with ElevenLabs.",
+          payments: "Recurring subscriptions on Asaas, integrated via API and webhooks to release each plan’s quota.",
+          infra: "Static assets served by the CloudFront CDN, DNS and edge proxy on Cloudflare, and the .ia.br domain registered at Registro.br.",
+        },
+        highlights: {
+          '1': {
+            value: "3",
+            label: "lyric options for each jingle",
+          },
+          '2': {
+            value: "8",
+            label: "Brazilian music genres",
+          },
+          '3': {
+            value: "60 s",
+            label: "jingles, downloadable as MP3",
+          },
+          '4': {
+            value: "R$ 9.90",
+            label: "per month on the entry plan",
+          },
+        },
+      },
+      supervegetariano: {
+        tagline: "Vegetarian restaurant in Santos, Brazil, since 1986",
+        summary: "The website of a traditional vegetarian restaurant in Santos, Brazil. The site already existed: I moved it to new hosting in 1 day, set up email on KingHost and made small adjustments.",
+        about: "Super Vegetariano has served homemade, tasty and healthy food in Santos since February 1986. The website presents the restaurant’s history, its locations, the daily menu on social media and WhatsApp contact. It was built on WordPress by another team.",
+        work: {
+          hosting: {
+            intro: "The site already worked and customers knew it. The goal was to change the infrastructure without anyone noticing.",
+            decisions: {
+              '1': {
+                title: "Migration in 1 day",
+                text: "The WordPress files, database and domain moved to the new hosting in a single day, keeping content and design.",
+              },
+              '2': {
+                title: "Email on KingHost",
+                text: "I set up the domain’s email accounts on KingHost, so the restaurant keeps receiving messages at its own address.",
+              },
+              '3': {
+                title: "Small adjustments",
+                text: "After the migration, I fixed small details without touching the identity customers already recognize.",
+              },
+            },
+          },
+        },
+        highlights: {
+          '1': {
+            value: "40",
+            label: "years serving healthy food",
+          },
+          '2': {
+            value: "2",
+            label: "locations in Santos, Brazil",
+          },
+          '3': {
+            value: "1 day",
+            label: "to complete the migration",
+          },
+          '4': {
+            value: "1986",
+            label: "year founded",
+          },
+        },
+      },
+    },
   },
   scheduling: {
     title: 'Schedule a conversation',
@@ -35,7 +189,7 @@ export const englishTranslations = {
     queensDescription:
       'A daily logic puzzle inspired by the classic N-Queens problem.',
     sudokuDescription:
-      'A mini Sudoku generator with 4\u00d74, 6\u00d76 and 9\u00d79 grids and adjustable difficulty.',
+      'A mini Sudoku generator with 4×4, 6×6 and 9×9 grids and adjustable difficulty.',
     wordLadderDescription:
       'A word puzzle where you change one letter at a time to turn a word into another, with daily puzzles and three difficulty levels.',
   },
@@ -58,6 +212,9 @@ export const englishTranslations = {
       whyMe: 'Why me',
       projects: 'Projects',
       testimonials: 'Testimonials',
+      allServices: "All services",
+      segments: "Industries",
+      gamesAndTools: "Games and tools",
     },
     services: {
       name: 'Services',
@@ -106,22 +263,6 @@ export const englishTranslations = {
       description:
         'Some recent work developed for professionals and companies that trusted my work.',
       viewAll: 'View all projects',
-      items: {
-        '1': {
-          name: 'Volt&Wire',
-          description: 'Site para eletricista',
-        },
-        '2': {
-          name: 'Professional website',
-          description:
-            'A clear digital presence built to communicate trust and authority.',
-        },
-        '3': {
-          name: 'Portfolio experience',
-          description:
-            'A polished showcase for presenting work, process and expertise.',
-        },
-      },
     },
     testimonials: {
       name: 'Testimonials',
@@ -208,6 +349,45 @@ export const englishTranslations = {
         "Send me a message and I'll help you choose the best path for your project.",
     },
     landingPages: {
+      proofTitle: "Projects already live",
+      formTitle: "Request your quote",
+      formSubtitle: "Just two fields. The conversation continues on WhatsApp.",
+      formName: "Your name",
+      formOffer: "What do you want to sell or promote?",
+      formOfferPlaceholder: "E.g. a course, a consultancy, a launch",
+      messageIntro: "Hi, Breno! I want a landing page.",
+      messageName: "Name",
+      messageOffer: "Offer",
+      anatomyTitle: 'Anatomy of a page that converts',
+      anatomySubtitle: 'Every block has a job. Here is what each part of your landing page does to move the visitor toward action.',
+      anatomy: {
+        '1': {
+          title: 'Headline',
+          text: 'A clear promise that tells the visitor, in seconds, what they get and why it matters.',
+        },
+        '2': {
+          title: 'Social proof',
+          text: 'Testimonials, logos and numbers that show other people already trust you.',
+        },
+        '3': {
+          title: 'Offer and benefits',
+          text: 'What is included, presented as outcomes for the customer instead of a list of features.',
+        },
+        '4': {
+          title: 'Lead form',
+          text: 'Only the fields you really need, so filling it in feels effortless.',
+        },
+        '5': {
+          title: 'Call to action',
+          text: 'One action, repeated at the right moments, with a button that is impossible to miss.',
+        },
+      },
+      timeline: {
+        '1': 'Day 1',
+        '2': 'Days 2–3',
+        '3': 'Days 3–6',
+        '4': 'Day 7+',
+      },
       name: 'Landing Pages',
       shortDescription:
         'High-converting pages designed to turn visitors into leads and sales.',
@@ -289,6 +469,45 @@ export const englishTranslations = {
       ctaSubtitle: "Let's build a landing page that pays for itself.",
     },
     websitesForFreelancers: {
+      compareTitle: 'Social media only vs. your own website',
+      compareWithoutTitle: 'Only social media',
+      compareWithTitle: 'With your own website',
+      compareWithout: {
+        '1': 'Your reach depends on the algorithm',
+        '2': 'Information about your services is scattered across posts',
+        '3': 'Clients have to message you to ask the basics',
+        '4': 'Your profile can be limited or lost at any time',
+      },
+      compareWith: {
+        '1': 'Clients find you on Google when they search for what you do',
+        '2': 'Services, prices and process explained in one place',
+        '3': 'Questions answered before the first message',
+        '4': 'An address that belongs to you, for good',
+      },
+      pagesTitle: 'Pages your site can have',
+      pagesSubtitle: 'A simple structure that answers what every potential client wants to know.',
+      pages: {
+        '1': {
+          title: 'Home',
+          text: 'Who you are, what you do and how to hire you — at a glance.',
+        },
+        '2': {
+          title: 'Services',
+          text: 'Each service explained, with what is included and how it works.',
+        },
+        '3': {
+          title: 'About',
+          text: 'Your story, experience and the way you work.',
+        },
+        '4': {
+          title: 'Portfolio',
+          text: 'Real projects and results that prove your skill.',
+        },
+        '5': {
+          title: 'Contact',
+          text: 'WhatsApp, form and scheduling, one click away.',
+        },
+      },
       name: 'Websites for Freelancers',
       shortDescription:
         'Professional websites that build trust and win you more clients.',
@@ -370,6 +589,26 @@ export const englishTranslations = {
       ctaSubtitle: "Send me a message and let's plan your website.",
     },
     blogsAndPortfolios: {
+      splitTitle: 'Two formats, one goal: being remembered',
+      portfolio: {
+        title: 'Portfolio',
+        text: 'For when your work speaks for itself and you need it seen in the best light.',
+        items: {
+          '1': 'Project pages with images, context and results',
+          '2': 'Filters by category or type of work',
+          '3': 'Client testimonials next to each project',
+        },
+      },
+      blog: {
+        title: 'Blog',
+        text: 'For when your knowledge is the differentiator and you want to be found on search.',
+        items: {
+          '1': 'Articles organized by categories and tags',
+          '2': 'SEO-ready structure for every post',
+          '3': 'Newsletter sign-up to keep readers close',
+        },
+      },
+      chapter: 'Chapter',
       name: 'Blogs and Portfolios',
       shortDescription:
         'Show your work, share knowledge and attract your ideal audience.',
@@ -451,6 +690,34 @@ export const englishTranslations = {
       ctaSubtitle: "Let's create a portfolio that brings you opportunities.",
     },
     integrations: {
+      hubCenter: 'Your website',
+      tools: {
+        '1': 'WhatsApp',
+        '2': 'E-mail',
+        '3': 'CRM',
+        '4': 'Payments',
+        '5': 'Spreadsheets',
+        '6': 'Analytics',
+      },
+      flowTitle: 'What it looks like in practice',
+      flowSubtitle: 'A single form submission can set off everything that used to be done by hand.',
+      flow: {
+        '1': {
+          label: 'Trigger',
+          title: 'A visitor fills in the form',
+          text: 'Name, contact and interest are captured on your website.',
+        },
+        '2': {
+          label: 'Automation',
+          title: 'The data goes where it needs to',
+          text: 'The lead is saved to your CRM or spreadsheet and you get an alert on WhatsApp.',
+        },
+        '3': {
+          label: 'Result',
+          title: 'You reply in minutes',
+          text: 'The visitor receives a confirmation e-mail and you follow up while interest is high.',
+        },
+      },
       name: 'Integrations',
       shortDescription:
         'Forms, email marketing, WhatsApp, payments and much more.',
@@ -573,16 +840,16 @@ export const englishTranslations = {
     'seo-p1':
       'Queens is a daily logic puzzle inspired by the classic N-Queens problem. Your goal is to place queens on the board following four simple rules: one queen per row, one per column, one per colored region, and no two queens may touch each other.',
     'seo-p2':
-      'Choose from 5 difficulty levels — Beginner (5\u00d75), Easy (6\u00d76), Medium (7\u00d77), Hard (8\u00d78), and Expert (10\u00d710). Each puzzle is generated deterministically from the date, so everyone gets the same challenge every day.',
+      'Choose from 5 difficulty levels — Beginner (5×5), Easy (6×6), Medium (7×7), Hard (8×8), and Expert (10×10). Each puzzle is generated deterministically from the date, so everyone gets the same challenge every day.',
     'seo-p3':
       'Play online for free, no registration required. Train your logical reasoning and pattern recognition skills. A brand new puzzle awaits you every day. Bookmark this page and come back daily!',
   },
   sudoku: {
     sudoku: 'Sudoku',
     size: 'Grid',
-    'size-4': '4\u00d74 Mini',
-    'size-6': '6\u00d76',
-    'size-9': '9\u00d79 Classic',
+    'size-4': '4×4 Mini',
+    'size-6': '6×6',
+    'size-9': '9×9 Classic',
     difficulty: 'Difficulty',
     'difficulty-0': 'Easy',
     'difficulty-1': 'Medium',
@@ -623,27 +890,27 @@ export const englishTranslations = {
       'Sudoku is a logic-based number puzzle. The goal is to fill a grid so that every row, column and box contains each number from 1 to N exactly once. No math is needed — just logic.',
     'faq-q2': 'How do I play Sudoku?',
     'faq-a2':
-      'Select a grid size (4\u00d74, 6\u00d76 or 9\u00d79), choose a difficulty and tap any cell to select it. Then enter a number using the on-screen pad or your keyboard. Every puzzle has exactly one solution.',
+      'Select a grid size (4×4, 6×6 or 9×9), choose a difficulty and tap any cell to select it. Then enter a number using the on-screen pad or your keyboard. Every puzzle has exactly one solution.',
     'faq-q3': 'What do the grid sizes mean?',
     'faq-a3':
-      '4\u00d74 is a tiny mini-Sudoku perfect for beginners and kids, 6\u00d76 is a compact challenge, and 9\u00d79 is the classic Sudoku played around the world. Each size uses numbers from 1 to N.',
+      '4×4 is a tiny mini-Sudoku perfect for beginners and kids, 6×6 is a compact challenge, and 9×9 is the classic Sudoku played around the world. Each size uses numbers from 1 to N.',
     'faq-q4': 'Is Sudoku good for your brain?',
     'faq-a4':
       'Yes. Sudoku trains logical reasoning, concentration and memory, and studies suggest regular puzzle solving keeps the mind sharp. It is also a calm, screen-friendly break from social media.',
     'faq-q5': 'Is this Sudoku really free?',
     'faq-a5':
       'Yes, 100% free. There is no registration, no downloads and no time limit. You can play Sudoku online directly in your browser on any device.',
-    'seo-title': 'Play Sudoku Online \u2014 Free Mini Sudoku Generator',
+    'seo-title': 'Play Sudoku Online — Free Mini Sudoku Generator',
     'seo-p1':
-      'Welcome to our free online Sudoku generator. Play Sudoku online in your browser with three grid sizes \u2014 4\u00d74 mini, 6\u00d76 and the classic 9\u00d79 \u2014 and three difficulty levels, from easy warm-ups to hard challenges.',
+      'Welcome to our free online Sudoku generator. Play Sudoku online in your browser with three grid sizes — 4×4 mini, 6×6 and the classic 9×9 — and three difficulty levels, from easy warm-ups to hard challenges.',
     'seo-p2':
       'Every game is generated instantly with a unique solution, so you always get a fair, solvable puzzle. Choose your favorite grid, adjust the difficulty and click New Game to get a fresh board in a second.',
     'seo-p3':
       "Sudoku is one of the world's most popular logic puzzles. It trains your reasoning, sharpens your concentration and is perfect for a short break. And the best part: our Sudoku works on mobile, tablet and desktop without installing anything.",
     'seo-p4':
-      'Whether you want to teach kids with a 4\u00d74 mini grid, warm up with an easy 6\u00d76, or test yourself with a hard 9\u00d79, you can play Sudoku online here at any time. Notes, hints, undo, keyboard shortcuts and mistake highlighting make every game easy to enjoy.',
+      'Whether you want to teach kids with a 4×4 mini grid, warm up with an easy 6×6, or test yourself with a hard 9×9, you can play Sudoku online here at any time. Notes, hints, undo, keyboard shortcuts and mistake highlighting make every game easy to enjoy.',
     'seo-p5':
-      'Bookmark this page and come back whenever you need a mental workout. Play Sudoku online for free, improve your logic and have fun \u2014 one grid at a time.',
+      'Bookmark this page and come back whenever you need a mental workout. Play Sudoku online for free, improve your logic and have fun — one grid at a time.',
   },
   wordLadder: {
     name: 'Word Ladder',
@@ -703,7 +970,7 @@ export const englishTranslations = {
       'Try to finish in as few moves as possible to beat your best score.',
     'rules-title': 'Official Word Ladder Rules',
     'rules-p1':
-      'A word ladder is solved when you transform the starting word into the target word using only real words, changing exactly one letter at each step. For example, CAT \u2192 COT \u2192 COG \u2192 DOG.',
+      'A word ladder is solved when you transform the starting word into the target word using only real words, changing exactly one letter at each step. For example, CAT → COT → COG → DOG.',
     'rules-p2':
       'You may change the position of the letter as well as its value, but only one letter may change per move. You can use a hint (up to three per game) if you get stuck, and you can undo a move at any time.',
     'rules-p3':
@@ -723,7 +990,7 @@ export const englishTranslations = {
     'whatis-p1':
       'A word ladder is a word puzzle invented by Lewis Carroll in 1877, who called it a Doublets puzzle. You begin with two words of the same length and connect them through a chain of real words, changing one letter at a time.',
     'whatis-p2':
-      'For example, transforming COLD into WARM could go COLD \u2192 CORD \u2192 WORD \u2192 WARD \u2192 WARM. The puzzle is popular in classrooms because it builds spelling, vocabulary and logical thinking in a fun, game-like format.',
+      'For example, transforming COLD into WARM could go COLD → CORD → WORD → WARD → WARM. The puzzle is popular in classrooms because it builds spelling, vocabulary and logical thinking in a fun, game-like format.',
     'levels-title': 'Difficulty Levels',
     'levels-easy': 'Easy:',
     'levels-easy-p':
@@ -763,7 +1030,7 @@ export const englishTranslations = {
       'Yes, completely free. There is no registration, no downloads and no time limit. Play in your browser on any device, including your phone.',
     'related-title': 'More Free Online Games',
     'related-p':
-      'If you enjoy word puzzles, try our other free logic games \u2014 all of them work on mobile and desktop.',
+      'If you enjoy word puzzles, try our other free logic games — all of them work on mobile and desktop.',
     'related-sudoku': 'Classic logic puzzle with three grid sizes.',
     'related-queens': 'A daily placement puzzle inspired by N-Queens.',
   },

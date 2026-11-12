@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img"><title>Celular à noite cheio de mensagens, uma delas com o espaço da foto vazio, ao lado de um rolo de fio, uma tomada solta e um alicate</title>
+<rect width="100%" height="100%" rx="32" fill="#eaebf9"/>
+<circle cx="96" cy="100" r="34" fill="#f2b880"/>
+<circle cx="114" cy="88" r="30" fill="#eaebf9"/>
+<circle cx="150" cy="60" r="4" fill="#8e9095"/>
+<circle cx="60" cy="170" r="3" fill="#8e9095"/>
+<circle cx="500" cy="80" r="4" fill="#8e9095"/>
+<ellipse cx="300" cy="536" rx="140" ry="12" fill="#151c25" opacity=".1"/>
+<rect x="175" y="70" width="250" height="456" rx="38" fill="#151c25"/>
+<rect x="189" y="84" width="222" height="428" rx="28" fill="#fafafa"/>
+<rect x="189" y="84" width="222" height="56" rx="28" fill="#7a70e1"/>
+<rect x="189" y="112" width="222" height="28" fill="#7a70e1"/>
+<circle cx="222" cy="112" r="14" fill="#eaebf9"/>
+<rect x="246" y="104" width="84" height="8" rx="4" fill="#eaebf9"/>
+<rect x="246" y="118" width="50" height="6" rx="3" fill="#eaebf9" opacity=".6"/>
+<circle cx="418" cy="80" r="22" fill="#f2b880"/>
+<circle cx="418" cy="80" r="8" fill="#fafafa"/>
+<rect x="203" y="154" width="160" height="44" rx="14" fill="#eaebf9"/>
+<rect x="215" y="166" width="124" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="215" y="180" width="80" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="203" y="210" width="168" height="34" rx="14" fill="#eaebf9"/>
+<circle cx="223" cy="227" r="10" fill="#646cfa"/>
+<path d="M220 221 L228 227 L220 233 Z" fill="#fafafa"/>
+<g stroke="#8e9095" stroke-width="4" stroke-linecap="round">
+<path d="M244 222 v10 M252 217 v20 M260 220 v14 M268 214 v26 M276 220 v14 M284 223 v8 M292 218 v18 M300 221 v12 M308 224 v6 M316 219 v16 M324 222 v10 M332 224 v6 M340 221 v12 M348 223 v8"/>
+</g>
+<rect x="203" y="256" width="172" height="98" rx="14" fill="#eaebf9"/>
+<rect x="215" y="268" width="148" height="74" rx="8" fill="none" stroke="#8e9095" stroke-width="3" stroke-dasharray="7 6"/>
+<path d="M236 326 L264 296 L284 314 L300 300 L338 326 Z" fill="#8e9095" opacity=".35"/>
+<circle cx="318" cy="288" r="7" fill="#8e9095" opacity=".35"/>
+<path d="M224 334 L354 276" stroke="#f2b880" stroke-width="5" stroke-linecap="round"/>
+<rect x="203" y="366" width="140" height="32" rx="14" fill="#eaebf9"/>
+<rect x="215" y="379" width="100" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="203" y="410" width="182" height="44" rx="14" fill="#eaebf9"/>
+<rect x="215" y="422" width="150" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="215" y="436" width="96" height="7" rx="3.5" fill="#8e9095"/>
+<rect x="203" y="466" width="104" height="32" rx="14" fill="#eaebf9"/>
+<rect x="215" y="479" width="70" height="7" rx="3.5" fill="#8e9095"/>
+<ellipse cx="96" cy="548" rx="64" ry="8" fill="#151c25" opacity=".1"/>
+<circle cx="96" cy="490" r="46" fill="none" stroke="#646cfa" stroke-width="14"/>
+<circle cx="96" cy="490" r="24" fill="none" stroke="#646cfa" stroke-width="10"/>
+<path d="M140 506 Q158 540 146 570" stroke="#646cfa" stroke-width="8" fill="none" stroke-linecap="round"/>
+<ellipse cx="500" cy="380" rx="54" ry="7" fill="#151c25" opacity=".1"/>
+<g transform="rotate(12 500 300)">
+<path d="M548 280 Q574 286 572 312 Q570 334 586 340 M548 300 Q566 312 560 338" stroke="#f2b880" stroke-width="6" fill="none" stroke-linecap="round"/>
+<rect x="452" y="246" width="96" height="114" rx="18" fill="#fafafa"/>
+<circle cx="500" cy="303" r="32" fill="#f4f2f2"/>
+<circle cx="489" cy="296" r="5" fill="#444a51"/>
+<circle cx="511" cy="296" r="5" fill="#444a51"/>
+<circle cx="500" cy="314" r="5" fill="#444a51"/>
+</g>
+<ellipse cx="510" cy="560" rx="58" ry="7" fill="#151c25" opacity=".1"/>
+<g stroke-linecap="round" fill="none">
+<path d="M482 478 L540 552 M494 468 L566 532" stroke="#7a70e1" stroke-width="16"/>
+<path d="M482 478 Q458 458 450 432 M494 468 Q474 446 450 432" stroke="#444a51" stroke-width="11"/>
+</g>
+<circle cx="488" cy="473" r="9" fill="#8e9095"/>
+</svg>

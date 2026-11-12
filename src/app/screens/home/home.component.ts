@@ -4,8 +4,7 @@ import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 
 import { PortfolioFeedModule } from './portfolio-feed/portfolio-feed.module';
-import { NavigationComponent } from 'src/app/components/navigation/navigation.component';
-import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { PageShellComponent } from 'src/app/components/page-shell/page-shell.component';
 
 registerLocaleData(localePT);
 
@@ -14,9 +13,8 @@ registerLocaleData(localePT);
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     imports: [
-      NavigationComponent,
+      PageShellComponent,
       PortfolioFeedModule,
-      FooterComponent,
     ]
 })
 export class HomeComponent {
