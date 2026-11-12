@@ -22,8 +22,8 @@
         <button type="button" [attr.aria-pressed]="view() === 'preview'" (click)="setView('preview')">Visualizar</button>
       </div>
       <div class="actions">
-        <button type="button" class="pro-btn ghost" (click)="newInvoice()"><ng-icon name="tablerPlus" size="1.1rem" />Nova</button>
-        <button type="button" class="pro-btn ghost" (click)="store.saveInvoice()"><ng-icon name="tablerDeviceFloppy" size="1.1rem" />{{ store.inHistory() ? 'Salvar alterações' : 'Salvar' }}</button>
+        <button type="button" class="pro-btn ghost" (click)="newInvoice()" aria-label="Nova invoice"><ng-icon name="tablerPlus" size="1.1rem" /><span class="lbl">Nova</span></button>
+        <button type="button" class="pro-btn ghost" (click)="store.saveInvoice()" [attr.aria-label]="store.inHistory() ? 'Salvar alterações' : 'Salvar invoice'"><ng-icon name="tablerDeviceFloppy" size="1.1rem" /><span class="lbl">{{ store.inHistory() ? 'Salvar alterações' : 'Salvar' }}</span></button>
       </div>
     }
   </div>
@@ -35,6 +35,14 @@
       </div>
     }
     <aside class="col-preview" aria-label="Pré-visualização do documento">
+      <div class="exports" role="group" aria-label="Exportar">
+        @for (e of exports; track e.kind) {
+          <button type="button" class="pro-btn" [class.ghost]="e.kind !== 'pdf'" [disabled]="!!busy()" [attr.aria-busy]="busy() === e.kind" (click)="run(e.kind)" [attr.data-export]="e.kind">
+            @if (busy() === e.kind) { <span class="spin" aria-hidden="true"></span> } @else { <ng-icon [name]="e.icon" size="1.15rem" /> }
+            {{ e.label }}
+          </button>
+        }
+      </div>
       @defer (on idle) {
         <app-template-strip [doc]="thumbDoc()" [selected]="store.invoice().template" (pick)="pickTemplate($event)" />
         <div class="paper-wrap">
@@ -44,14 +52,7 @@
         <div class="strip-skeleton" aria-hidden="true"></div>
         <div class="paper-wrap"><div class="paper-skeleton" aria-hidden="true"></div></div>
       }
-      <div class="exports" role="group" aria-label="Exportar">
-        @for (e of exports; track e.kind) {
-          <button type="button" class="pro-btn" [class.ghost]="e.kind !== 'pdf'" [disabled]="!!busy()" [attr.aria-busy]="busy() === e.kind" (click)="run(e.kind)" [attr.data-export]="e.kind">
-            @if (busy() === e.kind) { <span class="spin" aria-hidden="true"></span> } @else { <ng-icon [name]="e.icon" size="1.15rem" /> }
-            {{ e.label }}
-          </button>
-        }
-      </div>
+
     </aside>
   </div>
 
@@ -87,16 +88,7 @@
     <button type="button" class="pro-btn ghost w-full" (click)="exportSheet.close()">Fechar</button>
   </dialog>
 
-  <div class="toast-region" role="status" aria-live="polite">
-    @if (store.toast(); as toast) {
-      <div class="toast" [class.raised]="!typing()">
-        <span>{{ toast.message }}</span>
-        @if (toast.actionLabel) {
-          <button type="button" (click)="store.dismissToast(true)">{{ toast.actionLabel }}</button>
-        }
-      </div>
-    }
-  </div>
+  <app-invoice-toast [raised]="!typing()" />
 
   <app-party-dialog />
   <app-pro-tool-footer [slug]="tool.slug" />

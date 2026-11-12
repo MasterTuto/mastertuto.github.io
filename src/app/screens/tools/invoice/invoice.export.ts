@@ -106,8 +106,9 @@ export async function exportPdf(source: HTMLElement, fileName: string, title: st
       ctx.fillRect(0, 0, slice.width, slice.height);
       const sy = Math.round(start * scale);
       const sh = Math.min(canvas.height - sy, Math.round((end - start) * scale));
-      // Continuation pages: stretch the first pixel row into the top margin so side bands stay continuous.
-      if (offset) ctx.drawImage(canvas, 0, sy, canvas.width, 1, 0, 0, canvas.width, Math.round(offset * scale));
+      // Continuation pages: stretch a pixel row from the top padding of the first block into the margin, so
+      // side bands and backgrounds stay continuous.
+      if (offset) ctx.drawImage(canvas, 0, Math.min(canvas.height - 1, sy + Math.round(4 * scale)), canvas.width, 1, 0, 0, canvas.width, Math.round(offset * scale));
       ctx.drawImage(canvas, 0, sy, canvas.width, sh, 0, Math.round(offset * scale), canvas.width, sh);
       if (index > 0) pdf.addPage('a4', 'portrait');
       pdf.addImage(slice.toDataURL('image/png'), 'PNG', 0, 0, pageW, (slice.height / scale) * ptPerPx, undefined, 'FAST');
@@ -129,10 +130,10 @@ export function printDocument(source: HTMLElement): void {
       .inv-print-host { display: none; }
       @media print {
         @page { size: A4; margin: 0; }
-        html, body { background: #fff !important; }
+        html, body { margin: 0 !important; padding: 0 !important; min-height: 0 !important; background: #fff !important; }
         body > *:not(.inv-print-host) { display: none !important; }
-        .inv-print-host { display: block !important; width: 210mm; }
-        .inv-print-host .inv-doc { -webkit-print-color-adjust: exact; print-color-adjust: exact; zoom: ${(210 / 25.4) * 96 / PAGE_W}; }
+        .inv-print-host { display: block !important; position: absolute; top: 0; left: 0; width: 210mm; margin: 0; }
+        .inv-print-host .inv-doc { -webkit-print-color-adjust: exact; print-color-adjust: exact; zoom: .995; }
         .inv-print-host [data-keep] { break-inside: avoid; }
       }`;
     document.head.appendChild(style);

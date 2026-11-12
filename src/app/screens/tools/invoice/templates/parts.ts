@@ -30,7 +30,7 @@ import type { DocView, PartyView } from '../invoice.view';
     }
     @if (party().email || party().phone) {
       <p class="ip-line ip-contact">
-        {{ party().email }}@if (party().email && party().phone) {<span class="ip-sep"> · </span>}{{ party().phone }}
+        @if (party().email) {<span class="ip-nw">{{ party().email }}</span>}@if (party().email && party().phone) {<span class="ip-sep"> · </span>}@if (party().phone) {<span class="ip-nw">{{ party().phone }}</span>}
       </p>
     }
   `,
@@ -240,7 +240,7 @@ export class InvNotesComponent {
   template: `
     @if (doc().logo) {
       <img class="ilogo" [src]="doc().logo" alt="" />
-    } @else if (monogram()) {
+    } @else if (monogram() && initials()) {
       <span class="ilogo ilogo-mono" aria-hidden="true">{{ initials() }}</span>
     }
   `,
@@ -250,7 +250,7 @@ export class InvLogoComponent {
   /** Without a logo, show the initials of the business in a brand-colored square. */
   readonly monogram = input(false);
   readonly initials = computed(() =>
-    (this.doc().emitter.name || '?')
+    this.doc().emitter.name
       .split(/\s+/)
       .filter((word) => word.length > 2 || /^[A-Z]/.test(word))
       .slice(0, 2)

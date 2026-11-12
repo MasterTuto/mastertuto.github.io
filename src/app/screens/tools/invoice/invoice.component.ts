@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, afterNextRender, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, PLATFORM_ID, afterNextRender, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   tablerDeviceFloppy, tablerEdit, tablerEye, tablerFileExport, tablerFileTypeDocx, tablerFileTypePdf, tablerLink, tablerPhoto,
@@ -11,6 +12,7 @@ import { invoiceTool } from '../pro-tools/pro-tools.data';
 import { InvoiceEditorComponent } from './editor/invoice-editor.component';
 import { InvoiceHistoryComponent } from './editor/history.component';
 import { PartyDialogComponent } from './editor/party-dialog.component';
+import { InvoiceToastComponent } from './editor/toast.component';
 import { InvoiceContentComponent, INVOICE_FAQ } from './invoice-content.component';
 import { exportDocx, exportPdf, exportPng, printDocument } from './invoice.export';
 import { shrinkDataUrl } from './invoice.image';
@@ -34,7 +36,7 @@ type ExportKind = 'pdf' | 'docx' | 'png' | 'print' | 'link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ProToolFooterComponent, InvoiceEditorComponent, InvoiceHistoryComponent, PartyDialogComponent, InvoiceContentComponent,
-    InvoicePreviewComponent, TemplateStripComponent, NgIconComponent,
+    InvoicePreviewComponent, TemplateStripComponent, NgIconComponent, InvoiceToastComponent,
   ],
   providers: [
     InvoiceStore,
@@ -71,8 +73,10 @@ export class InvoiceGeneratorComponent {
   constructor() {
     useProToolSeo(this.tool, INVOICE_FAQ);
     let timer: ReturnType<typeof setTimeout> | undefined;
+    const browser = isPlatformBrowser(inject(PLATFORM_ID));
     effect(() => {
       const doc = this.doc();
+      if (!browser) return;
       clearTimeout(timer);
       timer = setTimeout(() => this.thumbDoc.set(doc), 450);
     });

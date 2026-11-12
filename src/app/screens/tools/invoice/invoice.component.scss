@@ -11,7 +11,8 @@
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid rgb(68 74 81 / .12); scroll-margin-top: calc(var(--site-nav-h, 0px) + .5rem); }
 .toolbar:empty { display: none; }
 .actions { display: flex; gap: .5rem; margin-left: auto; }
-.switch { width: min(100%, 15rem); }
+.switch { flex: 1; max-width: 15rem; }
+@media (max-width: 479px) { .actions .lbl { display: none; } .actions .pro-btn { padding-inline: .8rem; } }
 
 .workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; align-items: start; }
 .col-preview { display: grid; gap: 1rem; min-width: 0; }
@@ -55,8 +56,3 @@
 .elist button { display: flex; align-items: center; gap: .9rem; min-height: 56px; padding: .5rem .25rem; border-bottom: 1px solid rgb(68 74 81 / .1); color: #444a51; text-align: left; }
 .elist span { display: grid; }
 .elist small { color: #8e9095; }
-
-.toast-region { position: fixed; left: 50%; bottom: 1rem; z-index: 60; transform: translateX(-50%); width: max-content; max-width: calc(100vw - 1.5rem); }
-.toast { display: flex; align-items: center; gap: 1rem; padding: .75rem 1rem; border-radius: .9rem; background: #151c25; color: #e0e1df; font-size: .875rem; box-shadow: 0 16px 40px -12px rgb(21 28 37 / .6); }
-.toast button { color: #b8b2ff; font-weight: 700; }
-@media (max-width: 959px) { .toast.raised { margin-bottom: 4.5rem; } }

@@ -51,7 +51,7 @@ import { NumberInputDirective } from './number-input.directive';
             </div>
             <div class="pro-field">
               <label class="lbl" [for]="'item-disc-' + item.id">Desconto</label>
-              <div class="pro-input-wrap">
+              <div class="pro-input-wrap disc">
                 <input class="pro-input" [id]="'item-disc-' + item.id" appNumber [decimals]="2" [fixed]="false" [max]="100" [value]="item.discount" (valueChange)="set(item, 'discount', $event)"
                   (keydown.enter)="last && addAfter($event)" [attr.enterkeyhint]="last ? 'enter' : 'next'" placeholder="0" />
                 <span class="pro-suffix">%</span>
@@ -88,6 +88,8 @@ import { NumberInputDirective } from './number-input.directive';
     @media (min-width: 560px) { .nums { grid-template-columns: .8fr .9fr 1.4fr .85fr 1.2fr; } }
     .pre { position: absolute; left: .85rem; color: #8e9095; font-size: .875rem; font-weight: 550; pointer-events: none; }
     .price .pro-input { padding-right: .6rem; }
+    .disc .pro-input { padding-right: 1.9rem; }
+    .disc .pro-suffix { right: .7rem; }
     .amount { display: flex; flex-direction: column; justify-content: flex-end; gap: .4rem; min-width: 0; text-align: right; }
     .amount strong { display: flex; min-height: 48px; align-items: center; justify-content: flex-end; color: #151c25; font-size: 1rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
     @media (max-width: 559px) { .amount { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; } .amount strong { min-height: 0; } }

@@ -105,9 +105,14 @@ export async function buildDocx(invoice: Invoice, view: DocView): Promise<Blob> 
     rows: [
       new TableRow({
         children: [
-          cell([...(logo ? [new Paragraph({ children: [logo], spacing: { after: 120 } })] : []), ...partyParagraphs(view.emitter, '', brand).slice(1)], {
-            verticalAlign: VerticalAlign.TOP,
-          }),
+          cell(
+            [
+              ...(logo ? [new Paragraph({ children: [logo], spacing: { after: 120 } })] : []),
+              para([text(view.emitter.name || '—', { bold: true, size: 15 })]),
+              ...(view.emitter.taxId ? [para([text(view.emitter.taxId, { size: 9.5, color: GRAY })])] : []),
+            ],
+            { verticalAlign: VerticalAlign.TOP },
+          ),
           cell(
             [
               para([text(view.title, { bold: true, size: 26, color: brand, caps: true })], { align: AlignmentType.RIGHT, after: 120 }),
