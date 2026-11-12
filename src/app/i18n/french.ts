@@ -1068,4 +1068,43 @@ export const frenchTranslations: Translations = {
     'related-queens':
       'Un puzzle de placement quotidien inspiré des N-Reines.',
   },
+  seo: {
+    cardTagline: 'Sites web, landing pages et automatisation',
+    home: {
+      title: 'Breno Carvalho — Landing pages et sites web qui convertissent',
+      description: 'Des landing pages et sites web rapides, modernes et optimisés pour le référencement, qui transforment les visiteurs en clients. Design, développement, hébergement et automatisation.',
+    },
+    services: {
+      title: 'Création de sites web et de landing pages',
+      description: 'Landing pages, sites professionnels, blogs, portfolios et intégrations avec WhatsApp, CRM et paiements. Trouvez le service adapté à votre activité.',
+    },
+    landingPages: {
+      title: 'Landing pages qui transforment les visiteurs en clients',
+      description: 'Des landing pages à forte conversion avec un texte persuasif, des preuves sociales et un appel à l’action clair. Rapides, mobile-first et prêtes pour la publicité.',
+    },
+    websitesForFreelancers: {
+      title: 'Sites professionnels pour indépendants et freelances',
+      description: 'Un site professionnel qui inspire confiance et attire de nouveaux clients : services, portfolio, témoignages et contact WhatsApp, rapide et facile à trouver sur Google.',
+    },
+    blogsAndPortfolios: {
+      title: 'Blogs et portfolios pour mettre en valeur votre travail',
+      description: 'Un blog ou un portfolio pour présenter votre travail, publier du contenu et attirer votre public idéal, avec SEO, chargement rapide et mises à jour simples.',
+    },
+    integrations: {
+      title: 'Intégrations web avec WhatsApp, CRM, e-mail et paiements',
+      description: 'Connectez votre site à WhatsApp, au CRM, à l’e-mail marketing, aux paiements et aux tableurs pour capter et suivre vos contacts automatiquement.',
+    },
+    sudoku: {
+      title: 'Sudoku en ligne gratuit en grilles 4×4, 6×6 et 9×9',
+      description: 'Jouez au Sudoku gratuitement dans votre navigateur : grilles 4×4, 6×6 et 9×9, trois niveaux de difficulté, notes, indices et annulation. Sur mobile et ordinateur.',
+    },
+    queens: {
+      title: 'Queens — jeu de logique gratuit en ligne',
+      description: 'Placez une reine dans chaque ligne, colonne et région colorée sans que deux reines se touchent. Cinq niveaux de difficulté et des indices. Jouez gratuitement.',
+    },
+    wordLadder: {
+      title: 'Word Ladder — jeu de mots gratuit en ligne',
+      description: 'Changez une lettre à la fois pour transformer le mot de départ en mot d’arrivée. Défi quotidien et trois niveaux de difficulté, gratuit dans le navigateur.',
+    },
+  },
 };

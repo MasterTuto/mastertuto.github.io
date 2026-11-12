@@ -1047,4 +1047,43 @@ export const portugueseTranslations: Translations = {
     'related-queens':
       'Um puzzle de posicionamento diário inspirado nas N-Rainhas.',
   },
+  seo: {
+    cardTagline: 'Sites, landing pages e automação',
+    home: {
+      title: 'Breno Carvalho — Landing pages e sites que convertem',
+      description: 'Landing pages e sites rápidos, modernos e otimizados para o Google, feitos para transformar visitantes em clientes. Design, desenvolvimento, hospedagem e automação.',
+    },
+    services: {
+      title: 'Criação de sites e landing pages profissionais',
+      description: 'Landing pages, sites profissionais, blogs, portfólios e integrações com WhatsApp, CRM e pagamentos. Encontre o serviço certo para o seu negócio.',
+    },
+    landingPages: {
+      title: 'Criação de landing pages que transformam visitantes em clientes',
+      description: 'Landing pages de alta conversão com texto persuasivo, prova social e chamada para ação clara. Rápidas, pensadas para o celular e prontas para anúncios.',
+    },
+    websitesForFreelancers: {
+      title: 'Sites profissionais para autônomos e profissionais liberais',
+      description: 'Um site profissional que passa confiança e traz novos clientes: serviços, portfólio, depoimentos e contato pelo WhatsApp, rápido e fácil de achar no Google.',
+    },
+    blogsAndPortfolios: {
+      title: 'Criação de blogs e portfólios para mostrar seu trabalho',
+      description: 'Um blog ou portfólio para mostrar seu trabalho, publicar conteúdo e atrair o público certo, com SEO, carregamento rápido e atualização fácil.',
+    },
+    integrations: {
+      title: 'Integração do site com WhatsApp, CRM, e-mail e pagamentos',
+      description: 'Conecte seu site ao WhatsApp, CRM, e-mail marketing, pagamentos e planilhas para captar e acompanhar contatos automaticamente, sem trabalho manual.',
+    },
+    sudoku: {
+      title: 'Sudoku online grátis com grades 4×4, 6×6 e 9×9',
+      description: 'Jogue Sudoku grátis no navegador: grades 4×4, 6×6 e 9×9, três níveis de dificuldade, anotações, dicas e desfazer. Funciona no celular e no computador.',
+    },
+    queens: {
+      title: 'Queens — jogo de lógica online grátis',
+      description: 'Coloque uma rainha em cada linha, coluna e região colorida sem que duas se toquem. Cinco níveis de dificuldade e dicas. Jogue grátis online.',
+    },
+    wordLadder: {
+      title: 'Word Ladder — jogo de palavras online grátis',
+      description: 'Troque uma letra por vez para transformar a palavra inicial na palavra final. Desafio diário e três níveis de dificuldade, grátis no navegador.',
+    },
+  },
 };

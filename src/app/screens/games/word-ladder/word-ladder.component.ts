@@ -8,10 +8,9 @@ import {
   viewChild,
   PLATFORM_ID,
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslationInitializer } from 'src/app/service/translation.initializer';
 import { PosthogService } from 'src/app/service/posthog.service';
@@ -28,12 +27,12 @@ import {
   WordLadderPuzzle,
 } from 'src/app/utils/word-ladder/word-ladder';
 import { TranslateService } from 'src/app/service/translate.service';
+import { useGameSeo } from '../game-seo';
 
 type GameMode = 'classic' | 'daily';
 type GameStatus = 'idle' | 'playing' | 'won';
 
 const STORAGE_KEY = 'wl.progress.v1';
-const SITE_URL = 'https://brenocs.dev.br';
 
 interface Progress {
   best: Partial<Record<WordLadderDifficulty, number>>;
@@ -51,13 +50,9 @@ interface Progress {
 })
 export class WordLadderComponent {
   private platformId = inject(PLATFORM_ID);
-  private route = inject(ActivatedRoute);
   private translateService = inject(TranslateService);
   private translationInitializer = inject(TranslationInitializer);
   private posthog = inject(PosthogService);
-  private title = inject(Title);
-  private meta = inject(Meta);
-  private document = inject(DOCUMENT);
 
   readonly moveInput = viewChild<ElementRef<HTMLInputElement>>('moveInput');
 
@@ -137,7 +132,7 @@ export class WordLadderComponent {
   }
 
   constructor() {
-    this.setupSeo();
+    useGameSeo('word-ladder', 'wordLadder', () => this.faqJsonLd());
 
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
@@ -514,159 +509,70 @@ export class WordLadderComponent {
     }
   }
 
-  private setupSeo(): void {
-    const path = this.route.snapshot.pathFromRoot
-      .flatMap((route) => route.url.map((segment) => segment.path))
-      .join('/');
-    const url = `${SITE_URL}/${path}`;
-    this.title.setTitle('Word Ladder Game – Play Free Online Word Puzzles');
-    this.meta.updateTag({
-      name: 'description',
-      content:
-        'Play a free Word Ladder Game online. Change one letter at a time to transform the starting word into the target word. Daily puzzles, three difficulty levels.',
-    });
-    this.meta.updateTag({
-      property: 'og:title',
-      content: 'Word Ladder Game – Play Free Online Word Puzzles',
-    });
-    this.meta.updateTag({
-      property: 'og:description',
-      content:
-        'Change one letter at a time to turn the starting word into the target word. Play word ladder puzzles online for free.',
-    });
-    this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:url', content: url });
-
-    const doc = this.document;
-    const existingLink = doc.querySelector<HTMLLinkElement>(
-      'link[rel="canonical"]',
-    );
-    if (existingLink) existingLink.remove();
-    const link = doc.createElement('link');
-    link.rel = 'canonical';
-    link.href = url;
-    doc.head.appendChild(link);
-
-    const existing = doc.getElementById('word-ladder-jsonld');
-    if (existing) existing.remove();
-    const script = doc.createElement('script');
-    script.id = 'word-ladder-jsonld';
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(this.buildJsonLd(url));
-    doc.head.appendChild(script);
-  }
-
-  private buildJsonLd(url: string): object {
-    return {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'WebApplication',
-          name: 'Word Ladder Game',
-          url,
-          applicationCategory: 'GameApplication',
-          operatingSystem: 'Web',
-          browserRequirements: 'Requires JavaScript',
-          offers: {
-            '@type': 'Offer',
-            price: '0',
-            priceCurrency: 'USD',
+  /** FAQ about the rules, shown in search results next to the game. */
+  private faqJsonLd(): Record<string, unknown>[] {
+    return [
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is a Word Ladder game?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'A word ladder is a word puzzle where you transform a starting word into a target word by changing exactly one letter at a time, using a real English word after every change.',
+            },
           },
-        },
-        {
-          '@type': 'Game',
-          name: 'Word Ladder Game',
-          url,
-          genre: 'Word Puzzle',
-          numberOfPlayers: '1',
-          description:
-            'Transform the starting word into the target word by changing exactly one letter at a time. Every intermediate word must be a real word. Play online for free with daily puzzles and three difficulty levels.',
-          offers: {
-            '@type': 'Offer',
-            price: '0',
-            priceCurrency: 'USD',
+          {
+            '@type': 'Question',
+            name: 'How do you play Word Ladder?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Start from the given word, then enter a new word that differs from it by exactly one letter. Keep going until you reach the target word. Try to finish in as few moves as possible.',
+            },
           },
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: 'Games',
-              item: url.slice(0, url.lastIndexOf('/')),
+          {
+            '@type': 'Question',
+            name: 'What are the rules of Word Ladder?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Every word must be a real English word of the same length as the start and target words, and each move may change exactly one letter. You cannot repeat your previous word or skip letters.',
             },
-            {
-              '@type': 'ListItem',
-              position: 3,
-              name: 'Word Ladder Game',
-              item: url,
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you change more than one letter?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'No. Each move may change exactly one letter. Changing two or more letters in a single move is not allowed in a word ladder.',
             },
-          ],
-        },
-        {
-          '@type': 'FAQPage',
-          mainEntity: [
-            {
-              '@type': 'Question',
-              name: 'What is a Word Ladder game?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'A word ladder is a word puzzle where you transform a starting word into a target word by changing exactly one letter at a time, using a real English word after every change.',
-              },
+          },
+          {
+            '@type': 'Question',
+            name: 'What makes a Word Ladder difficult?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Difficulty comes from the distance between the words, the number of available intermediate words, and how many different paths exist between the start and target.',
             },
-            {
-              '@type': 'Question',
-              name: 'How do you play Word Ladder?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Start from the given word, then enter a new word that differs from it by exactly one letter. Keep going until you reach the target word. Try to finish in as few moves as possible.',
-              },
+          },
+          {
+            '@type': 'Question',
+            name: 'Are Word Ladder puzzles good for kids?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. Short word ladders with common words help children practise spelling and vocabulary, and they are often used in classrooms as a word-building activity.',
             },
-            {
-              '@type': 'Question',
-              name: 'What are the rules of Word Ladder?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Every word must be a real English word of the same length as the start and target words, and each move may change exactly one letter. You cannot repeat your previous word or skip letters.',
-              },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I play Word Ladder online for free?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. This Word Ladder game is completely free to play online in your browser, with no registration and no downloads.',
             },
-            {
-              '@type': 'Question',
-              name: 'Can you change more than one letter?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'No. Each move may change exactly one letter. Changing two or more letters in a single move is not allowed in a word ladder.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'What makes a Word Ladder difficult?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Difficulty comes from the distance between the words, the number of available intermediate words, and how many different paths exist between the start and target.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'Are Word Ladder puzzles good for kids?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Yes. Short word ladders with common words help children practise spelling and vocabulary, and they are often used in classrooms as a word-building activity.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'Can I play Word Ladder online for free?',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Yes. This Word Ladder game is completely free to play online in your browser, with no registration and no downloads.',
-              },
-            },
-          ],
-        },
-      ],
-    };
+          },
+        ],
+      },
+    ];
   }
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -18,6 +17,7 @@ import { map } from 'rxjs';
 import { ButtonComponent } from 'src/app/components/@my/button/button.component';
 import { industries } from 'src/app/data/industries.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
+import { PERSON_REF, usePageSeo } from 'src/app/seo/page-seo';
 import { createWhatsAppLink } from 'src/app/utils/html';
 
 /** A segment page: the niche's routine, its problems and how a site with automation changes them. */
@@ -40,8 +40,6 @@ import { createWhatsAppLink } from 'src/app/utils/html';
   ],
 })
 export class IndustryPageComponent {
-  private title = inject(Title);
-  private meta = inject(Meta);
   private slug = toSignal(inject(ActivatedRoute).data.pipe(map((data) => data['slug'] as string)));
 
   readonly industry = computed(() => industries.find((item) => item.slug === this.slug()));
@@ -52,17 +50,28 @@ export class IndustryPageComponent {
   );
 
   constructor() {
-    effect(() => {
-      const page = this.industry();
-      if (!page) return;
-      const title = `Sites e automação para ${page.name} | BrenoCS`;
-      this.title.setTitle(title);
-      this.meta.updateTag({ name: 'description', content: page.intro });
-      this.meta.updateTag({ property: 'og:title', content: title });
-      this.meta.updateTag({ property: 'og:description', content: page.intro });
-      this.meta.updateTag({ property: 'og:url', content: `https://brenocs.dev.br/para/${page.slug}` });
-      this.meta.updateTag({ name: 'twitter:title', content: title });
-      this.meta.updateTag({ name: 'twitter:description', content: page.intro });
+    usePageSeo(() => {
+      const page = this.industry()!;
+      const path = `/para/${page.slug}`;
+      return {
+        title: `Site e automação para ${page.name}: menos tarefa manual, mais clientes`,
+        description: page.intro,
+        path,
+        // Segment pages are written in Portuguese: every language prefix points to the same page.
+        fixedLanguage: 'pt',
+        breadcrumbs: [['Início', '/'], ['Segmentos', '/para'], [page.name, path]],
+        jsonLd: [
+          {
+            '@type': 'Service',
+            name: `Site e automação para ${page.name}`,
+            serviceType: 'Criação de sites e automação',
+            description: page.intro,
+            audience: { '@type': 'Audience', audienceType: page.name },
+            provider: PERSON_REF,
+            areaServed: { '@type': 'Country', name: 'Brasil' },
+          },
+        ],
+      };
     });
     // A new segment opens on its first problem.
     effect(() => {

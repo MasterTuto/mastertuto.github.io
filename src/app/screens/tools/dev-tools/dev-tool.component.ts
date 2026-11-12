@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { decodeJwt, formatJson, jsonError, numericDate, tokenTiming } from './dev-tools.logic';
 import { devTools } from './dev-tools.data';
+import { PERSON_REF, usePageSeo } from 'src/app/seo/page-seo';
 
 @Component({
   selector: 'app-dev-tool',
@@ -41,6 +42,30 @@ export class DevToolComponent {
   })));
 
   constructor() {
+    const tool = this.tool;
+    const path = `/tools/dev-tools/${tool.slug}`;
+    usePageSeo(() => ({
+      title: `${tool.name}: Free ${tool.keyword.replace(/ online$/, '')} Online`,
+      description: tool.description,
+      path,
+      // Written in English only: one canonical URL for every language prefix.
+      fixedLanguage: 'en',
+      breadcrumbs: [['Home', '/'], ['Tools', '/tools'], ['Dev Tools', '/tools/dev-tools'], [tool.name, path]],
+      jsonLd: [
+        {
+          '@type': 'WebApplication',
+          name: tool.name,
+          description: tool.description,
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Any',
+          browserRequirements: 'Requires JavaScript',
+          isAccessibleForFree: true,
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+          author: PERSON_REF,
+        },
+      ],
+    }));
+
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
       if (!this.isJson) {

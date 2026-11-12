@@ -1048,4 +1048,43 @@ export const germanTranslations: Translations = {
     'related-queens':
       'Ein tägliches Platzierungsrätsel, inspiriert vom N-Damen-Problem.',
   },
+  seo: {
+    cardTagline: 'Websites, Landing Pages und Automatisierung',
+    home: {
+      title: 'Breno Carvalho — Landing Pages und Websites, die konvertieren',
+      description: 'Schnelle, moderne und suchmaschinenoptimierte Landing Pages und Websites, die Besucher zu Kunden machen. Design, Entwicklung, Hosting und Automatisierung.',
+    },
+    services: {
+      title: 'Website- und Landing-Page-Entwicklung',
+      description: 'Landing Pages, professionelle Websites, Blogs, Portfolios und Integrationen mit WhatsApp, CRM und Zahlungen. Finde den passenden Service für dein Business.',
+    },
+    landingPages: {
+      title: 'Landing Pages, die Besucher zu Kunden machen',
+      description: 'Landing Pages mit hoher Conversion: überzeugende Texte, Social Proof und ein klarer Call-to-Action. Schnell, mobil optimiert und bereit für Werbeanzeigen.',
+    },
+    websitesForFreelancers: {
+      title: 'Professionelle Websites für Selbstständige und Freelancer',
+      description: 'Eine professionelle Website, die Vertrauen schafft und neue Kunden bringt: Leistungen, Portfolio, Referenzen und WhatsApp-Kontakt, schnell und gut auffindbar bei Google.',
+    },
+    blogsAndPortfolios: {
+      title: 'Blogs und Portfolios, die deine Arbeit zeigen',
+      description: 'Ein Blog oder Portfolio, um deine Arbeit zu zeigen, Inhalte zu veröffentlichen und deine Zielgruppe zu erreichen, mit SEO, schneller Ladezeit und einfacher Pflege.',
+    },
+    integrations: {
+      title: 'Website-Integrationen mit WhatsApp, CRM, E-Mail und Zahlungen',
+      description: 'Verbinde deine Website mit WhatsApp, CRM, E-Mail-Marketing, Zahlungen und Tabellen, um Anfragen automatisch zu erfassen und nachzuverfolgen.',
+    },
+    sudoku: {
+      title: 'Kostenloses Online-Sudoku mit 4×4-, 6×6- und 9×9-Gittern',
+      description: 'Spiele Sudoku kostenlos im Browser: 4×4-, 6×6- und 9×9-Gitter, drei Schwierigkeitsstufen, Notizen, Hinweise und Rückgängig. Auf Handy und Computer.',
+    },
+    queens: {
+      title: 'Queens — kostenloses Online-Logikspiel',
+      description: 'Setze eine Dame in jede Zeile, Spalte und farbige Region, ohne dass sich zwei berühren. Fünf Schwierigkeitsstufen und Hinweise. Kostenlos online spielen.',
+    },
+    wordLadder: {
+      title: 'Word Ladder — kostenloses Online-Wortspiel',
+      description: 'Ändere jeweils einen Buchstaben, um das Startwort in das Zielwort zu verwandeln. Tägliches Rätsel und drei Schwierigkeitsstufen, kostenlos im Browser.',
+    },
+  },
 };

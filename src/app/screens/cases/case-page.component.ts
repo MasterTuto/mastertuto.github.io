@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -22,6 +21,7 @@ import { CaseRole, projectCases } from 'src/app/data/cases.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
+import { PERSON_REF, SITE_URL, usePageSeo } from 'src/app/seo/page-seo';
 import { createWhatsAppLink } from 'src/app/utils/html';
 
 /** Full case study of a project; the case is chosen by the route's `slug` data. */
@@ -46,8 +46,6 @@ import { createWhatsAppLink } from 'src/app/utils/html';
 })
 export class CasePageComponent {
   private translateService = inject(TranslateService);
-  private title = inject(Title);
-  private meta = inject(Meta);
 
   private slug = toSignal(inject(ActivatedRoute).data.pipe(map((data) => data['slug'] as string)));
 
@@ -66,16 +64,33 @@ export class CasePageComponent {
   }
 
   constructor() {
-    effect(() => {
-      const project = this.project();
-      if (!project) return;
-      const title = `${project.name} — ${this.translateService.translate(`cases.items.${project.key}.tagline`)}`;
-      const description = this.translateService.translate(`cases.items.${project.key}.summary`);
-      this.title.setTitle(title);
-      this.meta.updateTag({ name: 'description', content: description });
-      this.meta.updateTag({ property: 'og:title', content: title });
-      this.meta.updateTag({ property: 'og:description', content: description });
-      this.meta.updateTag({ property: 'og:image', content: `https://brenocs.dev.br/${project.desktop}` });
+    const t = (path: string) => this.translateService.translate(path);
+    usePageSeo(() => {
+      const project = this.project()!;
+      const path = `/cases/${project.slug}`;
+      const description = t(`cases.items.${project.key}.summary`);
+      return {
+        title: `Case ${project.name}: ${t(`cases.items.${project.key}.tagline`)}`,
+        description,
+        path,
+        type: 'article',
+        breadcrumbs: [
+          [t('home.nav.home'), '/'],
+          [t('home.nav.projects'), '/'],
+          [project.name, path],
+        ],
+        jsonLd: [
+          {
+            '@type': 'CreativeWork',
+            name: project.name,
+            headline: t(`cases.items.${project.key}.tagline`),
+            description,
+            url: project.url,
+            image: `${SITE_URL}/${project.desktop}`,
+            creator: PERSON_REF,
+          },
+        ],
+      };
     });
   }
 }

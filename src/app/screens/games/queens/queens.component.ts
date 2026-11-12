@@ -10,6 +10,7 @@ import {
 } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
+import { useGameSeo } from "../game-seo";
 import { TranslationInitializer } from "src/app/service/translation.initializer";
 import { generateSeed } from "src/app/utils/generate-seed";
 import { generatePuzzle } from "src/app/utils/queens-puzzle";
@@ -71,6 +72,8 @@ export class QueensComponent {
   }
 
   constructor() {
+    useGameSeo("queens", "queens");
+
     afterNextRender(() => {
       if (isPlatformBrowser(this.platformId)) {
         this.newGame();

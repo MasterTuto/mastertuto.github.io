@@ -15,6 +15,7 @@ import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslationInitializer } from 'src/app/service/translation.initializer';
 import { createWhatsAppLink } from 'src/app/utils/html';
 import { TranslateService } from 'src/app/service/translate.service';
+import { usePageSeo } from 'src/app/seo/page-seo';
 
 @Component({
   selector: 'app-services-index',
@@ -41,6 +42,19 @@ export class ServicesIndexComponent {
   private translationInitializer = inject(TranslationInitializer);
 
   services = services;
+
+  constructor() {
+    const t = (path: string) => this.translateService.translate(path);
+    usePageSeo(() => ({
+      title: t('seo.services.title'),
+      description: t('seo.services.description'),
+      path: '/services',
+      breadcrumbs: [
+        [t('home.nav.home'), '/'],
+        [t('home.nav.services'), '/services'],
+      ],
+    }));
+  }
 
   get lang(): string | null {
     return this.translationInitializer.currentLang;
