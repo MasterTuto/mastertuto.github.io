@@ -1,5 +1,5 @@
 .mem-grid{container-type:inline-size;display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:clamp(6px,2cqi,10px);touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-.mc{aspect-ratio:1;min-width:0;padding:0;border-radius:16%;perspective:700px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button.mc{aspect-ratio:1;min-width:0;min-height:0;padding:0;border-radius:16%;perspective:700px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mc:focus{outline:none}
 .mc:focus-visible{outline:2px solid #7a70e1;outline-offset:2px}
 .mc-inner{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;transition:transform .42s cubic-bezier(.2,.75,.3,1.15)}
@@ -13,3 +13,7 @@
 .mem-progress{transition:width .3s ease-out}
 @keyframes mem-pop{50%{transform:rotateY(180deg) scale(1.08)}}
 @media (prefers-reduced-motion:reduce){.mc-inner,.mem-progress{transition:none}.is-matched .mc-front{animation:none}}
+.mem-result{display:flex;flex-direction:column;gap:.75rem;padding-top:.75rem}
+.mem-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.mem-actions>*{display:grid}
+@media (min-width:640px){.mem-result{flex-direction:row;align-items:center;justify-content:space-between}}

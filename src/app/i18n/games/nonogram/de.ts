@@ -8,7 +8,7 @@ export const nonogram: NonogramStrings = {
   seo: {
     title: 'Nonogramm online gratis: Picross mit Tagesrätsel',
     description:
-      'Spiele kostenlos Nonogramme (Picross, Griddler) im Browser: 5×5, 10×10 und 15×15, Tagesrätsel, Ausmalen per Ziehen, Rückgängig und Rätsel, die rein logisch lösbar sind.',
+      'Nonogramme (Picross) kostenlos im Browser: 5×5, 10×10 und 15×15, Tagesrätsel, Ausmalen per Ziehen, Rückgängig und Rätsel, die rein logisch lösbar sind.',
   },
   size: 'Rastergröße',
   mode: 'Rätsel',

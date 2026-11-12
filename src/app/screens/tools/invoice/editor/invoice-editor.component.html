@@ -1,0 +1,264 @@
+@let i = inv();
+@let t = totals();
+<div class="ed" appFormFlow>
+  <!-- 01 · Emitter -->
+  <section class="sec" aria-labelledby="sec-from">
+    <header class="sec-head">
+      <span class="num">01</span>
+      <h2 id="sec-from">Seu negócio</h2>
+    </header>
+    @if (store.needsSetup()) {
+      <app-setup-stepper />
+    } @else {
+      <div class="party-row">
+        <div class="pro-field min-w-0 flex-1">
+          <label class="pro-label" for="inv-emitter">Perfil do emissor</label>
+          <select id="inv-emitter" class="pro-select" (change)="onEmitterSelect($event)">
+            @if (!emitterSaved()) {
+              <option value="" selected>{{ i.emitter.name ? i.emitter.name + ' (não salvo)' : 'Nenhum perfil' }}</option>
+            }
+            @for (p of store.emitters(); track p.id) {
+              <option [value]="p.id" [selected]="p.id === i.emitterId">{{ p.name || 'Sem nome' }}{{ p.id === store.defaultEmitterId() ? ' ★' : '' }}</option>
+            }
+            <option value="__new">+ Novo perfil…</option>
+          </select>
+        </div>
+        <button type="button" class="pro-btn ghost icon-btn" (click)="edit('emitter')" [attr.aria-label]="emitterSaved() ? 'Editar perfil' : 'Cadastrar perfil'">
+          <ng-icon [name]="emitterSaved() ? 'tablerPencil' : 'tablerPlus'" size="1.1rem" /><span class="hide-sm">{{ emitterSaved() ? 'Editar' : 'Salvar perfil' }}</span>
+        </button>
+        @if (emitterSaved(); as p) {
+          <details class="menu">
+            <summary class="pro-btn ghost icon-btn" aria-label="Mais ações do perfil"><ng-icon name="tablerDots" size="1.1rem" /></summary>
+            <div class="menu-list" (click)="closeMenu($event)">
+              <button type="button" (click)="store.setDefault(p)"><ng-icon name="tablerStar" />Usar como padrão</button>
+              <button type="button" (click)="editParty.emit({ party: store.duplicateParty(p), kind: 'emitter' })"><ng-icon name="tablerCopy" />Duplicar</button>
+              <button type="button" class="danger" (click)="store.deleteParty(p)"><ng-icon name="tablerTrash" />Excluir</button>
+            </div>
+          </details>
+        }
+      </div>
+      @if (i.emitter.name) {
+        <p class="summary"><strong>{{ i.emitter.name }}</strong> {{ summary(i.emitter) }}</p>
+      } @else {
+        <p class="summary">Cadastre seu negócio para preencher o cabeçalho, a numeração e os dados de pagamento.</p>
+      }
+    }
+  </section>
+
+  <!-- 02 · Client -->
+  <section class="sec" aria-labelledby="sec-to">
+    <header class="sec-head">
+      <span class="num">02</span>
+      <h2 id="sec-to">Cliente</h2>
+    </header>
+    <div class="party-row">
+      <div class="pro-field min-w-0 flex-1">
+        <label class="pro-label" for="inv-client">Faturar para</label>
+        <select id="inv-client" class="pro-select" (change)="onClientSelect($event)">
+          <option value="" [selected]="!i.clientId">{{ i.client.name && !clientSaved() ? i.client.name + ' (não salvo)' : 'Escolha um cliente…' }}</option>
+          @for (p of store.clients(); track p.id) {
+            <option [value]="p.id" [selected]="p.id === i.clientId">{{ p.name || 'Sem nome' }}{{ p.international ? ' 🌎' : '' }}{{ p.id === store.defaultClientId() ? ' ★' : '' }}</option>
+          }
+          <option value="__new">+ Novo cliente…</option>
+        </select>
+      </div>
+      @if (clientSaved() || i.client.name) {
+        <button type="button" class="pro-btn ghost icon-btn" (click)="edit('client')" [attr.aria-label]="clientSaved() ? 'Editar cliente' : 'Salvar cliente'">
+          <ng-icon [name]="clientSaved() ? 'tablerPencil' : 'tablerPlus'" size="1.1rem" /><span class="hide-sm">{{ clientSaved() ? 'Editar' : 'Salvar' }}</span>
+        </button>
+      } @else {
+        <button type="button" class="pro-btn icon-btn" (click)="editParty.emit({ party: null, kind: 'client' })">
+          <ng-icon name="tablerPlus" size="1.1rem" /><span>Novo</span>
+        </button>
+      }
+      @if (clientSaved(); as p) {
+        <details class="menu">
+          <summary class="pro-btn ghost icon-btn" aria-label="Mais ações do cliente"><ng-icon name="tablerDots" size="1.1rem" /></summary>
+          <div class="menu-list" (click)="closeMenu($event)">
+            <button type="button" (click)="store.setDefault(p)"><ng-icon name="tablerStar" />Usar como padrão</button>
+            <button type="button" (click)="editParty.emit({ party: store.duplicateParty(p), kind: 'client' })"><ng-icon name="tablerCopy" />Duplicar</button>
+            <button type="button" class="danger" (click)="store.deleteParty(p)"><ng-icon name="tablerTrash" />Excluir</button>
+          </div>
+        </details>
+      }
+    </div>
+    @if (i.client.name) {
+      <p class="summary"><strong>{{ i.client.name }}</strong> {{ summary(i.client) }}</p>
+    }
+  </section>
+
+  <!-- 03 · Details -->
+  <section class="sec" aria-labelledby="sec-details">
+    <header class="sec-head">
+      <span class="num">03</span>
+      <h2 id="sec-details">Dados da invoice</h2>
+    </header>
+    <div class="pro-fields">
+      <div class="pro-row">
+        <div class="pro-field">
+          <label class="pro-label" for="inv-number">Número @if (nextNumber() && nextNumber() !== i.number) { <small>sequência: {{ nextNumber() }}</small> }</label>
+          <input id="inv-number" class="pro-input" [value]="i.number" (input)="onNumber($event)" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="pro-field">
+          <label class="pro-label" for="inv-ref">Referência <small>pedido, PO, projeto</small></label>
+          <input id="inv-ref" class="pro-input" [value]="i.reference" (input)="patch({ reference: $any($event.target).value })" autocomplete="off" placeholder="Opcional" />
+        </div>
+      </div>
+      <div class="pro-row">
+        <div class="pro-field">
+          <span class="pro-label" id="lbl-lang">Idioma do documento</span>
+          <div class="pro-segmented" role="group" aria-labelledby="lbl-lang">
+            @for (l of langs; track l[0]) {
+              <button type="button" [attr.aria-pressed]="i.lang === l[0]" (click)="setLang(l[0])">{{ l[1] }}</button>
+            }
+          </div>
+        </div>
+        <div class="pro-field">
+          <label class="pro-label" for="inv-currency">Moeda</label>
+          <select id="inv-currency" class="pro-select" (change)="patch({ currency: $any($event.target).value })">
+            <optgroup label="Principais">
+              @for (c of mainCurrencies; track c.code) { <option [value]="c.code" [selected]="c.code === i.currency">{{ c.code }} · {{ c.name }}</option> }
+            </optgroup>
+            <optgroup label="Outras">
+              @for (c of otherCurrencies; track c.code) { <option [value]="c.code" [selected]="c.code === i.currency">{{ c.code }} · {{ c.name }}</option> }
+            </optgroup>
+          </select>
+        </div>
+      </div>
+      <div class="pro-row">
+        <div class="pro-field">
+          <label class="pro-label" for="inv-issue">Data de emissão</label>
+          <input id="inv-issue" class="pro-input" appMask="date" [value]="issueText()" (input)="onDate('issue', $event)" (blur)="checkDate('issue', $event)"
+            [attr.aria-invalid]="!!dateErrors().issue" placeholder="dd/mm/aaaa" />
+          @if (dateErrors().issue) { <span class="pro-error">{{ dateErrors().issue }}</span> }
+        </div>
+        <div class="pro-field">
+          <label class="pro-label" for="inv-due">Vencimento @if (dueDays() !== null && dueDays()! >= 0) { <small>{{ dueDays() === 0 ? 'à vista' : dueDays() + ' dias' }}</small> }</label>
+          <input id="inv-due" class="pro-input" appMask="date" [value]="dueText()" (input)="onDate('due', $event)" (blur)="checkDate('due', $event)"
+            [attr.aria-invalid]="!!dateErrors().due" placeholder="dd/mm/aaaa" />
+          @if (dateErrors().due) { <span class="pro-error">{{ dateErrors().due }}</span> }
+        </div>
+      </div>
+      <div class="pro-chips" role="group" aria-label="Prazo de vencimento">
+        @for (d of dueChips; track d) {
+          <button type="button" class="pro-chip" [attr.aria-pressed]="dueDays() === d" (click)="setDue(d)">{{ d === 0 ? 'À vista' : '+' + d + ' dias' }}</button>
+        }
+      </div>
+      <div class="pro-field">
+        <span class="pro-label" id="lbl-status">Situação</span>
+        <div class="pro-segmented" role="group" aria-labelledby="lbl-status">
+          @for (s of statuses; track s.id) {
+            <button type="button" [attr.aria-pressed]="i.status === s.id" (click)="patch({ status: s.id })">{{ s.label }}</button>
+          }
+        </div>
+        <span class="pro-hint">“Pago” e “Rascunho” aparecem como carimbo no documento.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · Items -->
+  <section class="sec" aria-labelledby="sec-items">
+    <header class="sec-head">
+      <span class="num">04</span>
+      <h2 id="sec-items">Itens</h2>
+      <span class="ml-auto text-sm text-foreground-light">{{ i.items.length }} {{ i.items.length === 1 ? 'item' : 'itens' }}</span>
+    </header>
+    <app-items-editor />
+  </section>
+
+  <!-- 05 · Adjustments -->
+  <section class="sec" aria-labelledby="sec-adj">
+    <header class="sec-head">
+      <span class="num">05</span>
+      <h2 id="sec-adj">Desconto, impostos e frete</h2>
+    </header>
+    <div class="pro-fields">
+      <div class="pro-row">
+        <div class="pro-field">
+          <span class="pro-label" id="lbl-disc">Desconto geral</span>
+          <div class="flex gap-2">
+            <div class="pro-segmented shrink-0" role="group" aria-labelledby="lbl-disc">
+              <button type="button" [attr.aria-pressed]="i.discountMode === 'pct'" (click)="patch({ discountMode: 'pct' })" aria-label="Em porcentagem">%</button>
+              <button type="button" [attr.aria-pressed]="i.discountMode === 'value'" (click)="patch({ discountMode: 'value' })" aria-label="Em valor">{{ symbol() }}</button>
+            </div>
+            <input id="inv-discount" class="pro-input" appNumber aria-labelledby="lbl-disc" [decimals]="i.discountMode === 'pct' ? 2 : decimals()" [fixed]="i.discountMode === 'value'"
+              [max]="i.discountMode === 'pct' ? 100 : null" [value]="i.discountValue" (valueChange)="patch({ discountValue: $event })" placeholder="0" />
+          </div>
+        </div>
+        <div class="pro-field">
+          <label class="pro-label" for="inv-shipping">Frete e outros</label>
+          <div class="pro-input-wrap">
+            <span class="pre" aria-hidden="true">{{ symbol() }}</span>
+            <input id="inv-shipping" class="pro-input has-pre" appNumber [decimals]="decimals()" [value]="i.shipping" (valueChange)="patch({ shipping: $event })" placeholder="0,00" />
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-field">
+        <span class="pro-label">Impostos <small>sobre o valor após o desconto</small></span>
+        @for (tax of i.taxes; track tax.id) {
+          <div class="tax">
+            <input class="pro-input" [id]="'tax-name-' + tax.id" [value]="tax.name" (input)="setTax(tax, { name: $any($event.target).value })" autocomplete="off" placeholder="Nome (ISS, VAT…)" aria-label="Nome do imposto" />
+            <div class="pro-input-wrap rate">
+              <input class="pro-input" appNumber [decimals]="2" [fixed]="false" [max]="100" [value]="tax.rate" (valueChange)="setTax(tax, { rate: $event })" aria-label="Alíquota" placeholder="0" />
+              <span class="pro-suffix">%</span>
+            </div>
+            <label class="withheld"><input type="checkbox" [checked]="tax.withheld" (change)="setTax(tax, { withheld: $any($event.target).checked })" />Retido</label>
+            <button type="button" class="x" (click)="removeTax(tax)" [attr.aria-label]="'Remover ' + (tax.name || 'imposto')">✕</button>
+          </div>
+        }
+        <div class="pro-chips wrap">
+          @for (p of taxPresets; track $index) {
+            <button type="button" class="pro-chip" (click)="addTax(p)">+ {{ p.name }} {{ pct(p.rate) }}{{ p.withheld ? ' retido' : '' }}</button>
+          }
+          <button type="button" class="pro-chip" (click)="addTax()">+ Outro</button>
+        </div>
+        <span class="pro-hint">Marque “Retido” quando o cliente desconta o imposto do pagamento (ex.: IRRF): ele é subtraído do total.</span>
+      </div>
+
+      <dl class="readout" aria-live="polite">
+        <div><dt>Subtotal</dt><dd>{{ money(t.subtotal) }}</dd></div>
+        @if (t.discount) { <div><dt>Desconto</dt><dd>−{{ money(t.discount) }}</dd></div> }
+        @for (tax of t.taxes; track tax.id) {
+          @if (tax.rate) { <div><dt>{{ tax.name || 'Imposto' }} {{ pct(tax.rate) }}{{ tax.withheld ? ' (retido)' : '' }}</dt><dd>{{ tax.withheld ? '−' : '' }}{{ money(tax.amount) }}</dd></div> }
+        }
+        @if (t.shipping) { <div><dt>Frete e outros</dt><dd>{{ money(t.shipping) }}</dd></div> }
+        <div class="total"><dt>Total</dt><dd>{{ money(t.total) }}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 06 · Payment and notes -->
+  <section class="sec" aria-labelledby="sec-pay">
+    <header class="sec-head">
+      <span class="num">06</span>
+      <h2 id="sec-pay">Pagamento e observações</h2>
+    </header>
+    <div class="pro-fields">
+      <div class="pro-field">
+        <span class="pro-label">Dados para pagamento <small>vêm do seu perfil</small></span>
+        @if (payment().length) {
+          <ul class="pay">
+            @for (line of payment(); track line) { <li>{{ line }}</li> }
+          </ul>
+        } @else {
+          <p class="pro-hint">Nenhum dado de pagamento no perfil.</p>
+        }
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" class="pro-btn ghost" (click)="edit('emitter')">{{ payment().length ? 'Editar dados de pagamento' : 'Adicionar PIX ou conta' }}</button>
+          @if (i.currency === 'BRL' && pix().valid) {
+            <label class="check"><input type="checkbox" [checked]="i.showPixQr" (change)="patch({ showPixQr: $any($event.target).checked })" />QR Code PIX com o valor</label>
+          }
+        </div>
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" for="inv-notes">Observações</label>
+        <textarea id="inv-notes" class="pro-textarea" rows="3" [value]="i.notes" (input)="patch({ notes: $any($event.target).value })" placeholder="Ex.: Referente ao projeto de outubro. Dúvidas: (11) 98765-4321."></textarea>
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" for="inv-terms">Termos e condições</label>
+        <textarea id="inv-terms" class="pro-textarea" rows="2" [value]="i.terms" (input)="patch({ terms: $any($event.target).value })" placeholder="Ex.: Pagamento em até 15 dias."></textarea>
+      </div>
+    </div>
+  </section>
+</div>

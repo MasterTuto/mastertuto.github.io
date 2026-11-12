@@ -1,0 +1,27 @@
+.game-icon-btn { display: inline-grid; place-items: center; min-width: 48px; min-height: 48px; border-radius: .9rem; border: 1px solid rgb(68 74 81 / .15); color: #444a51; transition: background-color .15s, opacity .15s; }
+.game-icon-btn:hover:not(:disabled) { background: rgb(68 74 81 / .06); }
+.game-icon-btn:disabled { opacity: .4; }
+.game-icon-btn:focus-visible, .bp-grid:focus-visible { outline: 2px solid #7a70e1; outline-offset: 4px; }
+
+.bp-wrap { container-type: inline-size; }
+.bp-grid { display: grid; gap: clamp(3px, 1cqw, 6px); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; border-radius: .5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.bp-cell { position: relative; display: grid; aspect-ratio: 1; border-radius: 22%; background: rgb(68 74 81 / .07); cursor: pointer; transition: background-color .15s; }
+.bp-cell:hover:not(.given) { background: rgb(122 112 225 / .14); }
+.bp-cell.given { cursor: default; }
+.bp-tile { display: grid; place-items: center; margin: 6%; border-radius: 50%; line-height: 1; transition: background-color .15s, transform .15s; animation: bp-pop .16s ease-out; }
+.v0 .bp-tile { background: #8f86ec; color: #fff; }
+.v1 .bp-tile { background: #fbbf24; color: #5b3a06; }
+.given.v0 .bp-tile { margin: 0; border-radius: 22%; background: #5b50d6; animation: none; }
+.given.v1 .bp-tile { margin: 0; border-radius: 22%; background: #e08a0b; color: #fff; animation: none; }
+.bp-cell.bad::after { content: ''; position: absolute; inset: 0; border-radius: 22%; box-shadow: inset 0 0 0 2.5px rgb(239 68 68 / .75); background: rgb(239 68 68 / .08); pointer-events: none; }
+.bp-cell.hinted .bp-tile, .bp-cell.hinted:not(.v0):not(.v1) { box-shadow: 0 0 0 3px rgb(122 112 225 / .45); }
+.bp-grid:focus-visible { outline-offset: 6px; }
+.bp-grid:focus-visible .is-cursor { outline: 2.5px solid #151c25; outline-offset: 1px; z-index: 1; }
+.bp-grid.is-won .bp-cell { cursor: default; }
+.bp-grid.is-won .bp-tile { animation: bp-wave .5s ease-out both; }
+
+@keyframes bp-pop { from { transform: scale(.6); } to { transform: scale(1); } }
+@keyframes bp-wave { 40% { transform: scale(.82); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .bp-tile, .bp-grid.is-won .bp-tile { animation: none; } }
+/* Phones: the board bleeds to 6px from the screen edges so big grids keep usable cells. */
+@media (max-width: 639px) { .game-board-card { width: calc(100vw - 12px); margin-left: calc(50% - 50vw + 6px); max-width: none; } }

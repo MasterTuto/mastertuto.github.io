@@ -103,7 +103,7 @@
       <!-- Tools + number pad, or the result once solved (same place: the board never moves) -->
       <div class="mx-auto mt-3 max-w-[520px]">
         @if (won()) {
-          <div #winEl class="flex flex-col items-center gap-3 border-t border-green-600/30 pt-4 text-center motion-safe:animate-[wl-win-in_.4s_ease-out]">
+          <div #winEl class="flex flex-col items-center gap-3 border-t border-green-600/30 pt-4 text-center wl-win">
             <p class="text-lg font-semibold text-green-700"><span aria-hidden="true">🎉 </span>{{ "sudoku.congratulations" | translate }}</p>
             <p class="text-sm text-foreground-light">
               {{ "games.time" | translate }} <strong class="tabular-nums text-foreground">{{ timer.label() }}</strong>

@@ -828,10 +828,8 @@ export const spanishTranslations: Translations = {
     'level-3': 'Medio',
     'level-4': 'Difícil',
     'level-5': 'Experto',
-    'new-game': 'Nuevo Juego',
     hint: 'Pista',
     congratulations: '¡Felicidades! Puzzle resuelto!',
-    'queens-placed': 'reinas colocadas',
     'check-errors': 'Verifique violaciones de reglas',
     loading: 'Cargando...',
     'how-to-play': 'Cómo Jugar',
@@ -839,25 +837,20 @@ export const spanishTranslations: Translations = {
     'rule-col': 'Coloca exactamente una reina en cada columna.',
     'rule-region': 'Coloca exactamente una reina en cada región de color.',
     'rule-adjacent': 'Dos reinas no pueden tocarse, ni en diagonal.',
-    'tip-tap':
-      'Toca una vez para marcar ✕, otra para colocar ♫, otra para limpiar.',
-    'tip-x':
-      'Desliza el dedo sobre las celdas para marcar varias con ✕ rápidamente.',
-    'tip-slide':
-      'Usa marcas ✕ para señalar celdas que sabes que no tienen reina.',
+    'tip-tap': 'Toca o haz clic en una casilla una vez para marcar ✕, otra vez para colocar ♛ y otra más para vaciarla.',
+    'tip-x': 'Arrastra el dedo o el ratón sobre las casillas para marcar ✕ en todas de un solo trazo. Empieza el trazo sobre una ✕ para borrar marcas. El trazo nunca toca las reinas.',
+    'tip-slide': 'Activa Auto ✕ para ver las casillas que descarta cada reina. Con teclado, usa las flechas y Espacio.',
     'faq-title': 'Preguntas Frecuentes',
     'faq-q1': '¿Qué es el juego Reinas?',
     'faq-a1':
       'Reinas es un puzzle de lógica donde colocas reinas en el tablero de modo que cada fila, columna y región de color contenga exactamente una reina, y ninguna se toque.',
     'faq-q2': '¿Cómo se juega?',
-    'faq-a2':
-      'Toca una celda para alternar entre: ✕ marca → ♫ reina → vacío. Desliza el dedo por el tablero para marcar varias celdas con ✕ rápidamente. Las violaciones se señalan en rojo.',
+    'faq-a2': 'Toca una casilla para alternar entre marca ✕ → reina ♛ → vacío, o arrastra por el tablero para marcar muchas casillas con ✕ a la vez. Las infracciones se resaltan en rojo y puedes deshacer cualquier jugada.',
     'faq-q3': '¿Qué pasa si me equivoco?',
     'faq-a3':
       'Las reinas en conflicto se resaltan en rojo. Revisa y ajusta hasta cumplir todas las reglas. ¡No hay límite de movimientos!',
     'faq-q4': '¿Hay un puzzle nuevo cada día?',
-    'faq-a4':
-      '¡Sí! El tablero se genera diariamente según la fecha actual, ofreciendo un nuevo desafío cada día. ¡Comparte tus resultados!',
+    'faq-a4': '¡Sí! El tablero Diario se genera a partir de la fecha, así que todos tienen el mismo reto cada día. Elige Aleatorio o Nuevo juego para tableros extra ilimitados y comparte tu tiempo al terminar.',
     'seo-title': 'Juega Reinas — Puzzle de Lógica Diario',
     'seo-p1':
       'Reinas es un puzzle de lógica diario inspirado en el problema clásico de las N-Reinas. Coloca reinas en el tablero siguiendo cuatro reglas simples: una por fila, una por columna, una por región de color, y ninguna puede tocarse.',
@@ -865,6 +858,24 @@ export const spanishTranslations: Translations = {
       'Elige entre 5 niveles de dificultad — Principiante (5×5), Fácil (6×6), Medio (7×7), Difícil (8×8) y Experto (10×10). Cada puzzle se genera determinísticamente a partir de la fecha.',
     'seo-p3':
       'Juega en línea gratis, sin registro. Entrena tu razonamiento lógico y reconocimiento de patrones. ¡Un nuevo puzzle te espera cada día!',
+    mode: 'Tablero',
+    'mode-daily': 'Diario',
+    'mode-random': 'Aleatorio',
+    undo: 'Deshacer',
+    clear: 'Limpiar',
+    'auto-x': 'Auto ✕',
+    'auto-x-title': 'Mostrar ✕ automáticamente en las casillas que descartan tus reinas',
+    'hints-left': 'Pistas restantes',
+    'hints-used': 'Pistas',
+    'tip-short': 'Toca: ✕ → ♛ → vacío. Arrastra para marcar varias ✕.',
+    'solved-summary': 'Resuelto en',
+    'share-text': '👑 ¡Resolví Queens ({puzzle}) en ⏱ {time} con 💡 {hints} pistas!',
+    'cell-label': 'Fila {row}, columna {col}',
+    'cell-queen': 'reina',
+    'cell-x': 'marcada con ✕',
+    'cell-empty': 'vacía',
+    'board-label': 'Tablero de Queens. Las flechas mueven, Espacio o Enter alterna ✕ / reina, Supr borra.',
+    undone: 'Jugada deshecha.',
   },
   sudoku: {
     sudoku: 'Sudoku',
@@ -876,7 +887,6 @@ export const spanishTranslations: Translations = {
     'difficulty-0': 'Fácil',
     'difficulty-1': 'Medio',
     'difficulty-2': 'Difícil',
-    'new-game': 'Nuevo Juego',
     notes: 'Notas',
     eraser: 'Borrar',
     undo: 'Deshacer',
@@ -936,6 +946,15 @@ export const spanishTranslations: Translations = {
       'Tanto si quieres enseñar a los niños con una mini cuadrícula 4×4, calentar con un 6×6 fácil o ponerte a prueba con un 9×9 difícil, puedes jugar Sudoku en línea aquí en cualquier momento. Notas, pistas, deshacer, atajos de teclado y resaltado de errores hacen que cada partida sea fácil de disfrutar.',
     'seo-p5':
       'Guarda esta página en marcadores y vuelve siempre que necesites un entrenamiento mental. Juega Sudoku en línea gratis, mejora tu lógica y diviértete — una cuadrícula a la vez.',
+    'hints-left': 'Pistas restantes',
+    'hints-used': 'Pistas',
+    'notes-on': 'Notas activadas: los números se añaden como anotaciones.',
+    'select-first': 'Primero selecciona una casilla.',
+    'given-cell': 'Ese número forma parte del puzzle.',
+    empty: 'vacía',
+    'cell-label': 'Fila {row}, columna {col}',
+    'board-label': 'Cuadrícula de Sudoku. Las flechas mueven, los números rellenan, N alterna notas, Supr borra.',
+    'share-text': '🧩 ¡Resolví un Sudoku {size} ({level}) en ⏱ {time} con {mistakes} errores y 💡 {hints} pistas!',
   },
   wordLadder: {
     name: 'Escalera de Palabras',
@@ -950,11 +969,9 @@ export const spanishTranslations: Translations = {
     'difficulty-medium': 'Media',
     'difficulty-hard': 'Difícil',
     'daily-today': 'La Escalera de Palabras de hoy',
-    'new-game': 'Nuevo Juego',
     moves: 'Movimientos',
     best: 'Récord',
     target: 'Objetivo',
-    time: 'Tiempo',
     'daily-done':
       'Ya resolviste el puzzle de hoy. ¡Vuelve mañana para uno nuevo!',
     start: 'Inicio',
@@ -963,7 +980,6 @@ export const spanishTranslations: Translations = {
     submit: 'Ir',
     hint: 'Pista',
     undo: 'Deshacer',
-    'start-game': 'Empezar',
     'err-empty': 'Escribe primero una palabra.',
     'err-length':
       'La palabra debe tener el mismo largo que la palabra inicial.',
@@ -980,13 +996,8 @@ export const spanishTranslations: Translations = {
     complete: '¡Escalera de Palabras completada!',
     'result-moves':
       'Transformaste la palabra inicial en la palabra objetivo. ¡Excelente!',
-    'result-optimal':
-      'La próxima vez intenta terminar con el menor número de movimientos.',
     'daily-streak': 'Racha diaria:',
-    'play-again': 'Jugar de nuevo',
     'next-puzzle': 'Siguiente puzzle',
-    share: 'Compartir',
-    'share-copied': 'Resultado copiado al portapapeles.',
     'how-to-play': 'Cómo jugar a la Escalera de Palabras',
     'rule-1':
       'Empieza con la palabra azul en la parte superior de la escalera.',
@@ -1066,6 +1077,11 @@ export const spanishTranslations: Translations = {
       'El clásico juego de lógica con tres tamaños de cuadrícula.',
     'related-queens':
       'Un puzzle de colocación diario inspirado en las N-Reinas.',
+    'share-text': '🪜 Escalera de palabras ({label}): {start} → {target} en {moves} movimientos (par {par}) · ⏱ {time} · 💡 {hints} pistas',
+    par: 'Par',
+    'par-hint': 'El número tras la barra es el par: la escalera más corta posible.',
+    history: 'Tu escalera hasta ahora',
+    'history-empty': 'Tus palabras se apilan aquí, la más reciente justo encima del campo.',
   },
   seo: {
     cardTagline: 'Sitios web, landing pages y automatización',

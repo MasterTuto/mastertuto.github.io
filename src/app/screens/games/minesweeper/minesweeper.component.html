@@ -17,7 +17,7 @@
               (click)="setLevel(item.id)"
             >
               <span>{{ 'minesweeper.levels.' + item.id | translate }}</span>
-              <span class="text-[0.7rem] font-medium tabular-nums opacity-70">{{ item.cols }}×{{ item.rows }} · {{ item.mines }}</span>
+              <span class="text-[0.7rem] font-medium tabular-nums opacity-70">{{ item.cols }}×{{ item.rows }}</span>
             </button>
           }
         </div>
@@ -34,17 +34,17 @@
 
       <!-- Readouts, separated by hairlines -->
       <div class="mt-4 flex items-center border-y border-foreground/10 py-2">
-        <div class="flex w-[5.75rem] shrink-0 flex-col">
+        <div class="flex w-[4.5rem] shrink-0 flex-col">
           <span class="text-[0.7rem] text-foreground-light">{{ 'minesweeper.minesLeft' | translate }}</span>
           <span class="flex items-center gap-1.5 text-xl font-semibold tabular-nums text-foreground">
             <ng-icon name="tablerBomb" size="1rem" class="text-foreground-emphasis" aria-hidden="true" />{{ minesLeft() }}
           </span>
         </div>
-        <div class="flex w-[5.75rem] shrink-0 flex-col border-l border-foreground/10 pl-3">
+        <div class="flex w-[5rem] shrink-0 flex-col border-l border-foreground/10 pl-3">
           <span class="text-[0.7rem] text-foreground-light">{{ 'games.time' | translate }}</span>
           <span class="text-xl font-semibold tabular-nums text-foreground" role="timer">{{ timer.label() }}</span>
         </div>
-        <p class="ml-auto line-clamp-2 h-8 max-w-[13rem] pl-3 text-right text-xs leading-4 text-foreground-light">
+        <p class="ml-auto line-clamp-3 h-12 min-w-0 max-w-[13rem] flex-1 pl-3 text-right text-[0.7rem] leading-4 text-foreground-light">
           @if (status() === 'ready') {
             {{ 'games.timerHint' | translate }}
           } @else if (bestLabel()) {
@@ -128,7 +128,7 @@
         </div>
 
         <div class="ms-result [grid-area:1/1] border-t-2 border-emerald-500" [class.invisible]="status() !== 'won'">
-          <div class="min-w-0 flex-1">
+          <div>
             <p class="font-title text-lg font-semibold text-foreground">🏆 {{ 'minesweeper.wonTitle' | translate }}</p>
             <p class="text-sm text-foreground-light">
               {{ wonText() }}
@@ -137,25 +137,21 @@
               }
             </p>
           </div>
-          @if (status() === 'won') {
-            <div class="flex gap-2">
-              <app-game-share-button [text]="shareText()" />
-              <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
-            </div>
-          }
+          <div class="ms-actions">
+            <app-game-share-button [text]="shareText()" />
+            <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
+          </div>
         </div>
 
         <div class="ms-result [grid-area:1/1] border-t-2 border-[#e0565b]" [class.invisible]="status() !== 'lost'">
-          <div class="min-w-0 flex-1">
+          <div>
             <p class="font-title text-lg font-semibold text-foreground">💥 {{ 'minesweeper.lostTitle' | translate }}</p>
             <p class="text-sm text-foreground-light">{{ lostText() }}</p>
           </div>
-          @if (status() === 'lost') {
-            <div class="flex gap-2">
-              <app-game-share-button [text]="shareText()" />
-              <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
-            </div>
-          }
+          <div class="ms-actions">
+            <app-game-share-button [text]="shareText()" />
+            <button type="button" class="pro-btn ghost" (click)="newGame()">{{ 'games.playAgain' | translate }}</button>
+          </div>
         </div>
       </div>
       <p class="sr-only" role="status" aria-live="polite">{{ announcement() }}</p>

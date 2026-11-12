@@ -8,7 +8,7 @@ export const nonogram: NonogramStrings = {
   seo: {
     title: 'Nonograma Online Gratis: Picross con Reto Diario',
     description:
-      'Juega gratis a nonogramas (Picross) en el navegador: cuadrículas 5×5, 10×10 y 15×15, reto diario, pintar arrastrando, deshacer y puzles que se resuelven con lógica.',
+      'Juega gratis a nonogramas (Picross) en el navegador: cuadrículas 5×5, 10×10 y 15×15, reto diario, pintar arrastrando, deshacer y solución por pura lógica.',
   },
   size: 'Tamaño',
   mode: 'Puzle',

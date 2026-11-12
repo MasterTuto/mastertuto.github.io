@@ -8,7 +8,7 @@ export const nonogram: NonogramStrings = {
   seo: {
     title: 'Nonogramme en ligne gratuit : Picross et défi du jour',
     description:
-      'Jouez gratuitement aux nonogrammes (Picross, logimages) : grilles 5×5, 10×10 et 15×15, défi du jour, coloriage en glissant, annulation et grilles résolubles par logique.',
+      'Logimages (nonogrammes, Picross) gratuits en ligne : grilles 5×5, 10×10 et 15×15, défi du jour, coloriage en glissant, annulation, solution par pure logique.',
   },
   size: 'Taille de la grille',
   mode: 'Grille',

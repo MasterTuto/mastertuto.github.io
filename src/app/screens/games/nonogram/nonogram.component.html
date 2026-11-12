@@ -35,7 +35,7 @@
       </div>
 
       <!-- Stats: fixed columns, tabular numbers -->
-      <dl class="mt-4 grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
+      <dl class="mb-3 mt-3 grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
         <div>
           <dt class="text-xs text-foreground-light">{{ 'games.time' | translate }}</dt>
           <dd class="text-lg font-semibold tabular-nums" [class.text-foreground-emphasis]="won()">{{ timer.label() }}</dd>
@@ -49,12 +49,9 @@
           <dd class="text-lg font-semibold tabular-nums">{{ size() }}×{{ size() }}</dd>
         </div>
       </dl>
-      <p class="h-6 pt-1 text-center text-xs text-foreground-light transition-opacity" [class.opacity-0]="!showHint()" [attr.aria-hidden]="!showHint()">
-        {{ 'games.timerHint' | translate }}
-      </p>
 
       <!-- Board -->
-      <div class="rounded-2xl bg-surface p-2 shadow-sm ring-1 ring-foreground/5 sm:p-3">
+      <div class="game-board-card rounded-2xl bg-surface p-1.5 shadow-sm ring-1 ring-foreground/5 sm:p-3">
         <div class="nono-wrap">
           <div
             #board
@@ -67,7 +64,6 @@
             [style.grid-template-columns]="layout().columns"
             [style.grid-template-rows]="layout().rows"
             [style.font-size]="layout().font"
-            [style.--clue-line]="layout().line"
             (pointerdown)="onPointerDown($event)"
             (pointermove)="onPointerMove($event)"
             (pointerup)="onPointerUp($event)"
@@ -162,7 +158,10 @@
               <ng-icon name="tablerEraser" size="20" aria-hidden="true" />
             </button>
           </div>
-          <p class="mt-2 text-xs leading-relaxed text-foreground-light">{{ 'nonogram.controlsTip' | translate }}</p>
+          <p class="mt-2 h-5 text-xs font-medium text-foreground transition-opacity" [class.opacity-0]="!showHint()" [attr.aria-hidden]="!showHint()">
+            {{ 'games.timerHint' | translate }}
+          </p>
+          <p class="text-xs leading-relaxed text-foreground-light">{{ 'nonogram.controlsTip' | translate }}</p>
         </div>
 
         <div class="[grid-area:1/1]" [class.invisible]="!won()" [attr.inert]="won() ? null : ''">

@@ -1,0 +1,103 @@
+<article class="pro-tool inv-page" lang="pt-BR" [class.is-typing]="typing()">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>{{ tool.description }}</p>
+    <p class="facts">
+      <span>Grátis e sem cadastro</span><span>Dados só no seu navegador</span><span>PT · EN · ES</span><span>QR Code PIX</span>
+    </p>
+  </header>
+
+  @if (store.shared()) {
+    <div class="shared" role="status">
+      <ng-icon name="tablerEye" size="1.25rem" />
+      <p><strong>Visualização de invoice compartilhada.</strong> Você pode baixar o PDF ou criar uma cópia editável.</p>
+      <button type="button" class="pro-btn" (click)="store.editSharedCopy()">Editar uma cópia</button>
+    </div>
+  }
+
+  <div id="inv-workspace" class="toolbar">
+    @if (!store.shared()) {
+      <div class="pro-segmented switch" role="group" aria-label="Modo">
+        <button type="button" [attr.aria-pressed]="view() === 'edit'" (click)="setView('edit')">Editar</button>
+        <button type="button" [attr.aria-pressed]="view() === 'preview'" (click)="setView('preview')">Visualizar</button>
+      </div>
+      <div class="actions">
+        <button type="button" class="pro-btn ghost" (click)="newInvoice()"><ng-icon name="tablerPlus" size="1.1rem" />Nova</button>
+        <button type="button" class="pro-btn ghost" (click)="store.saveInvoice()"><ng-icon name="tablerDeviceFloppy" size="1.1rem" />{{ store.inHistory() ? 'Salvar alterações' : 'Salvar' }}</button>
+      </div>
+    }
+  </div>
+
+  <div class="workspace" [class.only-preview]="store.shared()" [attr.data-view]="view()">
+    @if (!store.shared()) {
+      <div class="col-edit">
+        <app-invoice-editor (editParty)="openParty($event)" />
+      </div>
+    }
+    <aside class="col-preview" aria-label="Pré-visualização do documento">
+      @defer (on idle) {
+        <app-template-strip [doc]="thumbDoc()" [selected]="store.invoice().template" (pick)="pickTemplate($event)" />
+        <div class="paper-wrap">
+          <app-invoice-preview [doc]="doc()" />
+        </div>
+      } @placeholder {
+        <div class="strip-skeleton" aria-hidden="true"></div>
+        <div class="paper-wrap"><div class="paper-skeleton" aria-hidden="true"></div></div>
+      }
+      <div class="exports" role="group" aria-label="Exportar">
+        @for (e of exports; track e.kind) {
+          <button type="button" class="pro-btn" [class.ghost]="e.kind !== 'pdf'" [disabled]="!!busy()" [attr.aria-busy]="busy() === e.kind" (click)="run(e.kind)" [attr.data-export]="e.kind">
+            @if (busy() === e.kind) { <span class="spin" aria-hidden="true"></span> } @else { <ng-icon [name]="e.icon" size="1.15rem" /> }
+            {{ e.label }}
+          </button>
+        }
+      </div>
+    </aside>
+  </div>
+
+  @if (!store.shared()) {
+    <section class="history" aria-labelledby="history-title">
+      <app-invoice-history (open)="openFromHistory($event)" (duplicate)="duplicateFromHistory($event)" />
+    </section>
+  }
+
+  <app-invoice-content />
+
+  <!-- Phone action bar: total + switch + export. Hidden while typing so it never sits on the keyboard. -->
+  <div class="mbar" [class.hidden-bar]="typing()">
+    <div class="mbar-total">
+      <span>Total</span>
+      <strong>{{ doc().total }}</strong>
+    </div>
+    @if (!store.shared()) {
+      <button type="button" class="pro-btn ghost" (click)="setView(view() === 'edit' ? 'preview' : 'edit')">
+        <ng-icon [name]="view() === 'edit' ? 'tablerEye' : 'tablerEdit'" size="1.1rem" />{{ view() === 'edit' ? 'Visualizar' : 'Editar' }}
+      </button>
+    }
+    <button type="button" class="pro-btn" (click)="openExportSheet()" [disabled]="!!busy()"><ng-icon name="tablerFileExport" size="1.1rem" />Exportar</button>
+  </div>
+
+  <dialog #exportSheet class="esheet" aria-labelledby="esheet-title" (click)="$event.target === exportSheet && exportSheet.close()">
+    <h2 id="esheet-title">Exportar invoice {{ store.invoice().number }}</h2>
+    <div class="elist">
+      @for (e of exports; track e.kind) {
+        <button type="button" (click)="run(e.kind)"><ng-icon [name]="e.icon" size="1.35rem" /><span><strong>{{ e.label }}</strong><small>{{ e.hint }}</small></span></button>
+      }
+    </div>
+    <button type="button" class="pro-btn ghost w-full" (click)="exportSheet.close()">Fechar</button>
+  </dialog>
+
+  <div class="toast-region" role="status" aria-live="polite">
+    @if (store.toast(); as toast) {
+      <div class="toast" [class.raised]="!typing()">
+        <span>{{ toast.message }}</span>
+        @if (toast.actionLabel) {
+          <button type="button" (click)="store.dismissToast(true)">{{ toast.actionLabel }}</button>
+        }
+      </div>
+    }
+  </div>
+
+  <app-party-dialog />
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

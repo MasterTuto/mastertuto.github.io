@@ -2,7 +2,7 @@
 .ms-board.is-won{box-shadow:0 0 0 2px rgb(16 185 129/.55)}
 .ms-board.is-lost{box-shadow:0 0 0 2px rgb(224 86 91/.45)}
 .ms-grid{container-type:inline-size;display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:var(--gap)}
-.c{aspect-ratio:1;display:grid;place-items:center;min-width:0;padding:0;border-radius:22%;font-size:calc(100cqi / var(--cols) * .56);font-weight:700;line-height:1;font-variant-numeric:tabular-nums;-webkit-tap-highlight-color:transparent}
+button.c{aspect-ratio:1;display:grid;place-items:center;min-width:0;min-height:0;padding:0;border-radius:22%;font-size:calc(100cqi / var(--cols) * .56);font-weight:700;line-height:1;font-variant-numeric:tabular-nums;-webkit-tap-highlight-color:transparent}
 .c:focus{outline:none}
 .c:focus-visible{outline:2px solid #7a70e1;outline-offset:1px;position:relative;z-index:1}
 .k-hidden,.k-flag{background:linear-gradient(180deg,#eef0fd,#dfe2f8);box-shadow:inset 0 1px 0 #fff,inset 0 -2px 0 rgb(100 108 250/.2);cursor:pointer;transition:background .12s,transform .08s}
@@ -15,7 +15,10 @@
 .k-wrong::after{content:"";position:absolute;inset:20%;background:linear-gradient(to top right,transparent calc(50% - 1px),#151c25 50%,transparent calc(50% + 1px))}
 .k-boom{background:#e0565b;color:#fff;animation:ms-boom .6s ease-out}
 .n1{color:#5b63e8}.n2{color:#2f9466}.n3{color:#d9484e}.n4{color:#4a3fae}.n5{color:#b25418}.n6{color:#11868a}.n7{color:#151c25}.n8{color:#8e9095}
-.ms-result{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem;padding-top:.75rem}
+.ms-result{display:flex;flex-direction:column;gap:.75rem;padding-top:.75rem}
+.ms-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.ms-actions>*{display:grid}
+@media (min-width:640px){.ms-result{flex-direction:row;align-items:center;justify-content:space-between}.ms-actions{flex-shrink:0}}
 .mode-flag[aria-checked=true]{color:#d9484e}
 @keyframes ms-open{from{transform:scale(.8);opacity:.3}}
 @keyframes ms-boom{from{box-shadow:0 0 0 0 rgb(224 86 91/.7);transform:scale(1.25)}to{box-shadow:0 0 0 12px rgb(224 86 91/0)}}

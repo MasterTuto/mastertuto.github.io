@@ -46,11 +46,14 @@ interface Stroke {
   pitchY: number;
 }
 
-/** Sizes in px: clue gutter slot per number, clue line height, font, and cell bounds. */
-const LAYOUT: Record<Size, { slot: number; line: number; font: number; min: number; max: number }> = {
-  5: { slot: 15, line: 17, font: 14, min: 36, max: 56 },
-  10: { slot: 11, line: 13, font: 11.5, min: 20, max: 34 },
-  15: { slot: 8.5, line: 11, font: 9.5, min: 17, max: 28 },
+/**
+ * Board geometry per size: clue font as a fraction of the cell (f) and cell bounds in px. Everything else is
+ * in em of the clue font, so the board scales as one piece and the gutters always fit MAX_CLUES numbers.
+ */
+const LAYOUT: Record<Size, { f: number; min: number; max: number }> = {
+  5: { f: 0.36, min: 36, max: 64 },
+  10: { f: 0.44, min: 20, max: 40 },
+  15: { f: 0.5, min: 17, max: 30 },
 };
 
 @Component({
@@ -101,19 +104,19 @@ export class NonogramComponent {
   readonly activeCol = computed(() => (this.active() < 0 ? -1 : this.active() % this.size()));
   readonly showHint = computed(() => !this.timer.running() && this.timer.elapsed() === 0 && !this.won());
 
-  /** Grid tracks: a fixed clue gutter plus cells that shrink with the container (container query units). */
+  /** Grid tracks: a clue gutter plus cells that shrink with the container (container query units). */
   readonly layout = computed(() => {
     const n = this.size();
-    const l = LAYOUT[n as Size];
+    const { f, min, max } = LAYOUT[n as Size];
     const clues = MAX_CLUES[n];
-    const gutter = Math.ceil(clues * l.slot + 8);
-    const head = Math.ceil(clues * l.line + 6);
-    const cell = `clamp(${l.min}px, calc((100cqw - ${gutter}px) / ${n}), ${l.max}px)`;
+    // Gutter and header in cell units: ~0.95em per clue number plus padding.
+    const gutter = +((clues * 0.95 + 0.6) * f).toFixed(3);
+    const head = +((clues * 1.15 + 0.5) * f).toFixed(3);
+    const cell = `clamp(${min}px, calc(100cqw / ${n + gutter}), ${max}px)`;
     return {
-      columns: `${gutter}px repeat(${n}, ${cell})`,
-      rows: `${head}px repeat(${n}, ${cell})`,
-      font: `${l.font}px`,
-      line: `${l.line}px`,
+      columns: `calc(${cell} * ${gutter}) repeat(${n}, ${cell})`,
+      rows: `calc(${cell} * ${head}) repeat(${n}, ${cell})`,
+      font: `calc(${cell} * ${f})`,
     };
   });
 

@@ -831,10 +831,8 @@ export const germanTranslations: Translations = {
     'level-3': 'Mittel',
     'level-4': 'Schwer',
     'level-5': 'Experte',
-    'new-game': 'Neues Spiel',
     hint: 'Hinweis',
     congratulations: 'Glückwunsch! Puzzle gelöst!',
-    'queens-placed': 'Damen platziert',
     'check-errors': 'Regelverstöße prüfen',
     loading: 'Lädt...',
     'how-to-play': 'Spielanleitung',
@@ -843,25 +841,20 @@ export const germanTranslations: Translations = {
     'rule-region': 'Platziere genau eine Dame in jeder farbigen Region.',
     'rule-adjacent':
       'Keine zwei Damen dürfen sich berühren, auch nicht diagonal.',
-    'tip-tap':
-      'Tippe einmal für ✕-Markierung, nochmal für ♫-Dame, nochmal zum Löschen.',
-    'tip-x':
-      'Wische mit dem Finger über Felder, um schnell mehrere ✕ zu setzen.',
-    'tip-slide':
-      'Nutze ✕-Markierungen für Felder, die keine Dame enthalten können.',
+    'tip-tap': 'Tippe oder klicke ein Feld einmal für ✕, noch einmal für ♛ und ein weiteres Mal, um es zu leeren.',
+    'tip-x': 'Ziehe Finger oder Maus über die Felder, um sie in einem Zug alle mit ✕ zu markieren. Beginnst du auf einem ✕, werden Markierungen gelöscht. Damen bleiben dabei unberührt.',
+    'tip-slide': 'Schalte Auto ✕ ein, um die Felder zu sehen, die jede Dame ausschließt. Mit der Tastatur: Pfeiltasten und Leertaste.',
     'faq-title': 'Häufig gestellte Fragen',
     'faq-q1': 'Was ist das Damen-Spiel?',
     'faq-a1':
       'Damen ist ein Logikpuzzle, bei dem du Damen so auf dem Brett platzierst, dass jede Zeile, Spalte und farbige Region genau eine Dame enthält und sich keine zwei Damen berühren.',
     'faq-q2': 'Wie spielt man?',
-    'faq-a2':
-      'Tippe auf ein Feld, um zu wechseln: ✕ Markierung → ♫ Dame → leer. Wische mit dem Finger über das Brett, um schnell mehrere ✕ zu setzen. Regelverstöße werden rot markiert.',
+    'faq-a2': 'Tippe auf ein Feld, um zwischen ✕-Markierung → Dame ♛ → leer zu wechseln, oder ziehe über das Brett, um viele Felder auf einmal mit ✕ zu markieren. Regelverstöße werden rot hervorgehoben und jeder Zug lässt sich rückgängig machen.',
     'faq-q3': 'Was passiert bei einem Fehler?',
     'faq-a3':
       'Konflikte werden rot markiert. Überprüfe und korrigiere, bis alle Regeln erfüllt sind. Es gibt keine Zugbegrenzung!',
     'faq-q4': 'Gibt es jeden Tag ein neues Puzzle?',
-    'faq-a4':
-      'Ja! Das Brett wird täglich basierend auf dem aktuellen Datum generiert. Teile deine Ergebnisse mit Freunden!',
+    'faq-a4': 'Ja! Das tägliche Brett wird aus dem Datum erzeugt, sodass alle jeden Tag dieselbe Aufgabe bekommen. Wähle Zufällig oder Neues Spiel für unbegrenzt viele weitere Bretter und teile am Ende deine Zeit.',
     'seo-title': 'Spiele Damen — Tägliches Logikpuzzle',
     'seo-p1':
       'Damen ist ein tägliches Logikpuzzle, inspiriert vom klassischen N-Damen-Problem. Platziere Damen auf dem Brett nach vier einfachen Regeln: eine pro Zeile, eine pro Spalte, eine pro farbiger Region, und keine Dame darf eine andere berühren.',
@@ -869,6 +862,24 @@ export const germanTranslations: Translations = {
       'Wähle aus 5 Schwierigkeitsstufen — Anfänger (5×5), Leicht (6×6), Mittel (7×7), Schwer (8×8) und Experte (10×10). Jedes Puzzle wird deterministisch aus dem Datum generiert.',
     'seo-p3':
       'Spiele online kostenlos, ohne Registrierung. Trainiere dein logisches Denken und deine Mustererkennung. Ein brandneues Puzzle wartet jeden Tag auf dich!',
+    mode: 'Rätsel',
+    'mode-daily': 'Täglich',
+    'mode-random': 'Zufällig',
+    undo: 'Rückgängig',
+    clear: 'Leeren',
+    'auto-x': 'Auto ✕',
+    'auto-x-title': 'Felder, die deine Damen ausschließen, automatisch mit ✕ zeigen',
+    'hints-left': 'Tipps übrig',
+    'hints-used': 'Tipps',
+    'tip-short': 'Tippen: ✕ → ♛ → leer. Ziehen markiert viele ✕.',
+    'solved-summary': 'Gelöst in',
+    'share-text': '👑 Ich habe Queens ({puzzle}) in ⏱ {time} mit 💡 {hints} Tipps gelöst!',
+    'cell-label': 'Zeile {row}, Spalte {col}',
+    'cell-queen': 'Dame',
+    'cell-x': 'mit ✕ markiert',
+    'cell-empty': 'leer',
+    'board-label': 'Queens-Brett. Pfeiltasten bewegen, Leertaste oder Enter wechselt ✕ / Dame, Entf leert.',
+    undone: 'Zug rückgängig gemacht.',
   },
   sudoku: {
     sudoku: 'Sudoku',
@@ -880,7 +891,6 @@ export const germanTranslations: Translations = {
     'difficulty-0': 'Leicht',
     'difficulty-1': 'Mittel',
     'difficulty-2': 'Schwer',
-    'new-game': 'Neues Spiel',
     notes: 'Notizen',
     eraser: 'Löschen',
     undo: 'Rückgängig',
@@ -938,6 +948,15 @@ export const germanTranslations: Translations = {
       'Ob du Kindern mit einem 4×4-Miniraster etwas beibringen, dich mit einem leichten 6×6 aufwärmen oder mit einem schweren 9×9 testen möchtest — hier kannst du jederzeit Sudoku online spielen. Notizen, Hinweise, Rückgängig, Tastaturkürzel und Fehlermarkierung machen jede Partie einfach genießbar.',
     'seo-p5':
       'Setze ein Lesezeichen und komm wieder, wann immer du ein mentales Training brauchst. Spiele kostenlos Sudoku online, verbessere deine Logik und hab Spaß — ein Raster nach dem anderen.',
+    'hints-left': 'Tipps übrig',
+    'hints-used': 'Tipps',
+    'notes-on': 'Notizen an: Zahlen werden als Bleistiftnotizen eingetragen.',
+    'select-first': 'Wähle zuerst ein Feld.',
+    'given-cell': 'Diese Zahl ist Teil des Rätsels.',
+    empty: 'leer',
+    'cell-label': 'Zeile {row}, Spalte {col}',
+    'board-label': 'Sudoku-Gitter. Pfeiltasten bewegen, Zifferntasten füllen, N schaltet Notizen, Entf löscht.',
+    'share-text': '🧩 Ich habe ein {size}-Sudoku ({level}) in ⏱ {time} mit {mistakes} Fehlern und 💡 {hints} Tipps gelöst!',
   },
   wordLadder: {
     name: 'Wortleiter',
@@ -952,11 +971,9 @@ export const germanTranslations: Translations = {
     'difficulty-medium': 'Mittel',
     'difficulty-hard': 'Schwer',
     'daily-today': 'Die Wortleiter von heute',
-    'new-game': 'Neues Spiel',
     moves: 'Züge',
     best: 'Rekord',
     target: 'Ziel',
-    time: 'Zeit',
     'daily-done':
       'Du hast das Rätsel von heute schon gelöst. Komm morgen für ein neues wieder!',
     start: 'Start',
@@ -965,7 +982,6 @@ export const germanTranslations: Translations = {
     submit: 'OK',
     hint: 'Hinweis',
     undo: 'Rückgängig',
-    'start-game': 'Spiel starten',
     'err-empty': 'Gib zuerst ein Wort ein.',
     'err-length': 'Das Wort muss dieselbe Länge wie das Startwort haben.',
     'err-dictionary':
@@ -981,13 +997,8 @@ export const germanTranslations: Translations = {
     complete: 'Wortleiter geschafft!',
     'result-moves':
       'Du hast das Startwort in das Zielwort verwandelt. Großartig!',
-    'result-optimal':
-      'Versuche beim nächsten Mal, in so wenigen Zügen wie möglich zu enden.',
     'daily-streak': 'Tägliche Serie:',
-    'play-again': 'Nochmal spielen',
     'next-puzzle': 'Nächstes Rätsel',
-    share: 'Teilen',
-    'share-copied': 'Ergebnis in die Zwischenablage kopiert.',
     'how-to-play': 'So spielst du Wortleiter',
     'rule-1': 'Beginne mit dem blauen Wort oben auf der Leiter.',
     'rule-2':
@@ -1065,6 +1076,11 @@ export const germanTranslations: Translations = {
       'Das klassische Logikrätsel mit drei Rastergrößen.',
     'related-queens':
       'Ein tägliches Platzierungsrätsel, inspiriert vom N-Damen-Problem.',
+    'share-text': '🪜 Wortleiter ({label}): {start} → {target} in {moves} Zügen (Par {par}) · ⏱ {time} · 💡 {hints} Tipps',
+    par: 'Par',
+    'par-hint': 'Die Zahl nach dem Schrägstrich ist Par: die kürzestmögliche Leiter.',
+    history: 'Deine bisherige Leiter',
+    'history-empty': 'Deine Wörter sammeln sich hier, das neueste direkt über dem Eingabefeld.',
   },
   seo: {
     cardTagline: 'Websites, Landing Pages und Automatisierung',
