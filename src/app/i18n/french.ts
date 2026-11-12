@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/fr';
+import { nonogram } from './games/nonogram/fr';
+import { binaryPuzzle } from './games/binary-puzzle/fr';
+import { memory } from './games/memory/fr';
+import { colorLink } from './games/color-link/fr';
 
 export const frenchTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Explorer les jeux et outils',
     toggle: 'Réduire ou déployer le menu',
@@ -188,6 +198,14 @@ export const frenchTranslations: Translations = {
     label: 'Jeux',
     subtitle: "Une collection de jeux que j'ai créés.",
     play: 'Jouer',
+    share: "Partager le résultat",
+    shareCopied: "Lien copié !",
+    time: "Temps",
+    timerHint: "Le chrono démarre à votre premier coup.",
+    moves: "Coups",
+    newGame: "Nouvelle partie",
+    playAgain: "Rejouer",
+    level: "Niveau",
     queensDescription:
       'Un puzzle de logique quotidien inspiré du problème classique des N-Reines.',
     sudokuDescription:

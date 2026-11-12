@@ -1,7 +1,16 @@
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { tablerTools } from '@ng-icons/tabler-icons';
+import {
+  tablerAirConditioning,
+  tablerBabyCarriage,
+  tablerBolt,
+  tablerFileInvoice,
+  tablerGavel,
+  tablerReportMoney,
+  tablerTools,
+} from '@ng-icons/tabler-icons';
+import { invoiceTool, proTools } from './pro-tools/pro-tools.data';
 import { devTools } from './dev-tools/dev-tools.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
@@ -13,17 +22,21 @@ import { TranslateService } from 'src/app/service/translate.service';
   templateUrl: './tools.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIconComponent, TranslatePipe, LangLinkPipe, RouterLink],
-  providers: [provideIcons({ tablerTools })],
+  providers: [
+    provideIcons({ tablerTools, tablerBolt, tablerAirConditioning, tablerGavel, tablerReportMoney, tablerBabyCarriage, tablerFileInvoice }),
+  ],
 })
 export class ToolsComponent {
   readonly tools = devTools;
+  readonly proTools = proTools;
+  readonly invoice = invoiceTool;
+  readonly isDevTools = inject(ActivatedRoute).snapshot.routeConfig?.path === 'dev-tools';
 
   constructor() {
     const translate = inject(TranslateService);
     const t = (path: string) => translate.translate(path);
-    const isDevTools = inject(ActivatedRoute).snapshot.routeConfig?.path === 'dev-tools';
     usePageSeo(() =>
-      isDevTools
+      this.isDevTools
         ? {
             // The dev tools are written in English only: one canonical URL for every language prefix.
             title: 'Free Developer Tools: JSON Formatter and JWT Decoder',

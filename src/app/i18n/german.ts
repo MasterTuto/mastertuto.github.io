@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/de';
+import { nonogram } from './games/nonogram/de';
+import { binaryPuzzle } from './games/binary-puzzle/de';
+import { memory } from './games/memory/de';
+import { colorLink } from './games/color-link/de';
 
 export const germanTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Spiele und Werkzeuge entdecken',
     toggle: 'Menü ein- oder ausklappen',
@@ -188,6 +198,14 @@ export const germanTranslations: Translations = {
     label: 'Spiele',
     subtitle: 'Eine Sammlung von Spielen, die ich gebaut habe.',
     play: 'Spielen',
+    share: "Ergebnis teilen",
+    shareCopied: "Link kopiert!",
+    time: "Zeit",
+    timerHint: "Die Uhr startet mit deinem ersten Zug.",
+    moves: "Züge",
+    newGame: "Neues Spiel",
+    playAgain: "Nochmal spielen",
+    level: "Stufe",
     queensDescription:
       'Ein tägliches Logikrätsel, inspiriert vom klassischen N-Damen-Problem.',
     sudokuDescription:

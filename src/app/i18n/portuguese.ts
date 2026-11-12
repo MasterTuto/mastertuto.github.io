@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/pt';
+import { nonogram } from './games/nonogram/pt';
+import { binaryPuzzle } from './games/binary-puzzle/pt';
+import { memory } from './games/memory/pt';
+import { colorLink } from './games/color-link/pt';
 
 export const portugueseTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Explorar jogos e ferramentas',
     toggle: 'Recolher ou expandir menu',
@@ -188,6 +198,14 @@ export const portugueseTranslations: Translations = {
     label: 'Jogos',
     subtitle: 'Uma coleção de jogos que criei.',
     play: 'Jogar',
+    share: "Compartilhar resultado",
+    shareCopied: "Link copiado!",
+    time: "Tempo",
+    timerHint: "O relógio começa no seu primeiro movimento.",
+    moves: "Jogadas",
+    newGame: "Novo jogo",
+    playAgain: "Jogar de novo",
+    level: "Nível",
     queensDescription:
       'Um quebra-cabeça de lógica diário inspirado no problema clássico das N-Rainhas.',
     sudokuDescription:

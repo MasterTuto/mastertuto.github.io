@@ -4,6 +4,37 @@
     <h1>{{ 'catalog.toolsTitle' | translate }}</h1>
     <p>{{ 'catalog.toolsIntro' | translate }}</p>
   </header>
+
+  @if (!isDevTools) {
+    <section lang="pt-BR" aria-labelledby="invoice-heading" class="mb-12">
+      <a [routerLink]="'tools/' + invoice.slug | langLink" class="group relative flex flex-col gap-4 overflow-hidden rounded-3xl bg-primary p-6 text-primary-foreground shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground-emphasis sm:flex-row sm:items-center sm:p-8">
+        <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/10 text-3xl"><ng-icon [name]="invoice.icon" /></span>
+        <span class="flex-1">
+          <span class="text-xs font-semibold uppercase tracking-widest text-[#b3acf5]">Especial · {{ invoice.audience }}</span>
+          <h2 id="invoice-heading" class="mt-1 text-2xl font-semibold">{{ invoice.name }}</h2>
+          <span class="mt-2 block max-w-[62ch] text-sm leading-relaxed text-primary-foreground/75">{{ invoice.description }}</span>
+        </span>
+        <span class="inline-flex shrink-0 items-center gap-2 self-start rounded-xl bg-primary-foreground px-4 py-2.5 text-sm font-semibold text-primary sm:self-center">Criar invoice <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span></span>
+      </a>
+    </section>
+
+    <section lang="pt-BR" aria-labelledby="pro-tools-heading" class="mb-12">
+      <h2 id="pro-tools-heading" class="mb-2 text-2xl font-semibold">Calculadoras para profissionais</h2>
+      <p class="mb-6 max-w-[70ch] text-foreground-light">Ferramentas grátis para o dia a dia de cada profissão: poucos campos, valores comuns a um toque e resultado na hora, no celular ou no computador.</p>
+      <div class="catalog-cards">
+        @for (tool of proTools; track tool.slug) {
+          <a [routerLink]="'tools/' + tool.slug | langLink" class="catalog-card">
+            <span class="catalog-card-icon"><ng-icon [name]="tool.icon" /></span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-foreground-emphasis">{{ tool.audience }}</span>
+            <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
+            <p>{{ tool.description }}</p>
+            <span class="catalog-card-action">Calcular <span aria-hidden="true">→</span></span>
+          </a>
+        }
+      </div>
+    </section>
+  }
+
   <section lang="en" aria-labelledby="dev-tools-heading">
     <h2 id="dev-tools-heading" class="text-2xl font-semibold mb-4">Dev Tools</h2>
     <p class="text-foreground-light mb-6">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>

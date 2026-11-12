@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/ru';
+import { nonogram } from './games/nonogram/ru';
+import { binaryPuzzle } from './games/binary-puzzle/ru';
+import { memory } from './games/memory/ru';
+import { colorLink } from './games/color-link/ru';
 
 export const russianTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Игры и инструменты',
     toggle: 'Свернуть или развернуть меню',
@@ -189,6 +199,14 @@ export const russianTranslations: Translations = {
     subtitle:
       'Коллекция игр, которые я создал.',
     play: 'Играть',
+    share: "Поделиться результатом",
+    shareCopied: "Ссылка скопирована!",
+    time: "Время",
+    timerHint: "Таймер запускается с первого хода.",
+    moves: "Ходы",
+    newGame: "Новая игра",
+    playAgain: "Сыграть ещё",
+    level: "Уровень",
     queensDescription:
       'Ежедневная логическая головоломка, вдохновлённая классической задачей о N ферзях.',
     sudokuDescription:

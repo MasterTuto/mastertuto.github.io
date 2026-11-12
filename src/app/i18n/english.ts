@@ -1,4 +1,15 @@
+import { minesweeper } from './games/minesweeper/en';
+import { nonogram } from './games/nonogram/en';
+import { binaryPuzzle } from './games/binary-puzzle/en';
+import { memory } from './games/memory/en';
+import { colorLink } from './games/color-link/en';
+
 export const englishTranslations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Explore games and tools',
     toggle: 'Toggle sidebar',
@@ -186,6 +197,14 @@ export const englishTranslations = {
     label: 'Games',
     subtitle: 'A collection of games I built.',
     play: 'Play',
+    share: "Share result",
+    shareCopied: "Link copied!",
+    time: "Time",
+    timerHint: "The clock starts on your first move.",
+    moves: "Moves",
+    newGame: "New game",
+    playAgain: "Play again",
+    level: "Level",
     queensDescription:
       'A daily logic puzzle inspired by the classic N-Queens problem.',
     sudokuDescription:

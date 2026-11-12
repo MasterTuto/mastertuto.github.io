@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/ja';
+import { nonogram } from './games/nonogram/ja';
+import { binaryPuzzle } from './games/binary-puzzle/ja';
+import { memory } from './games/memory/ja';
+import { colorLink } from './games/color-link/ja';
 
 export const japaneseTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'ゲームとツールを探す',
     toggle: 'メニューを開閉',
@@ -188,6 +198,14 @@ export const japaneseTranslations: Translations = {
     subtitle:
       '私が作ったゲームのコレクション。',
     play: 'プレイ',
+    share: "結果をシェア",
+    shareCopied: "リンクをコピーしました！",
+    time: "タイム",
+    timerHint: "最初の一手でタイマーが始まります。",
+    moves: "手数",
+    newGame: "新しいゲーム",
+    playAgain: "もう一度遊ぶ",
+    level: "レベル",
     queensDescription:
       '古典的なN-クイーン問題にインスパイアされた毎日のロジックパズル。',
     sudokuDescription:

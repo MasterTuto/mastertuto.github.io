@@ -1,5 +1,6 @@
 import { NavLink } from '../model/nav-item.model';
 import { devTools } from '../screens/tools/dev-tools/dev-tools.data';
+import { invoiceTool, proTools } from '../screens/tools/pro-tools/pro-tools.data';
 import { games } from './games.data';
 import { services } from './services.data';
 
@@ -32,6 +33,8 @@ export const siteNav: NavLink[] = [
         children: [
           { label: 'Dev Tools', literal: true, path: 'tools/dev-tools', exact: true },
           ...devTools.map((tool) => ({ label: tool.name, literal: true, path: `tools/dev-tools/${tool.slug}` })),
+          { label: invoiceTool.name, literal: true, path: `tools/${invoiceTool.slug}` },
+          ...proTools.map((tool) => ({ label: tool.name, literal: true, path: `tools/${tool.slug}` })),
         ],
       },
     ],

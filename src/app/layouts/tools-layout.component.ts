@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { PageShellComponent } from 'src/app/components/page-shell/page-shell.component';
 import { NavLink } from 'src/app/model/nav-item.model';
 import { devTools } from 'src/app/screens/tools/dev-tools/dev-tools.data';
+import { allProTools } from 'src/app/screens/tools/pro-tools/pro-tools.data';
 import { injectCurrentPath } from './current-url';
 
 /** Route wrapper for /tools: the shared page shell with breadcrumbs. */
@@ -20,11 +21,13 @@ export class ToolsLayoutComponent {
     const path = this.path();
     const tool = devTools.find((item) => path.endsWith('/dev-tools/' + item.slug));
     const inDevTools = Boolean(tool) || path.endsWith('/dev-tools');
+    const proTool = allProTools.find((item) => path.endsWith('/tools/' + item.slug));
     return [
       { label: 'home.nav.home', path: '' },
       { label: 'tools.label', path: 'tools' },
       ...(inDevTools ? [{ label: 'Dev Tools', literal: true, path: 'tools/dev-tools' }] : []),
       ...(tool ? [{ label: tool.name, literal: true, path: `tools/dev-tools/${tool.slug}` }] : []),
+      ...(proTool ? [{ label: proTool.name, literal: true, path: `tools/${proTool.slug}` }] : []),
     ];
   });
 }
