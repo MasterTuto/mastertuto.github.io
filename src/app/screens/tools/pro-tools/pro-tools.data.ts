@@ -24,7 +24,7 @@ export const invoiceTool: ProTool = {
   slug: 'gerador-de-invoice',
   audience: 'Freelancers e empresas',
   name: 'Gerador de Invoice',
-  keyword: 'gerador de invoice grátis',
+  keyword: 'crie invoices e faturas em PDF',
   description:
     'Crie invoices e faturas profissionais em minutos: perfis salvos de emissor e cliente, 10 modelos, cálculo automático de impostos e descontos, e exportação em PDF, DOCX, PNG ou link.',
   icon: 'tablerFileInvoice',

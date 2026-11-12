@@ -11,8 +11,8 @@
     "deploy": "ng deploy --cname=brenocs.dev.br",
     "test": "ng test",
     "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
-    "og-images": "node scripts/generate-og-images.mjs",
-    "test:ssg": "node --test scripts/test-*.mjs"
+    "og-images": "node --import ./scripts/ts-resolve.mjs scripts/generate-og-images.mjs",
+    "test:ssg": "node --import ./scripts/ts-resolve.mjs --test scripts/test-*.mjs"
   },
   "private": true,
   "dependencies": {

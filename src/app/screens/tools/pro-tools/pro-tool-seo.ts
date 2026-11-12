@@ -13,7 +13,7 @@ export interface FaqItem {
 export function useProToolSeo(tool: ProTool, faq: readonly FaqItem[] = []): void {
   const path = `/tools/${tool.slug}`;
   usePageSeo(() => ({
-    title: `${tool.name}: ${capitalize(tool.keyword)} grátis`,
+    title: `${tool.name}: ${capitalize(tool.keyword)}${/grátis/i.test(tool.keyword) ? '' : ' grátis'}`,
     description: tool.description,
     path,
     fixedLanguage: 'pt',

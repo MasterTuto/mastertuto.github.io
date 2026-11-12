@@ -85,7 +85,7 @@ import { TplReceiptComponent } from './tpl-receipt.component';
     .inv-doc .in-text { color: #4b5563; font-size: 12px; white-space: pre-line; }
     .inv-doc .ilogo { display: block; max-width: 180px; max-height: 72px; object-fit: contain; }
     .inv-doc .ilogo-mono { display: grid; width: 52px; height: 52px; place-items: center; border-radius: 12px; background: var(--brand); color: var(--brand-ink); font-size: 20px; font-weight: 700; }
-    .inv-stamp { position: absolute; top: 300px; right: 70px; z-index: 5; padding: 6px 22px; border: 4px solid #9ca3af; border-radius: 10px; color: #9ca3af;
+    .inv-stamp { position: absolute; top: 430px; right: 64px; z-index: 5; padding: 6px 22px; border: 4px solid #9ca3af; border-radius: 10px; color: #9ca3af;
       font: 800 34px/1 Inter, system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; transform: rotate(-14deg); opacity: .75; pointer-events: none; }
     .inv-stamp.is-paid { border-color: #16a34a; color: #16a34a; }
   `,

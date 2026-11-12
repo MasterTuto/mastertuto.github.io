@@ -11,7 +11,7 @@ import { arCondicionado } from './industries/ar-condicionado';
 import { fotografo } from './industries/fotografo';
 import { contador } from './industries/contador';
 import { banhoETosa } from './industries/banho-e-tosa';
-import { Industry } from './industries/industry.model';
+import type { Industry } from './industries/industry.model';
 
 export type { Industry } from './industries/industry.model';
 
