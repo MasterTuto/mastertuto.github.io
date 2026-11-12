@@ -82,6 +82,7 @@ const FAQ: FaqItem[] = [
     .step button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; }
     .step button:hover { background: rgb(68 74 81 / .07); }
     .step input { width: 3rem; height: 44px; background: transparent; text-align: center; font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .step input:focus-visible { outline-offset: -4px; border-radius: .75rem; }
     .sw { position: relative; flex-shrink: 0; width: 44px; height: 26px; border-radius: 999px; background: rgb(68 74 81 / .22); transition: background-color .15s; }
     .sw::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .2); transition: transform .15s; }
     .sw[aria-checked=true] { background: #7a70e1; }

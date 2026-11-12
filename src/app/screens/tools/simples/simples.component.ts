@@ -162,7 +162,7 @@ const FAQ: FaqItem[] = [
               }
             } @else {
               <div class="f">
-                <label class="pro-label" for="sn-rbt">RBT12 <small>receita bruta dos últimos 12 meses</small></label>
+                <label class="pro-label sm:flex-col sm:items-start sm:gap-0.5" for="sn-rbt">RBT12 <small>receita bruta dos últimos 12 meses</small></label>
                 <div class="min-w-0">
                   <div class="pro-input-wrap money">
                     <span>R$</span>
@@ -193,9 +193,9 @@ const FAQ: FaqItem[] = [
 
             @if (choice() === 'R') {
               <div class="f">
-                <label class="pro-label" for="sn-payroll">
+                <label class="pro-label sm:flex-col sm:items-start sm:gap-0.5" for="sn-payroll">
                   Folha {{ young() ? (months() === 0 ? 'do mês' : 'desses meses') : '12 meses' }}
-                  <small class="sm:block">salários, pró-labore, FGTS e INSS</small>
+                  <small>salários, pró-labore, FGTS e INSS</small>
                 </label>
                 <div class="min-w-0">
                   <div class="pro-input-wrap money">
@@ -303,7 +303,7 @@ const FAQ: FaqItem[] = [
               <h2 id="sn-split" class="font-semibold text-foreground">Repartição dos tributos no DAS</h2>
               <div class="pro-table-scroll mt-2">
                 <table class="pro-table">
-                  <thead><tr><th scope="col">Tributo</th><th scope="col">% do DAS</th><th scope="col">Alíquota</th><th scope="col" class="!text-right">Valor</th></tr></thead>
+                  <thead><tr><th scope="col">Tributo</th><th scope="col">%</th><th scope="col">Alíquota</th><th scope="col" class="!text-right">Valor</th></tr></thead>
                   <tbody>
                     @for (s of r.split; track s.tax) {
                       <tr><td>{{ taxName(s.tax) }}</td><td>{{ num(s.percent, 2) }}%</td><td>{{ pct(s.rate, 3) }}</td><td class="text-right">{{ money(s.value) }}</td></tr>
