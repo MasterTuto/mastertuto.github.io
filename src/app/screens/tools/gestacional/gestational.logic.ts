@@ -96,14 +96,14 @@ export interface PrenatalWindow {
 export const WINDOWS: { label: string; detail: string; from: [number, number]; to: [number, number] | null }[] = [
   { label: 'Ultrassom do 1º trimestre / translucência nucal', detail: 'Datação e rastreio de aneuploidias', from: [11, 0], to: [13, 6] },
   { label: 'Ultrassom morfológico do 2º trimestre', detail: 'Avaliação anatômica fetal', from: [20, 0], to: [24, 6] },
-  { label: 'Vacina dTpa', detail: 'A partir de 20 semanas, em cada gestação', from: [20, 0], to: null },
+  { label: 'Vacina dTpa', detail: 'Em cada gestação', from: [20, 0], to: null },
   { label: 'TOTG 75 g', detail: 'Rastreio de diabetes gestacional', from: [24, 0], to: [28, 6] },
   { label: 'Ultrassom do 3º trimestre', detail: 'Crescimento fetal e líquido amniótico', from: [28, 0], to: [32, 6] },
   { label: 'Cultura para estreptococo do grupo B', detail: 'Swab vaginal e retal', from: [36, 0], to: [37, 6] },
-  { label: 'Termo precoce', detail: '37s 0d', from: [37, 0], to: [37, 0] },
-  { label: 'Termo completo', detail: '39s 0d', from: [39, 0], to: [39, 0] },
-  { label: 'Data provável do parto', detail: '40s 0d', from: [40, 0], to: [40, 0] },
-  { label: 'Termo tardio', detail: '41s 0d: avaliar vitalidade e indução', from: [41, 0], to: [41, 0] },
+  { label: 'Termo precoce', detail: 'Início do termo', from: [37, 0], to: [37, 0] },
+  { label: 'Termo completo', detail: 'Parto eletivo a partir daqui', from: [39, 0], to: [39, 0] },
+  { label: 'Data provável do parto', detail: 'DUM + 280 dias', from: [40, 0], to: [40, 0] },
+  { label: 'Termo tardio', detail: 'Avaliar vitalidade fetal e indução', from: [41, 0], to: [41, 0] },
 ];
 
 export interface GestationResult {

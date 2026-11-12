@@ -81,7 +81,7 @@ const FAQ: FaqItem[] = [
   styles: `
     .f { display: grid; gap: .55rem; padding: .85rem 0; border-top: 1px solid rgb(68 74 81 / .12); }
     .f:first-child { border-top: 0; padding-top: 0; }
-    @media (min-width: 640px) { .f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; } }
+    @media (min-width: 640px) { .f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; } .f > .pro-label { flex-direction: column; gap: .1rem; } }
     .step { display: inline-flex; align-items: center; border: 1px solid rgb(68 74 81 / .15); border-radius: 999px; background: rgb(244 242 242); }
     .step button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; }
     .step button:hover:not(:disabled) { background: rgb(68 74 81 / .07); }
@@ -174,17 +174,17 @@ const FAQ: FaqItem[] = [
 
             <div class="f">
               <span class="pro-label">Ocupação</span>
-              <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
-                <div class="flex items-center gap-3">
-                  <span class="text-sm text-foreground" id="btu-people">Pessoas</span>
+              <div class="grid grid-cols-2 gap-3 sm:flex sm:gap-8">
+                <div class="grid justify-items-start gap-1.5">
+                  <span class="text-sm text-foreground-light" id="btu-people">Pessoas</span>
                   <div class="step" role="group" aria-labelledby="btu-people">
                     <button type="button" aria-label="Menos uma pessoa" [disabled]="people() <= 1" (click)="people.set(clamp(people() - 1, 1, 50))"><ng-icon name="tablerMinus" /></button>
                     <output aria-live="polite">{{ people() }}</output>
                     <button type="button" aria-label="Mais uma pessoa" (click)="people.set(clamp(people() + 1, 1, 50))"><ng-icon name="tablerPlus" /></button>
                   </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <span class="text-sm text-foreground" id="btu-devices">Aparelhos <small class="text-foreground-light">TV, PC…</small></span>
+                <div class="grid justify-items-start gap-1.5">
+                  <span class="text-sm text-foreground-light" id="btu-devices">Aparelhos <small>(TV, PC…)</small></span>
                   <div class="step" role="group" aria-labelledby="btu-devices">
                     <button type="button" aria-label="Menos um aparelho" [disabled]="devices() <= 0" (click)="devices.set(clamp(devices() - 1, 0, 50))"><ng-icon name="tablerMinus" /></button>
                     <output aria-live="polite">{{ devices() }}</output>
@@ -195,10 +195,13 @@ const FAQ: FaqItem[] = [
             </div>
 
             <div class="f">
-              <label class="pro-label" for="btu-ceiling">Pé-direito <small>acima de 3 m ajusta</small></label>
-              <div class="pro-input-wrap w-36">
-                <input id="btu-ceiling" class="pro-input" inputmode="decimal" autocomplete="off" [value]="ceiling()" (input)="ceiling.set(val($event))" />
-                <span class="pro-suffix">m</span>
+              <label class="pro-label" for="btu-ceiling">Pé-direito</label>
+              <div class="flex items-center gap-3">
+                <div class="pro-input-wrap w-28 shrink-0">
+                  <input id="btu-ceiling" class="pro-input" inputmode="decimal" autocomplete="off" [value]="ceiling()" (input)="ceiling.set(val($event))" />
+                  <span class="pro-suffix">m</span>
+                </div>
+                <span class="pro-hint">Acima de 3 m, a parcela da área cresce na mesma proporção.</span>
               </div>
             </div>
 

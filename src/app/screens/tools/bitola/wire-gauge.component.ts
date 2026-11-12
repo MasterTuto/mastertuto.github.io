@@ -98,7 +98,7 @@ const FAQ: FaqItem[] = [
   styles: `
     .f { display: grid; gap: .55rem; padding: .85rem 0; border-top: 1px solid rgb(68 74 81 / .12); }
     .f:first-child { border-top: 0; padding-top: 0; }
-    @media (min-width: 640px) { .f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; } }
+    @media (min-width: 640px) { .f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; } .f > .pro-label { flex-direction: column; gap: .1rem; } }
     .step { display: inline-flex; align-items: center; border: 1px solid rgb(68 74 81 / .15); border-radius: 999px; background: rgb(244 242 242); }
     .step button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; }
     .step button:hover { background: rgb(68 74 81 / .07); }

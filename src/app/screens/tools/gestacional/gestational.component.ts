@@ -130,7 +130,7 @@ const FAQ: FaqItem[] = [
   styles: `
     .f { display: grid; gap: .55rem; padding: .85rem 0; border-top: 1px solid rgb(68 74 81 / .12); }
     .f:first-child { border-top: 0; padding-top: 0; }
-    @media (min-width: 640px) { .f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; } }
+    @media (min-width: 640px) { .f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; } .f > .pro-label { flex-direction: column; gap: .1rem; } }
     .bar { position: relative; height: .5rem; margin-top: 1.1rem; border-radius: 999px; background: rgb(255 255 255 / .14); }
     .bar > i { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: #a59cf0; }
     .bar > b { position: absolute; top: -.2rem; bottom: -.2rem; width: 1px; background: rgb(255 255 255 / .35); }
@@ -250,8 +250,9 @@ const FAQ: FaqItem[] = [
               <i [style.width.%]="r.progress * 100"></i>
               <b style="left: 35%"></b><b style="left: 70%"></b>
             </div>
-            <div class="mt-1.5 flex justify-between text-[.7rem] opacity-60" aria-hidden="true">
-              <span>0</span><span class="-ml-6">14s</span><span class="ml-10">28s</span><span>40s</span>
+            <div class="relative mt-1.5 h-4 text-[.7rem] opacity-60" aria-hidden="true">
+              <span class="absolute left-0">0</span><span class="absolute left-[35%] -translate-x-1/2">14s</span>
+              <span class="absolute left-[70%] -translate-x-1/2">28s</span><span class="absolute right-0">40s</span>
             </div>
             <dl class="pro-result-list">
               <div><dt>Data provável do parto</dt><dd>{{ date(r.dueDate) }}</dd></div>
@@ -259,7 +260,7 @@ const FAQ: FaqItem[] = [
               @if (method() !== 'lmp') {
                 <div><dt>DUM equivalente</dt><dd>{{ date(r.lmp) }}</dd></div>
               }
-              <div><dt>Termo (37s a 41s6d)</dt><dd>{{ date(r.lmp + 259) }} a {{ date(r.lmp + 293) }}</dd></div>
+              <div><dt>Termo <small>37s–41s6d</small></dt><dd>{{ date(r.lmp + 259).slice(0, 5) }} a {{ date(r.lmp + 293) }}</dd></div>
             </dl>
             @for (w of r.warnings; track w) {
               <p class="mt-3 text-sm text-amber-200">{{ w }}</p>
