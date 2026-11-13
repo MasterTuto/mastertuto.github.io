@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/ja';
+import { nonogram } from './games/nonogram/ja';
+import { binaryPuzzle } from './games/binary-puzzle/ja';
+import { memory } from './games/memory/ja';
+import { colorLink } from './games/color-link/ja';
 
 export const japaneseTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'ゲームとツールを探す',
     toggle: 'メニューを開閉',
@@ -8,16 +18,16 @@ export const japaneseTranslations: Translations = {
     skip: 'コンテンツへ移動',
     gamesTitle: '無料のオンライン論理・単語ゲーム',
     gamesIntro:
-      'スマートフォン、タブレット、パソコンのブラウザーで数独、Queens、Word Ladderを楽しめます。',
+      "数独、Queens、Word Ladder、マインスイーパー、ノノグラム、バイナリパズル、神経衰弱、カラーリンクをブラウザで無料で。スマホ、タブレット、パソコンで遊べます。",
     gamesHeading: '次のチャレンジを選ぶ',
     gamesText:
-      '数独を解いたり、クイーンの配置を考えたり、一文字ずつ単語をつないだりできます。各ゲームでルール、操作方法、ヒントを確認できます。',
-    toolsTitle: '日常に役立つオンラインツール',
+      "数独、Queens、ノノグラム、バイナリパズルで論理力を鍛え、記憶力を試し、地雷を避け、色や単語をつなぎましょう。どのゲームにもレベル、最初の一手で始まるタイマー、シェアできる結果があります。",
+    toolsTitle: "プロ向けの無料オンラインツール",
     toolsIntro:
-      'ブラウザで動作する無料の開発者ツールで JSON を整形し、JWT トークンを確認できます。',
-    toolsHeading: '日々の開発に役立つツール',
+      "請求書の作成、ケーブルやエアコンの選定、法定期限の計算などに加え、JSONの整形やJWTのデコードも。ブラウザで動く無料ツールです。",
+    toolsHeading: "毎日の仕事のためのツール",
     toolsText:
-      'JSON の検証・整形・圧縮や JWT のクレームと有効期限の確認ができます。息抜きに論理ゲームもどうぞ。',
+      "業務用計算ツールと請求書ジェネレーターはポルトガル語で、ブラジルのルールに基づいています。開発者向けツールはJSONの整形とJWTトークンのデコードができます。休憩には論理ゲームをどうぞ。",
   },
   backHome: 'ホームに戻る',
   cases: {
@@ -188,6 +198,14 @@ export const japaneseTranslations: Translations = {
     subtitle:
       '私が作ったゲームのコレクション。',
     play: 'プレイ',
+    share: "結果をシェア",
+    shareCopied: "リンクをコピーしました！",
+    time: "タイム",
+    timerHint: "最初の一手でタイマーが始まります。",
+    moves: "手数",
+    newGame: "新しいゲーム",
+    playAgain: "もう一度遊ぶ",
+    level: "レベル",
     queensDescription:
       '古典的なN-クイーン問題にインスパイアされた毎日のロジックパズル。',
     sudokuDescription:
@@ -819,11 +837,9 @@ export const japaneseTranslations: Translations = {
     'level-3': '中級',
     'level-4': '難しい',
     'level-5': '遊人',
-    'new-game': '新しいゲーム',
     hint: 'ヒント',
     congratulations:
       'おめでとう！パズル完成！',
-    'queens-placed': 'のクイーンを配置',
     'check-errors': 'ルール違反を確認',
     loading: '読み込み中...',
     'how-to-play': '遊び方',
@@ -835,27 +851,22 @@ export const japaneseTranslations: Translations = {
       '各色の領域に正確に1つのクイーンを配置します。',
     'rule-adjacent':
       '2つのクイーンは那接しないこと。斜めも含みます。',
-    'tip-tap':
-      '1回タップで✕マーク、もう一度で♫クイーン、もう一度でクリア。',
-    'tip-x':
-      '指をセルにスライドすると複数セルに✕を高速マークできます。',
-    'tip-slide':
-      '✕マークを使ってクイーンが置けないセルを示します。',
+    'tip-tap': 'マスを 1 回タップ（クリック）で ✕、もう 1 回で ♛、さらにもう 1 回で空に戻ります。',
+    'tip-x': '指やマウスでマスをなぞると、通ったマスすべてに一度で ✕ を付けられます。✕ のマスからなぞり始めると ✕ を消します。なぞってもクイーンは変わりません。',
+    'tip-slide': '自動 ✕ をオンにすると、各クイーンが置けなくしたマスが見えます。キーボードでは矢印キーと Space を使います。',
     'faq-title': 'よくある質問',
     'faq-q1': 'クイーンズとは？',
     'faq-a1':
       'クイーンズは、各行、各列、各色の領域に1つのクイーンを配置し、クイーン同士が接しないようにするロジックパズルです。',
     'faq-q2': '遊び方は？',
-    'faq-a2':
-      'セルをタップするとサイクルします: ✕マーク → ♫クイーン → 空。指をボードにスライドすると複数の✕を高速マーク。ルール違反は赤く表示されます。',
+    'faq-a2': 'マスをタップすると ✕ 印 → ♛ クイーン → 空 の順に切り替わります。盤面をなぞれば多くのマスに一度に ✕ を付けられます。ルール違反は赤く表示され、どの手も元に戻せます。',
     'faq-q3':
       '間違ったらどうなりますか？',
     'faq-a3':
       '矛盾するクイーンは赤く表示されます。ルールを満たすまで調整してください。手数の制限はありません！',
     'faq-q4':
       '毎日新しいパズルがありますか？',
-    'faq-a4':
-      'はい！現在の日付に基づいて毎日ボードが生成され、毎日新しいチャレンジがあります。結果をシェアしましょう！',
+    'faq-a4': 'はい！デイリーの盤面は日付から作られるので、毎日みんなが同じ問題に挑戦できます。ランダムや新しいゲームを選べば追加の盤面を無制限に遊べ、クリア後はタイムをシェアできます。',
     'seo-title':
       'クイーンズをプレイ — 毎日ロジックパズル',
     'seo-p1':
@@ -864,6 +875,24 @@ export const japaneseTranslations: Translations = {
       '難易度は5レベル。初心者(5×5)から遊人(10×10)まで。日付からパズルが生成されます。',
     'seo-p3':
       '登録不要で無料でプレイできます。ロジック思考を訓練し、パターン認識能力を向上させましょう。',
+    mode: 'パズル',
+    'mode-daily': 'デイリー',
+    'mode-random': 'ランダム',
+    undo: '元に戻す',
+    clear: 'クリア',
+    'auto-x': '自動 ✕',
+    'auto-x-title': 'クイーンが置けなくしたマスに自動で ✕ を表示',
+    'hints-left': '残りヒント',
+    'hints-used': 'ヒント',
+    'tip-short': 'タップ: ✕ → ♛ → 空。なぞると ✕ をまとめて付けられます。',
+    'solved-summary': 'クリアタイム',
+    'share-text': '👑 Queens（{puzzle}）を ⏱ {time} でクリア！ 💡 ヒント {hints} 回',
+    'cell-label': '{row} 行 {col} 列',
+    'cell-queen': 'クイーン',
+    'cell-x': '✕ 印',
+    'cell-empty': '空',
+    'board-label': 'Queens の盤面。矢印キーで移動、Space か Enter で ✕ / クイーンを切り替え、Delete で消去。',
+    undone: '1 手戻しました。',
   },
   sudoku: {
     sudoku: '数独',
@@ -875,7 +904,6 @@ export const japaneseTranslations: Translations = {
     'difficulty-0': 'かんたん',
     'difficulty-1': 'ふつう',
     'difficulty-2': 'むずかしい',
-    'new-game': '新しいゲーム',
     notes: 'メモ',
     eraser: '消去',
     undo: '元に戻す',
@@ -938,6 +966,15 @@ export const japaneseTranslations: Translations = {
       '4×4ミニで子供に教えたい、簡単な6×6でウォームアップしたい、難しい9×9で試したい — いつでもここで数独をオンラインでプレイできます。メモ、ヒント、元に戻す、キーボードショートカット、エラー表示で、どのゲームも楽しめます。',
     'seo-p5':
       'このページをブックマークして、頭の体操が必要なときにいつでも戻ってきてください。無料で数独をオンラインでプレイし、論理力を高め、楽しんでください — 1つのグリッドから始めましょう。',
+    'hints-left': '残りヒント',
+    'hints-used': 'ヒント',
+    'notes-on': 'メモ ON：数字はメモとして入力されます。',
+    'select-first': '先にマスを選んでください。',
+    'given-cell': 'その数字は問題の一部です。',
+    empty: '空',
+    'cell-label': '{row} 行 {col} 列',
+    'board-label': '数独の盤面。矢印キーで移動、数字キーで入力、N でメモ切り替え、Delete で消去。',
+    'share-text': '🧩 {size} の数独（{level}）を ⏱ {time} でクリア！ ミス {mistakes} 回・💡 ヒント {hints} 回',
   },
   wordLadder: {
     name: 'ワードラダー',
@@ -952,11 +989,9 @@ export const japaneseTranslations: Translations = {
     'difficulty-medium': 'ふつう',
     'difficulty-hard': 'むずかしい',
     'daily-today': '今日のワードラダー',
-    'new-game': '新しいゲーム',
     moves: '手数',
     best: 'ベスト',
     target: '目標',
-    time: '時間',
     'daily-done':
       '今日のパズルはもう解き終わりました。明日また新しいパズルでお会いしましょう！',
     start: '開始',
@@ -965,7 +1000,6 @@ export const japaneseTranslations: Translations = {
     submit: '進む',
     hint: 'ヒント',
     undo: '戻す',
-    'start-game': 'ゲーム開始',
     'err-empty': '最初に単語を入力してください。',
     'err-length': '単語の文字数は最初の単語と同じでなければなりません。',
     'err-dictionary': 'その単語は辞書にありません。別の単語を試してください。',
@@ -978,12 +1012,8 @@ export const japaneseTranslations: Translations = {
     'live-undo': '手を戻しました。',
     complete: 'ワードラダー完成！',
     'result-moves': '最初の単語から目標の単語まで変えられました。お見事！',
-    'result-optimal': '次回はできるだけ少ない手数で終わらせましょう。',
     'daily-streak': '連続記録:',
-    'play-again': 'もう一度',
     'next-puzzle': '次のパズル',
-    share: 'シェア',
-    'share-copied': '結果をクリップボードにコピーしました。',
     'how-to-play': 'ワードラダーの遊び方',
     'rule-1': 'はしごの一番上の青い単語から始めます。',
     'rule-2': '現在の単語とちょうど1文字だけ違う新しい単語を入力します。',
@@ -1053,6 +1083,11 @@ export const japaneseTranslations: Translations = {
       '言葉パズルが好きなら、ほかの無料ロジックゲームも試してみてください。すべてモバイルとデスクトップで動きます。',
     'related-sudoku': '3つのグリッドサイズの定番ロジックパズル。',
     'related-queens': 'Nクイーンに着想を得た毎日の配置パズル。',
+    'share-text': '🪜 ワードラダー（{label}）：{start} → {target} を {moves} 手でクリア（パー {par}）・⏱ {time}・💡 ヒント {hints} 回',
+    par: 'パー',
+    'par-hint': 'スラッシュの後の数字はパー（最短の手数）です。',
+    history: 'これまでのラダー',
+    'history-empty': '入力した単語はここに積み上がり、最新のものが入力欄のすぐ上に表示されます。',
   },
   seo: {
     cardTagline: 'ウェブサイト・ランディングページ・自動化',

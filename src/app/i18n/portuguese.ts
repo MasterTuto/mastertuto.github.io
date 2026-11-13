@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/pt';
+import { nonogram } from './games/nonogram/pt';
+import { binaryPuzzle } from './games/binary-puzzle/pt';
+import { memory } from './games/memory/pt';
+import { colorLink } from './games/color-link/pt';
 
 export const portugueseTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Explorar jogos e ferramentas',
     toggle: 'Recolher ou expandir menu',
@@ -8,16 +18,16 @@ export const portugueseTranslations: Translations = {
     skip: 'Pular para o conteúdo',
     gamesTitle: 'Jogos de lógica e palavras online grátis',
     gamesIntro:
-      'Jogue Sudoku, Queens e Word Ladder no navegador. Explore desafios de números, estratégia e palavras no celular, tablet ou computador.',
+      "Jogue Sudoku, Queens, Word Ladder, Campo Minado, Nonograma, Quebra-cabeça Binário, Jogo da Memória e Ligue as Cores no navegador, grátis, no celular, tablet ou computador.",
     gamesHeading: 'Escolha seu próximo desafio',
     gamesText:
-      'Pratique o raciocínio com grades de Sudoku, planeje a posição de cada rainha ou conecte palavras mudando uma letra por vez. Abra um jogo para consultar suas regras, controles e dicas.',
-    toolsTitle: 'Ferramentas online para o dia a dia',
+      "Treine a lógica com Sudoku, Queens, Nonograma e Quebra-cabeça Binário, exercite a memória, desvie das minas ou ligue cores e palavras. Todos têm níveis, cronômetro que começa no primeiro movimento e resultado para compartilhar.",
+    toolsTitle: "Ferramentas online grátis para profissionais",
     toolsIntro:
-      'Formate JSON e inspecione tokens JWT com ferramentas gratuitas para desenvolvedores que funcionam no navegador. Escolha uma ferramenta para obter resultados imediatos, guias e exemplos.',
-    toolsHeading: 'Ferramentas para o desenvolvimento diário',
+      "Gere invoices, dimensione cabos e ar-condicionado, conte prazos processuais, calcule o Simples Nacional e a idade gestacional, ou formate JSON e decodifique JWT. Tudo grátis, direto no navegador.",
+    toolsHeading: "Ferramentas para o trabalho do dia a dia",
     toolsText:
-      'Use JSON Beautifier Pro para validar, indentar e minificar JSON, ou JWT Token Decoder para inspecionar headers, payloads e claims de expiração. Explore nossos jogos de lógica quando precisar de uma pausa.',
+      "As calculadoras seguem as regras brasileiras e mostram o resultado enquanto você digita, com valores comuns a um toque. As ferramentas para desenvolvedores formatam JSON e decodificam tokens JWT. Na pausa, experimente nossos jogos de lógica.",
   },
   backHome: 'Voltar ao início',
   cases: {
@@ -188,6 +198,14 @@ export const portugueseTranslations: Translations = {
     label: 'Jogos',
     subtitle: 'Uma coleção de jogos que criei.',
     play: 'Jogar',
+    share: "Compartilhar resultado",
+    shareCopied: "Link copiado!",
+    time: "Tempo",
+    timerHint: "O relógio começa no seu primeiro movimento.",
+    moves: "Jogadas",
+    newGame: "Novo jogo",
+    playAgain: "Jogar de novo",
+    level: "Nível",
     queensDescription:
       'Um quebra-cabeça de lógica diário inspirado no problema clássico das N-Rainhas.',
     sudokuDescription:
@@ -810,10 +828,8 @@ export const portugueseTranslations: Translations = {
     'level-3': 'Médio',
     'level-4': 'Difícil',
     'level-5': 'Expert',
-    'new-game': 'Novo Jogo',
     hint: 'Dica',
     congratulations: 'Parabéns! Puzzle resolvido!',
-    'queens-placed': 'rainhas colocadas',
     'check-errors': 'Verifique violações das regras',
     loading: 'Carregando...',
     'how-to-play': 'Como Jogar',
@@ -822,25 +838,20 @@ export const portugueseTranslations: Translations = {
     'rule-region':
       'Coloque exatamente uma rainha em cada região colorida.',
     'rule-adjacent': 'Duas rainhas não podem se tocar, nem na diagonal.',
-    'tip-tap':
-      'Toque uma vez para marcar ✕, toque outra vez para colocar ♫, toque outra vez para limpar.',
-    'tip-x':
-      'Deslize o dedo sobre as células para marcar várias com ✕ rapidamente.',
-    'tip-slide':
-      'Use marcas ✕ para sinalizar células que sabe que não contêm rainha.',
+    'tip-tap': 'Toque ou clique numa casa uma vez para marcar ✕, de novo para colocar ♛ e mais uma vez para limpar.',
+    'tip-x': 'Arraste o dedo ou o mouse sobre as casas para marcar ✕ em todas de uma só vez. Comece o traço sobre um ✕ para apagar as marcas. O traço nunca mexe nas rainhas.',
+    'tip-slide': 'Ative o Auto ✕ para ver as casas que cada rainha elimina. No teclado, use as setas e o Espaço.',
     'faq-title': 'Perguntas Frequentes',
     'faq-q1': 'O que é o jogo Rainhas?',
     'faq-a1':
       'Rainhas é um quebra-cabeça de lógica onde você posiciona rainhas no tabuleiro de modo que cada linha, coluna e região colorida contenha exatamente uma rainha, e nenhuma rainha se toque.',
     'faq-q2': 'Como jogar?',
-    'faq-a2':
-      'Toque numa célula para alternar entre: ✕ marcação → ♫ rainha → vazio. Deslize o dedo pelo tabuleiro para marcar várias células com ✕ rapidamente. Violacões das regras são destacadas em vermelho.',
+    'faq-a2': 'Toque numa casa para alternar entre marcação ✕ → rainha ♛ → vazio, ou arraste pelo tabuleiro para marcar várias casas com ✕ de uma vez. Violações das regras ficam em vermelho e você pode desfazer qualquer jogada.',
     'faq-q3': 'O que acontece se eu errar?',
     'faq-a3':
       'Rainhas em conflito são destacadas em vermelho. Revise e ajuste até que todas as regras sejam cumpridas. Não há limite de jogadas!',
     'faq-q4': 'Tem um puzzle novo todo dia?',
-    'faq-a4':
-      'Sim! O tabuleiro é gerado diariamente com base na data atual, oferecendo um novo desafio a cada dia. Compartilhe seus resultados!',
+    'faq-a4': 'Sim! O tabuleiro Diário é gerado a partir da data, então todo mundo recebe o mesmo desafio no dia. Escolha Aleatório ou Novo jogo para tabuleiros extras ilimitados e compartilhe seu tempo ao terminar.',
     'seo-title':
       'Jogue Rainhas — Quebra-cabeça de Lógica Diário',
     'seo-p1':
@@ -849,6 +860,24 @@ export const portugueseTranslations: Translations = {
       'Escolha entre 5 níveis de dificuldade — Iniciante (5×5), Fácil (6×6), Médio (7×7), Difícil (8×8) e Expert (10×10). Cada puzzle é gerado deterministicamente a partir da data, então todos recebem o mesmo desafio diário.',
     'seo-p3':
       'Jogue online gratuitamente, sem necessidade de cadastro. Treine seu raciocínio lógico e habilidades de reconhecimento de padrões. Um novo puzzle espera por você todos os dias!',
+    mode: 'Tabuleiro',
+    'mode-daily': 'Diário',
+    'mode-random': 'Aleatório',
+    undo: 'Desfazer',
+    clear: 'Limpar',
+    'auto-x': 'Auto ✕',
+    'auto-x-title': 'Mostrar ✕ automaticamente nas casas que suas rainhas eliminam',
+    'hints-left': 'Dicas restantes',
+    'hints-used': 'Dicas',
+    'tip-short': 'Toque: ✕ → ♛ → vazio. Arraste para marcar vários ✕.',
+    'solved-summary': 'Resolvido em',
+    'share-text': '👑 Resolvi o Queens ({puzzle}) em ⏱ {time} usando 💡 {hints} dicas!',
+    'cell-label': 'Linha {row}, coluna {col}',
+    'cell-queen': 'rainha',
+    'cell-x': 'marcada com ✕',
+    'cell-empty': 'vazia',
+    'board-label': 'Tabuleiro do Queens. Setas movem, Espaço ou Enter alterna ✕ / rainha, Delete limpa.',
+    undone: 'Jogada desfeita.',
   },
   sudoku: {
     sudoku: 'Sudoku',
@@ -860,7 +889,6 @@ export const portugueseTranslations: Translations = {
     'difficulty-0': 'Fácil',
     'difficulty-1': 'Médio',
     'difficulty-2': 'Difícil',
-    'new-game': 'Novo Jogo',
     notes: 'Notas',
     eraser: 'Apagar',
     undo: 'Desfazer',
@@ -920,6 +948,15 @@ export const portugueseTranslations: Translations = {
       'Se você quer ensinar crianças com uma grade mini 4×4, aquecer com um 6×6 fácil ou se testar com um 9×9 difícil, pode jogar Sudoku online aqui a qualquer hora. Notas, dicas, desfazer, atalhos de teclado e destaque de erros tornam cada partida fácil de aproveitar.',
     'seo-p5':
       'Salve esta página nos favoritos e volte sempre que precisar de um treino mental. Jogue Sudoku online grátis, melhore sua lógica e divirta-se — um quadro por vez.',
+    'hints-left': 'Dicas restantes',
+    'hints-used': 'Dicas',
+    'notes-on': 'Notas ativadas: os números entram como anotações.',
+    'select-first': 'Selecione uma casa primeiro.',
+    'given-cell': 'Esse número faz parte do desafio.',
+    empty: 'vazia',
+    'cell-label': 'Linha {row}, coluna {col}',
+    'board-label': 'Grade do Sudoku. Setas movem, números preenchem, N alterna notas, Delete apaga.',
+    'share-text': '🧩 Resolvi um Sudoku {size} ({level}) em ⏱ {time} com {mistakes} erros e 💡 {hints} dicas!',
   },
   wordLadder: {
     name: 'Escada de Palavras',
@@ -934,11 +971,9 @@ export const portugueseTranslations: Translations = {
     'difficulty-medium': 'Médio',
     'difficulty-hard': 'Difícil',
     'daily-today': 'Escada de Palavras de Hoje',
-    'new-game': 'Novo Jogo',
     moves: 'Jogadas',
     best: 'Recorde',
     target: 'Alvo',
-    time: 'Tempo',
     'daily-done':
       'Você já resolveu o puzzle de hoje. Volte amanhã para um novo!',
     start: 'Início',
@@ -947,7 +982,6 @@ export const portugueseTranslations: Translations = {
     submit: 'Ir',
     hint: 'Dica',
     undo: 'Desfazer',
-    'start-game': 'Começar Jogo',
     'err-empty': 'Digite uma palavra primeiro.',
     'err-length': 'A palavra deve ter o mesmo tamanho da palavra inicial.',
     'err-dictionary':
@@ -963,13 +997,8 @@ export const portugueseTranslations: Translations = {
     complete: 'Escada de Palavras Completa!',
     'result-moves':
       'Você transformou a palavra inicial na palavra-alvo. Excelente!',
-    'result-optimal':
-      'Tente terminar com o menor número de jogadas possível na próxima.',
     'daily-streak': 'Sequência diária:',
-    'play-again': 'Jogar Novamente',
     'next-puzzle': 'Próximo Puzzle',
-    share: 'Compartilhar',
-    'share-copied': 'Resultado copiado para a área de transferência.',
     'how-to-play': 'Como Jogar Escada de Palavras',
     'rule-1': 'Comece pela palavra azul no topo da escada.',
     'rule-2':
@@ -1046,6 +1075,11 @@ export const portugueseTranslations: Translations = {
       'Puzzle de lógica clássico com três tamanhos de grade.',
     'related-queens':
       'Um puzzle de posicionamento diário inspirado nas N-Rainhas.',
+    'share-text': '🪜 Escada de Palavras ({label}): {start} → {target} em {moves} jogadas (par {par}) · ⏱ {time} · 💡 {hints} dicas',
+    par: 'Par',
+    'par-hint': 'O número depois da barra é o par: a menor escada possível.',
+    history: 'Sua escada até agora',
+    'history-empty': 'Suas palavras se acumulam aqui, a mais nova logo acima do campo.',
   },
   seo: {
     cardTagline: 'Sites, landing pages e automação',

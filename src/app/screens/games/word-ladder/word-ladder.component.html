@@ -5,392 +5,333 @@
   </header>
   <div class="game-layout">
     <div class="game-play">
-    <!-- Game card -->
-    <section aria-label="Word Ladder game" class="rounded-2xl bg-surface p-4 ring-1 ring-foreground/10 sm:p-6">
-
-      <!-- Mode + difficulty + new game -->
-      <div class="mb-4 flex flex-wrap items-center gap-2">
-        <div role="group" aria-label="{{ 'wordLadder.mode' | translate }}" class="flex rounded-lg bg-foreground/5 p-1">
+      <!-- Mode + new game -->
+      <div class="mb-2 flex items-center gap-2">
+        <div class="pro-segmented" role="group" [attr.aria-label]="'wordLadder.mode' | translate">
           @for (m of modes; track m) {
-            <button
-              type="button"
-              (click)="setMode(m)"
-              class="rounded-md px-3 py-1.5 text-sm font-semibold transition-colors"
-              [class.bg-foreground-emphasis/30]="mode() === m"
-              [class.text-foreground-emphasis]="mode() === m"
-              [class.text-foreground-light]="mode() !== m"
-              [class.hover:text-foreground]="mode() !== m"
-              [attr.aria-pressed]="mode() === m"
-            >
+            <button type="button" class="!min-h-[44px] !px-3" [attr.aria-pressed]="mode() === m" (click)="setMode(m)">
               {{ "wordLadder.mode-" + m | translate }}
             </button>
           }
         </div>
-
-        @if (mode() === "classic") {
-          <label class="flex items-center gap-1.5 text-xs text-foreground-light sm:text-sm">
-            {{ "wordLadder.difficulty" | translate }}
-            <select
-              [value]="difficulty()"
-              (change)="setDifficulty($any($event.target).value)"
-              class="rounded-lg bg-foreground/5 px-2 py-1.5 text-sm text-foreground outline-none ring-1 ring-foreground/15 transition-colors focus:ring-foreground-emphasis"
-            >
-              @for (d of difficulties; track d) {
-                <option [value]="d" class="bg-surface">{{ "wordLadder.difficulty-" + d | translate }}</option>
-              }
-            </select>
-          </label>
-        } @else {
-          <span class="flex items-center gap-1.5 text-xs text-foreground-light sm:text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-foreground-emphasis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
-            {{ "wordLadder.daily-today" | translate }}
-          </span>
-        }
-
         <button
           type="button"
           (click)="startGame()"
-          class="ml-auto rounded-lg bg-foreground/5 px-3 py-1.5 text-sm transition-colors hover:bg-foreground/10 active:bg-foreground/15"
+          class="ml-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5"
         >
-          {{ "wordLadder.new-game" | translate }}
+          <ng-icon name="tablerRefresh" aria-hidden="true" />
+          {{ "games.newGame" | translate }}
         </button>
       </div>
 
-      <!-- Status chips -->
-      @if (puzzle(); as p) {
-        <div class="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <div class="rounded-lg bg-surface px-3 py-2 text-center">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-foreground-light/80 sm:text-xs">{{ "wordLadder.moves" | translate }}</div>
-            <div class="text-lg font-bold text-foreground">{{ moves }}</div>
+      <!-- Difficulty (classic) or today's date (daily): same slot, same height -->
+      <div class="mb-4 flex h-[54px] items-center">
+        @if (mode() === "classic") {
+          <div class="pro-segmented w-full" role="group" [attr.aria-label]="'wordLadder.difficulty' | translate">
+            @for (d of difficulties; track d) {
+              <button type="button" class="!min-h-[44px]" [attr.aria-pressed]="difficulty() === d" (click)="setDifficulty(d)">
+                {{ "wordLadder.difficulty-" + d | translate }}
+              </button>
+            }
           </div>
-          <div class="rounded-lg bg-surface px-3 py-2 text-center">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-foreground-light/80 sm:text-xs">{{ "wordLadder.best" | translate }}</div>
-            <div class="text-lg font-bold text-foreground">{{ currentBest ?? "—" }}</div>
-          </div>
-          <div class="rounded-lg bg-surface px-3 py-2 text-center">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-foreground-light/80 sm:text-xs">{{ "wordLadder.target" | translate }}</div>
-            <div class="text-lg font-bold tracking-widest text-amber-700">{{ p.target }}</div>
-          </div>
-          <div class="rounded-lg bg-surface px-3 py-2 text-center">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-foreground-light/80 sm:text-xs">{{ "wordLadder.time" | translate }}</div>
-            <div class="text-lg font-bold text-foreground">{{ timeLabel }}</div>
-          </div>
-        </div>
-      }
-
-      @if (mode() === "daily" && dailyCompleted()) {
-        <p class="mb-4 text-center text-sm text-amber-700">{{ "wordLadder.daily-done" | translate }}</p>
-      }
-
-      <!-- Ladder -->
-      <div class="mx-auto w-full max-w-sm">
-        <div class="rounded-xl bg-foreground-emphasis/15 px-4 py-3 text-center ring-1 ring-foreground-emphasis/30">
-          <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-foreground-emphasis/80">{{ "wordLadder.start" | translate }}</div>
-          <div class="mt-0.5 text-2xl font-bold tracking-widest text-foreground-emphasis sm:text-3xl">
-            {{ puzzle()?.start ?? "••••" }}
-          </div>
-        </div>
-
-        @for (word of chainWords(); track word; let i = $index) {
-          <div aria-hidden="true" class="flex justify-center py-1 text-foreground-light/60">↓</div>
-          <div
-            class="wl-word rounded-xl bg-foreground/5 px-4 py-2.5 text-center ring-1 ring-foreground/10"
-            [class.wl-word-enter]="i === chainWords().length - 1 && status() === 'playing'"
-          >
-            <div class="text-2xl font-bold tracking-widest text-foreground sm:text-3xl">{{ word }}</div>
-          </div>
+        } @else {
+          <p class="flex items-center gap-2 text-sm font-medium text-foreground">
+            <ng-icon name="tablerCalendar" class="text-foreground-emphasis" aria-hidden="true" />
+            {{ "wordLadder.daily-today" | translate }}
+          </p>
         }
+      </div>
 
-        @if (status() === "playing" && puzzle(); as p) {
-          <div aria-hidden="true" class="flex justify-center py-1 text-foreground-light/60">↓</div>
-          <form
-            (ngSubmit)="submitMove()"
-            novalidate
-            id="wl-move-form"
-            class="flex items-stretch gap-2"
-          >
-            <label for="wl-move-input" class="sr-only">{{ "wordLadder.your-move" | translate }}</label>
-            <input
-              #moveInput
-              id="wl-move-input"
-              type="text"
-              inputmode="text"
-              autocomplete="off"
-              autocapitalize="characters"
-              autocorrect="off"
-              spellcheck="false"
-              [attr.maxlength]="wordLength"
-              [value]="guess()"
-              (input)="onGuessInput($event)"
-              class="min-w-0 flex-1 rounded-xl bg-foreground/5 px-4 py-3 text-center text-lg font-bold uppercase tracking-widest text-foreground caret-blue-400 outline-none ring-1 ring-foreground/15 transition-shadow placeholder:text-foreground-light/60 focus:ring-2 focus:ring-foreground-emphasis"
-              placeholder="{{ 'wordLadder.input-placeholder' | translate }}"
-            />
-            <button
-              type="submit"
-              class="shrink-0 rounded-xl bg-foreground-emphasis/30 px-5 text-sm font-semibold text-foreground-emphasis ring-1 ring-foreground-emphasis/40 transition-colors hover:bg-foreground-emphasis/40 active:bg-foreground-emphasis/50"
-            >
-              {{ "wordLadder.submit" | translate }}
-            </button>
-          </form>
+      <!-- Stats row -->
+      <dl class="grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
+        <div>
+          <dt class="text-xs text-foreground-light">{{ "games.time" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ timer.label() }}</dd>
+        </div>
+        <div>
+          <dt class="text-xs text-foreground-light">{{ "wordLadder.moves" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-foreground">
+            {{ moves }}<span class="text-sm font-medium text-foreground-light"> / {{ puzzle()?.optimalMoves ?? "–" }}</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs text-foreground-light">{{ "wordLadder.best" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ currentBest ?? "–" }}</dd>
+        </div>
+      </dl>
+      <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 text-foreground-light sm:text-sm">
+        @if (mode() === "daily" && dailyCompleted() && path().length <= 1) {
+          <span class="text-amber-700">{{ "wordLadder.daily-done" | translate }}</span>
+        } @else if (!timer.running() && status() === "playing" && moves === 0) {
+          {{ "games.timerHint" | translate }}
+        } @else {
+          {{ "wordLadder.par-hint" | translate }}
+        }
+      </p>
 
-          <div class="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm">
+      <!-- The ladder: every row has a fixed height and the input never changes place. -->
+      <div class="mx-auto w-full max-w-sm select-none">
+        <!-- Start -->
+        <div class="grid h-12 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
+          <span class="text-[11px] font-medium leading-tight text-foreground-emphasis">{{ "wordLadder.start" | translate }}</span>
+          <div class="flex justify-center gap-1">
+            @for (ch of letters(puzzle()?.start ?? "····"); track $index) {
+              <span class="grid h-10 w-10 place-items-center rounded-lg bg-foreground-emphasis text-xl font-bold text-white">{{ ch }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- History: fixed height, scrolls inside, newest word right above the input -->
+        <div
+          #historyEl
+          class="my-1 h-[8.75rem] overflow-y-auto overscroll-contain border-y border-dashed border-foreground/15 [scrollbar-gutter:stable_both-edges]"
+          [attr.aria-label]="'wordLadder.history' | translate"
+          role="list"
+        >
+          <div class="flex min-h-full flex-col justify-end gap-1 py-1">
+            @for (word of chainWords(); track $index; let i = $index) {
+              @let changed = changedIndex(i + 1);
+              <div role="listitem" class="grid h-10 shrink-0 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center" [class.wl-word-enter]="i === chainWords().length - 1 && status() === 'playing'">
+                <span class="text-xs tabular-nums text-foreground-light">{{ i + 1 }}</span>
+                <div class="flex justify-center gap-1">
+                  @for (ch of letters(word); track $index; let k = $index) {
+                    <span
+                      class="grid h-9 w-10 place-items-center rounded-lg text-lg font-bold"
+                      [class]="k === changed ? 'bg-foreground-emphasis/20 text-foreground-emphasis' : 'bg-foreground/5 text-foreground'"
+                    >{{ ch }}</span>
+                  }
+                </div>
+              </div>
+            } @empty {
+              <p class="m-auto px-4 text-center text-xs text-foreground-light">{{ "wordLadder.history-empty" | translate }}</p>
+            }
+          </div>
+        </div>
+
+        <!-- Current move (input) or the reached target: same 52px row -->
+        <div class="grid h-[52px] grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
+          <label for="wl-move-input" class="text-xs font-medium text-foreground">
+            @if (status() === "won") { ✓ } @else { {{ moves + 1 }} }
+          </label>
+          @if (status() === "won") {
+            <div class="flex justify-center gap-1">
+              @for (ch of letters(puzzle()?.target ?? ""); track $index) {
+                <span class="grid h-11 w-10 place-items-center rounded-lg bg-green-600 text-xl font-bold text-white">{{ ch }}</span>
+              }
+            </div>
+          } @else {
+            <form (ngSubmit)="submitMove()" novalidate id="wl-move-form" class="contents">
+              @let tick = errorTick();
+              <input
+                #moveInput
+                id="wl-move-input"
+                type="text"
+                inputmode="text"
+                enterkeyhint="go"
+                autocomplete="off"
+                autocapitalize="characters"
+                autocorrect="off"
+                spellcheck="false"
+                [attr.aria-label]="'wordLadder.your-move' | translate"
+                [attr.aria-invalid]="!!error()"
+                [attr.aria-describedby]="'wl-feedback'"
+                [attr.maxlength]="wordLength"
+                [value]="guess()"
+                (input)="onGuessInput($event)"
+                (focus)="onInputFocus()"
+                [disabled]="status() !== 'playing'"
+                class="h-11 w-full min-w-0 rounded-xl bg-surface px-2 text-center text-xl font-bold uppercase tracking-[0.4em] text-foreground caret-foreground-emphasis outline-none ring-2 transition-shadow placeholder:font-semibold placeholder:tracking-[0.3em] placeholder:text-foreground-light/50 focus:ring-foreground-emphasis"
+                [class]="error() ? 'ring-red-500 ' + (tick % 2 ? 'wl-shake' : 'wl-shake-b') : 'ring-foreground/15'"
+                placeholder="{{ 'wordLadder.input-placeholder' | translate }}"
+              />
+              <button
+                type="submit"
+                (mousedown)="$event.preventDefault()"
+                [attr.aria-label]="'wordLadder.submit' | translate"
+                class="ml-1.5 inline-flex h-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition hover:opacity-90"
+              >
+                <ng-icon name="tablerCornerDownLeft" size="20" aria-hidden="true" />
+              </button>
+            </form>
+          }
+        </div>
+
+        <!-- Feedback right under the input: fixed two-line slot -->
+        <p
+          id="wl-feedback"
+          class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 sm:text-sm"
+          [attr.role]="error() ? 'alert' : null"
+        >
+          @if (error(); as err) {
+            <span class="font-medium text-red-600">{{ err }}</span>
+          } @else if (status() === "won") {
+            <span class="font-semibold text-green-700">{{ "wordLadder.complete" | translate }}</span>
+          } @else if (hintText(); as hint) {
+            <span class="font-medium text-amber-700">{{ hint }}</span>
+          } @else {
+            <span class="text-foreground-light">{{ "wordLadder.hint-text" | translate }}</span>
+          }
+        </p>
+
+        <!-- Target -->
+        <div class="grid h-12 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
+          <span class="text-[11px] font-medium leading-tight" [class]="status() === 'won' ? 'text-green-700' : 'text-amber-700'">{{ "wordLadder.target" | translate }}</span>
+          <div class="flex justify-center gap-1">
+            @for (ch of letters(puzzle()?.target ?? "····"); track $index) {
+              <span
+                class="grid h-10 w-10 place-items-center rounded-lg text-xl font-bold ring-2 ring-inset"
+                [class]="status() === 'won' ? 'bg-green-600/10 text-green-700 ring-green-600/40' : 'bg-amber-500/10 text-amber-800 ring-amber-500/50'"
+              >{{ ch }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools, or the result once solved -->
+      <div class="mx-auto mt-3 min-h-[56px] w-full max-w-sm">
+        @if (status() === "won" && puzzle(); as p) {
+          <div class="wl-win flex flex-col items-center gap-2 border-t border-green-600/30 pt-4 text-center">
+            @if (path().length > 1) {
+              <p class="text-sm text-foreground">{{ "wordLadder.result-moves" | translate }}</p>
+              <p class="text-sm text-foreground-light">
+                {{ "wordLadder.moves" | translate }} <strong class="tabular-nums text-foreground">{{ moves }}</strong>
+                · {{ "wordLadder.par" | translate }} <strong class="tabular-nums text-foreground">{{ p.optimalMoves }}</strong>
+                · {{ "games.time" | translate }} <strong class="tabular-nums text-foreground">{{ timer.label() }}</strong>
+              </p>
+            }
+            @if (mode() === "daily" && dailyBest() !== null) {
+              <p class="text-sm text-amber-700">{{ "wordLadder.daily-streak" | translate }} <strong class="tabular-nums">{{ streak() }}</strong></p>
+            }
+            <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
+              <app-game-share-button [text]="shareText()" />
+              @if (mode() === "classic") {
+                <button
+                  type="button"
+                  (click)="nextPuzzle()"
+                  class="inline-flex min-h-[44px] items-center gap-2 rounded-xl px-4 text-sm font-semibold text-foreground ring-1 ring-foreground/15 transition-colors hover:bg-foreground/5"
+                >
+                  <ng-icon name="tablerArrowsShuffle" aria-hidden="true" />
+                  {{ "wordLadder.next-puzzle" | translate }}
+                </button>
+              }
+            </div>
+          </div>
+        } @else {
+          <div class="grid grid-cols-2 gap-1">
             <button
               type="button"
+              (mousedown)="$event.preventDefault()"
               (click)="useHint()"
-              [disabled]="hintsRemaining() <= 0"
-              class="rounded-lg px-3 py-1.5 transition-colors"
-              [class.bg-amber-500/20]="hintsRemaining() > 0"
-              [class.text-amber-700]="hintsRemaining() > 0"
-              [class.bg-foreground/5]="hintsRemaining() <= 0"
-              [class.text-foreground-light/60]="hintsRemaining() <= 0"
+              [disabled]="hintsRemaining() <= 0 || status() !== 'playing'"
+              class="flex min-h-[52px] items-center justify-center gap-2 rounded-xl text-sm font-medium text-amber-700 transition-colors hover:bg-amber-500/10 disabled:opacity-40"
             >
+              <ng-icon name="tablerBulb" size="20" aria-hidden="true" />
               {{ "wordLadder.hint" | translate }} ({{ hintsRemaining() }})
             </button>
             <button
               type="button"
+              (mousedown)="$event.preventDefault()"
               (click)="undoMove()"
-              [disabled]="path().length <= 1"
-              class="rounded-lg px-3 py-1.5 transition-colors"
-              [class.bg-foreground/5]="path().length > 1"
-              [class.text-foreground]="path().length > 1"
-              [class.hover:bg-foreground/10]="path().length > 1"
-              [class.bg-surface]="path().length <= 1"
-              [class.text-foreground-light/60]="path().length <= 1"
+              [disabled]="path().length <= 1 || status() !== 'playing'"
+              class="flex min-h-[52px] items-center justify-center gap-2 rounded-xl text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 disabled:opacity-40"
             >
+              <ng-icon name="tablerArrowBackUp" size="20" aria-hidden="true" />
               {{ "wordLadder.undo" | translate }}
             </button>
           </div>
         }
-
-        @if (status() === "won") {
-          <div aria-hidden="true" class="flex justify-center py-1 text-foreground-light/60">↓</div>
-          <div
-            class="rounded-xl bg-green-500/15 px-4 py-3 text-center ring-1 ring-green-400/30"
-          >
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-green-700">{{ "wordLadder.target" | translate }}</div>
-            <div class="mt-0.5 text-2xl font-bold tracking-widest text-green-700 sm:text-3xl">{{ puzzle()?.target }}</div>
-          </div>
-        }
-
-        @if (status() === "idle") {
-          <div aria-hidden="true" class="flex justify-center py-1 text-foreground-light/60">↓</div>
-          <button
-            type="button"
-            (click)="startGame()"
-            class="w-full rounded-xl bg-foreground-emphasis/30 px-5 py-3.5 text-base font-bold text-foreground-emphasis ring-1 ring-foreground-emphasis/40 transition-colors hover:bg-foreground-emphasis/40 active:bg-foreground-emphasis/50"
-          >
-            {{ "wordLadder.start-game" | translate }}
-          </button>
-        }
-
-        @if (status() !== "won") {
-          <div class="mt-1 flex justify-center py-1 text-foreground-light/60" aria-hidden="true">↓</div>
-          <div class="rounded-xl bg-amber-500/15 px-4 py-3 text-center ring-1 ring-amber-400/30">
-            <div class="text-[0.65rem] font-semibold uppercase tracking-wide text-amber-700">{{ "wordLadder.target" | translate }}</div>
-            <div class="mt-0.5 text-2xl font-bold tracking-widest text-amber-800 sm:text-3xl">
-              {{ puzzle()?.target ?? "••••" }}
-            </div>
-          </div>
-        }
       </div>
-
-      <!-- Feedback -->
-      <div class="mt-4 min-h-8 text-center">
-        @if (error(); as err) {
-          <p role="alert" class="text-sm font-medium text-red-600">{{ err }}</p>
-        } @else if (hintText(); as hint) {
-          <p class="text-sm text-amber-700">{{ hint }}</p>
-        } @else if (shareMessage(); as msg) {
-          <p class="text-sm text-foreground-light">{{ msg }}</p>
-        } @else if (status() === "playing" && puzzle(); as p) {
-          <p class="text-xs text-foreground-light/80 sm:text-sm">{{ "wordLadder.hint-text" | translate }}</p>
-        }
-      </div>
-
-      <!-- Win result -->
-      @if (status() === "won" && puzzle(); as p) {
-        <div class="wl-win mt-4 rounded-xl bg-green-500/20 px-4 py-5 text-center ring-1 ring-green-400/40">
-          <p class="text-lg font-bold text-green-700">{{ "wordLadder.complete" | translate }}</p>
-          <p class="mt-1 text-sm text-foreground">{{ "wordLadder.result-moves" | translate }}</p>
-          <p class="mt-1 text-sm text-foreground-light">{{ "wordLadder.result-optimal" | translate }}</p>
-          @if (mode() === "daily" && dailyBest() !== null) {
-            <p class="mt-1 text-sm text-amber-700">{{ "wordLadder.daily-streak" | translate }} {{ streak() }}</p>
-          }
-          <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <button
-              type="button"
-              (click)="startGame()"
-              class="rounded-lg bg-foreground/5 px-4 py-2 text-sm font-semibold transition-colors hover:bg-foreground/10"
-            >
-              {{ "wordLadder.play-again" | translate }}
-            </button>
-            @if (mode() === "classic") {
-              <button
-                type="button"
-                (click)="nextPuzzle()"
-                class="rounded-lg bg-foreground-emphasis/30 px-4 py-2 text-sm font-semibold text-foreground-emphasis ring-1 ring-foreground-emphasis/40 transition-colors hover:bg-foreground-emphasis/40"
-              >
-                {{ "wordLadder.next-puzzle" | translate }}
-              </button>
-            }
-            <button
-              type="button"
-              (click)="shareResult()"
-              class="rounded-lg bg-foreground/5 px-4 py-2 text-sm font-semibold transition-colors hover:bg-foreground/10"
-            >
-              {{ "wordLadder.share" | translate }}
-            </button>
-          </div>
-        </div>
-      }
 
       <!-- Screen-reader live region -->
-      <div aria-live="polite" class="sr-only">
-        @if (lastLiveAnnouncement(); as ann) {
-          <span>{{ ann }}</span>
-        }
-      </div>
-    </section>
-
+      <div aria-live="polite" class="sr-only">{{ lastLiveAnnouncement() }}</div>
     </div>
-    <div class="game-guide">
-    <!-- How to Play -->
-    <section class="mt-8 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.how-to-play" | translate }}</h2>
-      <ol class="space-y-2 text-sm leading-relaxed text-foreground sm:text-base">
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 font-semibold text-foreground-emphasis">1.</span>
-          <span>{{ "wordLadder.rule-1" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 font-semibold text-foreground-emphasis">2.</span>
-          <span>{{ "wordLadder.rule-2" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 font-semibold text-foreground-emphasis">3.</span>
-          <span>{{ "wordLadder.rule-3" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 font-semibold text-foreground-emphasis">4.</span>
-          <span>{{ "wordLadder.rule-4" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="mt-0.5 font-semibold text-foreground-emphasis">5.</span>
-          <span>{{ "wordLadder.rule-5" | translate }}</span>
-        </li>
+    <div class="game-guide text-foreground">
+      <!-- How to play: ruled, numbered list -->
+      <h2 class="text-lg font-bold sm:text-xl">{{ "wordLadder.how-to-play" | translate }}</h2>
+      <ol class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+        @for (n of [1, 2, 3, 4, 5]; track n) {
+          <li class="flex gap-3 py-2.5">
+            <span class="w-5 shrink-0 font-semibold tabular-nums text-foreground-emphasis">{{ n }}</span>
+            <span>{{ "wordLadder.rule-" + n | translate }}</span>
+          </li>
+        }
       </ol>
-    </section>
 
-    <!-- Rules -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.rules-title" | translate }}</h2>
-      <div class="space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <!-- Rules: prose -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.rules-title" | translate }}</h2>
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
         <p>{{ "wordLadder.rules-p1" | translate }}</p>
         <p>{{ "wordLadder.rules-p2" | translate }}</p>
         <p>{{ "wordLadder.rules-p3" | translate }}</p>
       </div>
-    </section>
 
-    <!-- Tips -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.tips-title" | translate }}</h2>
-      <ul class="space-y-2 text-sm leading-relaxed text-foreground sm:text-base">
-        <li class="flex items-start gap-2">
-          <span aria-hidden="true" class="mt-0.5 text-foreground-emphasis">→</span>
-          <span>{{ "wordLadder.tip-1" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span aria-hidden="true" class="mt-0.5 text-foreground-emphasis">→</span>
-          <span>{{ "wordLadder.tip-2" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span aria-hidden="true" class="mt-0.5 text-foreground-emphasis">→</span>
-          <span>{{ "wordLadder.tip-3" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span aria-hidden="true" class="mt-0.5 text-foreground-emphasis">→</span>
-          <span>{{ "wordLadder.tip-4" | translate }}</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span aria-hidden="true" class="mt-0.5 text-foreground-emphasis">→</span>
-          <span>{{ "wordLadder.tip-5" | translate }}</span>
-        </li>
+      <!-- Tips: ruled list -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.tips-title" | translate }}</h2>
+      <ul class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+        @for (n of [1, 2, 3, 4, 5]; track n) {
+          <li class="flex gap-3 py-2.5">
+            <span aria-hidden="true" class="shrink-0 text-foreground-emphasis">→</span>
+            <span>{{ "wordLadder.tip-" + n | translate }}</span>
+          </li>
+        }
       </ul>
-    </section>
 
-    <!-- What is a Word Ladder -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.whatis-title" | translate }}</h2>
-      <div class="space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <!-- What is it: prose -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.whatis-title" | translate }}</h2>
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
         <p>{{ "wordLadder.whatis-p1" | translate }}</p>
         <p>{{ "wordLadder.whatis-p2" | translate }}</p>
       </div>
-    </section>
 
-    <!-- Difficulty levels -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.levels-title" | translate }}</h2>
-      <div class="space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
-        <p><span class="font-semibold text-foreground">{{ "wordLadder.levels-easy" | translate }}</span> {{ "wordLadder.levels-easy-p" | translate }}</p>
-        <p><span class="font-semibold text-foreground">{{ "wordLadder.levels-medium" | translate }}</span> {{ "wordLadder.levels-medium-p" | translate }}</p>
-        <p><span class="font-semibold text-foreground">{{ "wordLadder.levels-hard" | translate }}</span> {{ "wordLadder.levels-hard-p" | translate }}</p>
-      </div>
-    </section>
+      <!-- Difficulty levels: term / explanation -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.levels-title" | translate }}</h2>
+      <dl class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+        @for (d of difficulties; track d) {
+          <div class="grid gap-1 py-2.5 sm:grid-cols-[7rem_1fr] sm:gap-4">
+            <dt class="font-semibold">{{ "wordLadder.levels-" + d | translate }}</dt>
+            <dd class="text-foreground-light">{{ "wordLadder.levels-" + d + "-p" | translate }}</dd>
+          </div>
+        }
+      </dl>
 
-    <!-- For kids -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.kids-title" | translate }}</h2>
-      <div class="space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <!-- For kids: prose -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.kids-title" | translate }}</h2>
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
         <p>{{ "wordLadder.kids-p1" | translate }}</p>
         <p>{{ "wordLadder.kids-p2" | translate }}</p>
       </div>
-    </section>
 
-    <!-- FAQ -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-4 text-lg font-bold sm:text-xl">{{ "wordLadder.faq-title" | translate }}</h2>
-      <div class="space-y-4">
+      <!-- FAQ: accordion -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.faq-title" | translate }}</h2>
+      <div class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10">
         @for (q of faqKeys; track q.question) {
-          <div>
-            <h3 class="text-sm font-semibold text-foreground sm:text-base">{{ q.question | translate }}</h3>
-            <p class="mt-1 text-sm leading-relaxed text-foreground-light">{{ q.answer | translate }}</p>
-          </div>
+          <details class="group">
+            <summary class="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base [&::-webkit-details-marker]:hidden">
+              {{ q.question | translate }}
+              <span aria-hidden="true" class="text-lg leading-none text-foreground-light transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed text-foreground-light">{{ q.answer | translate }}</p>
+          </details>
         }
       </div>
-    </section>
 
-    <!-- Related games -->
-    <section class="mt-6 rounded-xl bg-surface px-5 py-6 sm:px-6">
-      <h2 class="mb-3 text-lg font-bold sm:text-xl">{{ "wordLadder.related-title" | translate }}</h2>
-      <p class="mb-4 text-sm leading-relaxed text-foreground-light sm:text-base">{{ "wordLadder.related-p" | translate }}</p>
-      <div class="grid gap-3 sm:grid-cols-2">
-        <a
-          [routerLink]="['/', lang, 'games', 'sudoku']"
-          class="flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-foreground/10 transition-colors hover:bg-foreground/5"
-        >
-          <span class="grid size-11 shrink-0 place-items-center rounded-lg bg-foreground/5 text-foreground">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
-          </span>
-          <span class="min-w-0">
-            <span class="block font-semibold">{{ "sudoku.sudoku" | translate }}</span>
-            <span class="block text-sm text-foreground-light">{{ "wordLadder.related-sudoku" | translate }}</span>
-          </span>
-        </a>
-        <a
-          [routerLink]="['/', lang, 'games', 'queens']"
-          class="flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-foreground/10 transition-colors hover:bg-foreground/5"
-        >
-          <span class="grid size-11 shrink-0 place-items-center rounded-lg bg-foreground/5 text-foreground">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M12 3a3 3 0 0 0-2 5.2c.9.8 1 1.7 1 2.8h2c0-1.1.1-2 1-2.8A3 3 0 0 0 12 3z"/></svg>
-          </span>
-          <span class="min-w-0">
-            <span class="block font-semibold">{{ "queens.queens" | translate }}</span>
-            <span class="block text-sm text-foreground-light">{{ "wordLadder.related-queens" | translate }}</span>
-          </span>
-        </a>
-      </div>
-    </section>
-
+      <!-- Related games: inline links in prose -->
+      <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.related-title" | translate }}</h2>
+      <p class="mt-3 max-w-[70ch] text-sm leading-relaxed text-foreground-light sm:text-base">{{ "wordLadder.related-p" | translate }}</p>
+      <ul class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm sm:text-base">
+        <li>
+          <a [routerLink]="['/', lang, 'games', 'sudoku']" class="group flex min-h-[48px] items-center justify-between gap-3 py-2.5">
+            <span><span class="font-semibold text-foreground group-hover:text-foreground-emphasis">{{ "sudoku.sudoku" | translate }}</span> <span class="text-foreground-light">— {{ "wordLadder.related-sudoku" | translate }}</span></span>
+            <span aria-hidden="true" class="text-foreground-emphasis transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/', lang, 'games', 'queens']" class="group flex min-h-[48px] items-center justify-between gap-3 py-2.5">
+            <span><span class="font-semibold text-foreground group-hover:text-foreground-emphasis">{{ "queens.queens" | translate }}</span> <span class="text-foreground-light">— {{ "wordLadder.related-queens" | translate }}</span></span>
+            <span aria-hidden="true" class="text-foreground-emphasis transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
 </div>

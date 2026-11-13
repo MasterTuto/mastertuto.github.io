@@ -4,8 +4,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowDown,
+  tablerAirConditioning,
   tablerArrowRight,
+  tablerBabyCarriage,
+  tablerBolt,
   tablerBrandWhatsapp,
+  tablerGavel,
+  tablerReportMoney,
   tablerCheck,
   tablerClockExclamation,
   tablerPlus,
@@ -19,6 +24,7 @@ import { industries } from 'src/app/data/industries.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { PERSON_REF, usePageSeo } from 'src/app/seo/page-seo';
 import { createWhatsAppLink } from 'src/app/utils/html';
+import { TOOLS_PER_SEGMENT, toolSegments } from 'src/app/screens/tools/pro-tools/pro-tools.data';
 
 /** A segment page: the niche's routine, its problems and how a site with automation changes them. */
 @Component({
@@ -29,8 +35,13 @@ import { createWhatsAppLink } from 'src/app/utils/html';
   providers: [
     provideIcons({
       tablerArrowDown,
+      tablerAirConditioning,
       tablerArrowRight,
+      tablerBabyCarriage,
+      tablerBolt,
       tablerBrandWhatsapp,
+      tablerGavel,
+      tablerReportMoney,
       tablerCheck,
       tablerClockExclamation,
       tablerPlus,
@@ -43,6 +54,8 @@ export class IndustryPageComponent {
   private slug = toSignal(inject(ActivatedRoute).data.pipe(map((data) => data['slug'] as string)));
 
   readonly industry = computed(() => industries.find((item) => item.slug === this.slug()));
+  readonly toolGroup = computed(() => toolSegments.find((group) => group.slug === this.slug()));
+  readonly toolLimit = TOOLS_PER_SEGMENT;
   readonly others = computed(() => industries.filter((item) => item.slug !== this.slug()));
   readonly activeProblem = signal(0);
   readonly contact = computed(() =>

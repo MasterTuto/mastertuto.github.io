@@ -1,0 +1,65 @@
+/** Color Link strings (en). */
+export const colorLink = {
+  name: "Color Link",
+  description: 'Join each pair of matching dots with a path and fill the whole grid: a relaxing logic puzzle with a daily challenge.',
+  seo: {
+    title: 'Color Link: free connect-the-dots path puzzle online',
+    description: 'Draw paths to join each pair of colored dots without crossings and fill every cell. Free daily puzzle in 5×5, 7×7 and 9×9 that works on any phone.',
+  },
+  size: 'Board size',
+  mode: 'Puzzle',
+  daily: 'Daily',
+  random: 'Random',
+  newPuzzle: 'New puzzle',
+  undo: 'Undo',
+  reset: 'Clear',
+  filled: 'Filled',
+  pairs: 'Pairs',
+  loading: 'Loading puzzle…',
+  boardLabel: 'Color Link board',
+  keyboardHint: 'Keyboard: arrows move, Space or Enter picks up and drops a color, Ctrl+Z undoes.',
+  status: {
+    drag: 'Drag from a dot to its twin. Slide back to erase a stretch.',
+    fill: 'Every pair is linked. Now reroute so that no cell is left empty.',
+    solved: 'Solved! Every pair linked and every cell filled.',
+  },
+  win: {
+    title: 'Solved!',
+    moves: 'moves',
+  },
+  howTo: {
+    title: 'How to play',
+    s1: 'Every color appears on exactly two dots. Press a dot and drag to draw a path to the other dot of the same color.',
+    s2: 'Paths move up, down, left or right, one cell at a time. They never cross and never share a cell.',
+    s3: 'Slide back along a path to shorten it. Drawing over another color cuts that path where you pass.',
+    s4: 'The puzzle is solved when every pair is joined and every cell of the grid is covered by a path.',
+  },
+  tips: {
+    title: 'Tips',
+    t1Term: 'Start at the edges',
+    t1: 'Dots on the border and in corners have few ways out. Link them first and the middle sorts itself out.',
+    t2Term: 'Hug the walls',
+    t2: 'A path that runs along the edge or along another path rarely traps empty cells behind it.',
+    t3Term: 'Watch for dead ends',
+    t3: 'An empty cell with only one free neighbor must be the bend of some path. If none can reach it, rethink the paths around it.',
+  },
+  faq: {
+    title: 'Frequently asked questions',
+    q1: 'Is there only one solution?',
+    a1: 'Not necessarily. Any filling that joins every pair, without crossings, and covers every cell counts as a win, even if it differs from the one the generator had in mind.',
+    q2: 'What is the daily puzzle?',
+    a2: 'Each board size has one puzzle per day, the same for everyone. Random mode gives you a fresh puzzle whenever you want another round.',
+    q3: 'Can I play with the keyboard?',
+    a3: 'Yes. Focus the board, move the cursor with the arrow keys, press Space or Enter on a dot to pick up its color, draw with the arrows and press Space again to drop it.',
+    q4: 'I have trouble telling some colors apart. What can I do?',
+    a4: 'The palette was chosen to stay distinct for the most common kinds of color blindness, and each pair also carries the same letter, so you can match dots by letter alone.',
+  },
+  about: {
+    title: 'About Color Link',
+    p1: 'Color Link belongs to a family of path puzzles known as Numberlink, popularized in Japanese puzzle magazines: pairs of symbols on a grid must be connected by lines that never cross. Here the symbols are colors, and the extra rule of filling every cell turns a simple drawing exercise into a real logic puzzle.',
+    p2: 'Every board is built by a generator that splits the grid into winding paths and keeps only their ends, so a complete solution always exists. The 5×5 board is a quick warm-up, 7×7 asks for some planning and 9×9 rewards careful reading of the edges and corners.',
+    p3: 'It is a good fit for short breaks: a round takes a minute or two, the clock only starts with your first stroke, and it plays just as well with a finger on the phone as with a mouse. Solve the daily puzzle, share your time and come back tomorrow for a new one.',
+  },
+};
+
+export type ColorLinkStrings = typeof colorLink;

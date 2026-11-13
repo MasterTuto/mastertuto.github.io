@@ -1,6 +1,16 @@
 import type { Translations } from './english';
+import { minesweeper } from './games/minesweeper/fr';
+import { nonogram } from './games/nonogram/fr';
+import { binaryPuzzle } from './games/binary-puzzle/fr';
+import { memory } from './games/memory/fr';
+import { colorLink } from './games/color-link/fr';
 
 export const frenchTranslations: Translations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Explorer les jeux et outils',
     toggle: 'Réduire ou déployer le menu',
@@ -8,16 +18,16 @@ export const frenchTranslations: Translations = {
     skip: 'Aller au contenu',
     gamesTitle: 'Jeux de logique et de lettres gratuits en ligne',
     gamesIntro:
-      'Jouez au Sudoku, à Queens et à Word Ladder dans votre navigateur, sur téléphone, tablette ou ordinateur.',
+      "Jouez au Sudoku, à Queens, à Word Ladder, au Démineur, au Logimage, au Puzzle binaire, au Jeu de mémoire et à Relie les couleurs dans votre navigateur, gratuitement, sur téléphone, tablette ou ordinateur.",
     gamesHeading: 'Choisissez votre prochain défi',
     gamesText:
-      'Résolvez des grilles de Sudoku, placez chaque reine ou reliez des mots en changeant une lettre à la fois. Chaque jeu propose ses règles, commandes et conseils.',
-    toolsTitle: 'Outils en ligne pour le quotidien',
+      "Entraînez votre logique avec le Sudoku, Queens, le Logimage et le Puzzle binaire, testez votre mémoire, évitez les mines ou reliez couleurs et mots. Chaque jeu propose des niveaux, un chrono qui démarre à votre premier coup et un résultat à partager.",
+    toolsTitle: "Outils en ligne gratuits pour les professionnels",
     toolsIntro:
-      'Formatez du JSON et inspectez des jetons JWT avec des outils gratuits pour développeurs dans votre navigateur.',
-    toolsHeading: 'Des outils pour le développement au quotidien',
+      "Créez des factures, dimensionnez câbles et climatiseurs, comptez des délais juridiques et plus encore, ou formatez du JSON et décodez des JWT. Des outils gratuits qui fonctionnent dans votre navigateur.",
+    toolsHeading: "Des outils pour le travail au quotidien",
     toolsText:
-      'Validez et minifiez du JSON ou consultez les claims et les dates d’expiration JWT. Découvrez aussi nos jeux de logique.',
+      "Les calculateurs professionnels et le générateur de factures sont en portugais et suivent les règles brésiliennes. Les outils pour développeurs formatent du JSON et décodent des jetons JWT. Pour une pause, essayez nos jeux de logique.",
   },
   backHome: "Retour à l'accueil",
   cases: {
@@ -188,6 +198,14 @@ export const frenchTranslations: Translations = {
     label: 'Jeux',
     subtitle: "Une collection de jeux que j'ai créés.",
     play: 'Jouer',
+    share: "Partager le résultat",
+    shareCopied: "Lien copié !",
+    time: "Temps",
+    timerHint: "Le chrono démarre à votre premier coup.",
+    moves: "Coups",
+    newGame: "Nouvelle partie",
+    playAgain: "Rejouer",
+    level: "Niveau",
     queensDescription:
       'Un puzzle de logique quotidien inspiré du problème classique des N-Reines.',
     sudokuDescription:
@@ -830,10 +848,8 @@ export const frenchTranslations: Translations = {
     'level-3': 'Moyen',
     'level-4': 'Difficile',
     'level-5': 'Expert',
-    'new-game': 'Nouvelle Partie',
     hint: 'Indice',
     congratulations: 'Félicitations ! Puzzle résolu !',
-    'queens-placed': 'reines placées',
     'check-errors': 'Vérifiez les violations des règles',
     loading: 'Chargement...',
     'how-to-play': 'Comment Jouer',
@@ -843,25 +859,20 @@ export const frenchTranslations: Translations = {
       'Placez exactement une reine dans chaque région colorée.',
     'rule-adjacent':
       'Deux reines ne peuvent pas se toucher, même en diagonale.',
-    'tip-tap':
-      'Touchez une fois pour marquer ✕, une autre pour placer ♫, une autre pour effacer.',
-    'tip-x':
-      'Faites glisser votre doigt sur les cellules pour marquer rapidement plusieurs ✕.',
-    'tip-slide':
-      'Utilisez les marques ✕ pour signaler les cellules sans reine.',
+    'tip-tap': 'Touchez ou cliquez une case une fois pour marquer ✕, encore pour poser ♛, et une fois de plus pour la vider.',
+    'tip-x': 'Glissez le doigt ou la souris sur les cases pour marquer ✕ partout d\'un seul geste. Commencez le geste sur un ✕ pour effacer les marques. Le geste ne touche jamais les reines.',
+    'tip-slide': 'Activez Auto ✕ pour voir les cases exclues par chaque reine. Au clavier, utilisez les flèches et Espace.',
     'faq-title': 'Questions Fréquentes',
     'faq-q1': "Qu'est-ce que le jeu Reines ?",
     'faq-a1':
       "Reines est un puzzle de logique où vous placez des reines sur le plateau afin que chaque rangée, colonne et région colorée contienne exactement une reine, sans qu'elles ne se touchent.",
     'faq-q2': 'Comment jouer ?',
-    'faq-a2':
-      'Touchez une cellule pour alterner entre : ✕ marque → ♫ reine → vide. Faites glisser votre doigt sur le plateau pour marquer rapidement plusieurs ✕. Les infractions sont surlignées en rouge.',
+    'faq-a2': 'Touchez une case pour alterner entre marque ✕ → reine ♛ → vide, ou glissez sur la grille pour marquer plusieurs cases d\'un coup. Les règles enfreintes s\'affichent en rouge et vous pouvez annuler n\'importe quel coup.',
     'faq-q3': 'Que se passe-t-il si je fais une erreur ?',
     'faq-a3':
       "Les reines en conflit sont surlignées en rouge. Révisez et ajustez jusqu'à ce que toutes les règles soient respectées. Il n'y a pas de limite de coups !",
     'faq-q4': 'Y a-t-il un nouveau puzzle chaque jour ?',
-    'faq-a4':
-      'Oui ! Le plateau est généré quotidiennement selon la date actuelle, offrant un nouveau défi chaque jour. Partagez vos résultats !',
+    'faq-a4': 'Oui ! La grille du jour est générée à partir de la date : tout le monde a le même défi chaque jour. Choisissez Aléatoire ou Nouvelle partie pour des grilles supplémentaires illimitées et partagez votre temps à la fin.',
     'seo-title': 'Jouez aux Reines — Puzzle de Logique Quotidien',
     'seo-p1':
       "Reines est un puzzle de logique quotidien inspiré du problème classique des N-Reines. Placez des reines sur le plateau en suivant quatre règles simples : une par rangée, une par colonne, une par région colorée, sans qu'elles ne se touchent.",
@@ -869,6 +880,24 @@ export const frenchTranslations: Translations = {
       'Choisissez parmi 5 niveaux de difficulté : Débutant (5×5), Facile (6×6), Moyen (7×7), Difficile (8×8) et Expert (10×10). Chaque puzzle est généré déterministiquement à partir de la date.',
     'seo-p3':
       'Jouez en ligne gratuitement, sans inscription. Entraînez votre raisonnement logique et votre reconnaissance de motifs. Un nouveau puzzle vous attend chaque jour !',
+    mode: 'Grille',
+    'mode-daily': 'Du jour',
+    'mode-random': 'Aléatoire',
+    undo: 'Annuler',
+    clear: 'Effacer',
+    'auto-x': 'Auto ✕',
+    'auto-x-title': 'Afficher automatiquement ✕ sur les cases exclues par vos reines',
+    'hints-left': 'Indices restants',
+    'hints-used': 'Indices',
+    'tip-short': 'Touchez : ✕ → ♛ → vide. Glissez pour marquer plusieurs ✕.',
+    'solved-summary': 'Résolu en',
+    'share-text': '👑 J\'ai résolu Queens ({puzzle}) en ⏱ {time} avec 💡 {hints} indices !',
+    'cell-label': 'Ligne {row}, colonne {col}',
+    'cell-queen': 'reine',
+    'cell-x': 'marquée ✕',
+    'cell-empty': 'vide',
+    'board-label': 'Grille de Queens. Les flèches déplacent, Espace ou Entrée alterne ✕ / reine, Suppr efface.',
+    undone: 'Coup annulé.',
   },
   sudoku: {
     sudoku: 'Sudoku',
@@ -880,7 +909,6 @@ export const frenchTranslations: Translations = {
     'difficulty-0': 'Facile',
     'difficulty-1': 'Moyen',
     'difficulty-2': 'Difficile',
-    'new-game': 'Nouvelle Partie',
     notes: 'Notes',
     eraser: 'Effacer',
     undo: 'Annuler',
@@ -940,6 +968,15 @@ export const frenchTranslations: Translations = {
       'Que vous vouliez apprendre aux enfants avec une mini-grille 4×4, vous échauffer avec un 6×6 facile ou vous tester avec un 9×9 difficile, vous pouvez jouer au Sudoku en ligne ici à tout moment. Notes, indices, annulation, raccourcis clavier et surlignage des erreurs rendent chaque partie agréable.',
     'seo-p5':
       "Ajoutez cette page à vos favoris et revenez dès que vous avez besoin d'un entraînement mental. Jouez au Sudoku en ligne gratuitement, améliorez votre logique et amusez-vous — une grille à la fois.",
+    'hints-left': 'Indices restants',
+    'hints-used': 'Indices',
+    'notes-on': 'Notes activées : les chiffres sont ajoutés comme annotations.',
+    'select-first': 'Sélectionnez d\'abord une case.',
+    'given-cell': 'Ce chiffre fait partie de la grille.',
+    empty: 'vide',
+    'cell-label': 'Ligne {row}, colonne {col}',
+    'board-label': 'Grille de Sudoku. Les flèches déplacent, les chiffres remplissent, N active les notes, Suppr efface.',
+    'share-text': '🧩 J\'ai résolu un Sudoku {size} ({level}) en ⏱ {time} avec {mistakes} erreurs et 💡 {hints} indices !',
   },
   wordLadder: {
     name: 'Échelle de Mots',
@@ -954,11 +991,9 @@ export const frenchTranslations: Translations = {
     'difficulty-medium': 'Moyen',
     'difficulty-hard': 'Difficile',
     'daily-today': "L'échelle de mots du jour",
-    'new-game': 'Nouvelle Partie',
     moves: 'Coups',
     best: 'Record',
     target: 'Cible',
-    time: 'Temps',
     'daily-done':
       'Vous avez déjà résolu le puzzle du jour. Revenez demain pour un nouveau !',
     start: 'Départ',
@@ -967,7 +1002,6 @@ export const frenchTranslations: Translations = {
     submit: 'OK',
     hint: 'Indice',
     undo: 'Annuler',
-    'start-game': 'Commencer',
     'err-empty': "Saisissez d'abord un mot.",
     'err-length':
       'Le mot doit avoir la même longueur que le mot de départ.',
@@ -984,13 +1018,8 @@ export const frenchTranslations: Translations = {
     complete: 'Échelle de mots terminée !',
     'result-moves':
       'Vous avez transformé le mot de départ en mot cible. Bravo !',
-    'result-optimal':
-      'Essayez de finir en aussi peu de coups que possible la prochaine fois.',
     'daily-streak': 'Série quotidienne :',
-    'play-again': 'Rejouer',
     'next-puzzle': 'Puzzle suivant',
-    share: 'Partager',
-    'share-copied': 'Résultat copié dans le presse-papiers.',
     'how-to-play': "Comment jouer à l'échelle de mots",
     'rule-1': "Commencez par le mot bleu en haut de l'échelle.",
     'rule-2':
@@ -1067,6 +1096,11 @@ export const frenchTranslations: Translations = {
       'Le jeu de logique classique avec trois tailles de grille.',
     'related-queens':
       'Un puzzle de placement quotidien inspiré des N-Reines.',
+    'share-text': '🪜 Échelle de mots ({label}) : {start} → {target} en {moves} coups (par {par}) · ⏱ {time} · 💡 {hints} indices',
+    par: 'Par',
+    'par-hint': 'Le nombre après la barre est le par : l\'échelle la plus courte possible.',
+    history: 'Votre échelle jusqu\'ici',
+    'history-empty': 'Vos mots s\'empilent ici, le plus récent juste au-dessus du champ.',
   },
   seo: {
     cardTagline: 'Sites web, landing pages et automatisation',

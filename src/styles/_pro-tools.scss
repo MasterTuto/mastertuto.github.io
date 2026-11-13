@@ -1,0 +1,120 @@
+/*
+ * Shared design system of the professional calculators (/tools/<slug>) and the invoice generator.
+ * Mobile first: 16px inputs (no iOS zoom), 48px targets, chips for common values, results that update
+ * as you type. On phones a compact sticky summary keeps the main result visible above the keyboard;
+ * from 960px the full result sits in a sticky column beside the form.
+ */
+.pro-tool { width: 100%; min-width: 0; max-width: 1200px; margin-inline: auto; }
+
+.pro-hero { margin-bottom: 1.5rem; max-width: 72ch; }
+.pro-hero h1 { @apply text-foreground; font-size: clamp(1.55rem, 3.4vw, 2.4rem); font-weight: 650; line-height: 1.15; letter-spacing: -.025em; text-wrap: balance; }
+.pro-hero > p { @apply text-foreground-light; margin-top: .75rem; line-height: 1.7; }
+.pro-eyebrow { @apply text-foreground-emphasis; display: inline-flex; align-items: center; gap: .5rem; margin-bottom: .75rem; font-size: .75rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.pro-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.pro-badges span { @apply bg-surface-decoration text-surface-decoration-foreground; padding: .3rem .7rem; border-radius: 999px; font-size: .75rem; font-weight: 550; }
+
+.pro-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+@media (min-width: 960px) {
+  .pro-layout { grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: 1.5rem; }
+  .pro-layout > .pro-result { position: sticky; top: calc(var(--site-nav-h, 0px) + 1.25rem); }
+}
+
+.pro-card { @apply bg-surface border-foreground/10; min-width: 0; padding: 1.25rem; border-width: 1px; border-radius: 1.25rem; box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 8px 24px -12px rgb(21 28 37 / .12); }
+@media (max-width: 479px) { .pro-card { padding: 1rem; border-radius: 1rem; } }
+.pro-card + .pro-card { margin-top: 1rem; }
+.pro-card-title { @apply text-foreground; display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1rem; font-size: 1rem; font-weight: 650; }
+
+.pro-fields { display: grid; gap: 1rem; }
+.pro-row { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 480px) { .pro-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pro-row.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pro-field { display: flex; min-width: 0; flex-direction: column; gap: .4rem; }
+.pro-label { @apply text-foreground; display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; font-size: .875rem; font-weight: 600; }
+.pro-label small, .pro-hint { @apply text-foreground-light; font-size: .78rem; font-weight: 400; line-height: 1.5; }
+
+.pro-input-wrap { position: relative; display: flex; align-items: center; }
+.pro-input, .pro-select, .pro-textarea {
+  @apply bg-background text-foreground border-foreground/15;
+  width: 100%; min-height: 48px; padding: .7rem .9rem; border-width: 1px; border-radius: .8rem;
+  font: inherit; font-size: 16px; line-height: 1.3; transition: border-color .15s, box-shadow .15s, background-color .15s;
+  font-variant-numeric: tabular-nums;
+}
+.pro-textarea { min-height: 88px; resize: vertical; }
+.pro-input::placeholder, .pro-textarea::placeholder { @apply text-foreground-light; opacity: .8; }
+.pro-input:hover, .pro-select:hover, .pro-textarea:hover { @apply border-foreground/30; }
+.pro-input:focus, .pro-select:focus, .pro-textarea:focus { @apply bg-surface border-foreground-emphasis; outline: none; box-shadow: 0 0 0 4px rgb(122 112 225 / .18); }
+.pro-input[aria-invalid=true] { border-color: #dc2626; box-shadow: 0 0 0 4px rgb(220 38 38 / .12); }
+.pro-input-wrap .pro-input { padding-right: 3.25rem; }
+.pro-suffix { @apply text-foreground-light; position: absolute; right: .9rem; pointer-events: none; font-size: .875rem; font-weight: 550; }
+.pro-select { appearance: none; padding-right: 2.5rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e9095' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6l6 -6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .8rem center; background-size: 1.1rem; }
+.pro-error { color: #dc2626; font-size: .78rem; }
+
+/* Segmented choices and quick values. Scroll sideways on narrow screens instead of wrapping into many lines. */
+.pro-chips { display: flex; gap: .4rem; overflow-x: auto; scrollbar-width: none; padding: 2px; margin: -2px; -webkit-overflow-scrolling: touch; }
+.pro-chips::-webkit-scrollbar { display: none; }
+.pro-chips.wrap { flex-wrap: wrap; overflow: visible; }
+.pro-chip {
+  @apply bg-background text-foreground border-foreground/15;
+  flex-shrink: 0; min-height: 40px; padding: .45rem .85rem; border-width: 1px; border-radius: 999px;
+  font-size: .875rem; font-weight: 550; white-space: nowrap; cursor: pointer; transition: background-color .15s, border-color .15s, color .15s;
+}
+.pro-chip:hover { @apply border-foreground/35; }
+.pro-chip[aria-pressed=true], .pro-chip[aria-checked=true] { @apply bg-primary text-primary-foreground border-primary; }
+.pro-segmented { @apply bg-background border-foreground/10; display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: 4px; padding: 4px; border-width: 1px; border-radius: .9rem; }
+.pro-segmented button { @apply text-foreground-light; min-height: 40px; padding: .4rem .6rem; border-radius: .65rem; font-size: .875rem; font-weight: 600; transition: background-color .15s, color .15s, box-shadow .15s; }
+.pro-segmented button[aria-pressed=true], .pro-segmented button[aria-checked=true] { @apply bg-surface text-foreground; box-shadow: 0 1px 3px rgb(0 0 0 / .1); }
+
+.pro-btn { @apply bg-primary text-primary-foreground; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .6rem 1.1rem; border-radius: .8rem; font-size: .9rem; font-weight: 600; transition: opacity .15s, transform .15s; }
+.pro-btn:hover { opacity: .92; }
+.pro-btn:active { transform: translateY(1px); }
+.pro-btn.ghost { @apply bg-transparent text-foreground border-foreground/15; border-width: 1px; }
+.pro-btn.ghost:hover { @apply bg-foreground/5; opacity: 1; }
+.pro-btn:disabled { opacity: .45; cursor: not-allowed; }
+.pro-tool :is(button, a, input, select, textarea, summary):focus-visible { @apply outline-foreground-emphasis; outline-width: 2px; outline-style: solid; outline-offset: 2px; }
+
+/* Result panel: dark card with one big figure and a short list of details. */
+.pro-result { @apply bg-primary text-primary-foreground; min-width: 0; padding: 1.25rem; border-radius: 1.25rem; box-shadow: 0 18px 40px -20px rgb(21 28 37 / .55); }
+.pro-result-label { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.pro-result-main { margin-top: .35rem; font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 700; line-height: 1.05; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.pro-result-main small { margin-left: .25rem; font-size: .45em; font-weight: 600; letter-spacing: 0; opacity: .75; }
+.pro-result-sub { margin-top: .4rem; font-size: .9rem; opacity: .8; }
+.pro-result-list { display: grid; margin-top: 1rem; border-top: 1px solid rgb(255 255 255 / .12); }
+.pro-result-list > div { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid rgb(255 255 255 / .08); font-size: .875rem; }
+.pro-result-list dt { opacity: .7; }
+.pro-result-list dd { font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.pro-result-empty { padding: .5rem 0; font-size: .9rem; opacity: .75; line-height: 1.6; }
+.pro-result .pro-btn { @apply bg-primary-foreground text-primary; }
+.pro-result .pro-btn.ghost { @apply bg-transparent text-primary-foreground; border-color: rgb(255 255 255 / .25); }
+
+.pro-pill { display: inline-flex; align-items: center; gap: .35rem; padding: .25rem .65rem; border-radius: 999px; font-size: .78rem; font-weight: 650; }
+.pro-pill.ok { background: rgb(34 197 94 / .16); color: #15803d; }
+.pro-pill.warn { background: rgb(245 158 11 / .18); color: #b45309; }
+.pro-pill.bad { background: rgb(239 68 68 / .16); color: #b91c1c; }
+.pro-result .pro-pill.ok { color: #86efac; }
+.pro-result .pro-pill.warn { color: #fcd34d; }
+.pro-result .pro-pill.bad { color: #fca5a5; }
+
+/* Phone-only compact bar with the main figure; sticks to the top while the keyboard covers the bottom. */
+.pro-sticky-summary { @apply bg-primary text-primary-foreground; position: sticky; top: calc(var(--site-nav-h, 0px) + .5rem); z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .7rem 1rem; border-radius: 1rem; box-shadow: 0 10px 24px -12px rgb(21 28 37 / .6); font-size: .875rem; }
+.pro-sticky-summary strong { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+@media (min-width: 960px) { .pro-sticky-summary { display: none; } }
+
+.pro-notice { @apply text-foreground; margin-top: 1rem; padding: .85rem 1rem; border-left: 3px solid #f59e0b; border-radius: .5rem; background: rgb(245 158 11 / .09); font-size: .84rem; line-height: 1.6; }
+.pro-table { width: 100%; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+.pro-table th { @apply text-foreground-light; padding: .5rem; text-align: left; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.pro-table td { @apply border-foreground/10; padding: .55rem .5rem; border-top-width: 1px; }
+.pro-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Long-form SEO content below the tool. */
+.pro-reading { @apply text-foreground; max-width: 78ch; margin-top: 3rem; line-height: 1.8; }
+.pro-reading section { margin: 2.25rem 0; }
+.pro-reading h2 { margin-bottom: .75rem; font-size: 1.35rem; font-weight: 650; line-height: 1.35; }
+.pro-reading h3 { margin: 1.25rem 0 .5rem; font-size: 1.05rem; font-weight: 650; }
+.pro-reading p + p { margin-top: 1rem; }
+.pro-reading ol, .pro-reading ul { padding-left: 1.4rem; }
+.pro-reading ol { list-style: decimal; }
+.pro-reading ul { list-style: disc; }
+.pro-reading li { margin-bottom: .4rem; }
+.pro-reading a { @apply text-foreground-emphasis; text-decoration: underline; text-underline-offset: 3px; }
+.pro-reading details { @apply border-foreground/10; padding: .9rem 0; border-bottom-width: 1px; }
+.pro-reading summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.pro-related { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin-top: 1rem; }

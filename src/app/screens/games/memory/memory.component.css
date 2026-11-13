@@ -1,0 +1,15 @@
+.mem-grid{container-type:inline-size;display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:clamp(6px,2cqi,10px);touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button.mc{aspect-ratio:1;min-width:0;min-height:0;padding:0;border-radius:16%;perspective:700px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mc:focus{outline:none}
+.mc:focus-visible{outline:2px solid #7a70e1;outline-offset:2px}
+.mc-inner{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;transition:transform .42s cubic-bezier(.2,.75,.3,1.15)}
+.is-up .mc-inner{transform:rotateY(180deg)}
+.mc-face{position:absolute;inset:0;display:grid;place-items:center;border-radius:16%;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.mc-back{background:radial-gradient(circle at 50% 50%,rgb(255 255 255/.22) 0 14%,transparent 15%),radial-gradient(circle,rgb(255 255 255/.12) 1.5px,transparent 2px) 0 0/12px 12px,linear-gradient(135deg,#8b82ea,#646cfa);box-shadow:inset 0 0 0 1px rgb(255 255 255/.25),0 2px 6px -2px rgb(70 60 180/.45)}
+@media (hover:hover){.mc:not(.is-up):hover .mc-inner{transform:translateY(-2px)}}
+.mc-front{transform:rotateY(180deg);font-size:calc(100cqi / var(--cols) * .5);line-height:1;box-shadow:inset 0 0 0 1px rgb(21 28 37/.06),0 2px 6px -3px rgb(21 28 37/.25)}
+.is-matched .mc-front{box-shadow:inset 0 0 0 2px rgb(16 185 129/.65);animation:mem-pop .35s ease-out .2s}
+.is-missed .mc-front{box-shadow:inset 0 0 0 2px rgb(224 86 91/.55)}
+.mem-progress{transition:width .3s ease-out}
+@keyframes mem-pop{50%{transform:rotateY(180deg) scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.mc-inner,.mem-progress{transition:none}.is-matched .mc-front{animation:none}}

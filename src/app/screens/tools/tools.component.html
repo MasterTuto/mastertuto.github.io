@@ -1,23 +1,143 @@
 <section class="catalog-page">
   <header class="catalog-page-header">
-    <p class="catalog-eyebrow">{{ 'tools.label' | translate }}</p>
     <h1>{{ 'catalog.toolsTitle' | translate }}</h1>
     <p>{{ 'catalog.toolsIntro' | translate }}</p>
   </header>
-  <section lang="en" aria-labelledby="dev-tools-heading">
-    <h2 id="dev-tools-heading" class="text-2xl font-semibold mb-4">Dev Tools</h2>
-    <p class="text-foreground-light mb-6">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
-    <div class="catalog-cards">
-      @for (tool of tools; track tool.slug) {
-        <a [routerLink]="'tools/dev-tools/' + tool.slug | langLink" class="catalog-card">
-          <span class="catalog-card-icon"><ng-icon name="tablerTools" /></span>
-          <h3 class="text-xl font-semibold">{{ tool.name }}</h3>
-          <p>{{ tool.description }}</p>
-          <span class="catalog-card-action">Open {{ tool.keyword }} <span aria-hidden="true">→</span></span>
+
+  @if (!isDevTools) {
+    <!-- Invoice generator: open split with a stack of paper previews instead of a card. -->
+    <section lang="pt-BR" aria-labelledby="invoice-heading" class="grid items-center gap-10 border-y border-foreground/10 py-10 md:grid-cols-[1.1fr_1fr] md:py-14">
+      <div class="flex flex-col gap-5">
+        <h2 id="invoice-heading" class="font-title text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+          {{ invoice.name }}<span class="text-foreground-emphasis">.</span>
+        </h2>
+        <p class="max-w-[52ch] leading-relaxed text-foreground-light">{{ invoice.description }}</p>
+        <p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-foreground">
+          @for (step of invoice.asks; track step; let last = $last) {
+            <span>{{ step }}</span><span aria-hidden="true" class="text-foreground-light">{{ last ? '⟶' : '→' }}</span>
+          }
+          @for (format of invoice.gives; track format) {
+            <span class="rounded-md bg-foreground/[.06] px-1.5 py-0.5 font-mono text-xs font-semibold">{{ format }}</span>
+          }
+        </p>
+        <a [routerLink]="'tools/' + invoice.slug | langLink" class="group mt-1 inline-flex w-fit items-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90">
+          Criar minha invoice
+          <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span>
         </a>
+      </div>
+      <div aria-hidden="true" class="relative mx-auto h-[260px] w-full max-w-[380px] sm:h-[300px]">
+        @for (paper of papers; track paper.accent; let i = $index) {
+          <div
+            class="absolute top-0 flex aspect-[1/1.414] w-[54%] flex-col gap-2 rounded-md bg-white p-3 shadow-[0_18px_40px_-18px_rgb(21_28_37/.45)] ring-1 ring-black/5"
+            [style.left.%]="i * 21"
+            [style.top.px]="i === 1 ? 0 : 22"
+            [style.transform]="'rotate(' + paper.tilt + 'deg)'"
+            [style.z-index]="i === 1 ? 3 : 1"
+          >
+            <div class="h-2 w-1/2 rounded-full" [style.background]="paper.accent"></div>
+            <div class="h-1 w-1/3 rounded-full bg-black/10"></div>
+            <div class="mt-2 grid gap-1">
+              @for (row of [1, 2, 3, 4]; track row) {
+                <div class="flex justify-between"><span class="h-1 w-2/5 rounded-full bg-black/10"></span><span class="h-1 w-1/6 rounded-full bg-black/15"></span></div>
+              }
+            </div>
+            <div class="mt-auto flex items-end justify-between">
+              <span class="h-1 w-1/4 rounded-full bg-black/10"></span>
+              <span class="h-3 w-1/3 rounded-sm" [style.background]="paper.accent"></span>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Calculators grouped by segment: label column on the left, ruled tool rows on the right.
+         Every tool is in the prerendered HTML; "Ver mais" only reveals the rows past the limit. -->
+    <section lang="pt-BR" aria-labelledby="pro-tools-heading" class="py-12">
+      <h2 id="pro-tools-heading" class="font-title text-2xl font-semibold text-foreground sm:text-3xl">Ferramentas por segmento</h2>
+      <p class="mt-2 max-w-[62ch] text-foreground-light">Poucos campos, valores comuns a um toque e o resultado enquanto você digita.</p>
+
+      <div class="mt-8 border-t border-foreground/10">
+        @for (segment of segments; track segment.slug; let s = $index) {
+          <section
+            [id]="segment.slug"
+            [attr.aria-labelledby]="'segment-' + segment.slug"
+            [hidden]="s >= segmentLimit && !allSegments()"
+            class="grid scroll-mt-[calc(var(--site-nav-h,0px)+1rem)] gap-4 border-b border-foreground/10 py-8 md:grid-cols-[minmax(200px,1fr)_3fr] md:gap-10"
+          >
+            <div class="flex flex-col gap-2 md:sticky md:top-[calc(var(--site-nav-h,0px)+1rem)] md:self-start">
+              <h3 [id]="'segment-' + segment.slug" class="flex items-center gap-2.5 text-lg font-semibold text-foreground">
+                <ng-icon [name]="segment.icon" class="shrink-0 text-xl text-surface-decoration-foreground" />
+                {{ segment.name }}
+              </h3>
+              <p class="text-sm text-foreground-light">
+                {{ segment.tools.length }} {{ segment.tools.length === 1 ? 'ferramenta' : 'ferramentas' }} ·
+                <a [routerLink]="'para/' + segment.slug | langLink" class="underline decoration-foreground/20 underline-offset-4 transition hover:text-foreground hover:decoration-foreground-emphasis">site para o segmento</a>
+              </p>
+            </div>
+
+            <div>
+              <ul class="divide-y divide-foreground/10">
+                @for (tool of segment.tools; track tool.slug; let i = $index) {
+                  <li [hidden]="i >= toolLimit && !expanded().has(segment.slug)">
+                    <a [routerLink]="'tools/' + tool.slug | langLink" class="group grid gap-1.5 py-4 first:pt-0 sm:grid-cols-[1fr_auto] sm:gap-x-6">
+                      <span class="font-semibold text-foreground transition-colors group-hover:text-foreground-emphasis">{{ tool.name }}</span>
+                      <span aria-hidden="true" class="hidden text-foreground-emphasis transition-transform group-hover:translate-x-1 sm:row-span-3 sm:block sm:self-center">→</span>
+                      <span class="text-sm leading-relaxed text-foreground-light">{{ tool.description }}</span>
+                      <span class="text-xs text-foreground-light">
+                        <span class="text-foreground">{{ tool.asks.join(' · ') }}</span>
+                        <span aria-hidden="true" class="mx-1.5">⟶</span>
+                        <span class="font-semibold text-foreground">{{ tool.gives.join(' · ') }}</span>
+                      </span>
+                    </a>
+                  </li>
+                }
+              </ul>
+              @if (segment.tools.length > toolLimit) {
+                <button
+                  type="button"
+                  (click)="toggleSegment(segment.slug)"
+                  [attr.aria-expanded]="expanded().has(segment.slug)"
+                  class="mt-3 inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-foreground-emphasis"
+                >
+                  {{ expanded().has(segment.slug) ? 'Ver menos' : 'Ver mais ' + (segment.tools.length - toolLimit) }}
+                  <span aria-hidden="true" class="transition-transform" [class.rotate-180]="expanded().has(segment.slug)">↓</span>
+                </button>
+              }
+            </div>
+          </section>
+        }
+      </div>
+
+      @if (segments.length > segmentLimit) {
+        <button
+          type="button"
+          (click)="allSegments.set(!allSegments())"
+          [attr.aria-expanded]="allSegments()"
+          class="mt-6 inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-foreground/15 px-4 text-sm font-semibold text-foreground transition hover:bg-foreground/5"
+        >
+          {{ allSegments() ? 'Ver menos segmentos' : 'Ver mais segmentos (' + (segments.length - segmentLimit) + ')' }}
+        </button>
       }
-    </div>
+    </section>
+  }
+
+  <!-- Developer tools: ruled index rows. -->
+  <section lang="en" aria-labelledby="dev-tools-heading" [class.pt-4]="!isDevTools">
+    <h2 id="dev-tools-heading" class="font-title text-2xl font-semibold text-foreground sm:text-3xl">Dev Tools</h2>
+    <p class="mt-2 max-w-[62ch] text-foreground-light">Free developer tools for inspecting API data and debugging authentication. Format JSON or decode JWT claims directly in your browser, with instant feedback and no account required.</p>
+    <ul class="mt-6 border-t border-foreground/10">
+      @for (tool of tools; track tool.slug) {
+        <li class="border-b border-foreground/10">
+          <a [routerLink]="'tools/dev-tools/' + tool.slug | langLink" class="group grid gap-1 py-5 sm:grid-cols-[minmax(180px,1fr)_2fr_auto] sm:items-baseline sm:gap-6">
+            <h3 class="font-mono text-base font-semibold text-foreground">{{ tool.name }}</h3>
+            <p class="text-sm leading-relaxed text-foreground-light">{{ tool.description }}</p>
+            <span aria-hidden="true" class="hidden text-foreground-emphasis transition group-hover:translate-x-1 sm:block">→</span>
+          </a>
+        </li>
+      }
+    </ul>
   </section>
+
   <section class="catalog-info">
     <h2>{{ 'catalog.toolsHeading' | translate }}</h2>
     <p>{{ 'catalog.toolsText' | translate }}</p>

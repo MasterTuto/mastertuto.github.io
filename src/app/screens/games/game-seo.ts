@@ -5,16 +5,18 @@ import { PERSON_REF, usePageSeo } from 'src/app/seo/page-seo';
 import { TranslateService } from 'src/app/service/translate.service';
 
 /**
- * SEO of a game page: the title and description under `seo.<key>`, breadcrumbs and a free
- * browser game in schema.org terms, plus any extra nodes (FAQ, for example).
+ * SEO of a game page: the title and description under `seo.<key>` (or under `<key>` itself when it
+ * contains a dot, e.g. `minesweeper.seo`), breadcrumbs and a free browser game in schema.org terms,
+ * plus any extra nodes (FAQ, for example).
  */
 export function useGameSeo(route: string, key: string, extra: () => Record<string, unknown>[] = () => []): void {
   const translate = inject(TranslateService);
   const t = (path: string) => translate.translate(path);
   const game = games.find((item) => item.route === route)!;
+  const prefix = key.includes('.') ? key : `seo.${key}`;
   usePageSeo(() => ({
-    title: t(`seo.${key}.title`),
-    description: t(`seo.${key}.description`),
+    title: t(`${prefix}.title`),
+    description: t(`${prefix}.description`),
     path: `/games/${route}`,
     breadcrumbs: [
       [t('home.nav.home'), '/'],
@@ -25,7 +27,7 @@ export function useGameSeo(route: string, key: string, extra: () => Record<strin
       {
         '@type': ['VideoGame', 'WebApplication'],
         name: t(game.nameKey),
-        description: t(`seo.${key}.description`),
+        description: t(`${prefix}.description`),
         applicationCategory: 'GameApplication',
         gamePlatform: 'Web browser',
         operatingSystem: 'Any',

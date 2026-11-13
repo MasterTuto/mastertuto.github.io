@@ -4,6 +4,7 @@ import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 
 import { projectCases } from '../src/app/data/cases.data.ts';
+import { allProTools } from '../src/app/screens/tools/pro-tools/pro-tools.data.ts';
 import { existsSync } from 'node:fs';
 
 /**
@@ -193,7 +194,12 @@ async function describePage(pagePath, labels) {
     const project = projectCases.find((item) => item.slug === slug);
     return { eyebrow: `${label.cases} · ${project?.name ?? ''}`, accent: project?.accent ?? theme.accent, tint: project?.tint ?? theme.tint, glow: project?.accent ?? theme.glow };
   }
-  if (section === 'tools') return { eyebrow: slug === 'dev-tools' ? `${label.tools} · Dev Tools` : label.tools, ...theme };
+  if (section === 'tools') {
+    if (slug === 'dev-tools') return { eyebrow: `${label.tools} · Dev Tools`, ...theme };
+    const tool = allProTools.find((item) => item.slug === slug);
+    if (tool) return { eyebrow: `Grátis · ${tool.audience}`, ...theme };
+    return { eyebrow: label.tools, ...theme };
+  }
   if (section === 'games') return { eyebrow: label.games, ...theme };
   if (section === 'services') return { eyebrow: label.services, ...theme };
   return { eyebrow: label.home, ...theme };

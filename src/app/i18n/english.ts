@@ -1,4 +1,15 @@
+import { minesweeper } from './games/minesweeper/en';
+import { nonogram } from './games/nonogram/en';
+import { binaryPuzzle } from './games/binary-puzzle/en';
+import { memory } from './games/memory/en';
+import { colorLink } from './games/color-link/en';
+
 export const englishTranslations = {
+  minesweeper,
+  nonogram,
+  binaryPuzzle,
+  memory,
+  colorLink,
   catalog: {
     explore: 'Explore games and tools',
     toggle: 'Toggle sidebar',
@@ -6,16 +17,16 @@ export const englishTranslations = {
     skip: 'Skip to content',
     gamesTitle: 'Free online logic and word games',
     gamesIntro:
-      'Play Sudoku, Queens and Word Ladder in your browser. Explore number, strategy and word puzzles on your phone, tablet or computer.',
+      "Play Sudoku, Queens, Word Ladder, Minesweeper, Nonogram, Binary Puzzle, Memory and Color Link in your browser, free, on your phone, tablet or computer.",
     gamesHeading: 'Choose your next challenge',
     gamesText:
-      'Practice reasoning with Sudoku grids, plan each queen placement or connect words one letter at a time. Open a game to find its rules, controls and tips.',
-    toolsTitle: 'Online tools for everyday tasks',
+      "Train logic with Sudoku, Queens, Nonogram and Binary Puzzle, test your memory, sweep for mines or connect colors and words. Every game has levels, a timer that starts on your first move and a result you can share.",
+    toolsTitle: "Free online tools for professionals",
     toolsIntro:
-      'Format JSON and inspect JWT tokens with free developer tools that run in your browser. Choose a tool below for instant results, practical guides and examples.',
-    toolsHeading: 'Tools for everyday development',
+      "Create invoices, size cables and air conditioners, count legal deadlines, estimate Simples Nacional taxes and pregnancy dates, or format JSON and decode JWTs. Free tools that run in your browser.",
+    toolsHeading: "Tools for everyday work",
     toolsText:
-      'Use JSON Beautifier Pro to validate, indent and minify JSON, or JWT Token Decoder to inspect headers, payloads and expiration claims. Explore our logic games when you need a break.',
+      "The professional calculators and the invoice generator are in Brazilian Portuguese and follow Brazilian rules. The developer tools format JSON and decode JWT tokens. When you need a break, try our logic games.",
   },
   backHome: 'Back to home',
   cases: {
@@ -186,6 +197,14 @@ export const englishTranslations = {
     label: 'Games',
     subtitle: 'A collection of games I built.',
     play: 'Play',
+    share: "Share result",
+    shareCopied: "Link copied!",
+    time: "Time",
+    timerHint: "The clock starts on your first move.",
+    moves: "Moves",
+    newGame: "New game",
+    playAgain: "Play again",
+    level: "Level",
     queensDescription:
       'A daily logic puzzle inspired by the classic N-Queens problem.',
     sudokuDescription:
@@ -808,10 +827,8 @@ export const englishTranslations = {
     'level-3': 'Medium',
     'level-4': 'Hard',
     'level-5': 'Expert',
-    'new-game': 'New Game',
     hint: 'Hint',
     congratulations: 'Congratulations! Puzzle solved!',
-    'queens-placed': 'queens placed',
     'check-errors': 'Check for rule violations',
     loading: 'Loading...',
     'how-to-play': 'How to Play',
@@ -819,23 +836,20 @@ export const englishTranslations = {
     'rule-col': 'Place exactly one queen in each column.',
     'rule-region': 'Place exactly one queen in each colored region.',
     'rule-adjacent': 'No two queens can touch, even diagonally.',
-    'tip-tap': 'Tap once to mark ✕, tap again to place ♛, tap again to clear.',
-    'tip-x':
-      'Slide your finger across cells to quickly mark ✕ on multiple cells.',
-    'tip-slide': 'Use ✕ marks to flag cells you know cannot contain a queen.',
+    'tip-tap': 'Tap or click a cell once to mark ✕, again to place ♛, and once more to clear it.',
+    'tip-x': 'Drag across cells with your finger or the mouse to mark ✕ on all of them in one stroke. Start the stroke on a ✕ to erase marks instead. Queens are never touched by a stroke.',
+    'tip-slide': 'Turn on Auto ✕ to see the cells each queen rules out. On a keyboard, use the arrow keys and Space.',
     'faq-title': 'Frequently Asked Questions',
     'faq-q1': 'What is the Queens game?',
     'faq-a1':
       'Queens is a logic puzzle where you place queens on a board so that each row, column, and colored region contains exactly one queen, and no two queens touch each other (horizontally, vertically, or diagonally).',
     'faq-q2': 'How do I play?',
-    'faq-a2':
-      'Tap a cell to cycle through states: ✕ mark → ♛ queen → empty. Slide your finger across the board to quickly mark ✕ on multiple cells. The game highlights rule violations in red.',
+    'faq-a2': 'Tap a cell to cycle through ✕ mark → ♛ queen → empty, or drag across the board to mark many cells with ✕ at once. Rule violations are highlighted in red, and you can undo any move.',
     'faq-q3': 'What happens if I make a mistake?',
     'faq-a3':
       'Conflicting queens are highlighted in red. Review your placements and adjust until all constraints are satisfied. The game does not have a move limit — experiment freely!',
     'faq-q4': 'Is there a new puzzle every day?',
-    'faq-a4':
-      'Yes! The board is generated daily based on the current date, giving you a fresh challenge every day. Share your results with friends!',
+    'faq-a4': 'Yes! The Daily puzzle is generated from the current date, so everyone gets the same board each day. Choose Random or New game for unlimited extra boards, and share your time when you finish.',
     'seo-title': 'Play Queens — Daily Logic Puzzle',
     'seo-p1':
       'Queens is a daily logic puzzle inspired by the classic N-Queens problem. Your goal is to place queens on the board following four simple rules: one queen per row, one per column, one per colored region, and no two queens may touch each other.',
@@ -843,6 +857,24 @@ export const englishTranslations = {
       'Choose from 5 difficulty levels — Beginner (5×5), Easy (6×6), Medium (7×7), Hard (8×8), and Expert (10×10). Each puzzle is generated deterministically from the date, so everyone gets the same challenge every day.',
     'seo-p3':
       'Play online for free, no registration required. Train your logical reasoning and pattern recognition skills. A brand new puzzle awaits you every day. Bookmark this page and come back daily!',
+    mode: 'Puzzle',
+    'mode-daily': 'Daily',
+    'mode-random': 'Random',
+    undo: 'Undo',
+    clear: 'Clear',
+    'auto-x': 'Auto ✕',
+    'auto-x-title': 'Automatically show ✕ on cells your queens rule out',
+    'hints-left': 'Hints left',
+    'hints-used': 'Hints',
+    'tip-short': 'Tap: ✕ → ♛ → empty. Drag to mark many ✕.',
+    'solved-summary': 'Solved in',
+    'share-text': '👑 I solved Queens ({puzzle}) in ⏱ {time} with 💡 {hints} hints!',
+    'cell-label': 'Row {row}, column {col}',
+    'cell-queen': 'queen',
+    'cell-x': 'marked ✕',
+    'cell-empty': 'empty',
+    'board-label': 'Queens board. Arrow keys move, Space or Enter cycles ✕ / queen, Delete clears.',
+    undone: 'Move undone.',
   },
   sudoku: {
     sudoku: 'Sudoku',
@@ -854,7 +886,6 @@ export const englishTranslations = {
     'difficulty-0': 'Easy',
     'difficulty-1': 'Medium',
     'difficulty-2': 'Hard',
-    'new-game': 'New Game',
     notes: 'Notes',
     eraser: 'Erase',
     undo: 'Undo',
@@ -911,6 +942,15 @@ export const englishTranslations = {
       'Whether you want to teach kids with a 4×4 mini grid, warm up with an easy 6×6, or test yourself with a hard 9×9, you can play Sudoku online here at any time. Notes, hints, undo, keyboard shortcuts and mistake highlighting make every game easy to enjoy.',
     'seo-p5':
       'Bookmark this page and come back whenever you need a mental workout. Play Sudoku online for free, improve your logic and have fun — one grid at a time.',
+    'hints-left': 'Hints left',
+    'hints-used': 'Hints',
+    'notes-on': 'Notes on: numbers are added as pencil marks.',
+    'select-first': 'Select a cell first.',
+    'given-cell': 'That number is part of the puzzle.',
+    empty: 'empty',
+    'cell-label': 'Row {row}, column {col}',
+    'board-label': 'Sudoku grid. Arrow keys move, number keys fill, N toggles notes, Delete erases.',
+    'share-text': '🧩 I solved a {size} Sudoku ({level}) in ⏱ {time} with {mistakes} mistakes and 💡 {hints} hints!',
   },
   wordLadder: {
     name: 'Word Ladder',
@@ -925,11 +965,9 @@ export const englishTranslations = {
     'difficulty-medium': 'Medium',
     'difficulty-hard': 'Hard',
     'daily-today': "Today's Word Ladder",
-    'new-game': 'New Game',
     moves: 'Moves',
     best: 'Best',
     target: 'Target',
-    time: 'Time',
     'daily-done':
       "You already solved today's puzzle. Come back tomorrow for a new one!",
     start: 'Start',
@@ -938,7 +976,6 @@ export const englishTranslations = {
     submit: 'Go',
     hint: 'Hint',
     undo: 'Undo',
-    'start-game': 'Start Game',
     'err-empty': 'Type a word first.',
     'err-length': 'The word must have the same length as the starting word.',
     'err-dictionary': "That's not a word in our dictionary. Try another word.",
@@ -953,12 +990,8 @@ export const englishTranslations = {
     complete: 'Word Ladder Complete!',
     'result-moves':
       'You turned the starting word into the target word. Great job!',
-    'result-optimal': 'Try to finish in as few moves as possible next time.',
     'daily-streak': 'Daily streak:',
-    'play-again': 'Play Again',
     'next-puzzle': 'Next Puzzle',
-    share: 'Share',
-    'share-copied': 'Result copied to clipboard.',
     'how-to-play': 'How to Play Word Ladder',
     'rule-1': 'Start with the blue word at the top of the ladder.',
     'rule-2':
@@ -1033,6 +1066,11 @@ export const englishTranslations = {
       'If you enjoy word puzzles, try our other free logic games — all of them work on mobile and desktop.',
     'related-sudoku': 'Classic logic puzzle with three grid sizes.',
     'related-queens': 'A daily placement puzzle inspired by N-Queens.',
+    'share-text': '🪜 Word Ladder ({label}): {start} → {target} in {moves} moves (par {par}) · ⏱ {time} · 💡 {hints} hints',
+    par: 'Par',
+    'par-hint': 'The number after the slash is par: the shortest possible ladder.',
+    history: 'Your ladder so far',
+    'history-empty': 'Your words stack up here, the newest right above the input.',
   },
   seo: {
     cardTagline: 'Websites, landing pages and automation',

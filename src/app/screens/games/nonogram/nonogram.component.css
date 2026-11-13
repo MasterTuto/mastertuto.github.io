@@ -1,0 +1,34 @@
+.game-icon-btn { display: inline-grid; place-items: center; min-width: 48px; min-height: 48px; border-radius: .9rem; border: 1px solid rgb(68 74 81 / .15); color: #444a51; transition: background-color .15s, opacity .15s; }
+.game-icon-btn:hover:not(:disabled) { background: rgb(68 74 81 / .06); }
+.game-icon-btn:disabled { opacity: .4; }
+.game-icon-btn:focus-visible, .nono-grid:focus-visible { outline: 2px solid #7a70e1; outline-offset: 2px; }
+.nono-tools button { min-height: 48px; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; }
+.nono-swatch { width: 14px; height: 14px; border-radius: 3px; }
+.nono-swatch-x, .nono-x { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+
+.nono-wrap { container-type: inline-size; }
+.nono-grid { display: grid; justify-content: center; width: 100%; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; font-variant-numeric: tabular-nums; border-radius: .5rem; }
+.nono-grid:focus-visible { outline-offset: 4px; }
+.nono-thumb { width: 78%; height: 78%; max-width: 64px; max-height: 64px; fill: #7a70e1; border-radius: 3px; }
+
+.nono-clue { display: flex; align-items: center; line-height: 1.15; font-weight: 600; color: #444a51; border-radius: .35rem; transition: background-color .15s, color .15s; }
+.nono-clue.is-active { background: rgb(122 112 225 / .14); color: #5b50d6; }
+.nono-clue.is-done { color: rgb(142 144 149 / .65); text-decoration: line-through; text-decoration-thickness: 1px; }
+
+.nono-cell { position: relative; display: grid; place-items: center; background: #fff; border-right: 1px solid rgb(68 74 81 / .14); border-bottom: 1px solid rgb(68 74 81 / .14); color: #8e9095; cursor: pointer; transition: background-color .1s; }
+.nono-cell.edge-t { border-top: 1.5px solid rgb(68 74 81 / .5); }
+.nono-cell.edge-l { border-left: 1.5px solid rgb(68 74 81 / .5); }
+.nono-cell:nth-last-child(1) { border-right-color: rgb(68 74 81 / .5); }
+.nono-cell.major-r { border-right-color: rgb(68 74 81 / .5); }
+.nono-cell.edge-b { border-bottom-color: rgb(68 74 81 / .5); }
+.nono-cell.major-b { border-bottom-color: rgb(68 74 81 / .5); }
+.nono-cell.is-band { background: rgb(122 112 225 / .07); }
+.nono-cell.is-filled { background: #151c25; }
+.nono-cell .nono-x { width: 62%; height: 62%; }
+.nono-grid:focus-visible .is-cursor { outline: 2.5px solid #7a70e1; outline-offset: -2.5px; z-index: 1; }
+
+.nono-grid.is-won .nono-cell { cursor: default; border-color: transparent; transition: background-color .45s ease, border-color .6s ease; }
+.nono-grid.is-won .nono-x { opacity: 0; transition: opacity .3s; }
+.nono-grid.is-won .nono-clue { color: rgb(142 144 149 / .45); text-decoration: none; }
+/* Phones: the board bleeds to 6px from the screen edges so big grids keep usable cells. */
+@media (max-width: 639px) { .game-board-card { width: calc(100vw - 12px); margin-left: calc(50% - 50vw + 6px); max-width: none; } }

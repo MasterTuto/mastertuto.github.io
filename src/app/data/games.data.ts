@@ -19,4 +19,34 @@ export const games: Game[] = [
     descriptionKey: "games.wordLadderDescription",
     icon: "tablerStack2",
   },
+  {
+    route: "minesweeper",
+    nameKey: "minesweeper.name",
+    descriptionKey: "minesweeper.description",
+    icon: "tablerBomb",
+  },
+  {
+    route: "nonogram",
+    nameKey: "nonogram.name",
+    descriptionKey: "nonogram.description",
+    icon: "tablerGridDots",
+  },
+  {
+    route: "binary-puzzle",
+    nameKey: "binaryPuzzle.name",
+    descriptionKey: "binaryPuzzle.description",
+    icon: "tablerBinary",
+  },
+  {
+    route: "memory",
+    nameKey: "memory.name",
+    descriptionKey: "memory.description",
+    icon: "tablerCards",
+  },
+  {
+    route: "color-link",
+    nameKey: "colorLink.name",
+    descriptionKey: "colorLink.description",
+    icon: "tablerRoute",
+  },
 ];

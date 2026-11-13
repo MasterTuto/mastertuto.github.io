@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "styles/pro-tools";
+
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +14,11 @@ body {
   @apply bg-background;
   padding: 64px 32px 0px;
   box-sizing: border-box;
+}
+
+/* Phones: less side padding so boards, calculators and the invoice editor get the width. */
+@media (max-width: 639px) {
+  body { padding-inline: 16px; }
 }
 
 @layer base {
@@ -50,9 +57,30 @@ body {
     }
 }
 
+/* Rejected word: two class names alternate so the shake replays on every error. */
+.wl-shake {
+    animation: wl-shake 0.32s ease-in-out;
+}
+
+.wl-shake-b {
+    animation: wl-shake-b 0.32s ease-in-out;
+}
+
+@keyframes wl-shake {
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes wl-shake-b {
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .wl-word-enter,
-    .wl-win {
+    .wl-win,
+    .wl-shake,
+    .wl-shake-b {
         animation: none;
     }
 }
@@ -79,6 +107,7 @@ body {
 .game-play { min-width: 0; width: 100%; max-width: 640px; margin-inline: auto; }
 .game-guide { min-width: 0; }
 .game-guide > :first-child { margin-top: 0; }
-.game-play button, .game-play select { min-height: 40px; }
+.game-play button, .game-play select { min-height: 44px; }
+.game-play :is(button, select, summary, [role=gridcell], [tabindex]):focus-visible { @apply outline-foreground-emphasis; outline-width: 2px; outline-style: solid; outline-offset: 2px; }
 @media (min-width: 1200px) { .game-layout { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr); } }
 @media (max-width: 479px) { .catalog-empty { flex-direction: column; align-items: flex-start; } .catalog-card { padding: 1rem; } }

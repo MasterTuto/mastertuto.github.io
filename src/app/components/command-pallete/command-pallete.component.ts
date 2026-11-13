@@ -13,6 +13,7 @@ import {
   VerbResult,
 } from 'src/app/service/verb';
 import { VerbRegistry } from 'src/app/service/verb-registry.service';
+import { injectCurrentPath } from 'src/app/layouts/current-url';
 
 @Component({
   selector: 'app-command-pallete',
@@ -22,6 +23,7 @@ import { VerbRegistry } from 'src/app/service/verb-registry.service';
     '(document:keydown)': 'onGlobalKeydown($event)',
     '(document:pointerdown)': 'onOutside($event)',
     '(focusout)': 'onFocusOut($event)',
+    '[class.on-workspace]': 'onWorkspace()',
   },
 })
 export class CommandPalleteComponent {
@@ -31,6 +33,9 @@ export class CommandPalleteComponent {
     viewChild<ElementRef<HTMLInputElement>>('commandInput');
   private readonly trigger =
     viewChild<ElementRef<HTMLButtonElement>>('trigger');
+  private readonly path = injectCurrentPath();
+  /** A game or tool page: boards and keypads use the whole phone screen, so the floating trigger hides there. */
+  readonly onWorkspace = computed(() => /\/(games|tools)\/[^/]+/.test(this.path()));
   readonly isOpen = signal(false);
   readonly query = signal('');
   readonly activeIndex = signal(0);

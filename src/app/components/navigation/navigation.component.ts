@@ -1,6 +1,6 @@
 import { fromEvent, map, startWith } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, DestroyRef, afterNextRender, computed, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, afterNextRender, computed, inject, input, signal } from '@angular/core';
 import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -119,6 +119,14 @@ export class NavigationComponent {
   });
 
   constructor() {
+    // Publish the bar's height as --site-nav-h so other sticky elements (tool result bars) sit below it.
+    const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    afterNextRender(() => {
+      const root = document.documentElement;
+      const observer = new ResizeObserver(() => root.style.setProperty('--site-nav-h', `${host.offsetHeight}px`));
+      observer.observe(host);
+      this.destroyRef.onDestroy(() => observer.disconnect());
+    });
     afterNextRender( () => {
       fromEvent(window, 'scroll')
         .pipe(

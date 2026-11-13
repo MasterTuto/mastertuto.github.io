@@ -1,0 +1,262 @@
+@let p = party();
+@let e = errors();
+@if (has('identity')) {
+  @if (headings()) {
+    <p class="group-title">Identificação</p>
+  }
+  <div class="pro-field">
+    <span class="pro-label" [id]="uid + '-where'">{{ isEmitter() ? 'Onde fica o seu negócio?' : 'Onde fica o cliente?' }}</span>
+    <div class="pro-segmented" role="group" [attr.aria-labelledby]="uid + '-where'">
+      <button type="button" [attr.aria-pressed]="!p.international" (click)="setInternational(false)">No Brasil</button>
+      <button type="button" [attr.aria-pressed]="p.international" (click)="setInternational(true)">No exterior</button>
+    </div>
+  </div>
+  <div class="pro-field">
+    <label class="pro-label" [for]="uid + '-name'">{{ isEmitter() ? 'Nome ou razão social' : 'Nome do cliente ou empresa' }}</label>
+    <input class="pro-input" [id]="uid + '-name'" [value]="p.name" (input)="text('name', $event)" (blur)="touch('name')"
+      autocomplete="organization" autocapitalize="words" [attr.aria-invalid]="!!e.name" [placeholder]="isEmitter() ? 'Ex.: Ana Lima Design ou Lima Tecnologia Ltda.' : 'Ex.: Acme Inc.'" />
+    @if (e.name) { <span class="pro-error">{{ e.name }}</span> }
+  </div>
+  <div class="pro-row">
+    @if (p.international) {
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-tax'">Tax ID / VAT <small>opcional</small></label>
+        <input class="pro-input" [id]="uid + '-tax'" [value]="p.taxId" (input)="text('taxId', $event)" autocomplete="off" placeholder="Ex.: EIN 12-3456789, VAT GB123456789" />
+      </div>
+    } @else {
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-tax'">CPF ou CNPJ <small>opcional</small></label>
+        <input class="pro-input" [id]="uid + '-tax'" appMask="cpf-cnpj" [value]="p.taxId" (input)="text('taxId', $event)" (blur)="touch('taxId')"
+          [attr.aria-invalid]="!!e.taxId" placeholder="000.000.000-00" />
+        @if (e.taxId) { <span class="pro-error">{{ e.taxId }}</span> }
+      </div>
+    }
+    @if (!isEmitter()) {
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-contact'">A/C <small>pessoa ou setor</small></label>
+        <input class="pro-input" [id]="uid + '-contact'" [value]="p.contact" (input)="text('contact', $event)" autocomplete="name" autocapitalize="words" placeholder="Ex.: Financeiro" />
+      </div>
+    }
+  </div>
+  <div class="pro-row">
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-email'">E-mail</label>
+      <input class="pro-input" [id]="uid + '-email'" type="email" inputmode="email" [value]="p.email" (input)="text('email', $event)" (blur)="touch('email')"
+        [attr.autocomplete]="isEmitter() ? 'email' : 'off'" autocapitalize="off" spellcheck="false" [attr.aria-invalid]="!!e.email" placeholder="voce@empresa.com" />
+      @if (e.email) { <span class="pro-error">{{ e.email }}</span> }
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-phone'">Telefone</label>
+      @if (p.international) {
+        <input class="pro-input" [id]="uid + '-phone'" type="tel" inputmode="tel" [value]="p.phone" (input)="text('phone', $event)" autocomplete="tel" placeholder="+1 555 123 4567" />
+      } @else {
+        <input class="pro-input" [id]="uid + '-phone'" type="tel" appMask="phone-br" [value]="p.phone" (input)="text('phone', $event)" (blur)="touch('phone')"
+          [attr.autocomplete]="isEmitter() ? 'tel-national' : 'off'" [attr.aria-invalid]="!!e.phone" placeholder="(11) 98765-4321" />
+        @if (e.phone) { <span class="pro-error">{{ e.phone }}</span> }
+      }
+    </div>
+  </div>
+}
+
+@if (has('address')) {
+  @if (headings()) {
+    <p class="group-title">Endereço <small class="pro-hint">opcional</small></p>
+  }
+  @if (p.international) {
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-addr'">Endereço completo</label>
+      <textarea class="pro-textarea" [id]="uid + '-addr'" rows="3" [value]="p.addressFree" (input)="text('addressFree', $event)" autocomplete="street-address"
+        placeholder="350 Fifth Avenue, Suite 100&#10;New York, NY 10118"></textarea>
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-country'">País</label>
+      <input class="pro-input" [id]="uid + '-country'" [value]="p.country" (input)="text('country', $event)" autocomplete="country-name" [attr.list]="uid + '-countries'" placeholder="Ex.: Estados Unidos" />
+      <datalist [id]="uid + '-countries'">
+        @for (country of countries; track country) { <option [value]="country"></option> }
+      </datalist>
+    </div>
+  } @else {
+    <div class="pro-row">
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-cep'">
+          CEP
+          @switch (cepStatus()) {
+            @case ('loading') { <small>buscando endereço…</small> }
+            @case ('ok') { <small>endereço preenchido</small> }
+            @case ('fail') { <small>não encontrado, preencha abaixo</small> }
+          }
+        </label>
+        <input class="pro-input" [id]="uid + '-cep'" appMask="cep" [value]="p.cep" (input)="onCep($event)" (blur)="touch('cep')" autocomplete="postal-code"
+          [attr.aria-invalid]="!!e.cep" placeholder="00000-000" />
+        @if (e.cep) { <span class="pro-error">{{ e.cep }}</span> }
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-street'">Rua</label>
+        <input class="pro-input" [id]="uid + '-street'" [value]="p.street" (input)="text('street', $event)" autocomplete="address-line1" placeholder="Av. Paulista" />
+      </div>
+    </div>
+    <div class="pro-row">
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-number'">Número</label>
+        <input class="pro-input" [id]="uid + '-number'" [value]="p.number" (input)="text('number', $event)" autocomplete="off" inputmode="text" placeholder="1000" />
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-compl'">Complemento</label>
+        <input class="pro-input" [id]="uid + '-compl'" [value]="p.complement" (input)="text('complement', $event)" autocomplete="address-line2" placeholder="Sala 12" />
+      </div>
+    </div>
+    <div class="pro-row cols-3">
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-district'">Bairro</label>
+        <input class="pro-input" [id]="uid + '-district'" [value]="p.district" (input)="text('district', $event)" autocomplete="address-level3" />
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-city'">Cidade</label>
+        <input class="pro-input" [id]="uid + '-city'" [value]="p.city" (input)="text('city', $event)" autocomplete="address-level2" />
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-uf'">UF</label>
+        <select class="pro-select" [id]="uid + '-uf'" [value]="p.uf" (change)="text('uf', $event)" autocomplete="address-level1">
+          <option value="">—</option>
+          @for (uf of ufs; track uf) { <option [value]="uf" [selected]="uf === p.uf">{{ uf }}</option> }
+        </select>
+      </div>
+    </div>
+  }
+}
+
+@if (has('payment') && isEmitter()) {
+  @if (headings()) {
+    <p class="group-title">Como você recebe</p>
+  }
+  <div class="pro-field">
+    <label class="pro-label" [for]="uid + '-pix'">
+      Chave PIX
+      @if (p.pixKey.trim() && pix().type !== 'unknown') {
+        <span class="pro-pill" [class.ok]="pix().valid" [class.warn]="!pix().valid">{{ pix().label }}</span>
+      }
+    </label>
+    <input class="pro-input" [id]="uid + '-pix'" [value]="p.pixKey" (input)="text('pixKey', $event)" (blur)="touch('pixKey')" autocomplete="off" autocapitalize="off" spellcheck="false"
+      [attr.aria-invalid]="!!e.pixKey" placeholder="CPF, CNPJ, e-mail, celular ou chave aleatória" />
+    @if (e.pixKey) {
+      <span class="pro-error">{{ e.pixKey }}</span>
+    } @else {
+      <span class="pro-hint">Em invoices em reais, o documento ganha um QR Code PIX com o valor.</span>
+    }
+  </div>
+  <div class="pro-row cols-3">
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-bank'">Banco</label>
+      <input class="pro-input" [id]="uid + '-bank'" [value]="p.bank" (input)="text('bank', $event)" autocomplete="off" placeholder="Ex.: 260 Nubank" />
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-agency'">Agência</label>
+      <input class="pro-input" [id]="uid + '-agency'" [value]="p.agency" (input)="text('agency', $event)" autocomplete="off" inputmode="numeric" placeholder="0001" />
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-account'">Conta</label>
+      <input class="pro-input" [id]="uid + '-account'" [value]="p.account" (input)="text('account', $event)" autocomplete="off" inputmode="numeric" placeholder="12345-6" />
+    </div>
+  </div>
+  <div class="pro-row">
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-iban'">IBAN <small>do exterior</small></label>
+      <input class="pro-input" [id]="uid + '-iban'" [value]="p.iban" (input)="text('iban', $event)" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="BR00 0000 0000 …" />
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-swift'">SWIFT/BIC</label>
+      <input class="pro-input" [id]="uid + '-swift'" [value]="p.swift" (input)="text('swift', $event)" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="NUBRBRSP" />
+    </div>
+  </div>
+  <div class="pro-field">
+    <label class="pro-label" [for]="uid + '-link'">Link de pagamento <small>PayPal, Wise, Stripe…</small></label>
+    <input class="pro-input" [id]="uid + '-link'" type="url" inputmode="url" [value]="p.payLink" (input)="text('payLink', $event)" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="https://wise.com/pay/me/…" />
+  </div>
+}
+
+@if (has('brand') && isEmitter()) {
+  @if (headings()) {
+    <p class="group-title">Marca</p>
+  }
+  <div class="flex flex-wrap items-center gap-4">
+    <div class="logo-box">
+      @if (p.logo) {
+        <img [src]="p.logo" alt="Logo atual" />
+      } @else {
+        <span class="text-xs text-foreground-light">sem logo</span>
+      }
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <label class="pro-btn ghost cursor-pointer" [for]="uid + '-logo'">{{ p.logo ? 'Trocar logo' : 'Enviar logo' }}</label>
+      <input class="sr-only" [id]="uid + '-logo'" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" (change)="onLogo($event)" />
+      @if (p.logo) {
+        <button type="button" class="pro-btn ghost" (click)="set('logo', '')">Remover</button>
+      }
+    </div>
+    @if (logoError()) { <span class="pro-error w-full">{{ logoError() }}</span> }
+  </div>
+  <div class="pro-field">
+    <span class="pro-label" [id]="uid + '-color'">Cor da marca</span>
+    <div class="flex flex-wrap items-center gap-2" role="group" [attr.aria-labelledby]="uid + '-color'">
+      @for (color of brandColors; track color) {
+        <button type="button" class="swatch" [style.background]="color" [attr.aria-pressed]="p.brandColor === color" [attr.aria-label]="'Cor ' + color" (click)="set('brandColor', color)"></button>
+      }
+      <label class="ml-1 inline-flex items-center gap-2 text-sm text-foreground-light">
+        <input type="color" class="h-9 w-12 cursor-pointer rounded-md border border-foreground/15 bg-transparent" [value]="p.brandColor" (input)="text('brandColor', $event)" />
+        outra
+      </label>
+    </div>
+  </div>
+}
+
+@if (has('defaults')) {
+  @if (headings()) {
+    <p class="group-title">{{ isEmitter() ? 'Padrões das suas invoices' : 'Preferências do cliente' }}</p>
+  }
+  <div class="pro-row">
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-cur'">{{ isEmitter() ? 'Moeda padrão' : 'Moeda' }}</label>
+      <select class="pro-select" [id]="uid + '-cur'" (change)="text('currency', $event)">
+        @if (!isEmitter()) { <option value="" [selected]="!p.currency">Igual à da invoice</option> }
+        @for (c of currencies; track c.code) { <option [value]="c.code" [selected]="c.code === p.currency">{{ c.code }} · {{ c.name }}</option> }
+      </select>
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-lang'">{{ isEmitter() ? 'Idioma padrão do documento' : 'Idioma do documento' }}</label>
+      <select class="pro-select" [id]="uid + '-lang'" (change)="text('lang', $event)">
+        @if (!isEmitter()) { <option value="" [selected]="!p.lang">Igual ao da invoice</option> }
+        @for (l of langs; track l[0]) { <option [value]="l[0]" [selected]="l[0] === p.lang">{{ l[1] }}</option> }
+      </select>
+    </div>
+  </div>
+  @if (isEmitter()) {
+    <div class="pro-row cols-3">
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-prefix'">Prefixo do número</label>
+        <input class="pro-input" [id]="uid + '-prefix'" [value]="p.prefix" (input)="text('prefix', $event)" autocomplete="off" placeholder="2026-" />
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-next'">Próximo número</label>
+        <input class="pro-input" [id]="uid + '-next'" appNumber [decimals]="0" [fixed]="false" [blankZero]="false" [value]="p.nextNumber" (valueChange)="set('nextNumber', $event || 1)" />
+      </div>
+      <div class="pro-field">
+        <label class="pro-label" [for]="uid + '-rate'">Valor da hora</label>
+        <input class="pro-input" [id]="uid + '-rate'" appNumber [value]="p.hourlyRate" (valueChange)="set('hourlyRate', $event)" placeholder="0,00" />
+      </div>
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-tpl'">Modelo padrão</label>
+      <select class="pro-select" [id]="uid + '-tpl'" (change)="text('template', $event)">
+        @for (t of templates; track t.id) { <option [value]="t.id" [selected]="t.id === p.template">{{ t.name }}</option> }
+      </select>
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-notes'">Observações padrão</label>
+      <textarea class="pro-textarea" [id]="uid + '-notes'" rows="2" [value]="p.notes" (input)="text('notes', $event)" placeholder="Ex.: Serviço prestado por MEI, dispensado de retenções."></textarea>
+    </div>
+    <div class="pro-field">
+      <label class="pro-label" [for]="uid + '-terms'">Termos padrão</label>
+      <textarea class="pro-textarea" [id]="uid + '-terms'" rows="2" [value]="p.terms" (input)="text('terms', $event)" placeholder="Ex.: Pagamento em até 15 dias. Após o vencimento, multa de 2% e juros de 1% ao mês."></textarea>
+    </div>
+  }
+}

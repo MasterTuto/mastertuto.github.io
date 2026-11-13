@@ -1,15 +1,29 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  computed,
   inject,
   signal,
+  viewChild,
   PLATFORM_ID,
   afterNextRender,
 } from "@angular/core";
+import { NgIconComponent, provideIcons } from "@ng-icons/core";
+import {
+  tablerArrowBackUp,
+  tablerArrowsShuffle,
+  tablerBackspace,
+  tablerBulb,
+  tablerPencil,
+  tablerRefresh,
+} from "@ng-icons/tabler-icons";
 import { isPlatformBrowser } from "@angular/common";
 import { TranslatePipe } from "src/app/pipes/translate/translate.pipe";
 import { useGameSeo } from "../game-seo";
-import { TranslationInitializer } from "src/app/service/translation.initializer";
+import { TranslateService } from "src/app/service/translate.service";
+import { GameTimer } from "../shared/game-timer";
+import { GameShareButtonComponent } from "../shared/game-share-button.component";
 import { generateSeed } from "src/app/utils/generate-seed";
 import { generateSudoku } from "src/app/utils/sudoku-puzzle";
 import type { SudokuPuzzle } from "src/app/utils/sudoku-puzzle";
@@ -31,11 +45,27 @@ interface HistoryEntry {
   selector: "sudoku",
   templateUrl: "./sudoku.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, NgIconComponent, GameShareButtonComponent],
+  providers: [
+    provideIcons({
+      tablerArrowBackUp,
+      tablerArrowsShuffle,
+      tablerBackspace,
+      tablerBulb,
+      tablerPencil,
+      tablerRefresh,
+    }),
+  ],
+  styles: [
+    `:host button:focus-visible{outline:2px solid #7a70e1;outline-offset:2px}
+     :host [role=grid]:focus-visible{outline:2px solid #7a70e1;outline-offset:3px}`,
+  ],
 })
 export class SudokuComponent {
   private platformId = inject(PLATFORM_ID);
-  private translationInitializer = inject(TranslationInitializer);
+  private translate = inject(TranslateService);
+  readonly winRef = viewChild<ElementRef<HTMLElement>>("winEl");
+  readonly timer = new GameTimer();
 
   sizes = [4, 6, 9];
   difficulties = [0, 1, 2];
@@ -48,28 +78,33 @@ export class SudokuComponent {
   won = signal(false);
   mistakes = signal(0);
   hintsRemaining = signal(3);
-  elapsed = signal(0);
+  started = signal(false);
+  canUndo = signal(false);
+  /** Short feedback shown in the status line, e.g. "select a cell first". */
+  notice = signal<string | null>(null);
 
-  private timerId: ReturnType<typeof setInterval> | null = null;
   private history: HistoryEntry[][] = [];
+  private noticeId: ReturnType<typeof setTimeout> | undefined;
 
-  get lang(): string | null {
-    return this.translationInitializer.currentLang;
-  }
+  /** How many times each digit is on the board (index = digit). */
+  readonly digitCounts = computed(() => {
+    const counts = Array<number>(this.gridSize() + 1).fill(0);
+    for (const cell of this.board()) if (cell.value) counts[cell.value]++;
+    return counts;
+  });
+
+  readonly shareText = computed(() =>
+    this.translate
+      .translate("sudoku.share-text")
+      .replace("{size}", `${this.gridSize()}×${this.gridSize()}`)
+      .replace("{level}", this.translate.translate("sudoku.difficulty-" + this.difficulty()))
+      .replace("{time}", this.timer.label())
+      .replace("{mistakes}", String(this.mistakes()))
+      .replace("{hints}", String(3 - this.hintsRemaining())),
+  );
 
   get digits(): number[] {
     return Array.from({ length: this.gridSize() }, (_, i) => i + 1);
-  }
-
-  get timeLabel(): string {
-    const total = this.elapsed();
-    const m = Math.floor(total / 60);
-    const s = total % 60;
-    return `${m}:${s.toString().padStart(2, "0")}`;
-  }
-
-  get canUndo(): boolean {
-    return this.history.length > 0;
   }
 
   constructor() {
@@ -78,7 +113,6 @@ export class SudokuComponent {
     afterNextRender(() => {
       if (isPlatformBrowser(this.platformId)) {
         this.newGame();
-        this.startTimer();
       }
     });
   }
@@ -97,12 +131,67 @@ export class SudokuComponent {
     this.won.set(false);
     this.mistakes.set(0);
     this.hintsRemaining.set(3);
-    this.elapsed.set(0);
     this.history = [];
+    this.canUndo.set(false);
+    this.started.set(false);
+    this.notice.set(null);
+    this.timer.reset();
+  }
+
+  setSize(size: number): void {
+    if (size === this.gridSize()) return;
+    this.gridSize.set(size);
+    this.newGame();
+  }
+
+  setDifficulty(level: number): void {
+    if (level === this.difficulty()) return;
+    this.difficulty.set(level);
+    this.newGame();
   }
 
   select(index: number): void {
     this.selected.set(index);
+    this.notice.set(null);
+  }
+
+  /** Number pad press: fills the cell, or toggles a pencil mark in Notes mode. */
+  press(value: number): void {
+    if (this.won()) return;
+    const sel = this.selected();
+    if (sel === null) {
+      this.flash("sudoku.select-first");
+      return;
+    }
+    if (this.board()[sel]?.given) {
+      this.flash("sudoku.given-cell");
+      return;
+    }
+    if (this.notesMode()) this.toggleNote(value);
+    else this.inputValue(value);
+  }
+
+  cellLabel(cell: SudokuCell): string {
+    const base = this.translate
+      .translate("sudoku.cell-label")
+      .replace("{row}", String(cell.row + 1))
+      .replace("{col}", String(cell.col + 1));
+    if (cell.value) return `${base}: ${cell.value}`;
+    if (cell.notes.length) return `${base}: ${this.translate.translate("sudoku.notes")} ${cell.notes.join(" ")}`;
+    return `${base}: ${this.translate.translate("sudoku.empty")}`;
+  }
+
+  private flash(key: string): void {
+    this.notice.set(this.translate.translate(key));
+    clearTimeout(this.noticeId);
+    this.noticeId = setTimeout(() => this.notice.set(null), 2500);
+  }
+
+  private record(): void {
+    this.history.push(this.snapshot());
+    this.canUndo.set(true);
+    this.started.set(true);
+    this.timer.start();
   }
 
   inputValue(value: number): void {
@@ -118,7 +207,7 @@ export class SudokuComponent {
       return;
     }
 
-    this.history.push(this.snapshot());
+    this.record();
     cell.value = value;
     cell.notes = [];
     this.board.set(cells);
@@ -137,7 +226,7 @@ export class SudokuComponent {
     const cell = cells[sel];
     if (cell.given) return;
 
-    this.history.push(this.snapshot());
+    this.record();
     if (cell.value !== 0) {
       cell.value = 0;
     }
@@ -160,7 +249,7 @@ export class SudokuComponent {
     if (cell.given) return;
     if (cell.value === 0 && cell.notes.length === 0) return;
 
-    this.history.push(this.snapshot());
+    this.record();
     cell.value = 0;
     cell.notes = [];
     this.board.set(cells);
@@ -168,7 +257,9 @@ export class SudokuComponent {
   }
 
   undo(): void {
+    if (this.won()) return;
     const last = this.history.pop();
+    this.canUndo.set(this.history.length > 0);
     if (!last) return;
     const cells = this.board().map((c, i) => ({
       ...c,
@@ -184,7 +275,12 @@ export class SudokuComponent {
     if (!puzzle) return;
 
     const sel = this.selected();
-    let target = sel !== null ? sel : this.firstIncorrectCell();
+    const N0 = this.gridSize();
+    const selUseful =
+      sel !== null &&
+      !this.board()[sel].given &&
+      this.board()[sel].value !== puzzle.solution[Math.floor(sel / N0)][sel % N0];
+    const target = selUseful ? sel : this.firstIncorrectCell();
     if (target < 0) return;
 
     const cells = this.board().map((c) => ({ ...c, notes: [...c.notes] }));
@@ -194,7 +290,7 @@ export class SudokuComponent {
     const solutionValue = puzzle.solution[r][c];
     if (cell.given || cell.value === solutionValue) return;
 
-    this.history.push(this.snapshot());
+    this.record();
     cell.value = solutionValue;
     cell.notes = [];
     this.board.set(cells);
@@ -204,7 +300,8 @@ export class SudokuComponent {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.altKey) return;
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() !== "z") return;
     const tag = (event.target as HTMLElement)?.tagName;
     if (tag === "SELECT" || tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON") return;
 
@@ -214,11 +311,17 @@ export class SudokuComponent {
 
     if (num >= 1 && num <= N) {
       event.preventDefault();
-      if (this.notesMode()) {
-        this.toggleNote(num);
-      } else {
-        this.inputValue(num);
-      }
+      this.press(num);
+      return;
+    }
+    if (sel === null && event.key.startsWith("Arrow")) {
+      event.preventDefault();
+      this.select(0);
+      return;
+    }
+    if ((event.key === "z" || event.key === "Z") && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
+      this.undo();
       return;
     }
 
@@ -426,23 +529,12 @@ export class SudokuComponent {
         if (this.hasConflict(i)) return;
       }
       this.won.set(true);
-      this.stopTimer();
-    }
-  }
-
-  private startTimer(): void {
-    this.stopTimer();
-    this.timerId = setInterval(() => {
-      if (!this.won()) {
-        this.elapsed.update((e) => e + 1);
-      }
-    }, 1000);
-  }
-
-  private stopTimer(): void {
-    if (this.timerId !== null) {
-      clearInterval(this.timerId);
-      this.timerId = null;
+      this.timer.stop();
+      this.selected.set(null);
+      setTimeout(() => {
+        const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+        this.winRef()?.nativeElement.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+      });
     }
   }
 }

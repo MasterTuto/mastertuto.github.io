@@ -1,4 +1,4 @@
-import { Industry } from './industry.model';
+import type { Industry } from './industry.model';
 
 export const contador: Industry = {
   slug: 'contador',

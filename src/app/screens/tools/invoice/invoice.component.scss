@@ -1,0 +1,58 @@
+// Page layout of the invoice generator. Editor and paper side by side from 960px; the paper column is
+// wide (it is the product) and sized so the whole A4 page fits the viewport height.
+:host { display: block; }
+.inv-page { max-width: 1200px; }
+.facts { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; margin-top: .9rem; color: #8e9095; font-size: .85rem; }
+.facts span::before { content: '✓'; margin-right: .4rem; color: #7a70e1; font-weight: 700; }
+
+.shared { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin-bottom: 1.25rem; padding: .9rem 0; border-block: 1px solid rgb(122 112 225 / .35); color: #444a51; font-size: .9rem; }
+.shared p { flex: 1; min-width: 14rem; }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid rgb(68 74 81 / .12); scroll-margin-top: calc(var(--site-nav-h, 0px) + .5rem); }
+.toolbar:empty { display: none; }
+.actions { display: flex; gap: .5rem; margin-left: auto; }
+.switch { flex: 1; max-width: 15rem; }
+@media (max-width: 479px) { .actions .lbl { display: none; } .actions .pro-btn { padding-inline: .8rem; } }
+
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.col-preview { display: grid; gap: 1rem; min-width: 0; }
+.paper-wrap { width: min(100%, 720px); margin-inline: auto; }
+.paper-skeleton { aspect-ratio: 210 / 297; border-radius: 6px; background: #fff; box-shadow: 0 24px 48px -24px rgb(21 28 37 / .35); }
+.strip-skeleton { height: 166px; }
+.exports { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.spin { width: 1rem; height: 1rem; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 959px) {
+  .workspace[data-view=edit] .col-preview { display: none; }
+  .workspace[data-view=preview] .col-edit { display: none; }
+  .workspace.only-preview .col-preview { display: grid; }
+  .inv-page { padding-bottom: 5.5rem; }
+}
+@media (min-width: 960px) {
+  .switch { display: none; }
+  .workspace { grid-template-columns: minmax(0, 1fr) minmax(380px, 1fr); gap: 2.5rem; }
+  .workspace.only-preview { grid-template-columns: minmax(0, 1fr); }
+  .col-preview { position: sticky; top: calc(var(--site-nav-h, 0px) + 1rem); z-index: 1; }
+  .paper-wrap { width: min(100%, calc((100dvh - var(--site-nav-h, 0px) - 18rem) * .7071)); min-width: 300px; }
+}
+@media (min-width: 1200px) { .workspace { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
+
+.history { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgb(68 74 81 / .12); }
+
+.mbar { position: fixed; left: .5rem; right: .5rem; bottom: calc(.5rem + env(safe-area-inset-bottom)); z-index: 40; display: flex; align-items: center; gap: .5rem; padding: .5rem .5rem .5rem 1rem; border-radius: 1rem; background: #151c25; color: #e0e1df; box-shadow: 0 16px 40px -12px rgb(21 28 37 / .6); transition: transform .2s, opacity .2s; }
+.mbar .pro-btn { background: #e0e1df; color: #151c25; }
+.mbar .pro-btn.ghost { background: transparent; color: #e0e1df; border-color: rgb(255 255 255 / .25); }
+.mbar-total { display: grid; flex: 1; min-width: 0; line-height: 1.15; }
+.mbar-total span { font-size: .7rem; opacity: .7; }
+.mbar-total strong { overflow: hidden; font-size: 1.05rem; font-variant-numeric: tabular-nums; text-overflow: ellipsis; white-space: nowrap; }
+.mbar.hidden-bar { opacity: 0; pointer-events: none; transform: translateY(120%); }
+@media (min-width: 960px) { .mbar { display: none; } }
+
+.esheet { width: 100%; max-width: 30rem; margin: auto auto 0; padding: 1.25rem 1rem calc(1rem + env(safe-area-inset-bottom)); border: 0; border-radius: 1.25rem 1.25rem 0 0; background: rgb(250 250 250); }
+.esheet::backdrop { background: rgb(21 28 37 / .5); }
+.esheet h2 { margin-bottom: .75rem; color: #151c25; font-weight: 650; }
+.elist { display: grid; margin-bottom: .75rem; }
+.elist button { display: flex; align-items: center; gap: .9rem; min-height: 56px; padding: .5rem .25rem; border-bottom: 1px solid rgb(68 74 81 / .1); color: #444a51; text-align: left; }
+.elist span { display: grid; }
+.elist small { color: #8e9095; }

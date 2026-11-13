@@ -1,0 +1,65 @@
+import type { ColorLinkStrings } from './en';
+
+/** Color Link strings (pt). */
+export const colorLink: ColorLinkStrings = {
+  name: "Ligue as Cores",
+  description: 'Ligue cada par de bolinhas da mesma cor com um caminho e preencha a grade inteira: um quebra-cabeça de lógica relaxante, com desafio diário.',
+  seo: {
+    title: 'Ligue as Cores: jogo de ligar pontos grátis online',
+    description: 'Trace caminhos para ligar cada par de cores sem cruzar e preencha todas as casas. Desafio diário grátis em 5×5, 7×7 e 9×9, feito para jogar no celular.',
+  },
+  size: 'Tamanho da grade',
+  mode: 'Desafio',
+  daily: 'Diário',
+  random: 'Aleatório',
+  newPuzzle: 'Novo desafio',
+  undo: 'Desfazer',
+  reset: 'Limpar',
+  filled: 'Preenchido',
+  pairs: 'Pares',
+  loading: 'Carregando o desafio…',
+  boardLabel: 'Tabuleiro do Ligue as Cores',
+  keyboardHint: 'Teclado: setas movem, Espaço ou Enter pega e solta uma cor, Ctrl+Z desfaz.',
+  status: {
+    drag: 'Arraste de uma bolinha até a outra da mesma cor. Volte pelo caminho para apagar um trecho.',
+    fill: 'Todos os pares estão ligados. Agora ajuste os caminhos para não sobrar nenhuma casa vazia.',
+    solved: 'Resolvido! Todos os pares ligados e todas as casas preenchidas.',
+  },
+  win: {
+    title: 'Resolvido!',
+    moves: 'jogadas',
+  },
+  howTo: {
+    title: 'Como jogar',
+    s1: 'Cada cor aparece em exatamente duas bolinhas. Toque em uma delas e arraste para traçar um caminho até a outra bolinha da mesma cor.',
+    s2: 'Os caminhos andam para cima, para baixo, para a esquerda ou para a direita, uma casa por vez. Eles nunca se cruzam nem dividem a mesma casa.',
+    s3: 'Volte pelo próprio caminho para encurtá-lo. Se passar por cima de outra cor, o caminho dela é cortado naquele ponto.',
+    s4: 'O desafio termina quando todos os pares estão ligados e todas as casas da grade estão cobertas por algum caminho.',
+  },
+  tips: {
+    title: 'Dicas',
+    t1Term: 'Comece pelas bordas',
+    t1: 'Bolinhas na borda e nos cantos têm poucas saídas. Ligue essas primeiro e o meio da grade se resolve com mais facilidade.',
+    t2Term: 'Encoste nas paredes',
+    t2: 'Um caminho que corre rente à borda ou colado em outro caminho dificilmente deixa casas vazias presas atrás dele.',
+    t3Term: 'Cuidado com becos',
+    t3: 'Uma casa vazia com só um vizinho livre precisa ser a curva de algum caminho. Se nenhum consegue chegar até ela, repense os caminhos ao redor.',
+  },
+  faq: {
+    title: 'Perguntas frequentes',
+    q1: 'Existe só uma solução?',
+    a1: 'Não necessariamente. Qualquer preenchimento que ligue todos os pares, sem cruzamentos, e cubra todas as casas vale como vitória, mesmo que seja diferente do que o gerador imaginou.',
+    q2: 'Como funciona o desafio diário?',
+    a2: 'Cada tamanho de grade tem um desafio por dia, igual para todo mundo. No modo aleatório você ganha um desafio novo sempre que quiser jogar outra rodada.',
+    q3: 'Dá para jogar pelo teclado?',
+    a3: 'Dá. Selecione o tabuleiro, mova o cursor com as setas, aperte Espaço ou Enter numa bolinha para pegar a cor dela, desenhe com as setas e aperte Espaço de novo para soltar.',
+    q4: 'Tenho dificuldade para distinguir algumas cores. E agora?',
+    a4: 'A paleta foi escolhida para continuar distinta nos tipos mais comuns de daltonismo, e cada par também traz a mesma letra, então dá para ligar as bolinhas só pela letra.',
+  },
+  about: {
+    title: 'Sobre o Ligue as Cores',
+    p1: 'O Ligue as Cores faz parte de uma família de quebra-cabeças de caminhos conhecida como Numberlink, popularizada por revistas de passatempos japonesas: pares de símbolos numa grade precisam ser ligados por linhas que nunca se cruzam. Aqui os símbolos são cores, e a regra extra de preencher todas as casas transforma um simples exercício de ligar pontos num verdadeiro desafio de lógica.',
+    p2: 'Cada tabuleiro é montado por um gerador que divide a grade em caminhos sinuosos e guarda só as pontas, então sempre existe uma solução completa. A grade 5×5 é um aquecimento rápido, a 7×7 pede um pouco de planejamento e a 9×9 recompensa quem lê com calma as bordas e os cantos.',
+    p3: 'É um jogo ideal para pausas curtas: uma partida leva um ou dois minutos, o relógio só começa no seu primeiro traço e funciona tão bem com o dedo no celular quanto com o mouse no computador. Resolva o desafio do dia, compartilhe seu tempo com os amigos e volte amanhã para um novo.',
+  },
+};

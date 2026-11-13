@@ -2,12 +2,22 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   inject,
   signal,
   viewChild,
   PLATFORM_ID,
 } from '@angular/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import {
+  tablerArrowBackUp,
+  tablerArrowsShuffle,
+  tablerBulb,
+  tablerCalendar,
+  tablerCornerDownLeft,
+  tablerRefresh,
+} from '@ng-icons/tabler-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -28,6 +38,8 @@ import {
 } from 'src/app/utils/word-ladder/word-ladder';
 import { TranslateService } from 'src/app/service/translate.service';
 import { useGameSeo } from '../game-seo';
+import { GameTimer } from '../shared/game-timer';
+import { GameShareButtonComponent } from '../shared/game-share-button.component';
 
 type GameMode = 'classic' | 'daily';
 type GameStatus = 'idle' | 'playing' | 'won';
@@ -46,7 +58,20 @@ interface Progress {
   selector: 'word-ladder',
   templateUrl: './word-ladder.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink, TranslatePipe],
+  imports: [FormsModule, RouterLink, TranslatePipe, NgIconComponent, GameShareButtonComponent],
+  providers: [
+    provideIcons({
+      tablerArrowBackUp,
+      tablerArrowsShuffle,
+      tablerBulb,
+      tablerCalendar,
+      tablerCornerDownLeft,
+      tablerRefresh,
+    }),
+  ],
+  styles: [
+    `:host button:focus-visible,:host a:focus-visible,:host summary:focus-visible{outline:2px solid #7a70e1;outline-offset:2px}`,
+  ],
 })
 export class WordLadderComponent {
   private platformId = inject(PLATFORM_ID);
@@ -55,6 +80,8 @@ export class WordLadderComponent {
   private posthog = inject(PosthogService);
 
   readonly moveInput = viewChild<ElementRef<HTMLInputElement>>('moveInput');
+  readonly historyEl = viewChild<ElementRef<HTMLElement>>('historyEl');
+  readonly timer = new GameTimer();
 
   difficulties: WordLadderDifficulty[] = ['easy', 'medium', 'hard'];
   modes: GameMode[] = ['classic', 'daily'];
@@ -68,7 +95,8 @@ export class WordLadderComponent {
   status = signal<GameStatus>('idle');
   hintsRemaining = signal(3);
   hintsUsed = signal(0);
-  elapsed = signal(0);
+  /** Bumped on every rejected word so the input can replay its shake animation. */
+  errorTick = signal(0);
 
   best = signal<Partial<Record<WordLadderDifficulty, number>>>({});
   dailyBest = signal<number | null>(null);
@@ -76,7 +104,6 @@ export class WordLadderComponent {
   dailyCompleted = signal(false);
 
   hintText = signal<string | null>(null);
-  shareMessage = signal<string | null>(null);
   lastLiveAnnouncement = signal<string | null>(null);
 
   faqKeys: { question: string; answer: string }[] = [
@@ -89,9 +116,26 @@ export class WordLadderComponent {
     { question: 'wordLadder.faq-q7', answer: 'wordLadder.faq-a7' },
   ];
 
+  readonly shareText = computed(() => {
+    const puzzle = this.puzzle();
+    if (!puzzle) return '';
+    const moves = this.path().length > 1 ? this.path().length - 1 : (this.dailyBest() ?? 0);
+    const label =
+      this.mode() === 'daily'
+        ? `${this.translateService.translate('wordLadder.mode-daily')} ${new Date().toISOString().slice(0, 10)}`
+        : this.translateService.translate(`wordLadder.difficulty-${puzzle.difficulty}`);
+    return this.translateService
+      .translate('wordLadder.share-text')
+      .replace('{label}', label)
+      .replace('{start}', puzzle.start)
+      .replace('{target}', puzzle.target)
+      .replace('{moves}', String(moves))
+      .replace('{par}', String(puzzle.optimalMoves))
+      .replace('{time}', this.timer.label())
+      .replace('{hints}', String(this.hintsUsed()));
+  });
+
   private progress: Progress | null = null;
-  private timerId: ReturnType<typeof setInterval> | null = null;
-  private startedAt = 0;
   private optimalPathCache: string[] | null = null;
 
   get lang(): string | null {
@@ -116,14 +160,41 @@ export class WordLadderComponent {
 
   onGuessInput(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.guess.set(target.value);
+    const value = target.value.toUpperCase().replace(/[^A-Z]/g, '');
+    if (value !== target.value) target.value = value;
+    this.guess.set(value);
+    if (this.error()) this.error.set(null);
+    // The clock starts with the first letter typed, not when the page opens.
+    if (value && this.status() === 'playing') this.timer.start();
   }
 
-  get timeLabel(): string {
-    const total = this.elapsed();
-    const m = Math.floor(total / 60);
-    const s = total % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
+  /** On phones, keep the input (and the feedback under it) above the on-screen keyboard. */
+  onInputFocus(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (!window.matchMedia?.('(pointer: coarse)').matches) return;
+    setTimeout(() => {
+      const el = this.moveInput()?.nativeElement;
+      if (!el || document.activeElement !== el) return;
+      const rect = el.getBoundingClientRect();
+      const viewport = window.visualViewport?.height ?? window.innerHeight;
+      if (rect.top < 72 || rect.bottom > viewport - 96) {
+        el.scrollIntoView({ block: 'center', behavior: this.reducedMotion() ? 'auto' : 'smooth' });
+      }
+    }, 320);
+  }
+
+  /** Position of the letter that changed from the previous word, for highlighting. */
+  changedIndex(index: number): number {
+    const path = this.path();
+    const word = path[index];
+    const prev = path[index - 1];
+    if (!word || !prev) return -1;
+    for (let i = 0; i < word.length; i++) if (word[i] !== prev[i]) return i;
+    return -1;
+  }
+
+  letters(word: string): string[] {
+    return word.split('');
   }
 
   get currentBest(): number | null {
@@ -137,8 +208,7 @@ export class WordLadderComponent {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
       this.loadProgress();
-      this.attachVisibilityHandler();
-      this.startGame();
+      this.startGame(window.matchMedia?.('(pointer: fine)').matches ?? false);
     });
   }
 
@@ -156,7 +226,7 @@ export class WordLadderComponent {
     }
   }
 
-  startGame(): void {
+  startGame(autofocus = true): void {
     const mode = this.mode();
     const puzzle =
       mode === 'daily'
@@ -168,13 +238,10 @@ export class WordLadderComponent {
     this.guess.set('');
     this.error.set(null);
     this.hintText.set(null);
-    this.shareMessage.set(null);
     this.hintsRemaining.set(3);
     this.hintsUsed.set(0);
     this.optimalPathCache = null;
-    this.stopTimer();
-    this.elapsed.set(0);
-    this.startedAt = 0;
+    this.timer.reset();
 
     if (mode === 'daily' && this.dailyCompleted()) {
       this.status.set('won');
@@ -186,7 +253,7 @@ export class WordLadderComponent {
       mode,
       difficulty: puzzle.difficulty,
     });
-    this.focusInput();
+    if (autofocus) this.focusInput();
   }
 
   submitMove(): void {
@@ -198,17 +265,15 @@ export class WordLadderComponent {
     const normalized = normalizeWord(raw);
 
     if (normalized.length === 0) {
-      this.error.set(this.translateService.translate('wordLadder.err-empty'));
+      this.reject('wordLadder.err-empty');
       return;
     }
     if (normalized.length !== puzzle.start.length) {
-      this.error.set(this.translateService.translate('wordLadder.err-length'));
+      this.reject('wordLadder.err-length');
       return;
     }
     if (!isValidWord(normalized)) {
-      this.error.set(
-        this.translateService.translate('wordLadder.err-dictionary'),
-      );
+      this.reject('wordLadder.err-dictionary');
       return;
     }
 
@@ -216,15 +281,11 @@ export class WordLadderComponent {
     const previous = path[path.length - 1];
 
     if (normalized === previous) {
-      this.error.set(
-        this.translateService.translate('wordLadder.err-one-letter'),
-      );
+      this.reject('wordLadder.err-one-letter');
       return;
     }
     if (!isOneLetterApart(previous, normalized)) {
-      this.error.set(
-        this.translateService.translate('wordLadder.err-one-letter'),
-      );
+      this.reject('wordLadder.err-one-letter');
       return;
     }
 
@@ -239,10 +300,8 @@ export class WordLadderComponent {
         .replace('{word}', normalized),
     );
 
-    if (this.startedAt === 0) {
-      this.startedAt = Date.now();
-      this.startTimer();
-    }
+    this.timer.start();
+    this.scrollHistoryToEnd();
 
     this.posthog.capture('word_ladder_move', {
       mode: this.mode(),
@@ -266,6 +325,7 @@ export class WordLadderComponent {
     this.error.set(null);
     this.hintText.set(null);
     this.optimalPathCache = null;
+    this.timer.start();
     this.announce(this.translateService.translate('wordLadder.live-undo'));
     this.focusInput();
   }
@@ -279,6 +339,7 @@ export class WordLadderComponent {
     const nextWord = this.nextOptimalWord();
     if (!nextWord) return;
 
+    this.timer.start();
     const used = this.hintsUsed() + 1;
     this.hintsRemaining.update((h) => h - 1);
     this.hintsUsed.set(used);
@@ -319,28 +380,6 @@ export class WordLadderComponent {
     }
   }
 
-  async shareResult(): Promise<void> {
-    const puzzle = this.puzzle();
-    if (!puzzle) return;
-    const text = `${puzzle.target} in ${this.moves} moves · Word Ladder`;
-    if (isPlatformBrowser(this.platformId) && 'share' in navigator) {
-      try {
-        await navigator.share({ text });
-        return;
-      } catch {
-        // User cancelled or sharing unavailable — fall through to clipboard.
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(text);
-      this.shareMessage.set(
-        this.translateService.translate('wordLadder.share-copied'),
-      );
-    } catch {
-      this.shareMessage.set(null);
-    }
-  }
-
   nextPuzzle(): void {
     if (this.mode() === 'daily') return;
     this.startGame();
@@ -351,7 +390,7 @@ export class WordLadderComponent {
     if (!puzzle) return;
     const moves = this.moves;
     this.status.set('won');
-    this.stopTimer();
+    this.timer.stop();
     this.saveResult(moves);
     this.announce(this.translateService.translate('wordLadder.complete'));
 
@@ -474,39 +513,29 @@ export class WordLadderComponent {
   }
 
   private focusInput(): void {
-    const el = this.moveInput()?.nativeElement;
-    if (el) {
-      el.focus();
-    }
+    // Wait for the input to exist (it is only rendered while playing), and never scroll the page.
+    setTimeout(() => this.moveInput()?.nativeElement.focus({ preventScroll: true }));
+  }
+
+  private reject(key: string): void {
+    this.error.set(this.translateService.translate(key));
+    this.errorTick.update((n) => n + 1);
+    this.announce(this.error() ?? '');
+  }
+
+  private scrollHistoryToEnd(): void {
+    setTimeout(() => {
+      const el = this.historyEl()?.nativeElement;
+      if (el) el.scrollTo({ top: el.scrollHeight, behavior: this.reducedMotion() ? 'auto' : 'smooth' });
+    });
+  }
+
+  private reducedMotion(): boolean {
+    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
   }
 
   private announce(text: string): void {
     this.lastLiveAnnouncement.set(text);
-  }
-
-  private attachVisibilityHandler(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    document.addEventListener('visibilitychange', () => {
-      if (this.status() === 'playing' && this.startedAt > 0) {
-        this.elapsed.set(Math.floor((Date.now() - this.startedAt) / 1000));
-      }
-    });
-  }
-
-  private startTimer(): void {
-    this.stopTimer();
-    this.timerId = setInterval(() => {
-      if (this.status() === 'playing' && this.startedAt > 0) {
-        this.elapsed.set(Math.floor((Date.now() - this.startedAt) / 1000));
-      }
-    }, 1000);
-  }
-
-  private stopTimer(): void {
-    if (this.timerId !== null) {
-      clearInterval(this.timerId);
-      this.timerId = null;
-    }
   }
 
   /** FAQ about the rules, shown in search results next to the game. */

@@ -1,0 +1,65 @@
+import type { ColorLinkStrings } from './en';
+
+/** Color Link strings (de). */
+export const colorLink: ColorLinkStrings = {
+  name: "Color Link",
+  description: 'Verbinde jedes Paar gleichfarbiger Punkte mit einem Weg und fülle das ganze Gitter: ein entspannendes Logikrätsel mit täglicher Herausforderung.',
+  seo: {
+    title: 'Color Link: kostenloses Punkte-verbinden-Rätsel online',
+    description: 'Zeichne Wege, die jedes Farbpaar ohne Kreuzungen verbinden, und fülle jedes Feld. Kostenloses Tagesrätsel in 5×5, 7×7 und 9×9, auch fürs Handy.',
+  },
+  size: 'Spielfeldgröße',
+  mode: 'Rätsel',
+  daily: 'Täglich',
+  random: 'Zufällig',
+  newPuzzle: 'Neues Rätsel',
+  undo: 'Rückgängig',
+  reset: 'Leeren',
+  filled: 'Gefüllt',
+  pairs: 'Paare',
+  loading: 'Rätsel wird geladen…',
+  boardLabel: 'Color-Link-Spielfeld',
+  keyboardHint: 'Tastatur: Pfeile bewegen, Leertaste oder Enter nimmt eine Farbe auf und legt sie ab, Strg+Z macht rückgängig.',
+  status: {
+    drag: 'Ziehe von einem Punkt zu seinem Partner. Fahre zurück, um ein Stück zu löschen.',
+    fill: 'Alle Paare sind verbunden. Verlege die Wege jetzt so, dass kein Feld leer bleibt.',
+    solved: 'Gelöst! Alle Paare verbunden und alle Felder gefüllt.',
+  },
+  win: {
+    title: 'Gelöst!',
+    moves: 'Züge',
+  },
+  howTo: {
+    title: 'So wird gespielt',
+    s1: 'Jede Farbe kommt auf genau zwei Punkten vor. Tippe auf einen Punkt und ziehe einen Weg bis zum anderen Punkt derselben Farbe.',
+    s2: 'Wege verlaufen nach oben, unten, links oder rechts, ein Feld nach dem anderen. Sie kreuzen sich nie und teilen sich kein Feld.',
+    s3: 'Fahre einen Weg zurück, um ihn zu kürzen. Ziehst du über eine andere Farbe, wird deren Weg an dieser Stelle abgeschnitten.',
+    s4: 'Das Rätsel ist gelöst, wenn alle Paare verbunden sind und jedes Feld des Gitters von einem Weg bedeckt ist.',
+  },
+  tips: {
+    title: 'Tipps',
+    t1Term: 'Am Rand beginnen',
+    t1: 'Punkte am Rand und in den Ecken haben wenige Ausgänge. Verbinde sie zuerst, dann ordnet sich die Mitte fast von selbst.',
+    t2Term: 'An den Wänden entlang',
+    t2: 'Ein Weg, der am Rand oder dicht an einem anderen Weg entlangläuft, schließt selten leere Felder hinter sich ein.',
+    t3Term: 'Auf Sackgassen achten',
+    t3: 'Ein leeres Feld mit nur einem freien Nachbarn muss die Kurve eines Weges sein. Erreicht es keiner, überdenke die Wege drumherum.',
+  },
+  faq: {
+    title: 'Häufige Fragen',
+    q1: 'Gibt es nur eine Lösung?',
+    a1: 'Nicht unbedingt. Jede Füllung, die alle Paare ohne Kreuzungen verbindet und alle Felder bedeckt, zählt als Sieg, auch wenn sie von der des Generators abweicht.',
+    q2: 'Was ist das Tagesrätsel?',
+    a2: 'Jede Spielfeldgröße hat ein Rätsel pro Tag, für alle gleich. Im Zufallsmodus bekommst du jederzeit ein neues Rätsel für eine weitere Runde.',
+    q3: 'Kann ich mit der Tastatur spielen?',
+    a3: 'Ja. Wähle das Spielfeld aus, bewege den Cursor mit den Pfeiltasten, drücke Leertaste oder Enter auf einem Punkt, um seine Farbe aufzunehmen, zeichne mit den Pfeilen und drücke erneut die Leertaste, um sie abzulegen.',
+    q4: 'Ich kann manche Farben schlecht unterscheiden. Was tun?',
+    a4: 'Die Farbpalette bleibt bei den häufigsten Formen der Farbenblindheit unterscheidbar, und jedes Paar trägt zusätzlich denselben Buchstaben, sodass du die Punkte auch nur anhand der Buchstaben verbinden kannst.',
+  },
+  about: {
+    title: 'Über Color Link',
+    p1: 'Color Link gehört zu einer Familie von Wegerätseln, die als Numberlink bekannt ist und durch japanische Rätselhefte populär wurde: Symbolpaare auf einem Gitter müssen durch Linien verbunden werden, die sich nie kreuzen. Hier sind die Symbole Farben, und die zusätzliche Regel, jedes Feld zu füllen, macht aus einer einfachen Zeichenübung ein echtes Logikrätsel.',
+    p2: 'Jedes Spielfeld entsteht durch einen Generator, der das Gitter in gewundene Wege zerlegt und nur deren Enden behält, daher gibt es immer eine vollständige Lösung. Das 5×5 ist ein schnelles Aufwärmen, das 7×7 verlangt etwas Planung und das 9×9 belohnt genaues Lesen von Rändern und Ecken.',
+    p3: 'Ideal für kurze Pausen: Eine Runde dauert ein, zwei Minuten, die Uhr startet erst mit deinem ersten Strich, und es spielt sich mit dem Finger auf dem Handy genauso gut wie mit der Maus. Löse das Tagesrätsel, teile deine Zeit und schau morgen wieder vorbei.',
+  },
+};

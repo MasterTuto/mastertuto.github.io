@@ -1,0 +1,65 @@
+import type { ColorLinkStrings } from './en';
+
+/** Color Link strings (it). */
+export const colorLink: ColorLinkStrings = {
+  name: "Color Link",
+  description: 'Collega ogni coppia di punti dello stesso colore con un percorso e riempi tutta la griglia: un rompicapo logico rilassante con sfida quotidiana.',
+  seo: {
+    title: 'Color Link: gioco gratuito per unire i punti online',
+    description: 'Traccia percorsi per collegare ogni coppia di colori senza incroci e riempi tutte le caselle. Sfida quotidiana gratis in 5×5, 7×7 e 9×9, anche su mobile.',
+  },
+  size: 'Dimensione della griglia',
+  mode: 'Sfida',
+  daily: 'Del giorno',
+  random: 'Casuale',
+  newPuzzle: 'Nuova sfida',
+  undo: 'Annulla',
+  reset: 'Svuota',
+  filled: 'Riempito',
+  pairs: 'Coppie',
+  loading: 'Caricamento della sfida…',
+  boardLabel: 'Griglia di Color Link',
+  keyboardHint: 'Tastiera: le frecce spostano, Spazio o Invio prende e lascia un colore, Ctrl+Z annulla.',
+  status: {
+    drag: 'Trascina da un punto al suo gemello. Torna indietro per cancellare un tratto.',
+    fill: 'Tutte le coppie sono collegate. Ora sistema i percorsi in modo che nessuna casella resti vuota.',
+    solved: 'Risolto! Tutte le coppie collegate e tutte le caselle riempite.',
+  },
+  win: {
+    title: 'Risolto!',
+    moves: 'mosse',
+  },
+  howTo: {
+    title: 'Come si gioca',
+    s1: 'Ogni colore compare su esattamente due punti. Tocca un punto e trascina per tracciare un percorso fino all’altro punto dello stesso colore.',
+    s2: 'I percorsi si muovono in su, in giù, a sinistra o a destra, una casella alla volta. Non si incrociano mai e non condividono caselle.',
+    s3: 'Ripercorri un percorso all’indietro per accorciarlo. Se passi sopra un altro colore, il suo percorso viene tagliato in quel punto.',
+    s4: 'La sfida è risolta quando tutte le coppie sono collegate e ogni casella della griglia è coperta da un percorso.',
+  },
+  tips: {
+    title: 'Consigli',
+    t1Term: 'Parti dai bordi',
+    t1: 'I punti sul bordo e negli angoli hanno poche vie d’uscita. Collegali per primi e il centro si sistemerà più facilmente.',
+    t2Term: 'Segui le pareti',
+    t2: 'Un percorso che corre lungo il bordo o accanto a un altro percorso raramente lascia caselle vuote intrappolate dietro di sé.',
+    t3Term: 'Attenzione ai vicoli ciechi',
+    t3: 'Una casella vuota con un solo vicino libero deve essere la curva di qualche percorso. Se nessuno può raggiungerla, ripensa i percorsi intorno.',
+  },
+  faq: {
+    title: 'Domande frequenti',
+    q1: 'C’è una sola soluzione?',
+    a1: 'Non per forza. Qualsiasi riempimento che colleghi tutte le coppie, senza incroci, e copra tutte le caselle vale come vittoria, anche se è diverso da quello pensato dal generatore.',
+    q2: 'Cos’è la sfida del giorno?',
+    a2: 'Ogni dimensione di griglia ha una sfida al giorno, uguale per tutti. La modalità casuale ti dà una nuova sfida ogni volta che vuoi giocare un altro round.',
+    q3: 'Si può giocare con la tastiera?',
+    a3: 'Sì. Seleziona la griglia, sposta il cursore con le frecce, premi Spazio o Invio su un punto per prenderne il colore, disegna con le frecce e premi di nuovo Spazio per lasciarlo.',
+    q4: 'Faccio fatica a distinguere alcuni colori. Cosa posso fare?',
+    a4: 'La tavolozza è stata scelta per restare distinguibile con le forme più comuni di daltonismo, e ogni coppia porta anche la stessa lettera, così puoi collegare i punti anche solo guardando la lettera.',
+  },
+  about: {
+    title: 'Informazioni su Color Link',
+    p1: 'Color Link appartiene a una famiglia di rompicapi di percorsi nota come Numberlink, resa popolare dalle riviste di enigmistica giapponesi: coppie di simboli su una griglia devono essere collegate da linee che non si incrociano mai. Qui i simboli sono colori, e la regola aggiuntiva di riempire ogni casella trasforma un semplice esercizio di disegno in un vero rompicapo logico.',
+    p2: 'Ogni griglia è creata da un generatore che divide la griglia in percorsi tortuosi e ne conserva solo le estremità, quindi esiste sempre una soluzione completa. Il 5×5 è un riscaldamento veloce, il 7×7 richiede un po’ di pianificazione e il 9×9 premia una lettura attenta di bordi e angoli.',
+    p3: 'Perfetto per le pause brevi: una partita dura un minuto o due, il cronometro parte solo al primo tratto e si gioca bene sia con il dito sul telefono sia con il mouse. Risolvi la sfida del giorno, condividi il tuo tempo e torna domani per la prossima.',
+  },
+};

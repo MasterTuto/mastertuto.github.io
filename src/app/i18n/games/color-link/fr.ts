@@ -1,0 +1,65 @@
+import type { ColorLinkStrings } from './en';
+
+/** Color Link strings (fr). */
+export const colorLink: ColorLinkStrings = {
+  name: "Color Link",
+  description: 'Reliez chaque paire de points de même couleur par un chemin et remplissez toute la grille : un casse-tête logique apaisant avec un défi quotidien.',
+  seo: {
+    title: 'Color Link : jeu gratuit pour relier les points en ligne',
+    description: 'Tracez des chemins pour relier chaque paire de couleurs sans croisement et remplissez toutes les cases. Défi quotidien gratuit en 5×5, 7×7 et 9×9.',
+  },
+  size: 'Taille de la grille',
+  mode: 'Défi',
+  daily: 'Du jour',
+  random: 'Aléatoire',
+  newPuzzle: 'Nouveau défi',
+  undo: 'Annuler',
+  reset: 'Effacer',
+  filled: 'Rempli',
+  pairs: 'Paires',
+  loading: 'Chargement du défi…',
+  boardLabel: 'Grille de Color Link',
+  keyboardHint: 'Clavier : les flèches déplacent, Espace ou Entrée prend et pose une couleur, Ctrl+Z annule.',
+  status: {
+    drag: 'Glissez d’un point jusqu’à son jumeau. Revenez en arrière pour effacer un tronçon.',
+    fill: 'Toutes les paires sont reliées. Ajustez maintenant les chemins pour ne laisser aucune case vide.',
+    solved: 'Résolu ! Toutes les paires reliées et toutes les cases remplies.',
+  },
+  win: {
+    title: 'Résolu !',
+    moves: 'coups',
+  },
+  howTo: {
+    title: 'Comment jouer',
+    s1: 'Chaque couleur apparaît sur exactement deux points. Appuyez sur l’un d’eux et glissez pour tracer un chemin jusqu’à l’autre point de la même couleur.',
+    s2: 'Les chemins avancent vers le haut, le bas, la gauche ou la droite, une case à la fois. Ils ne se croisent jamais et ne partagent jamais une case.',
+    s3: 'Revenez sur un chemin pour le raccourcir. Si vous passez sur une autre couleur, son chemin est coupé à cet endroit.',
+    s4: 'Le défi est résolu quand toutes les paires sont reliées et que chaque case de la grille est couverte par un chemin.',
+  },
+  tips: {
+    title: 'Astuces',
+    t1Term: 'Commencez par les bords',
+    t1: 'Les points sur le bord et dans les coins ont peu d’issues. Reliez-les d’abord et le centre se démêlera plus facilement.',
+    t2Term: 'Longez les murs',
+    t2: 'Un chemin qui suit le bord ou un autre chemin laisse rarement des cases vides coincées derrière lui.',
+    t3Term: 'Gare aux impasses',
+    t3: 'Une case vide qui n’a qu’un seul voisin libre doit être le virage d’un chemin. Si aucun ne peut l’atteindre, revoyez les chemins autour.',
+  },
+  faq: {
+    title: 'Questions fréquentes',
+    q1: 'Y a-t-il une seule solution ?',
+    a1: 'Pas forcément. Tout remplissage qui relie toutes les paires, sans croisement, et couvre toutes les cases compte comme une victoire, même s’il diffère de celui prévu par le générateur.',
+    q2: 'Qu’est-ce que le défi du jour ?',
+    a2: 'Chaque taille de grille a un défi par jour, le même pour tout le monde. Le mode aléatoire vous donne un nouveau défi dès que vous voulez rejouer.',
+    q3: 'Peut-on jouer au clavier ?',
+    a3: 'Oui. Sélectionnez la grille, déplacez le curseur avec les flèches, appuyez sur Espace ou Entrée sur un point pour prendre sa couleur, tracez avec les flèches et appuyez de nouveau sur Espace pour la poser.',
+    q4: 'J’ai du mal à distinguer certaines couleurs. Que faire ?',
+    a4: 'La palette a été choisie pour rester distincte avec les formes de daltonisme les plus courantes, et chaque paire porte aussi la même lettre : vous pouvez relier les points grâce à la lettre seule.',
+  },
+  about: {
+    title: 'À propos de Color Link',
+    p1: 'Color Link appartient à une famille de casse-têtes de chemins appelée Numberlink, popularisée par les magazines de jeux japonais : des paires de symboles sur une grille doivent être reliées par des lignes qui ne se croisent jamais. Ici, les symboles sont des couleurs, et la règle supplémentaire de remplir toutes les cases transforme un simple exercice de dessin en véritable casse-tête logique.',
+    p2: 'Chaque grille est créée par un générateur qui découpe la grille en chemins sinueux et n’en garde que les extrémités : une solution complète existe donc toujours. Le 5×5 est un échauffement rapide, le 7×7 demande un peu d’organisation et le 9×9 récompense une lecture attentive des bords et des coins.',
+    p3: 'C’est idéal pour les petites pauses : une partie dure une ou deux minutes, le chronomètre ne démarre qu’à votre premier tracé et le jeu fonctionne aussi bien au doigt sur mobile qu’à la souris. Résolvez le défi du jour, partagez votre temps et revenez demain pour le suivant.',
+  },
+};

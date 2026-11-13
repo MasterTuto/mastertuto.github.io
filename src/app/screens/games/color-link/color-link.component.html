@@ -1,0 +1,239 @@
+<div class="game-page">
+  <header class="catalog-page-header">
+    <h1>{{ 'colorLink.name' | translate }}</h1>
+    <p>{{ 'colorLink.description' | translate }}</p>
+  </header>
+
+  <div class="game-layout">
+    <div class="game-play">
+      <!-- Size and puzzle source -->
+      <div class="mb-4 grid grid-cols-[1fr_auto] gap-2 sm:grid-cols-[3fr_2fr]">
+        <div class="pro-segmented" role="group" [attr.aria-label]="'colorLink.size' | translate">
+          @for (s of sizes; track s) {
+            <button type="button" class="!min-h-[44px] tabular-nums" [attr.aria-pressed]="size() === s" (click)="setSize(s)">{{ s }}×{{ s }}</button>
+          }
+        </div>
+        <!-- Daily / random: icons on phones to keep one row, text from sm up -->
+        <div class="pro-segmented" role="group" [attr.aria-label]="'colorLink.mode' | translate">
+          <button type="button" class="inline-flex !min-h-[44px] min-w-[44px] items-center justify-center gap-1.5" [attr.aria-pressed]="mode() === 'daily'" [attr.title]="'colorLink.daily' | translate" (click)="setMode('daily')">
+            <ng-icon name="tablerCalendarEvent" class="text-base sm:hidden" aria-hidden="true" />
+            <span class="sr-only sm:not-sr-only">{{ 'colorLink.daily' | translate }}</span>
+          </button>
+          <button type="button" class="inline-flex !min-h-[44px] min-w-[44px] items-center justify-center gap-1.5" [attr.aria-pressed]="mode() === 'random'" [attr.title]="'colorLink.random' | translate" (click)="setMode('random')">
+            <ng-icon name="tablerArrowsShuffle" class="text-base sm:hidden" aria-hidden="true" />
+            <span class="sr-only sm:not-sr-only">{{ 'colorLink.random' | translate }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats: fixed columns and tabular figures, so nothing moves while playing -->
+      <dl class="grid grid-cols-4 border-y border-foreground/10 py-2 text-center">
+        <div class="min-w-0 px-1">
+          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'games.time' | translate }}</dt>
+          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ timer.label() }}</dd>
+        </div>
+        <div class="min-w-0 border-l border-foreground/10 px-1">
+          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'games.moves' | translate }}</dt>
+          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ moves() }}</dd>
+        </div>
+        <div class="min-w-0 border-l border-foreground/10 px-1">
+          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'colorLink.filled' | translate }}</dt>
+          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ progress().percent }}%</dd>
+        </div>
+        <div class="min-w-0 border-l border-foreground/10 px-1">
+          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'colorLink.pairs' | translate }}</dt>
+          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ progress().connected }}/{{ progress().pairs }}</dd>
+        </div>
+      </dl>
+      <!-- Fill progress as a thin ruler under the stats -->
+      <div class="h-0.5 w-full bg-foreground/5" aria-hidden="true">
+        <div class="cl-bar h-full bg-foreground-emphasis" [style.width.%]="progress().percent"></div>
+      </div>
+
+      <p class="flex h-11 items-center justify-center px-2 text-center text-sm leading-snug text-foreground-light sm:h-9">
+        {{ statusKey() | translate }}
+      </p>
+
+      <!-- Board -->
+      <div class="cl-frame relative -mx-5 aspect-square w-[calc(100%+2.5rem)] rounded-2xl sm:mx-auto sm:w-full sm:max-w-[560px] shadow-sm ring-1 ring-foreground/10" [class.cl-won]="won()">
+        @if (view(); as v) {
+          <svg
+            #board
+            class="cl-board block h-full w-full rounded-2xl"
+            [attr.viewBox]="'0 0 ' + v.extent + ' ' + v.extent"
+            tabindex="0"
+            role="application"
+            [attr.aria-label]="boardLabel()"
+            (pointerdown)="onPointerDown($event)"
+            (pointermove)="onPointerMove($event)"
+            (pointerup)="onPointerUp($event)"
+            (pointercancel)="onPointerUp($event)"
+            (lostpointercapture)="onPointerUp($event)"
+            (keydown)="onKeydown($event)"
+            (blur)="onBlur()"
+            (contextmenu)="$event.preventDefault()"
+          >
+            <defs>
+              <clipPath id="cl-clip"><rect [attr.width]="v.extent" [attr.height]="v.extent" rx="28" /></clipPath>
+            </defs>
+            <g clip-path="url(#cl-clip)">
+              <rect class="fill-surface" [attr.width]="v.extent" [attr.height]="v.extent" />
+              @for (t of v.tints; track $index) {
+                <rect [attr.x]="t.x" [attr.y]="t.y" [attr.width]="cellUnit" [attr.height]="cellUnit" [attr.fill]="t.fill" fill-opacity="0.17" />
+              }
+              <path [attr.d]="v.grid" fill="none" stroke="#444a51" stroke-opacity="0.12" stroke-width="2" />
+            </g>
+
+            @for (line of v.lines; track $index) {
+              <polyline
+                [attr.points]="line.points"
+                fill="none"
+                [attr.stroke]="line.color"
+                stroke-width="30"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                [attr.stroke-opacity]="line.done ? 1 : 0.88"
+              />
+            }
+
+            @for (p of pulses(); track p.id) {
+              @for (cell of p.cells; track cell) {
+                <circle
+                  class="cl-pulse"
+                  [attr.cx]="(cell % v.n) * cellUnit + cellUnit / 2"
+                  [attr.cy]="((cell - (cell % v.n)) / v.n) * cellUnit + cellUnit / 2"
+                  r="36"
+                  fill="none"
+                  [attr.stroke]="palette[p.color % palette.length].fill"
+                  stroke-width="6"
+                />
+              }
+            }
+
+            @for (d of v.dots; track d.cell) {
+              <g [class.cl-pop]="d.done">
+                <circle [attr.cx]="d.cx" [attr.cy]="d.cy" r="36" [attr.fill]="d.fill" />
+                @if (d.done) {
+                  <circle [attr.cx]="d.cx" [attr.cy]="d.cy" r="29" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="3" />
+                }
+                <text
+                  [attr.x]="d.cx"
+                  [attr.y]="d.cy"
+                  [attr.fill]="d.ink"
+                  text-anchor="middle"
+                  dominant-baseline="central"
+                  font-size="32"
+                  font-weight="700"
+                  class="pointer-events-none font-display"
+                >{{ d.letter }}</text>
+              </g>
+            }
+
+            @if (v.head) {
+              <circle [attr.cx]="v.head[0]" [attr.cy]="v.head[1]" r="11" fill="#fff" [attr.stroke]="v.headColor" stroke-width="5" />
+            }
+
+            @if (showCursor()) {
+              <rect
+                [attr.x]="v.cursorX + 5"
+                [attr.y]="v.cursorY + 5"
+                [attr.width]="cellUnit - 10"
+                [attr.height]="cellUnit - 10"
+                rx="18"
+                fill="none"
+                stroke="#7a70e1"
+                stroke-width="6"
+              />
+            }
+          </svg>
+        } @else {
+          <div class="grid h-full w-full place-items-center rounded-2xl bg-surface">
+            <span class="h-8 w-8 animate-spin rounded-full border-2 border-foreground/10 border-t-foreground-emphasis" aria-hidden="true"></span>
+            <span class="sr-only">{{ 'colorLink.loading' | translate }}</span>
+          </div>
+        }
+      </div>
+      <p class="sr-only" aria-live="polite">{{ liveText() }}</p>
+
+      <!-- Actions and win panel share one cell, so the page never jumps when the puzzle is solved -->
+      <div class="mt-4 grid min-h-[9.5rem] sm:min-h-[6rem]">
+        <div class="flex items-start justify-center gap-2 [grid-area:1/1]" [class.invisible]="won()" [attr.aria-hidden]="won()">
+          <button type="button" class="pro-btn ghost !min-h-[44px]" [disabled]="!history().length || won()" (click)="undo()">
+            <ng-icon name="tablerArrowBackUp" aria-hidden="true" />
+            <span>{{ 'colorLink.undo' | translate }}</span>
+          </button>
+          <button type="button" class="pro-btn ghost !min-h-[44px]" [disabled]="!canReset() || won()" (click)="reset()">
+            <ng-icon name="tablerEraser" aria-hidden="true" />
+            <span>{{ 'colorLink.reset' | translate }}</span>
+          </button>
+          <button type="button" class="pro-btn ghost !min-h-[44px]" (click)="newRandom()" [attr.aria-label]="'colorLink.newPuzzle' | translate" [attr.title]="'colorLink.newPuzzle' | translate">
+            <ng-icon name="tablerRefresh" aria-hidden="true" />
+            <span class="hidden sm:inline">{{ 'colorLink.newPuzzle' | translate }}</span>
+          </button>
+        </div>
+        @if (won()) {
+          <div class="cl-win flex flex-col items-center gap-3 text-center [grid-area:1/1]" role="status">
+            <p class="font-title text-lg font-semibold text-foreground">
+              {{ 'colorLink.win.title' | translate }}
+              <span class="ml-1 font-display text-base font-medium tabular-nums text-foreground-light">{{ size() }}×{{ size() }} · {{ timer.label() }} · {{ moves() }} {{ 'colorLink.win.moves' | translate }}</span>
+            </p>
+            <div class="flex flex-wrap justify-center gap-2">
+              <app-game-share-button [text]="shareText()" />
+              <button type="button" class="pro-btn ghost !min-h-[44px]" (click)="newRandom()">{{ 'games.playAgain' | translate }}</button>
+            </div>
+          </div>
+        }
+      </div>
+      <p class="mt-1 hidden text-center text-xs text-foreground-light sm:block">{{ 'colorLink.keyboardHint' | translate }}</p>
+    </div>
+
+    <!-- Guide: open layout with hairlines instead of boxes -->
+    <div class="game-guide text-foreground">
+      <section>
+        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.howTo.title' | translate }}</h2>
+        <ol class="mt-4 border-t border-foreground/10">
+          @for (i of [1, 2, 3, 4]; track i) {
+            <li class="flex gap-4 border-b border-foreground/10 py-3 leading-relaxed">
+              <span class="font-title text-sm font-semibold tabular-nums text-foreground-emphasis" aria-hidden="true">0{{ i }}</span>
+              <span>{{ 'colorLink.howTo.s' + i | translate }}</span>
+            </li>
+          }
+        </ol>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.tips.title' | translate }}</h2>
+        <dl class="mt-4 grid gap-x-8 sm:grid-cols-[11rem_1fr]">
+          @for (i of [1, 2, 3]; track i) {
+            <dt class="border-t border-foreground/10 pt-3 font-semibold sm:pb-3">{{ 'colorLink.tips.t' + i + 'Term' | translate }}</dt>
+            <dd class="pb-3 pt-1 leading-relaxed text-foreground-light sm:border-t sm:border-foreground/10 sm:pt-3">{{ 'colorLink.tips.t' + i | translate }}</dd>
+          }
+        </dl>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.faq.title' | translate }}</h2>
+        <div class="mt-4 border-t border-foreground/10">
+          @for (i of faqItems; track i) {
+            <details class="group border-b border-foreground/10">
+              <summary class="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 py-3 font-semibold">
+                <span>{{ 'colorLink.faq.q' + i | translate }}</span>
+                <span class="text-xl leading-none text-foreground-emphasis transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <p class="pb-4 leading-relaxed text-foreground-light">{{ 'colorLink.faq.a' + i | translate }}</p>
+            </details>
+          }
+        </div>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.about.title' | translate }}</h2>
+        <div class="mt-4 space-y-4 leading-relaxed text-foreground-light">
+          <p>{{ 'colorLink.about.p1' | translate }}</p>
+          <p>{{ 'colorLink.about.p2' | translate }}</p>
+          <p>{{ 'colorLink.about.p3' | translate }}</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
