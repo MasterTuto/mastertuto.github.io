@@ -50,56 +50,73 @@
       </div>
     </section>
 
-    <!-- Calculators: one tab per profession, the panel says what you type and what you get. -->
+    <!-- Calculators grouped by segment: label column on the left, ruled tool rows on the right.
+         Every tool is in the prerendered HTML; "Ver mais" only reveals the rows past the limit. -->
     <section lang="pt-BR" aria-labelledby="pro-tools-heading" class="py-12">
-      <h2 id="pro-tools-heading" class="font-title text-2xl font-semibold text-foreground sm:text-3xl">Calculadoras por profissão</h2>
+      <h2 id="pro-tools-heading" class="font-title text-2xl font-semibold text-foreground sm:text-3xl">Ferramentas por segmento</h2>
       <p class="mt-2 max-w-[62ch] text-foreground-light">Poucos campos, valores comuns a um toque e o resultado enquanto você digita.</p>
 
-      <div role="tablist" aria-label="Profissões" class="mt-8 flex gap-1 overflow-x-auto border-b border-foreground/10 [scrollbar-width:none]" (keydown)="onTabKey($event)">
-        @for (tool of proTools; track tool.slug; let i = $index) {
-          <button
-            type="button"
-            role="tab"
-            [id]="'tab-' + tool.slug"
-            [attr.aria-selected]="active() === i"
-            [attr.aria-controls]="'panel-' + tool.slug"
-            [tabIndex]="active() === i ? 0 : -1"
-            (click)="active.set(i)"
-            class="-mb-px flex min-h-[48px] shrink-0 items-center gap-2 border-b-2 px-3 text-sm font-semibold transition-colors"
-            [class.border-foreground-emphasis]="active() === i"
-            [class.text-foreground]="active() === i"
-            [class.border-transparent]="active() !== i"
-            [class.text-foreground-light]="active() !== i"
+      <div class="mt-8 border-t border-foreground/10">
+        @for (segment of segments; track segment.slug; let s = $index) {
+          <section
+            [id]="segment.slug"
+            [attr.aria-labelledby]="'segment-' + segment.slug"
+            [hidden]="s >= segmentLimit && !allSegments()"
+            class="grid scroll-mt-[calc(var(--site-nav-h,0px)+1rem)] gap-4 border-b border-foreground/10 py-8 md:grid-cols-[minmax(200px,1fr)_3fr] md:gap-10"
           >
-            <ng-icon [name]="tool.icon" class="text-lg" />
-            {{ tool.audience }}
-          </button>
+            <div class="flex flex-col gap-2 md:sticky md:top-[calc(var(--site-nav-h,0px)+1rem)] md:self-start">
+              <h3 [id]="'segment-' + segment.slug" class="flex items-center gap-2.5 text-lg font-semibold text-foreground">
+                <ng-icon [name]="segment.icon" class="shrink-0 text-xl text-surface-decoration-foreground" />
+                {{ segment.name }}
+              </h3>
+              <p class="text-sm text-foreground-light">
+                {{ segment.tools.length }} {{ segment.tools.length === 1 ? 'ferramenta' : 'ferramentas' }} ·
+                <a [routerLink]="'para/' + segment.slug | langLink" class="underline decoration-foreground/20 underline-offset-4 transition hover:text-foreground hover:decoration-foreground-emphasis">site para o segmento</a>
+              </p>
+            </div>
+
+            <div>
+              <ul class="divide-y divide-foreground/10">
+                @for (tool of segment.tools; track tool.slug; let i = $index) {
+                  <li [hidden]="i >= toolLimit && !expanded().has(segment.slug)">
+                    <a [routerLink]="'tools/' + tool.slug | langLink" class="group grid gap-1.5 py-4 first:pt-0 sm:grid-cols-[1fr_auto] sm:gap-x-6">
+                      <span class="font-semibold text-foreground transition-colors group-hover:text-foreground-emphasis">{{ tool.name }}</span>
+                      <span aria-hidden="true" class="hidden text-foreground-emphasis transition-transform group-hover:translate-x-1 sm:row-span-3 sm:block sm:self-center">→</span>
+                      <span class="text-sm leading-relaxed text-foreground-light">{{ tool.description }}</span>
+                      <span class="text-xs text-foreground-light">
+                        <span class="text-foreground">{{ tool.asks.join(' · ') }}</span>
+                        <span aria-hidden="true" class="mx-1.5">⟶</span>
+                        <span class="font-semibold text-foreground">{{ tool.gives.join(' · ') }}</span>
+                      </span>
+                    </a>
+                  </li>
+                }
+              </ul>
+              @if (segment.tools.length > toolLimit) {
+                <button
+                  type="button"
+                  (click)="toggleSegment(segment.slug)"
+                  [attr.aria-expanded]="expanded().has(segment.slug)"
+                  class="mt-3 inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-foreground-emphasis"
+                >
+                  {{ expanded().has(segment.slug) ? 'Ver menos' : 'Ver mais ' + (segment.tools.length - toolLimit) }}
+                  <span aria-hidden="true" class="transition-transform" [class.rotate-180]="expanded().has(segment.slug)">↓</span>
+                </button>
+              }
+            </div>
+          </section>
         }
       </div>
 
-      @for (tool of proTools; track tool.slug; let i = $index) {
-        <div
-          role="tabpanel"
-          [id]="'panel-' + tool.slug"
-          [attr.aria-labelledby]="'tab-' + tool.slug"
-          [hidden]="active() !== i"
-          class="grid gap-8 pt-8 md:grid-cols-[1.3fr_1fr] md:gap-12"
+      @if (segments.length > segmentLimit) {
+        <button
+          type="button"
+          (click)="allSegments.set(!allSegments())"
+          [attr.aria-expanded]="allSegments()"
+          class="mt-6 inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-foreground/15 px-4 text-sm font-semibold text-foreground transition hover:bg-foreground/5"
         >
-          <div class="flex flex-col gap-4">
-            <h3 class="text-2xl font-semibold leading-snug text-foreground">{{ tool.name }}</h3>
-            <p class="max-w-[58ch] leading-relaxed text-foreground-light">{{ tool.description }}</p>
-            <a [routerLink]="'tools/' + tool.slug | langLink" class="group inline-flex w-fit items-center gap-2 font-semibold text-foreground-emphasis">
-              Abrir a calculadora
-              <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span>
-            </a>
-          </div>
-          <dl class="grid grid-cols-[auto_1fr] gap-x-6 self-start text-sm">
-            <dt class="border-t border-foreground/10 py-3 text-foreground-light">Você informa</dt>
-            <dd class="border-t border-foreground/10 py-3 font-medium text-foreground">{{ tool.asks.join(' · ') }}</dd>
-            <dt class="border-y border-foreground/10 py-3 text-foreground-light">Você recebe</dt>
-            <dd class="border-y border-foreground/10 py-3 font-semibold text-foreground">{{ tool.gives.join(' · ') }}</dd>
-          </dl>
-        </div>
+          {{ allSegments() ? 'Ver menos segmentos' : 'Ver mais segmentos (' + (segments.length - segmentLimit) + ')' }}
+        </button>
       }
     </section>
   }

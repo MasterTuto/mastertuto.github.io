@@ -103,3 +103,36 @@ export const proTools: ProTool[] = [
 
 /** Every Portuguese tool page under /tools, for routes, breadcrumbs and navigation. */
 export const allProTools: ProTool[] = [...proTools, invoiceTool];
+
+/**
+ * Segments that have tools, in display order, with the label and icon of their group. Add a segment
+ * here when its first tool is added; `slug` matches the segment page (`/para/<slug>`) and `ProTool.segment`.
+ * Kept here (not read from `industries.data.ts`) so the navigation does not pull every segment page.
+ */
+const SEGMENTS: { slug: string; name: string; icon: string }[] = [
+  { slug: 'eletricista', name: 'Eletricistas', icon: 'tablerBolt' },
+  { slug: 'ar-condicionado', name: 'Ar-condicionado', icon: 'tablerAirConditioning' },
+  { slug: 'advogado', name: 'Advocacia', icon: 'tablerGavel' },
+  { slug: 'contador', name: 'Contabilidade', icon: 'tablerReportMoney' },
+  { slug: 'ginecologista', name: 'Ginecologia e obstetrícia', icon: 'tablerBabyCarriage' },
+];
+
+export interface ToolSegment {
+  slug: string;
+  name: string;
+  icon: string;
+  tools: ProTool[];
+}
+
+/** Tools grouped by segment; segments without tools are left out. */
+export const toolSegments: ToolSegment[] = SEGMENTS.map((segment) => ({
+  ...segment,
+  tools: proTools.filter((tool) => tool.segment === segment.slug),
+})).filter((segment) => segment.tools.length > 0);
+
+/** How many tools a segment group shows before "Ver mais". */
+export const TOOLS_PER_SEGMENT = 3;
+/** How many segment groups the tools page shows before "Ver mais segmentos". */
+export const SEGMENTS_ON_PAGE = 6;
+/** How many segment links the header menu lists before "Ver todas". */
+export const SEGMENTS_IN_MENU = 4;
