@@ -37,6 +37,22 @@ export const toolsRoute: Route = {
         import('./gestacional/gestational.component').then((m) => m.GestationalCalculatorComponent),
     },
     {
+      path: proTools[5].slug,
+      loadComponent: () => import('./tijolos/bricks.component').then((m) => m.BricksCalculatorComponent),
+    },
+    {
+      path: proTools[6].slug,
+      loadComponent: () => import('./concreto/concrete.component').then((m) => m.ConcreteCalculatorComponent),
+    },
+    {
+      path: proTools[7].slug,
+      loadComponent: () => import('./piso/tiles.component').then((m) => m.TilesCalculatorComponent),
+    },
+    {
+      path: proTools[8].slug,
+      loadComponent: () => import('./escada/stairs.component').then((m) => m.StairsCalculatorComponent),
+    },
+    {
       path: invoiceTool.slug,
       loadComponent: () => import('./invoice/invoice.component').then((m) => m.InvoiceGeneratorComponent),
     },

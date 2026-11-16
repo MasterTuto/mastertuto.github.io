@@ -99,6 +99,58 @@ export const proTools: ProTool[] = [
     asks: ['DUM ou ultrassom'],
     gives: ['idade gestacional', 'DPP', 'janelas de exames'],
   },
+  {
+    slug: 'calculadora-de-tijolos-e-blocos',
+    segment: 'pedreiro',
+    audience: 'Pedreiros e mestres de obra',
+    name: 'Calculadora de Tijolos e Blocos',
+    keyword: 'calculadora de tijolos e blocos por m²',
+    description:
+      'Calcule quantos tijolos ou blocos cerâmicos e de concreto a parede leva, descontando portas e janelas, com perda e a argamassa de assentamento em sacos de cimento, cal e latas de areia.',
+    icon: 'tablerWall',
+    queries: ['quantos tijolos por m2', 'blocos por metro quadrado', 'tijolo baiano', 'bloco de concreto', 'argamassa de assentamento', 'alvenaria'],
+    asks: ['paredes', 'portas e janelas', 'bloco'],
+    gives: ['blocos', 'argamassa', 'cimento, cal e areia'],
+  },
+  {
+    slug: 'calculadora-de-concreto',
+    segment: 'pedreiro',
+    audience: 'Pedreiros e mestres de obra',
+    name: 'Calculadora de Concreto e Traço',
+    keyword: 'calculadora de concreto: sacos de cimento, areia e brita',
+    description:
+      'Calcule o volume de lajes, vigas, sapatas e brocas e quanto cimento, areia, brita e água o traço pede, em sacos, m³ e latas, com a verificação de durabilidade da NBR 6118.',
+    icon: 'tablerBucket',
+    queries: ['traço de concreto', 'quantos sacos de cimento por m3', 'concreto para laje', 'traço 1:2:3', 'concreto magro', 'fator água cimento'],
+    asks: ['peça e medidas', 'traço'],
+    gives: ['m³', 'sacos de cimento', 'latas de areia e brita'],
+  },
+  {
+    slug: 'calculadora-de-piso-e-rejunte',
+    segment: 'pedreiro',
+    audience: 'Pedreiros e assentadores',
+    name: 'Calculadora de Piso, Argamassa e Rejunte',
+    keyword: 'calculadora de piso, argamassa colante e rejunte',
+    description:
+      'Calcule quantas caixas de piso ou revestimento comprar com a perda certa para a paginação, a argamassa colante indicada (AC-I, AC-II ou AC-III, com dupla colagem) e o rejunte em kg.',
+    icon: 'tablerGrid4x4',
+    queries: ['quantas caixas de piso', 'porcelanato', 'consumo de argamassa colante', 'quanto rejunte', 'dupla colagem', 'revestimento cerâmico'],
+    asks: ['área', 'tamanho da peça', 'm² da caixa'],
+    gives: ['caixas', 'sacos de argamassa', 'kg de rejunte'],
+  },
+  {
+    slug: 'calculadora-de-escada',
+    segment: 'pedreiro',
+    audience: 'Pedreiros e mestres de obra',
+    name: 'Calculadora de Escada',
+    keyword: 'calculadora de escada pela fórmula de Blondel',
+    description:
+      'Descubra quantos degraus a escada precisa, a altura do espelho e a largura do piso pela fórmula de Blondel, com os limites da NBR 9050 e da NBR 9077, patamares e o vão na laje.',
+    icon: 'tablerStairs',
+    queries: ['quantos degraus', 'fórmula de blondel', 'altura do degrau', 'espelho e piso da escada', 'nbr 9050 escada', 'dimensionar escada'],
+    asks: ['altura a vencer', 'espaço disponível'],
+    gives: ['degraus', 'espelho e piso', 'comprimento'],
+  },
 ];
 
 /** Every Portuguese tool page under /tools, for routes, breadcrumbs and navigation. */
@@ -111,6 +163,7 @@ export const allProTools: ProTool[] = [...proTools, invoiceTool];
  */
 const SEGMENTS: { slug: string; name: string; icon: string }[] = [
   { slug: 'eletricista', name: 'Eletricistas', icon: 'tablerBolt' },
+  { slug: 'pedreiro', name: 'Pedreiros e obras', icon: 'tablerTrowel' },
   { slug: 'ar-condicionado', name: 'Ar-condicionado', icon: 'tablerAirConditioning' },
   { slug: 'advogado', name: 'Advocacia', icon: 'tablerGavel' },
   { slug: 'contador', name: 'Contabilidade', icon: 'tablerReportMoney' },

@@ -7,6 +7,7 @@ import {
   tablerAirConditioning,
   tablerBabyCarriage,
   tablerBolt,
+  tablerTrowel,
   tablerFileInvoice,
   tablerGavel,
   tablerReportMoney,
@@ -30,7 +31,7 @@ import { TranslateService } from 'src/app/service/translate.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIconComponent, TranslatePipe, LangLinkPipe, RouterLink],
   providers: [
-    provideIcons({ tablerTools, tablerBolt, tablerAirConditioning, tablerGavel, tablerReportMoney, tablerBabyCarriage, tablerFileInvoice }),
+    provideIcons({ tablerTools, tablerBolt, tablerTrowel, tablerAirConditioning, tablerGavel, tablerReportMoney, tablerBabyCarriage, tablerFileInvoice }),
   ],
 })
 export class ToolsComponent {
