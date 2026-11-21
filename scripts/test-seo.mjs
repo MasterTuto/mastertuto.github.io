@@ -67,3 +67,10 @@ test('sitemap lists canonical URLs only and robots.txt points to it', () => {
   assert.ok(!xml.includes('<loc>https://brenocs.dev.br/services/landing-pages/</loc>'), 'redirect page');
   assert.match(read('robots.txt'), /Sitemap: https:\/\/brenocs\.dev\.br\/sitemap\.xml/);
 });
+
+test('llms.txt lists every service page in both languages', () => {
+  const text = read('llms.txt');
+  assert.match(text, /^# Breno Carvalho\n\n> /);
+  assert.equal((text.match(/\]\(https:\/\/brenocs\.dev\.br\/pt\/services\/[a-z-]+\/\)/g) ?? []).length, 12);
+  assert.equal((text.match(/\]\(https:\/\/brenocs\.dev\.br\/en\/services\/[a-z-]+\/\)/g) ?? []).length, 12);
+});

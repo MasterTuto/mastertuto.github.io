@@ -4,6 +4,7 @@ import { BcsButtonComponent } from '@bcs/components/button/button.component';
 import { BcsListComponent } from '@bcs/components/list/list.component';
 import { BcsContainerDirective } from '@bcs/directives/container/container.directive';
 import { BcsGridDirective } from '@bcs/directives/grid/grid.directive';
+import { BcsRevealDirective } from '@bcs/directives/reveal/reveal.directive';
 import { BcsSectionDirective } from '@bcs/directives/section/section.directive';
 import { BcsStackDirective } from '@bcs/directives/stack/stack.directive';
 import { BcsSurfaceDirective } from '@bcs/directives/surface/surface.directive';
@@ -24,6 +25,7 @@ export const LANDING_PAGE_IMPORTS = [
   BcsListComponent,
   BcsContainerDirective,
   BcsGridDirective,
+  BcsRevealDirective,
   BcsSectionDirective,
   BcsStackDirective,
   BcsSurfaceDirective,

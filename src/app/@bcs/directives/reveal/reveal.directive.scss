@@ -1,0 +1,30 @@
+// Entrance animations tied to scroll position. Only `opacity` and `transform` move (compositor-only),
+// the element finishes arriving by the time a third of it is visible, and nothing runs when the
+// browser lacks view timelines or the visitor prefers reduced motion.
+@keyframes bcs-reveal-rise {
+  from { opacity: 0; transform: translateY(1.5rem); }
+}
+@keyframes bcs-reveal-fade {
+  from { opacity: 0; }
+}
+@keyframes bcs-reveal-scale {
+  from { opacity: 0; transform: scale(0.96); }
+}
+
+// Custom elements are inline by default and inline boxes ignore transforms.
+:where(.bcs-reveal):not(div, section, article, aside, header, footer, nav, main, li, a, button, p, span, img) {
+  display: block;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .bcs-reveal {
+      animation: bcs-reveal-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+
+      &[data-reveal='fade'] { animation-name: bcs-reveal-fade; }
+      &[data-reveal='scale'] { animation-name: bcs-reveal-scale; }
+    }
+  }
+}

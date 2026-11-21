@@ -2,6 +2,7 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { SchedulingSectionComponent } from './sections/scheduling-section/scheduling-section.component';
 import { NgModule } from '@angular/core';
+import { BcsRevealDirective } from '@bcs/directives/reveal/reveal.directive';
 import { CommonModule } from '@angular/common';
 import { PortfolioFeedComponent } from './portfolio-feed.component';
 import { ProjectsSectionModule } from './sections/projects-section/projects-section.module';
@@ -26,6 +27,7 @@ import { TestimonialsSectionComponent } from './sections/testimonials-section/te
     ProjectsSectionModule,
     TestimonialsSectionComponent,
     SchedulingSectionComponent,
+    BcsRevealDirective,
 ],
   exports: [
     PortfolioFeedComponent

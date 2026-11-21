@@ -4,7 +4,7 @@
 </app-landing-hero>
 
 <section bcs-section space="md">
-  <div bcs-container width="content">
+  <div bcs-container bcs-reveal width="content">
     <div bcs-stack gap="lg">
       <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
       <div bcs-grid min="sm" gap="lg">
@@ -17,7 +17,7 @@
 </section>
 
 <section bcs-section space="lg">
-  <div bcs-container width="content">
+  <div bcs-container bcs-reveal width="content">
     <div bcs-grid min="md" gap="xl">
       <div bcs-stack gap="md">
         <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
@@ -33,7 +33,7 @@
 </section>
 
 <section bcs-section space="lg">
-  <div bcs-container width="content">
+  <div bcs-container bcs-reveal width="content">
     <div bcs-stack gap="lg">
       <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
       <app-landing-steps [items]="copy.steps.items" layout="horizontal" />
@@ -42,13 +42,13 @@
 </section>
 
 <section bcs-section space="xl">
-  <div bcs-container width="prose">
+  <div bcs-container bcs-reveal width="prose">
     <app-landing-quote [text]="copy.outcome" />
   </div>
 </section>
 
 <section bcs-section space="lg" id="form">
-  <div bcs-container width="content">
+  <div bcs-container bcs-reveal width="content">
     <div bcs-surface pad="lg">
       <div bcs-grid min="md" gap="xl">
         <app-landing-price
@@ -77,13 +77,13 @@
 </section>
 
 <section bcs-section space="lg">
-  <div bcs-container width="prose">
+  <div bcs-container bcs-reveal width="prose">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
   </div>
 </section>
 
 <section bcs-section space="md">
-  <div bcs-container width="content">
+  <div bcs-container bcs-reveal width="content">
     <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
   </div>
 </section>
