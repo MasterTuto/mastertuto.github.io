@@ -71,6 +71,15 @@ export const portugueseTranslations: Translations = {
                 title: "Visual com cara de Brasil",
                 text: "Verde e amarelo, megafone e ritmos regionais deixam claro, já na primeira tela, para quem é o produto.",
               },
+              '4': {
+                title: "Página por segmento e blog",
+                text: "Páginas para padarias, escolas, igrejas, candidatos e outros segmentos, com exemplos do próprio nicho, mais um blog com pautas de jingle e áudio publicitário para atrair busca orgânica.",
+              },
+
+              '5': {
+                title: "Tela de planos que responde objeções",
+                text: "Comparação com o preço de um produtor, selo de garantia, exemplos tocáveis e um contador do que se perde sem divulgar: cada bloco responde uma dúvida antes do pagamento.",
+              },
             },
           },
           implementation: {
@@ -88,6 +97,20 @@ export const portugueseTranslations: Translations = {
                 title: "Planos por assinatura",
                 text: "Três planos mensais com cota de jingles e cancelamento a qualquer momento. O plano de entrada tem marca d’água falada.",
               },
+              '4': {
+                title: "Letras guiadas por pesquisa",
+                text: "Um estudo de 20 jingles brasileiros clássicos virou regra no prompt: o nome entra cedo e volta 2, 4 ou 6 vezes conforme a duração, um mecanismo de refrão por letra e rima tirada do próprio nome. Uma checagem automática reescreve a letra que não cumpre.",
+              },
+
+              '5': {
+                title: "O arquivo certo para cada canal",
+                text: "Rádio recebe WAV 44,1 kHz/16 bit com pico abaixo de −1 dBTP, streaming recebe MP3 a −16 LUFS, WhatsApp recebe um MP3 leve e redes sociais um vídeo vertical 9:16 com a capa — tudo gerado com ffmpeg.",
+              },
+
+              '6': {
+                title: "Cobrança previsível",
+                text: "Preços em catálogos versionados (preço novo vira versão nova), upgrade cobrado pró-rata pelos dias restantes e webhooks do Asaas gravados de forma idempotente e processados pelo DynamoDB Streams.",
+              },
             },
           },
           hosting: {
@@ -100,6 +123,10 @@ export const portugueseTranslations: Translations = {
               '2': {
                 title: "Domínio que já explica",
                 text: "O .ia.br diz o que o produto faz e reforça que é brasileiro, antes mesmo de abrir o site.",
+              },
+              '3': {
+                title: "Infraestrutura como código",
+                text: "Banco, autenticação (Cognito com login Google), pagamentos e core são stacks CloudFormation/SAM separadas, e cada push na branch principal dispara o deploy no CodeBuild.",
               },
             },
           },
@@ -114,6 +141,10 @@ export const portugueseTranslations: Translations = {
                 title: "Correções rápidas",
                 text: "Acompanho erros e custos dos serviços de IA para corrigir problemas antes que virem reclamação.",
               },
+              '3': {
+                title: "Admin de marketing",
+                text: "Um painel interno cria templates e campanhas de e-mail pelo SES e acompanha os jingles avulsos dos usuários, sem depender de ferramenta paga de e-mail marketing.",
+              },
             },
           },
         },
@@ -121,9 +152,12 @@ export const portugueseTranslations: Translations = {
           intro: "Uma stack serverless na AWS, com orquestração de vários modelos de IA e entrega pela borda.",
           frontend: "SPA em Angular, num monorepo junto com o back-end: um repositório, um fluxo de build e deploy.",
           backend: "Back-end serverless em Node.js sobre AWS Lambda, com DynamoDB como banco NoSQL. Escala sob demanda e cobra por execução.",
-          ai: "Pipeline assíncrono que orquestra LLMs da OpenAI e do Gemini, inferência de modelos no Replicate e síntese de voz com ElevenLabs.",
+          ai: "Pipeline assíncrono em fila SQS: modelos de texto (Claude, GPT e Gemini, via Replicate) escrevem e validam as letras, o Nano Banana gera a capa e o ElevenLabs Music compõe e canta.",
           payments: "Assinaturas recorrentes no Asaas, integradas por API e webhooks para liberar a cota de cada plano.",
           infra: "Assets estáticos servidos pela CDN do CloudFront, DNS e proxy na borda com Cloudflare e domínio .ia.br registrado no Registro.br.",
+          auth: "Cognito com cadastro por e-mail e login Google, e-mails transacionais pelo SES.",
+          audio: "Pós-produção com ffmpeg: normalização de loudness, picos e um arquivo por canal de veiculação.",
+          ci: "Quatro stacks CloudFormation/SAM e deploy contínuo pelo CodeBuild conectado ao GitHub.",
         },
         highlights: {
           '1': {
@@ -139,8 +173,16 @@ export const portugueseTranslations: Translations = {
             label: "de jingle, com download em MP3",
           },
           '4': {
-            value: "R$ 9,90",
-            label: "por mês no plano de entrada",
+            value: "7",
+            label: "canais de veiculação, cada um com duração e formato próprios",
+          },
+          '5': {
+            value: "15/30/60 s",
+            label: "durações, com arquivos para rádio, streaming e WhatsApp",
+          },
+          '6': {
+            value: "4",
+            label: "stacks AWS com deploy automático a cada push",
           },
         },
       },

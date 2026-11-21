@@ -70,6 +70,15 @@ export const englishTranslations = {
                 title: "A distinctly Brazilian look",
                 text: "Green and yellow, a megaphone and regional rhythms make it clear on the first screen who the product is for.",
               },
+              '4': {
+                title: "A page per segment, plus a blog",
+                text: "Pages for bakeries, schools, churches, candidates and other segments, with examples from each niche, plus a blog about jingles and audio ads to win organic search.",
+              },
+
+              '5': {
+                title: "A pricing page that answers objections",
+                text: "Comparison with a producer’s fee, a guarantee seal, playable examples and a counter of what goes unannounced: each block answers a doubt before payment.",
+              },
             },
           },
           implementation: {
@@ -87,6 +96,20 @@ export const englishTranslations = {
                 title: "Subscription plans",
                 text: "Three monthly plans with a jingle quota and cancellation at any time. The entry plan includes a spoken watermark.",
               },
+              '4': {
+                title: "Lyrics guided by research",
+                text: "A study of 20 classic Brazilian jingles became prompt rules: the name comes early and returns 2, 4 or 6 times depending on length, one hook mechanism per lyric and rhymes drawn from the name itself. An automatic check rewrites lyrics that miss the rules.",
+              },
+
+              '5': {
+                title: "The right file for each channel",
+                text: "Radio gets 44.1 kHz/16-bit WAV peaking below −1 dBTP, streaming gets MP3 at −16 LUFS, WhatsApp a light MP3 and social media a 9:16 vertical video with the cover — all rendered with ffmpeg.",
+              },
+
+              '6': {
+                title: "Predictable billing",
+                text: "Prices live in versioned catalogs (a new price is a new version), upgrades are charged pro rata for the remaining days, and Asaas webhooks are stored idempotently and processed through DynamoDB Streams.",
+              },
             },
           },
           hosting: {
@@ -99,6 +122,10 @@ export const englishTranslations = {
               '2': {
                 title: "A domain that explains itself",
                 text: "The .ia.br domain says what the product does and that it’s Brazilian, before the site even opens.",
+              },
+              '3': {
+                title: "Infrastructure as code",
+                text: "Database, auth (Cognito with Google sign-in), payments and core are separate CloudFormation/SAM stacks, and every push to the main branch deploys through CodeBuild.",
               },
             },
           },
@@ -113,6 +140,10 @@ export const englishTranslations = {
                 title: "Fast fixes",
                 text: "I monitor errors and AI service costs to fix problems before they become complaints.",
               },
+              '3': {
+                title: "Marketing admin",
+                text: "An internal panel creates SES email templates and campaigns and follows users’ one-off jingles, with no paid email-marketing tool.",
+              },
             },
           },
         },
@@ -120,9 +151,12 @@ export const englishTranslations = {
           intro: "A serverless stack on AWS, orchestrating several AI models and delivered from the edge.",
           frontend: "Angular SPA in a monorepo alongside the back end: one repository, one build and deploy flow.",
           backend: "Serverless Node.js back end on AWS Lambda, with DynamoDB as the NoSQL database. Scales on demand and bills per execution.",
-          ai: "An asynchronous pipeline orchestrating OpenAI and Gemini LLMs, model inference on Replicate and voice synthesis with ElevenLabs.",
+          ai: "Asynchronous pipeline on an SQS queue: text models (Claude, GPT and Gemini, via Replicate) write and check the lyrics, Nano Banana draws the cover and ElevenLabs Music composes and sings.",
           payments: "Recurring subscriptions on Asaas, integrated via API and webhooks to release each plan’s quota.",
           infra: "Static assets served by the CloudFront CDN, DNS and edge proxy on Cloudflare, and the .ia.br domain registered at Registro.br.",
+          auth: "Cognito with email sign-up and Google sign-in, transactional email through SES.",
+          audio: "Post-production with ffmpeg: loudness normalization, peak limiting and one file per channel.",
+          ci: "Four CloudFormation/SAM stacks and continuous deployment through CodeBuild connected to GitHub.",
         },
         highlights: {
           '1': {
@@ -138,8 +172,16 @@ export const englishTranslations = {
             label: "jingles, downloadable as MP3",
           },
           '4': {
-            value: "R$ 9.90",
-            label: "per month on the entry plan",
+            value: "7",
+            label: "broadcast channels, each with its own length and format",
+          },
+          '5': {
+            value: "15/30/60 s",
+            label: "lengths, with files for radio, streaming and WhatsApp",
+          },
+          '6': {
+            value: "4",
+            label: "AWS stacks deployed automatically on every push",
           },
         },
       },
