@@ -2,7 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -20,7 +19,9 @@
     "module": "es2020",
     "useDefineForClassFields": false,
     "paths": {
-      "zone.js/node": ["node_modules/zone.js/dist/zone-node.js"]
+      "src/*": ["./src/*"],
+      "@bcs/*": ["./src/app/components/@bcs/*"],
+      "zone.js/node": ["./node_modules/zone.js/dist/zone-node.js"]
     }
   },
   "angularCompilerOptions": {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
@@ -11,13 +11,11 @@ import { TranslateService } from 'src/app/service/translate.service';
 registerLocaleData(localePT);
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    imports: [
-      PageShellComponent,
-      PortfolioFeedModule,
-    ]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [PageShellComponent, PortfolioFeedModule],
 })
 export class HomeComponent {
   constructor() {

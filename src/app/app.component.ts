@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import localePT from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
@@ -9,16 +9,12 @@ import { CommandPalleteComponent } from './components/command-pallete/command-pa
 registerLocaleData(localePT);
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [
-      RouterModule,
-      CommandPalleteComponent
-    ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [RouterModule, CommandPalleteComponent],
 })
 export class AppComponent {
-  constructor(
-    posthogService: PosthogService
-  ) {}
+  constructor(posthogService: PosthogService) {}
 }

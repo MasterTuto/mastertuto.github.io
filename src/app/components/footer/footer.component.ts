@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -32,6 +32,7 @@ import { createWhatsAppLink } from 'src/app/utils/html';
       tablerRoute,
     }),
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgIconComponent, RouterLink, TranslatePipe],
 })
 export class FooterComponent {
