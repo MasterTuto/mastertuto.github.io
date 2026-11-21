@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Faixa lateral: a brand stripe with the title written vertically and an "amount due" box on top. */
 @Component({
@@ -9,35 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <div class="s-band" aria-hidden="true"><span>{{ doc().title }}</span></div>
-    <div class="s-main">
-      <header class="s-head">
-        <div class="s-from">
-          <inv-logo [doc]="doc()" />
-          <inv-party [party]="doc().emitter" />
-        </div>
-        <div class="s-due">
-          <span>{{ doc().t.amountDue }}</span>
-          <strong>{{ doc().total }}</strong>
-          @if (doc().dueDate) {
-            <small>{{ doc().t.dueDate }}: {{ doc().dueDate }}</small>
-          }
-        </div>
-      </header>
-      <h1 class="s-title">{{ doc().title }} <span>{{ doc().number }}</span></h1>
-      <div class="s-info">
-        <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-        <inv-meta [doc]="doc()" />
-      </div>
-      <inv-items [doc]="doc()" />
-      <div class="s-totals"><inv-totals [doc]="doc()" /></div>
-      <div class="s-foot">
-        <inv-pay [doc]="doc()" />
-        <inv-notes [doc]="doc()" />
-      </div>
-    </div>
-  `,
+  templateUrl: './tpl-stripe.component.html',
   styles: `
     inv-tpl-stripe { display: grid; grid-template-columns: 64px 1fr; min-height: 1123px; }
     .tpl-stripe .s-band { position: relative; background: var(--brand); }

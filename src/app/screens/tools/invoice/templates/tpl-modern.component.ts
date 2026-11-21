@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Moderno: full-height brand sidebar with logo, details and payment; content on white. */
 @Component({
@@ -9,28 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <aside class="m-side">
-      <div class="m-logo"><inv-logo [doc]="doc()" [monogram]="true" /></div>
-      <h1>{{ doc().title }}</h1>
-      <p class="m-num">{{ doc().number }}</p>
-      <inv-meta [doc]="doc()" />
-      <div class="m-due">
-        <span>{{ doc().t.amountDue }}</span>
-        <strong>{{ doc().total }}</strong>
-      </div>
-      <inv-pay [doc]="doc()" />
-    </aside>
-    <main class="m-main">
-      <div class="m-parties">
-        <inv-party [party]="doc().emitter" [label]="doc().t.from" />
-        <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-      </div>
-      <inv-items [doc]="doc()" />
-      <div class="m-totals"><inv-totals [doc]="doc()" /></div>
-      <inv-notes [doc]="doc()" />
-    </main>
-  `,
+  templateUrl: './tpl-modern.component.html',
   styles: `
     inv-tpl-modern { display: grid; grid-template-columns: 250px 1fr; min-height: 1123px; }
     .tpl-modern .m-side { display: flex; flex-direction: column; gap: 18px; padding: 48px 28px; background: var(--brand); color: var(--brand-ink); }

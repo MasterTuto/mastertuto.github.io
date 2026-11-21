@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Criativo: oversized title, bold brand shapes, rounded item rows and a big total block. */
 @Component({
@@ -9,30 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <span class="r-blob" aria-hidden="true"></span>
-    <span class="r-ring" aria-hidden="true"></span>
-    <header class="r-head">
-      <inv-logo [doc]="doc()" [monogram]="true" />
-      <h1>{{ doc().title }}</h1>
-      <span class="r-num">{{ doc().number }}</span>
-    </header>
-    <div class="r-info">
-      <inv-party [party]="doc().emitter" [label]="doc().t.from" />
-      <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-      <inv-meta [doc]="doc()" />
-    </div>
-    <inv-items [doc]="doc()" />
-    <div class="r-sum">
-      <inv-totals [doc]="doc()" />
-      <div class="r-total"><span>{{ doc().t.amountDue }}</span><strong>{{ doc().total }}</strong></div>
-    </div>
-    <div class="r-foot">
-      <inv-pay [doc]="doc()" />
-      <inv-notes [doc]="doc()" />
-    </div>
-    <span class="r-wave" aria-hidden="true"></span>
-  `,
+  templateUrl: './tpl-creative.component.html',
   styles: `
     inv-tpl-creative { position: relative; display: flex; flex-direction: column; gap: 28px; min-height: 1123px; padding: 60px 56px 90px; }
     .tpl-creative .r-blob { position: absolute; top: -120px; right: -90px; width: 360px; height: 360px; border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; background: var(--brand); }

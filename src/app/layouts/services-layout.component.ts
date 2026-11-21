@@ -8,7 +8,7 @@ import { PageShellComponent } from 'src/app/components/page-shell/page-shell.com
   selector: 'app-services-layout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageShellComponent, RouterOutlet],
-  template: `<app-page-shell><router-outlet /></app-page-shell>`,
+  templateUrl: './services-layout.component.html',
 })
 export class ServicesLayoutComponent {
 }

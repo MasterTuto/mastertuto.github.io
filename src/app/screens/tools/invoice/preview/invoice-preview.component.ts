@@ -11,16 +11,7 @@ export const PAGE_HEIGHT = 1123;
   selector: 'app-invoice-preview',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InvoiceDocumentComponent],
-  template: `
-    <div #frame class="frame" [style.height.px]="measured() ? height() * scale() : null">
-      <div #paper id="inv-paper" class="paper" [style.transform]="'scale(' + scale() + ')'">
-        <app-invoice-document [doc]="doc()" />
-      </div>
-      @for (n of breaks(); track n) {
-        <div class="break" [style.top.px]="n * pageHeight * scale()" aria-hidden="true"><span>{{ n + 1 }}</span></div>
-      }
-    </div>
-  `,
+  templateUrl: './invoice-preview.component.html',
   styles: `
     :host { display: block; }
     .frame { position: relative; width: 100%; aspect-ratio: 210 / 297; overflow: hidden; border-radius: 6px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .06), 0 24px 48px -24px rgb(21 28 37 / .35); }

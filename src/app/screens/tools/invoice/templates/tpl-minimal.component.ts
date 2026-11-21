@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Minimalista: light type, wide margins, hairlines only; the brand appears as one small mark. */
 @Component({
@@ -9,23 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <header class="n-head">
-      <h1>{{ doc().title }}<span class="n-dot">.</span></h1>
-      <inv-logo [doc]="doc()" />
-    </header>
-    <div class="n-grid">
-      <inv-party [party]="doc().emitter" [label]="doc().t.from" />
-      <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-      <inv-meta [doc]="doc()" />
-    </div>
-    <inv-items [doc]="doc()" />
-    <div class="n-totals"><inv-totals [doc]="doc()" /></div>
-    <div class="n-foot">
-      <inv-pay [doc]="doc()" />
-      <inv-notes [doc]="doc()" />
-    </div>
-  `,
+  templateUrl: './tpl-minimal.component.html',
   styles: `
     inv-tpl-minimal { display: flex; flex-direction: column; min-height: 1123px; padding: 72px 76px 56px; color: #374151; }
     .tpl-minimal .n-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 56px; }

@@ -13,47 +13,7 @@ import { TOOLS_PER_SEGMENT, allProTools, invoiceTool, toolSegments } from './pro
   selector: 'app-pro-tool-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, LangLinkPipe],
-  template: `
-    <footer class="mt-16 border-t border-surface-0-foreground/10 pt-10">
-      @if (segment(); as segment) {
-        <div class="grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-end">
-          <p class="font-display text-2xl font-semibold leading-snug text-surface-0-foreground sm:text-3xl">
-            {{ segment.title }}
-            <span class="block text-lg font-normal text-muted-foreground sm:text-xl">Site profissional e atendimento automático para {{ segment.name.toLowerCase() }}.</span>
-          </p>
-          <a class="group inline-flex w-fit items-center gap-2 font-semibold text-accent md:justify-self-end" [routerLink]="'para/' + segment.slug | langLink">
-            Ver como funciona
-            <span aria-hidden="true" class="transition group-hover:translate-x-1">→</span>
-          </a>
-        </div>
-      }
-      @if (sameSegment().length) {
-        <nav [attr.aria-label]="'Mais ferramentas para ' + group()!.name" class="mt-10">
-          <h2 class="text-sm font-semibold text-surface-0-foreground">Mais para {{ group()!.name.toLowerCase() }}</h2>
-          <ul class="mt-2 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10">
-            @for (tool of sameSegment(); track tool.slug) {
-              <li>
-                <a class="group flex items-center justify-between gap-4 py-3 text-surface-0-foreground" [routerLink]="'tools/' + tool.slug | langLink">
-                  {{ tool.name }}
-                  <span aria-hidden="true" class="text-accent transition-transform group-hover:translate-x-1">→</span>
-                </a>
-              </li>
-            }
-          </ul>
-          @if (sameSegmentMore() > 0) {
-            <a class="mt-3 inline-flex min-h-[44px] items-center text-sm font-semibold text-accent" [routerLink]="'tools' | langLink" [fragment]="group()!.slug">Ver mais {{ sameSegmentMore() }}</a>
-          }
-        </nav>
-      }
-      <nav aria-label="Outras ferramentas grátis" class="mt-8 text-sm leading-loose text-muted-foreground">
-        <span class="font-semibold text-surface-0-foreground">Outras ferramentas grátis:</span>
-        @for (tool of others(); track tool.slug) {
-          <a class="text-surface-0-foreground underline decoration-surface-0-foreground/20 underline-offset-4 transition hover:decoration-accent" [routerLink]="'tools/' + tool.slug | langLink">{{ tool.name }}</a><span aria-hidden="true">{{ ' · ' }}</span>
-        }
-        <a class="font-semibold text-accent" [routerLink]="'tools' | langLink">Ver todas →</a>
-      </nav>
-    </footer>
-  `,
+  templateUrl: './pro-tool-footer.component.html',
 })
 export class ProToolFooterComponent {
   readonly slug = input.required<string>();

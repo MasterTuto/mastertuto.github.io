@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Corporativo: brand header band, a strip with the key figures, framed parties and a zebra table. */
 @Component({
@@ -9,41 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <header class="k-band">
-      <div class="k-logo"><inv-logo [doc]="doc()" [monogram]="true" /></div>
-      <div class="k-name">
-        <strong>{{ doc().emitter.name || '—' }}</strong>
-        @if (doc().emitter.taxId) {
-          <span>{{ doc().emitter.taxId }}</span>
-        }
-      </div>
-      <div class="k-title">
-        <h1>{{ doc().title }}</h1>
-        <span>{{ doc().t.number }} {{ doc().number }}</span>
-      </div>
-    </header>
-    <div class="k-strip">
-      <div><span>{{ doc().t.issueDate }}</span><strong>{{ doc().issueDate || '—' }}</strong></div>
-      <div><span>{{ doc().t.dueDate }}</span><strong>{{ doc().dueDate || '—' }}</strong></div>
-      @if (doc().reference) {
-        <div><span>{{ doc().t.reference }}</span><strong>{{ doc().reference }}</strong></div>
-      }
-      <div class="k-amount"><span>{{ doc().t.amountDue }}</span><strong>{{ doc().total }}</strong></div>
-    </div>
-    <div class="k-body">
-      <div class="k-parties">
-        <inv-party [party]="doc().emitter" [label]="doc().t.from" />
-        <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-      </div>
-      <inv-items [doc]="doc()" [numbered]="true" />
-      <div class="k-sum">
-        <inv-pay [doc]="doc()" />
-        <inv-totals [doc]="doc()" />
-      </div>
-      <inv-notes [doc]="doc()" />
-    </div>
-  `,
+  templateUrl: './tpl-corporate.component.html',
   styles: `
     inv-tpl-corporate { display: flex; flex-direction: column; min-height: 1123px; }
     .tpl-corporate .k-band { display: flex; align-items: center; gap: 18px; padding: 34px 52px; background: var(--brand); color: var(--brand-ink); }

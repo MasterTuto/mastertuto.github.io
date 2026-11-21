@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Compacto: dense three-column header and small type, fits long item lists on one page. */
 @Component({
@@ -9,28 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <header class="p-head">
-      <div class="p-title">
-        <inv-logo [doc]="doc()" />
-        <h1>{{ doc().title }} <span>{{ doc().number }}</span></h1>
-      </div>
-      <div class="p-total"><span>{{ doc().t.total }}</span><strong>{{ doc().total }}</strong></div>
-    </header>
-    <div class="p-grid">
-      <inv-party [party]="doc().emitter" [label]="doc().t.from" />
-      <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-      <inv-meta [doc]="doc()" />
-    </div>
-    <inv-items [doc]="doc()" [numbered]="true" />
-    <div class="p-sum">
-      <div class="p-left">
-        <inv-pay [doc]="doc()" />
-        <inv-notes [doc]="doc()" />
-      </div>
-      <inv-totals [doc]="doc()" />
-    </div>
-  `,
+  templateUrl: './tpl-compact.component.html',
   styles: `
     inv-tpl-compact { display: flex; flex-direction: column; gap: 16px; min-height: 1123px; padding: 36px 40px; font-size: 11.5px; }
     .tpl-compact .p-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 2px solid #111827; }

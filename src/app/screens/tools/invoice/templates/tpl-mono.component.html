@@ -1,0 +1,20 @@
+<header class="t-term">
+  <div class="t-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p class="t-cmd"><span class="t-prompt">$</span> {{ doc().title.toLowerCase() }} <span class="t-flag">--id</span> {{ doc().number || '—' }}</p>
+  <div class="t-row">
+    <h1>{{ doc().emitter.name || '—' }}</h1>
+    <inv-logo [doc]="doc()" />
+  </div>
+</header>
+<div class="t-grid">
+  <inv-party [party]="doc().emitter" [label]="'// ' + doc().t.from" />
+  <inv-party [party]="doc().client" [label]="'// ' + doc().t.billTo" />
+  <inv-meta [doc]="doc()" />
+</div>
+<inv-items [doc]="doc()" [numbered]="true" />
+<div class="t-totals"><inv-totals [doc]="doc()" /></div>
+<div class="t-foot">
+  <inv-pay [doc]="doc()" />
+  <inv-notes [doc]="doc()" />
+</div>
+<p class="t-eof">EOF · {{ doc().t.thanks }}</p>

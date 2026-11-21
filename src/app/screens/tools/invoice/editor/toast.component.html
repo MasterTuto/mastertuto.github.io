@@ -1,0 +1,10 @@
+<div class="region" role="status" aria-live="polite">
+  @if (store.toast(); as toast) {
+    <div class="toast" [class.raised]="raised()">
+      <span>{{ toast.message }}</span>
+      @if (toast.actionLabel) {
+        <button type="button" (click)="store.dismissToast(true)">{{ toast.actionLabel }}</button>
+      }
+    </div>
+  }
+</div>

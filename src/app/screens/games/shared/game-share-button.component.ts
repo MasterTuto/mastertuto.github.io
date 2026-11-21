@@ -14,17 +14,7 @@ import { shareResult } from './share-result';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIconComponent, TranslatePipe],
   providers: [provideIcons({ tablerShare, tablerCheck })],
-  template: `
-    <button
-      type="button"
-      (click)="share()"
-      class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-    >
-      <ng-icon [name]="copied() ? 'tablerCheck' : 'tablerShare'" aria-hidden="true" />
-      <span>{{ (copied() ? 'games.shareCopied' : 'games.share') | translate }}</span>
-    </button>
-    <span class="sr-only" role="status" aria-live="polite">{{ copied() ? ('games.shareCopied' | translate) : '' }}</span>
-  `,
+  templateUrl: './game-share-button.component.html',
 })
 export class GameShareButtonComponent {
   readonly text = input.required<string>();

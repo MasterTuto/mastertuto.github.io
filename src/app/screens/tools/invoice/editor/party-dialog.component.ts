@@ -11,25 +11,7 @@ import { PartyFormComponent } from './party-form.component';
   selector: 'app-party-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PartyFormComponent, FormFlowDirective],
-  template: `
-    <dialog #dialog class="sheet" (close)="onClose()" (cancel)="onClose()" [attr.aria-labelledby]="'party-dialog-title'">
-      @if (draft(); as d) {
-        <form method="dialog" class="flex h-full flex-col" (submit)="$event.preventDefault(); save()">
-          <header class="sheet-head">
-            <h2 id="party-dialog-title" class="text-lg font-semibold text-surface-0-foreground">{{ title() }}</h2>
-            <button type="button" class="pro-btn ghost !min-h-[40px] !px-3" (click)="close()" aria-label="Fechar">✕</button>
-          </header>
-          <div class="sheet-body" appFormFlow (flowDone)="save()" (keydown.enter)="$event.stopPropagation()">
-            <app-party-form [party]="d" (partyChange)="draft.set($event)" [sections]="d.kind === 'emitter' ? ['identity', 'address', 'payment', 'brand', 'defaults'] : ['identity', 'address', 'defaults']" />
-          </div>
-          <footer class="sheet-foot">
-            <button type="button" class="pro-btn ghost" (click)="close()">Cancelar</button>
-            <button type="submit" class="pro-btn">Salvar</button>
-          </footer>
-        </form>
-      }
-    </dialog>
-  `,
+  templateUrl: './party-dialog.component.html',
   styles: `
     .sheet { width: min(100vw, 680px); max-width: 100vw; height: min(100dvh, 860px); max-height: 100dvh; margin: auto; padding: 0; border: 0; border-radius: 1.25rem; background: rgb(250 250 250); color: inherit; box-shadow: 0 30px 80px -20px rgb(0 0 0 / .45); }
     .sheet::backdrop { background: rgb(21 28 37 / .5); backdrop-filter: blur(2px); }

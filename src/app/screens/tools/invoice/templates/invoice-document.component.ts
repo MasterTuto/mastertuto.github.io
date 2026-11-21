@@ -26,25 +26,7 @@ import { TplReceiptComponent } from './tpl-receipt.component';
     TplClassicComponent, TplModernComponent, TplMinimalComponent, TplCorporateComponent, TplElegantComponent,
     TplCreativeComponent, TplCompactComponent, TplMonoComponent, TplStripeComponent, TplReceiptComponent,
   ],
-  template: `
-    <div class="inv-doc" [class]="'tpl-' + (template() || doc().template)" [attr.style]="doc().style" [attr.lang]="doc().locale">
-      @switch (template() || doc().template) {
-        @case ('classic') { <inv-tpl-classic [doc]="doc()" /> }
-        @case ('modern') { <inv-tpl-modern [doc]="doc()" /> }
-        @case ('minimal') { <inv-tpl-minimal [doc]="doc()" /> }
-        @case ('corporate') { <inv-tpl-corporate [doc]="doc()" /> }
-        @case ('elegant') { <inv-tpl-elegant [doc]="doc()" /> }
-        @case ('creative') { <inv-tpl-creative [doc]="doc()" /> }
-        @case ('compact') { <inv-tpl-compact [doc]="doc()" /> }
-        @case ('mono') { <inv-tpl-mono [doc]="doc()" /> }
-        @case ('stripe') { <inv-tpl-stripe [doc]="doc()" /> }
-        @case ('receipt') { <inv-tpl-receipt [doc]="doc()" /> }
-      }
-      @if (doc().stamp) {
-        <span class="inv-stamp" [class.is-paid]="doc().status === 'paid'">{{ doc().stamp }}</span>
-      }
-    </div>
-  `,
+  templateUrl: './invoice-document.component.html',
   styles: `
     .inv-doc { position: relative; box-sizing: border-box; width: 794px; min-height: 1123px; overflow: hidden; background: #fff; color: #1f2937;
       font: 400 13px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-variant-numeric: tabular-nums;

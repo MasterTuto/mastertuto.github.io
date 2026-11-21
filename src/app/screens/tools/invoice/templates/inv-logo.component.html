@@ -1,0 +1,5 @@
+@if (doc().logo) {
+  <img class="ilogo" [src]="doc().logo" alt="" />
+} @else if (monogram() && initials()) {
+  <span class="ilogo ilogo-mono" aria-hidden="true">{{ initials() }}</span>
+}

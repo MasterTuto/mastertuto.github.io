@@ -1,0 +1,244 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Quanto concreto a peça leva e quanto material comprar? Informe as medidas e o traço: a calculadora dá os sacos
+      de cimento, a areia, a brita e a água, em m³ e em latas por betonada, e confere o traço com a NBR 6118.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>Sem cadastro</span><span>Funciona no celular</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (materials(); as m) {
+          <span>{{ fmt(m.volume, 2) }} m³ →</span><strong>{{ fmt(ceil(m.bags)) }} sacos</strong>
+        } @else {
+          <span>Informe as medidas</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="f">
+          <div class="flex items-center justify-between gap-3 sm:block">
+            <span class="pro-label">Volume</span>
+            <div class="pro-segmented w-44 sm:mt-2 sm:w-full" role="group" aria-label="Informar volume por">
+              <button type="button" [attr.aria-pressed]="!byVolume()" (click)="byVolume.set(false)">Medidas</button>
+              <button type="button" [attr.aria-pressed]="byVolume()" (click)="byVolume.set(true)">m³</button>
+            </div>
+          </div>
+          <div class="min-w-0">
+            @if (byVolume()) {
+              <div class="pro-input-wrap">
+                <input id="ct-first" class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Volume em metros cúbicos" [value]="volume()" (input)="volume.set(val($event))" />
+                <span class="pro-suffix">m³</span>
+              </div>
+            } @else {
+              <div class="pro-segmented" role="group" aria-label="Peça">
+                @for (s of shapes; track s.id) {
+                  <button type="button" [attr.aria-pressed]="shape() === s.id" (click)="shape.set(s.id)">{{ s.label }}</button>
+                }
+              </div>
+              <div class="mt-3 grid gap-2" [class.grid-cols-3]="shape() !== 'pile'" [class.grid-cols-2]="shape() === 'pile'">
+                @if (shape() === 'pile') {
+                  <label class="pro-field"><span class="pro-hint">Diâmetro</span>
+                    <span class="pro-input-wrap"><input id="ct-first" class="pro-input" inputmode="decimal" autocomplete="off" [value]="diameter()" (input)="diameter.set(val($event))" /><span class="pro-suffix">m</span></span>
+                  </label>
+                } @else {
+                  <label class="pro-field"><span class="pro-hint">{{ fields()[0] }}</span>
+                    <span class="pro-input-wrap"><input id="ct-first" class="pro-input" inputmode="decimal" autocomplete="off" [value]="length()" (input)="length.set(val($event))" /><span class="pro-suffix">m</span></span>
+                  </label>
+                  <label class="pro-field"><span class="pro-hint">{{ fields()[1] }}</span>
+                    <span class="pro-input-wrap"><input class="pro-input" inputmode="decimal" autocomplete="off" [value]="width()" (input)="width.set(val($event))" /><span class="pro-suffix">m</span></span>
+                  </label>
+                }
+                <label class="pro-field"><span class="pro-hint">{{ fields()[2] }}</span>
+                  <span class="pro-input-wrap"><input class="pro-input" inputmode="decimal" autocomplete="off" [value]="depth()" (input)="depth.set(val($event))" /><span class="pro-suffix">m</span></span>
+                </label>
+              </div>
+              <div class="mt-3 flex items-center gap-3">
+                <span class="text-sm text-muted-foreground" id="ct-count">Quantidade</span>
+                <div class="step" role="group" aria-labelledby="ct-count">
+                  <button type="button" aria-label="Uma peça a menos" [disabled]="count() <= 1" (click)="count.set(clamp(count() - 1))"><ng-icon name="tablerMinus" /></button>
+                  <output aria-live="polite">{{ count() }}</output>
+                  <button type="button" aria-label="Uma peça a mais" (click)="count.set(clamp(count() + 1))"><ng-icon name="tablerPlus" /></button>
+                </div>
+                @if (volumeValue() > 0) {
+                  <span class="pro-hint">= {{ fmt(volumeValue(), 3) }} m³</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="f">
+          <span class="pro-label">Traço <small>cimento : areia : brita</small></span>
+          <div class="min-w-0">
+            <div class="mix" role="group" aria-label="Traço em volume">
+              @for (p of presets; track p.id) {
+                <button type="button" [attr.aria-pressed]="mix() === p.id" (click)="mix.set(p.id)"><b>{{ p.label }}</b><span>{{ p.use }}</span></button>
+              }
+            </div>
+            <button type="button" class="pro-chip mt-2" [attr.aria-pressed]="mix() === custom" (click)="mix.set(custom)">Outro traço</button>
+            @if (mix() === custom) {
+              <div class="mt-2 grid grid-cols-3 gap-2">
+                <label class="pro-field"><span class="pro-hint">Areia</span><input class="pro-input" inputmode="decimal" autocomplete="off" [value]="sand()" (input)="sand.set(val($event))" /></label>
+                <label class="pro-field"><span class="pro-hint">Brita</span><input class="pro-input" inputmode="decimal" autocomplete="off" [value]="gravel()" (input)="gravel.set(val($event))" /></label>
+                <label class="pro-field"><span class="pro-hint">Água/cimento</span><input class="pro-input" inputmode="decimal" autocomplete="off" [value]="waterCement()" (input)="waterCement.set(val($event))" /></label>
+              </div>
+            } @else {
+              <p class="pro-hint mt-1.5">Fator água/cimento {{ fmt(mixValue().waterCement, 2) }}</p>
+            }
+          </div>
+        </div>
+
+        <div class="f">
+          <span class="pro-label" id="ct-sand">Areia</span>
+          <div class="pro-segmented" role="group" aria-labelledby="ct-sand">
+            <button type="button" [attr.aria-pressed]="moist()" (click)="moist.set(true)">Úmida (de obra)</button>
+            <button type="button" [attr.aria-pressed]="!moist()" (click)="moist.set(false)">Seca</button>
+          </div>
+        </div>
+
+        <div class="f">
+          <label class="pro-label" for="ct-waste">Perda</label>
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="pro-input-wrap w-28 shrink-0">
+              <input id="ct-waste" class="pro-input" inputmode="decimal" autocomplete="off" [value]="waste()" (input)="waste.set(val($event))" />
+              <span class="pro-suffix">%</span>
+            </div>
+            <div class="pro-chips" role="group" aria-label="Perdas comuns">
+              @for (w of wasteChips; track w) {
+                <button type="button" class="pro-chip" [attr.aria-pressed]="wasteValue() === w" (click)="waste.set(w + '')">{{ w }}%</button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="f">
+          <label class="pro-label" for="ct-exposure">Ambiente <small>NBR 6118</small></label>
+          <select id="ct-exposure" class="pro-select" (change)="setExposure(val($event))">
+            @for (e of exposures; track e.id) {
+              <option [value]="e.id" [selected]="exposure() === e.id">{{ e.name }} · {{ e.environment }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result" aria-live="polite" aria-label="Resultado">
+      <p class="pro-result-label">Cimento</p>
+      @if (materials(); as m) {
+        <p class="pro-result-main">{{ fmt(ceil(m.bags)) }}<small>{{ ceil(m.bags) === 1 ? 'saco' : 'sacos' }} de 50 kg</small></p>
+        <p class="pro-result-sub">{{ fmt(m.volume, 2) }} m³ de concreto com {{ fmt(wasteValue(), 1) }}% de perda · {{ fmt(m.cementPerM3) }} kg/m³</p>
+        <dl class="pro-result-list">
+          <div><dt>Areia média</dt><dd>{{ fmt(m.sandM3, 2) }} m³ <span class="font-normal opacity-70">({{ fmt(ceil(m.sandCans)) }} latas)</span></dd></div>
+          <div><dt>Brita 1</dt><dd>{{ fmt(m.gravelM3, 2) }} m³ <span class="font-normal opacity-70">({{ fmt(ceil(m.gravelCans)) }} latas)</span></dd></div>
+          <div><dt>Água</dt><dd>{{ fmt(m.waterLitres) }} L</dd></div>
+        </dl>
+        <p class="mt-4 text-xs font-semibold uppercase tracking-wider opacity-70">Por saco de cimento</p>
+        <p class="mt-1 text-sm leading-relaxed">
+          {{ fmt(m.perBag.sandCans, 1) }} latas de areia + {{ fmt(m.perBag.gravelCans, 1) }} latas de brita + {{ fmt(m.perBag.waterLitres) }} L de água
+          → {{ fmt(m.yieldPerBag * 1000) }} L de concreto
+        </p>
+        @if (check(); as c) {
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="pro-pill" [class.ok]="c.waterOk" [class.bad]="!c.waterOk">a/c {{ fmt(mixValue().waterCement, 2) }} {{ c.waterOk ? '≤' : '>' }} {{ fmt(c.exposure.maxWaterCement, 2) }}</span>
+            <span class="pro-pill" [class.ok]="c.cementOk" [class.bad]="!c.cementOk">{{ fmt(m.cementPerM3) }} {{ c.cementOk ? '≥' : '<' }} {{ c.exposure.minCement }} kg/m³</span>
+          </div>
+          <p class="mt-2 text-sm opacity-80">
+            Classe {{ c.exposure.name.split(' ')[0] }} pede concreto armado C{{ c.exposure.minClass }} ou mais.
+            @if (!c.waterOk || !c.cementOk) { Este traço não atende a estrutura: use para peças sem armadura ou ajuste. }
+          </p>
+        }
+        <button type="button" class="pro-btn mt-4 w-full" (click)="copy()">
+          <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" />
+          {{ flag.copied() ? 'Lista copiada!' : 'Copiar lista de material' }}
+        </button>
+      } @else {
+        <p class="pro-result-empty">Informe as medidas da peça ou o volume em m³ e um traço válido.</p>
+      }
+    </aside>
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Traço de obra, medido em latas.</strong> A conversão usa massas unitárias típicas (cimento
+    {{ fmt(m.cement.delta, 2) }}, areia {{ fmt(m.sand.delta, 2) }} e brita {{ fmt(m.gravel.delta, 2) }} kg/L),
+    inchamento de {{ fmt((swelling - 1) * 100) }}% na areia úmida e {{ air }} L de ar por m³. A resistência real
+    depende dos materiais e da cura: estruturas pedem projeto, concreto usinado ou dosagem em laboratório
+    (NBR 12655) e ensaio de corpos de prova.
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar</h2>
+      <ol>
+        <li>Escolha a peça (laje, viga ou pilar, sapata ou broca) e digite as medidas em metros, ou informe o volume direto em m³.</li>
+        <li>Toque no traço indicado para o uso. Para um traço do projeto, use <em>Outro traço</em>.</li>
+        <li>Marque se a areia está úmida (o normal na obra) ou seca e ajuste a perda.</li>
+        <li>Escolha o ambiente da obra para conferir o traço com a NBR 6118 e copie a lista de material.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Como o cálculo é feito</h2>
+      <p>O traço em volume (latas) é convertido para massa pelas massas unitárias, e o consumo de cimento sai da fórmula do volume absoluto:</p>
+      <p><strong>C = (1000 − ar) ÷ (1/γc + a/γa + p/γp + a/c)</strong></p>
+      <ul>
+        <li><strong>C</strong>: kg de cimento por m³ de concreto;</li>
+        <li><strong>a</strong> e <strong>p</strong>: kg de areia e de brita por kg de cimento;</li>
+        <li><strong>γ</strong>: massas específicas (cimento {{ fmt(m.cement.gamma, 2) }}, areia {{ fmt(m.sand.gamma, 2) }}, brita {{ fmt(m.gravel.gamma, 2) }} kg/dm³);</li>
+        <li><strong>a/c</strong>: fator água/cimento, em massa.</li>
+      </ul>
+      <h3>Exemplo: laje de 4 × 3 m com 10 cm, traço 1 : 2 : 3</h3>
+      <p>
+        Volume: 4 × 3 × 0,10 = 1,2 m³, e com 5% de perda, 1,26 m³. Com areia seca, o traço consome cerca de 344 kg de
+        cimento por m³, ou <strong>9 sacos</strong>. Em cada betonada: 1 saco, 4 latas de areia, 6 latas de brita e
+        27,5 L de água.
+      </p>
+    </section>
+
+    <section>
+      <h2>Limites da NBR 6118 para concreto armado</h2>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Classe</th><th scope="col">Ambiente</th><th scope="col">a/c máx.</th><th scope="col">Concreto</th><th scope="col">Cimento mín.</th></tr></thead>
+          <tbody>
+            @for (e of exposures; track e.id) {
+              <tr><td>{{ e.name }}</td><td>{{ e.environment }}</td><td>{{ fmt(e.maxWaterCement, 2) }}</td><td>≥ C{{ e.minClass }}</td><td>{{ e.minCement }} kg/m³</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="pro-hint mt-2">Tabela 7.1 da NBR 6118 e consumo mínimo de cimento da NBR 12655.</p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li>ABNT NBR 6118:2023 — Projeto de estruturas de concreto (classes de agressividade, tabela 7.1).</li>
+        <li>ABNT NBR 12655:2022 — Concreto de cimento Portland: preparo, controle, recebimento e aceitação.</li>
+        <li>ABNT NBR 6467 — Agregados: determinação do inchamento de agregado miúdo.</li>
+        <li>ABCP — Guia básico de utilização do cimento Portland e traços para obras de pequeno porte.</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

@@ -12,7 +12,7 @@ import { injectCurrentPath } from './current-url';
   selector: 'app-tools-layout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageShellComponent, RouterOutlet],
-  template: `<app-page-shell [crumbs]="crumbs()"><router-outlet /></app-page-shell>`,
+  templateUrl: './tools-layout.component.html',
 })
 export class ToolsLayoutComponent {
   private path = injectCurrentPath();

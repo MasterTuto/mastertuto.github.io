@@ -1,0 +1,22 @@
+<span class="r-blob" aria-hidden="true"></span>
+<span class="r-ring" aria-hidden="true"></span>
+<header class="r-head">
+  <inv-logo [doc]="doc()" [monogram]="true" />
+  <h1>{{ doc().title }}</h1>
+  <span class="r-num">{{ doc().number }}</span>
+</header>
+<div class="r-info">
+  <inv-party [party]="doc().emitter" [label]="doc().t.from" />
+  <inv-party [party]="doc().client" [label]="doc().t.billTo" />
+  <inv-meta [doc]="doc()" />
+</div>
+<inv-items [doc]="doc()" />
+<div class="r-sum">
+  <inv-totals [doc]="doc()" />
+  <div class="r-total"><span>{{ doc().t.amountDue }}</span><strong>{{ doc().total }}</strong></div>
+</div>
+<div class="r-foot">
+  <inv-pay [doc]="doc()" />
+  <inv-notes [doc]="doc()" />
+</div>
+<span class="r-wave" aria-hidden="true"></span>
