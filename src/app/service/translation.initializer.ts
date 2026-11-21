@@ -34,7 +34,8 @@ export class TranslationInitializer {
     if (!('navigator' in (globalThis['window'] ?? {}))) {
       return 'pt';
     }
+    // Only Portuguese and English exist: any other browser language reads the English site.
     const lang = navigator.language.split('-')[0];
-    return lang;
+    return lang in translations ? lang : 'en';
   }
 }

@@ -7,7 +7,7 @@ const root = new URL('../dist/portfolio/browser/', import.meta.url);
 const read = path => readFileSync(new URL(path, root), 'utf8');
 
 test('all profession pages and language-prefixed routes render their own content', () => {
-  for (const prefix of ['', 'pt/', 'en/', 'es/', 'fr/', 'de/', 'it/', 'ja/', 'ru/']) {
+  for (const prefix of ['', 'pt/', 'en/']) {
     for (const page of industries) {
       const html = read(`${prefix}para/${page.slug}/index.html`);
       assert.ok(html.includes(page.title), `${prefix}${page.slug}: headline`);

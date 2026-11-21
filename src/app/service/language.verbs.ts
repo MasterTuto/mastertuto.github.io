@@ -6,14 +6,8 @@ import { TranslationInitializer } from './translation.initializer';
 import { VERBS, VerbRecord } from './verb';
 
 const languageNames: Record<string, string> = {
-  en: 'English',
-  fr: 'Français',
-  de: 'Deutsch',
-  it: 'Italiano',
-  ja: '日本語',
   pt: 'Português',
-  ru: 'Русский',
-  es: 'Español',
+  en: 'English',
 };
 
 export function provideLanguageVerb(): Provider {
@@ -30,7 +24,7 @@ export function provideLanguageVerb(): Provider {
           id: 'changeLanguage',
           title: 'Change language',
           description: 'Choose the language for this page',
-          queries: ['change language', 'switch language', 'language', 'idioma', 'mudar idioma', 'trocar idioma', 'langue', 'sprache'],
+          queries: ['change language', 'switch language', 'language', 'idioma', 'mudar idioma', 'trocar idioma'],
           run: () => ({
             message: 'Choose a language.',
             actionSheet: {
