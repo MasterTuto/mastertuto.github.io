@@ -5,6 +5,7 @@
   </header>
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Puzzle type + new game -->
       <div class="mb-2 flex items-center gap-2">
         <div class="pro-segmented" role="group" [attr.aria-label]="'queens.mode' | translate">
@@ -70,6 +71,8 @@
         }
       </p>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
       @if (board().length > 0) {
         <div
@@ -125,6 +128,8 @@
         </div>
       }
 
+      </div>
+      <div class="game-dock">
       <!-- Tools, or the result once solved (same place, the board never moves) -->
       <div class="mx-auto mt-3 min-h-[60px] max-w-[500px]">
         @if (won()) {
@@ -190,6 +195,7 @@
         }
       </div>
       <p class="sr-only" aria-live="polite">{{ announcement() }}</p>
+      </div>
     </div>
 
     <div class="game-guide text-surface-0-foreground">

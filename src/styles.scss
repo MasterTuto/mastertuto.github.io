@@ -123,11 +123,35 @@ body {
 .catalog-info h2 { margin-bottom: .75rem; font-size: 1.25rem; font-weight: 650; }
 .catalog-info a { margin-top: 1rem; }
 .catalog-empty { @apply border-surface-0-foreground/20; display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-width: 1px; border-style: dashed; border-radius: 1rem; }
-.game-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: start; }
-.game-play { min-width: 0; width: 100%; max-width: 640px; margin-inline: auto; }
-.game-guide { min-width: 0; }
+/*
+ * Game pages. Phones: one column in reading order (controls → board → tools → guide).
+ * Desktop: controls and tools in a sidebar beside a smaller board; the guide always sits below.
+ */
+.game-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-xl); align-items: start; }
+.game-play { min-width: 0; width: 100%; max-width: 640px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.game-controls, .game-board, .game-dock { min-width: 0; }
+.game-board { margin-top: var(--gap-sm); }
+.game-guide { min-width: 0; width: 100%; max-width: var(--width-prose); margin-inline: auto; }
 .game-guide > :first-child { margin-top: 0; }
 .game-play button, .game-play select { min-height: 44px; }
-.game-play :is(button, select, summary, [role=gridcell], [tabindex]):focus-visible { @apply outline-accent; outline-width: 2px; outline-style: solid; outline-offset: 2px; }
-@media (min-width: 1200px) { .game-layout { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr); } }
+.game-play :is(button, select, summary, [role=gridcell], [tabindex]):focus-visible { outline: var(--focus-ring-width) solid rgb(var(--color-accent)); outline-offset: 2px; }
+@media (min-width: 1024px) {
+  .game-play {
+    max-width: none;
+    grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'controls board' 'dock board';
+    column-gap: var(--gap-xl);
+  }
+  .game-controls { grid-area: controls; }
+  .game-dock { grid-area: dock; align-self: start; }
+  .game-board {
+    grid-area: board;
+    margin-top: 0;
+    width: min(100%, var(--game-board-max, 30rem));
+    justify-self: center;
+  }
+  /* Sidebar controls stack instead of sharing a row. */
+  .game-controls > .grid:not(dl) { grid-template-columns: minmax(0, 1fr) auto; }
+}
 @media (max-width: 479px) { .catalog-empty { flex-direction: column; align-items: flex-start; } .catalog-card { padding: 1rem; } }

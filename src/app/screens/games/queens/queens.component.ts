@@ -33,6 +33,7 @@ import {
   cellsOnSegment,
   findConflicts,
 } from "src/app/utils/queens-board";
+import { useWinConfetti } from '../shared/win-confetti';
 
 interface BoardCell {
   row: number;
@@ -151,6 +152,7 @@ export class QueensComponent {
   private drag: DragState | null = null;
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo("queens", "queens");
 
     afterNextRender(() => {

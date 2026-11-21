@@ -6,6 +6,7 @@
 
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Level + new game -->
       <div class="flex items-stretch gap-2">
         <div class="pro-segmented flex-1" role="group" [attr.aria-label]="'games.level' | translate">
@@ -55,6 +56,8 @@
         </p>
       </div>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
       <div class="mt-4 flex justify-center">
         <div
@@ -90,6 +93,8 @@
       </div>
       <p id="mem-keys" class="sr-only">{{ 'memory.keyboardHint' | translate }}</p>
 
+      </div>
+      <div class="game-dock">
       <!-- Dock: progress and the result panel share one grid cell, so the page never moves. -->
       <div class="mt-4 grid">
         <div class="[grid-area:1/1]" [class.invisible]="won()">
@@ -123,6 +128,7 @@
         </div>
       </div>
       <p class="sr-only" role="status" aria-live="polite">{{ announcement() }}</p>
+      </div>
     </div>
 
     <div class="game-guide">

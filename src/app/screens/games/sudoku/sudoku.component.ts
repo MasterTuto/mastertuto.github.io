@@ -27,6 +27,7 @@ import { GameShareButtonComponent } from "../shared/game-share-button.component"
 import { generateSeed } from "src/app/utils/generate-seed";
 import { generateSudoku } from "src/app/utils/sudoku-puzzle";
 import type { SudokuPuzzle } from "src/app/utils/sudoku-puzzle";
+import { useWinConfetti } from '../shared/win-confetti';
 
 interface SudokuCell {
   row: number;
@@ -108,6 +109,7 @@ export class SudokuComponent {
   }
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo("sudoku", "sudoku");
 
     afterNextRender(() => {

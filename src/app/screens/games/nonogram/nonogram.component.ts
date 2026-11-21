@@ -20,6 +20,7 @@ import {
 import { useGameSeo } from '../game-seo';
 import { GameShareButtonComponent } from '../shared/game-share-button.component';
 import { GameTimer } from '../shared/game-timer';
+import { useWinConfetti } from '../shared/win-confetti';
 
 /** Cell states on the board. */
 const EMPTY = 0;
@@ -165,6 +166,7 @@ export class NonogramComponent {
   });
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo('nonogram', 'nonogram.seo');
     afterNextRender(() => this.newPuzzle());
   }

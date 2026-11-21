@@ -5,6 +5,7 @@
   </header>
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Mode + new game -->
       <div class="mb-2 flex items-center gap-2">
         <div class="pro-segmented" role="group" [attr.aria-label]="'wordLadder.mode' | translate">
@@ -69,6 +70,8 @@
         }
       </p>
 
+      </div>
+      <div class="game-board">
       <!-- The ladder: every row has a fixed height and the input never changes place. -->
       <div class="mx-auto w-full max-w-sm select-none">
         <!-- Start -->
@@ -187,6 +190,8 @@
         </div>
       </div>
 
+      </div>
+      <div class="game-dock">
       <!-- Tools, or the result once solved -->
       <div class="mx-auto mt-3 min-h-[56px] w-full max-w-sm">
         @if (status() === "won" && puzzle(); as p) {
@@ -244,6 +249,7 @@
 
       <!-- Screen-reader live region -->
       <div aria-live="polite" class="sr-only">{{ lastLiveAnnouncement() }}</div>
+      </div>
     </div>
     <div class="game-guide text-surface-0-foreground">
       <!-- How to play: ruled, numbered list -->

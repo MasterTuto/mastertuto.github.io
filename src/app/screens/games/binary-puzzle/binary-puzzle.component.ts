@@ -9,6 +9,7 @@ import { generateSeed } from 'src/app/utils/generate-seed';
 import { useGameSeo } from '../game-seo';
 import { GameShareButtonComponent } from '../shared/game-share-button.component';
 import { GameTimer } from '../shared/game-timer';
+import { useWinConfetti } from '../shared/win-confetti';
 
 type Size = 6 | 8 | 10;
 type Mode = 'daily' | 'random';
@@ -73,6 +74,7 @@ export class BinaryPuzzleComponent {
   });
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo('binary-puzzle', 'binaryPuzzle.seo');
     afterNextRender(() => this.newPuzzle());
   }

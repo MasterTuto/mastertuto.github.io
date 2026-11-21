@@ -30,6 +30,7 @@ import type { MinesBoard, MinesLevel, MinesMode } from 'src/app/utils/minesweepe
 import { useGameSeo } from '../game-seo';
 import { GameShareButtonComponent } from '../shared/game-share-button.component';
 import { GameTimer, formatDuration } from '../shared/game-timer';
+import { useWinConfetti } from '../shared/win-confetti';
 
 type CellKind = 'hidden' | 'flag' | 'open' | 'mine' | 'boom' | 'wrong';
 
@@ -148,6 +149,7 @@ export class MinesweeperComponent {
   private lastPointerType = 'mouse';
 
   constructor() {
+    useWinConfetti(() => this.status() === 'won');
     useGameSeo('minesweeper', 'minesweeper.seo', () => [this.faqJsonLd()]);
     afterNextRender(() => {
       this.bestTimes.set(readBest());

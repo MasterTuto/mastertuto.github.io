@@ -6,6 +6,7 @@
 
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Size, daily / random, new puzzle -->
       <div class="grid grid-cols-[1fr_auto] gap-2 sm:grid-cols-[1.4fr_1fr_auto]">
         <div class="pro-segmented col-span-2 sm:col-span-1" role="radiogroup" [attr.aria-label]="'nonogram.size' | translate">
@@ -50,6 +51,8 @@
         </div>
       </dl>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
       <div class="game-board-card rounded-lg bg-surface-1 p-1.5 shadow-sm ring-1 ring-surface-0-foreground/5 sm:p-3">
         <div class="nono-wrap">
@@ -139,6 +142,8 @@
         </div>
       </div>
 
+      </div>
+      <div class="game-dock">
       <!-- Tools and win panel share one reserved area so nothing moves when you win -->
       <div class="mt-3 grid">
         <div class="[grid-area:1/1]" [class.invisible]="won()" [attr.inert]="won() ? '' : null">
@@ -183,6 +188,7 @@
         </div>
       </div>
       <p class="sr-only" aria-live="polite">{{ won() ? ('nonogram.solved' | translate) + ' ' + solvedText() : '' }}</p>
+      </div>
     </div>
 
     <div class="game-guide">

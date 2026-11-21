@@ -6,6 +6,7 @@
 
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Size and puzzle source -->
       <div class="mb-4 grid grid-cols-[1fr_auto] gap-2 sm:grid-cols-[3fr_2fr]">
         <div class="pro-segmented" role="group" [attr.aria-label]="'colorLink.size' | translate">
@@ -54,6 +55,8 @@
         {{ statusKey() | translate }}
       </p>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
       <div class="cl-frame relative -mx-5 aspect-square w-[calc(100%+2.5rem)] rounded-lg sm:mx-auto sm:w-full sm:max-w-[560px] shadow-sm ring-1 ring-surface-0-foreground/10" [class.cl-won]="won()">
         @if (view(); as v) {
@@ -155,6 +158,8 @@
       </div>
       <p class="sr-only" aria-live="polite">{{ liveText() }}</p>
 
+      </div>
+      <div class="game-dock">
       <!-- Actions and win panel share one cell, so the page never jumps when the puzzle is solved -->
       <div class="mt-4 grid min-h-[9.5rem] sm:min-h-[6rem]">
         <div class="flex items-start justify-center gap-2 [grid-area:1/1]" [class.invisible]="won()" [attr.aria-hidden]="won()">
@@ -185,6 +190,7 @@
         }
       </div>
       <p class="mt-1 hidden text-center text-xs text-muted-foreground sm:block">{{ 'colorLink.keyboardHint' | translate }}</p>
+      </div>
     </div>
 
     <!-- Guide: open layout with hairlines instead of boxes -->
