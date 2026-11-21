@@ -1,0 +1,14 @@
+// Radius/padding/elevation by nesting live in `src/styles/_context.scss`; this file only maps the inputs.
+.bcs-surface {
+  min-width: 0;
+
+  &[data-pad='sm'] { --_pad-token: var(--pad-sm); }
+  &[data-pad='md'] { --_pad-token: var(--pad-md); }
+  &[data-pad='lg'] { --_pad-token: var(--pad-lg); }
+
+  &[data-variant='outline'] {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px rgb(var(--color-muted-ink) / 0.25);
+  }
+  &[data-variant='filled'] { box-shadow: var(--shadow-sm); }
+}

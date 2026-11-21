@@ -14,12 +14,6 @@ const DEFAULT_LANGUAGE = 'pt';
 const LOCALES: Record<string, { html: string; og: string }> = {
   pt: { html: 'pt-BR', og: 'pt_BR' },
   en: { html: 'en', og: 'en_US' },
-  es: { html: 'es', og: 'es_ES' },
-  fr: { html: 'fr', og: 'fr_FR' },
-  de: { html: 'de', og: 'de_DE' },
-  it: { html: 'it', og: 'it_IT' },
-  ja: { html: 'ja', og: 'ja_JP' },
-  ru: { html: 'ru', og: 'ru_RU' },
 };
 
 /**

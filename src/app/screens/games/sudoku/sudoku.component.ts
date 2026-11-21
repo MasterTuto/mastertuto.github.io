@@ -27,6 +27,7 @@ import { GameShareButtonComponent } from "../shared/game-share-button.component"
 import { generateSeed } from "src/app/utils/generate-seed";
 import { generateSudoku } from "src/app/utils/sudoku-puzzle";
 import type { SudokuPuzzle } from "src/app/utils/sudoku-puzzle";
+import { useWinConfetti } from '../shared/win-confetti';
 
 interface SudokuCell {
   row: number;
@@ -70,6 +71,8 @@ export class SudokuComponent {
   sizes = [4, 6, 9];
   difficulties = [0, 1, 2];
   gridSize = signal(9);
+  /** 0…size-1, to render the board as rows of cells (ARIA grid → row → gridcell). */
+  readonly lines = computed(() => Array.from({ length: this.gridSize() }, (_, index) => index));
   difficulty = signal(1);
   puzzle = signal<SudokuPuzzle | null>(null);
   board = signal<SudokuCell[]>([]);
@@ -108,6 +111,7 @@ export class SudokuComponent {
   }
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo("sudoku", "sudoku");
 
     afterNextRender(() => {
@@ -380,10 +384,10 @@ export class SudokuComponent {
     const bottom = r === N - 1 || r % boxRows === boxRows - 1;
 
     parts.push(
-      left ? "border-l-2 border-l-foreground-emphasis/70" : "border-l border-l-foreground/15",
-      top ? "border-t-2 border-t-foreground-emphasis/70" : "border-t border-t-foreground/15",
-      right ? "border-r-2 border-r-foreground-emphasis/70" : "border-r border-r-foreground/15",
-      bottom ? "border-b-2 border-b-foreground-emphasis/70" : "border-b border-b-foreground/15",
+      left ? "border-l-2 border-l-accent/70" : "border-l border-l-surface-0-foreground/15",
+      top ? "border-t-2 border-t-accent/70" : "border-t border-t-surface-0-foreground/15",
+      right ? "border-r-2 border-r-accent/70" : "border-r border-r-surface-0-foreground/15",
+      bottom ? "border-b-2 border-b-accent/70" : "border-b border-b-surface-0-foreground/15",
     );
 
     const isSelected = sel === index;
@@ -398,24 +402,24 @@ export class SudokuComponent {
     const sameNumber = !isSelected && selectedValue !== 0 && cell.value === selectedValue;
     const conflict = !cell.given && cell.value !== 0 && this.hasConflict(index);
 
-    let bg = "bg-surface";
+    let bg = "bg-surface-1";
     if (conflict) {
-      bg = "bg-red-500/30";
+      bg = "bg-error-500/30";
     } else if (isSelected) {
-      bg = "bg-foreground-emphasis/25";
+      bg = "bg-accent/25";
     } else if (sameNumber) {
-      bg = "bg-sky-500/25";
+      bg = "bg-accent-500/25";
     } else if (sameGroup) {
-      bg = "bg-sky-400/10";
+      bg = "bg-accent-400/10";
     }
     parts.push(bg);
 
     if (cell.given) {
-      parts.push("text-foreground");
+      parts.push("text-surface-0-foreground");
     } else if (conflict) {
-      parts.push("text-red-600");
+      parts.push("text-error-600");
     } else {
-      parts.push("text-foreground-emphasis");
+      parts.push("text-accent");
     }
 
     if (!cell.given) {

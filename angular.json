@@ -30,7 +30,6 @@
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
             "outputMode": "static",
-            "prerender": true,
             "security": {
               "allowedHosts": ["*", "localhost:4200"]
             },

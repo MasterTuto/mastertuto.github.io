@@ -1,0 +1,20 @@
+<header class="p-head">
+  <div class="p-title">
+    <inv-logo [doc]="doc()" />
+    <h1>{{ doc().title }} <span>{{ doc().number }}</span></h1>
+  </div>
+  <div class="p-total"><span>{{ doc().t.total }}</span><strong>{{ doc().total }}</strong></div>
+</header>
+<div class="p-grid">
+  <inv-party [party]="doc().emitter" [label]="doc().t.from" />
+  <inv-party [party]="doc().client" [label]="doc().t.billTo" />
+  <inv-meta [doc]="doc()" />
+</div>
+<inv-items [doc]="doc()" [numbered]="true" />
+<div class="p-sum">
+  <div class="p-left">
+    <inv-pay [doc]="doc()" />
+    <inv-notes [doc]="doc()" />
+  </div>
+  <inv-totals [doc]="doc()" />
+</div>

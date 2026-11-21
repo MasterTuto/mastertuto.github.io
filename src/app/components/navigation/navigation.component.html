@@ -1,8 +1,8 @@
-<nav [class]="sizeStyling()" [class.rounded-b-3xl]="!attached()" class="relative flex items-center justify-between gap-4 rounded-t-3xl bg-surface px-4 py-4 backdrop-blur-sm transition-all sm:px-8">
+<nav [class]="sizeStyling()" [class.rounded-b-xl]="!attached()" class="relative flex items-center justify-between gap-4 rounded-t-xl bg-surface-1 px-4 py-4 backdrop-blur-sm transition-all sm:px-8">
   <div class="flex items-center gap-2">
     <button
       type="button"
-      class="grid size-11 place-items-center rounded-xl border border-foreground/15 text-xl text-foreground lg:hidden"
+      class="grid size-11 place-items-center rounded-md border border-surface-0-foreground/15 text-xl text-surface-0-foreground lg:hidden"
       (click)="menuOpen.set(!menuOpen())"
       aria-controls="site-menu"
       [attr.aria-expanded]="menuOpen()"
@@ -21,8 +21,8 @@
         @if (item.children) {
           <button
             type="button"
-            class="flex items-center gap-1 border-b-2 border-b-transparent text-foreground transition hover:text-foreground-emphasis"
-            [class.!text-foreground-emphasis]="isGroupActive(item)"
+            class="flex items-center gap-1 border-b-2 border-b-transparent text-surface-0-foreground transition hover:text-accent-ink"
+            [class.!text-accent-ink]="isGroupActive(item)"
             [attr.aria-expanded]="openGroup() === item.label"
             [attr.aria-controls]="'menu-' + $index"
             (click)="toggleGroup(item.label)"
@@ -33,51 +33,57 @@
           @if (openGroup() === item.label) {
             <div
               [id]="'menu-' + $index"
-              class="absolute left-1/2 top-full z-50 mt-4 -translate-x-1/2 rounded-2xl bg-surface p-2 text-sm shadow-xl shadow-foreground/10 ring-1 ring-foreground/10"
+              class="absolute left-1/2 top-full z-50 mt-4 -translate-x-1/2 rounded-lg bg-surface-1 p-2 text-sm shadow-lg shadow-surface-0-foreground/10 ring-1 ring-surface-0-foreground/10"
               [class]="hasGroups(item) ? 'grid w-[30rem] grid-cols-2 gap-1' : 'flex w-64 flex-col'"
             >
               @for (child of item.children; track child.label) {
                 @if (child.children) {
                   <div class="flex flex-col gap-0.5 p-1">
-                    <ng-container *ngTemplateOutlet="link; context: { $implicit: child, classes: 'block rounded-lg px-3 py-2 font-semibold text-foreground hover:bg-foreground/5' }" />
+                    <ng-container *ngTemplateOutlet="link; context: { $implicit: child, classes: 'block rounded-sm px-3 py-2 font-semibold text-surface-0-foreground hover:bg-surface-0-foreground/5' }" />
                     @for (leaf of child.children; track leaf.label) {
-                      <ng-container *ngTemplateOutlet="link; context: { $implicit: leaf, classes: 'block rounded-lg px-3 py-1.5 text-foreground-light hover:bg-foreground/5 hover:text-foreground' }" />
+                      <ng-container *ngTemplateOutlet="link; context: { $implicit: leaf, classes: 'block rounded-sm px-3 py-1.5 text-muted-foreground hover:bg-surface-0-foreground/5 hover:text-surface-0-foreground' }" />
                     }
                   </div>
                 } @else {
-                  <ng-container *ngTemplateOutlet="link; context: { $implicit: child, classes: 'block rounded-lg px-3 py-2 text-foreground hover:bg-foreground/5' }" />
+                  <ng-container *ngTemplateOutlet="link; context: { $implicit: child, classes: 'block rounded-sm px-3 py-2 text-surface-0-foreground hover:bg-surface-0-foreground/5' }" />
                 }
               }
             </div>
           }
         } @else {
-          <ng-container *ngTemplateOutlet="link; context: { $implicit: item, classes: 'border-b-2 border-b-transparent text-foreground transition hover:text-foreground-emphasis' }" />
+          <ng-container *ngTemplateOutlet="link; context: { $implicit: item, classes: 'border-b-2 border-b-transparent text-surface-0-foreground transition hover:text-accent-ink' }" />
         }
       </li>
     }
   </ul>
 
-  <a myButton="cta" class="shrink-0" [href]="whatsappLink" target="_blank" rel="noopener">
+  <div class="flex shrink-0 items-center gap-3">
+  <div class="hidden items-center gap-2 md:flex">
+    <app-scheme-toggle />
+    <app-language-toggle />
+  </div>
+  <a bcs-button class="shrink-0" [href]="whatsappLink" target="_blank" rel="noopener">
     <span class="hidden sm:inline">{{ "home.estimateBudget" | translate }}</span>
     <span class="flex sm:hidden"><ng-icon name="tablerBrandWhatsapp" /></span>
     <span class="hidden sm:flex"><ng-icon name="tablerArrowRight" /></span>
   </a>
+  </div>
 
   @if (menuOpen()) {
-    <ul id="site-menu" class="absolute inset-x-0 top-full flex max-h-[80dvh] flex-col gap-1 overflow-y-auto rounded-b-2xl bg-surface p-3 shadow-lg lg:hidden">
+    <ul id="site-menu" class="absolute inset-x-0 top-full flex max-h-[80dvh] flex-col gap-1 overflow-y-auto rounded-b-lg bg-surface-1 p-3 shadow-lg lg:hidden">
       @for (item of items(); track item.label + item.fragment) {
         <li>
           @if (item.children) {
-            <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-foreground-light">{{ item.label | translate }}</p>
+            <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{{ item.label | translate }}</p>
             <ul class="flex flex-col">
               @for (child of item.children; track child.label) {
                 <li>
-                  <ng-container *ngTemplateOutlet="link; context: { $implicit: child, classes: 'block rounded-lg px-4 py-2.5 text-foreground hover:bg-foreground/5' }" />
+                  <ng-container *ngTemplateOutlet="link; context: { $implicit: child, classes: 'block rounded-sm px-4 py-2.5 text-surface-0-foreground hover:bg-surface-0-foreground/5' }" />
                   @if (child.children) {
-                    <ul class="ml-4 flex flex-col border-l border-foreground/10">
+                    <ul class="ml-4 flex flex-col border-l border-surface-0-foreground/10">
                       @for (leaf of child.children; track leaf.label) {
                         <li>
-                          <ng-container *ngTemplateOutlet="link; context: { $implicit: leaf, classes: 'block rounded-lg px-4 py-2 text-sm text-foreground-light hover:bg-foreground/5' }" />
+                          <ng-container *ngTemplateOutlet="link; context: { $implicit: leaf, classes: 'block rounded-sm px-4 py-2 text-sm text-muted-foreground hover:bg-surface-0-foreground/5' }" />
                         </li>
                       }
                     </ul>
@@ -86,10 +92,14 @@
               }
             </ul>
           } @else {
-            <ng-container *ngTemplateOutlet="link; context: { $implicit: item, classes: 'block rounded-lg px-4 py-3 text-foreground hover:bg-foreground/5' }" />
+            <ng-container *ngTemplateOutlet="link; context: { $implicit: item, classes: 'block rounded-sm px-4 py-3 text-surface-0-foreground hover:bg-surface-0-foreground/5' }" />
           }
         </li>
       }
+      <li class="flex items-center gap-3 px-4 pb-2 pt-4 md:hidden">
+        <app-scheme-toggle />
+        <app-language-toggle />
+      </li>
     </ul>
   }
 </nav>
@@ -99,7 +109,7 @@
     <a
       [routerLink]="item.path | langLink"
       [fragment]="item.fragment"
-      routerLinkActive="!text-foreground-emphasis !border-b-foreground-emphasis"
+      routerLinkActive="!text-accent-ink !border-b-accent"
       [routerLinkActiveOptions]="activeOptions(item)"
       ariaCurrentWhenActive="page"
       [class]="classes"

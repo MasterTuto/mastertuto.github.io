@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -12,7 +12,8 @@ import {
   tablerRoute,
 } from '@ng-icons/tabler-icons';
 
-import { sections, serviceLinks } from 'src/app/data/sections.data';
+import { sections } from 'src/app/data/sections.data';
+import { services } from 'src/app/data/services.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslationInitializer } from 'src/app/service/translation.initializer';
 import { createWhatsAppLink } from 'src/app/utils/html';
@@ -32,6 +33,7 @@ import { createWhatsAppLink } from 'src/app/utils/html';
       tablerRoute,
     }),
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgIconComponent, RouterLink, TranslatePipe],
 })
 export class FooterComponent {
@@ -39,7 +41,7 @@ export class FooterComponent {
 
   currentYear = new Date().getFullYear();
   navItems = sections;
-  serviceItems = serviceLinks;
+  serviceItems = services;
   whatsappLink = createWhatsAppLink();
 
   get lang(): string | null {

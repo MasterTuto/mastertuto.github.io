@@ -1,9 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+// Global styles. Order matters: tokens → Tailwind base → design-system components and context rules →
+// page themes → legacy page styles → Tailwind utilities (utilities always win).
+@use 'sass:meta';
+@use 'app/@bcs/styles/tokens/color';
+@use 'app/@bcs/styles/tokens/type';
+@use 'app/@bcs/styles/tokens/space';
+
+:root {
+  @include color.theme(color.$site);
+  @include type.tokens;
+  @include space.tokens;
+}
+
+// Dark mode applies to the site theme only; pages with their own palette (data-theme) keep it.
+html[data-scheme='dark']:not([data-theme]) {
+  @include color.theme(color.$site-dark);
+}
+
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
-@import "styles/pro-tools";
+@include meta.load-css('app/@bcs/styles/bcs');
+@include meta.load-css('styles/themes');
+@include meta.load-css('styles/pro-tools');
+
+/* Brand colors of client projects (case pages, project cards), lifted for contrast in dark mode. */
+[data-case-accent] { color: var(--case-accent); }
+html[data-scheme='dark']:not([data-theme]) [data-case-accent] { color: color-mix(in oklab, var(--case-accent) 45%, white); }
+
+@tailwind utilities;
 
 * {
     margin: 0;
@@ -11,7 +35,7 @@
 }
 
 body {
-  @apply bg-background;
+  @apply bg-surface-0;
   padding: 64px 32px 0px;
   box-sizing: border-box;
 }
@@ -88,26 +112,56 @@ body {
 /* Shared games and tools pages; game boards keep their own playable max-width. */
 .catalog-page, .game-page, .dev-tool { width: 100%; min-width: 0; margin-inline: auto; max-width: 1200px; }
 .catalog-page-header { margin-bottom: 2rem; }
-.catalog-page-header h1 { @apply text-foreground; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 650; line-height: 1.2; letter-spacing: -.025em; text-wrap: balance; }
-.catalog-page-header > p:not(.catalog-eyebrow) { @apply text-foreground-light; max-width: 70ch; margin-top: .85rem; line-height: 1.75; }
-.catalog-eyebrow { @apply text-foreground-emphasis; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; }
+.catalog-page-header h1 { @apply text-surface-0-foreground; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 650; line-height: 1.2; letter-spacing: -.025em; text-wrap: balance; }
+.catalog-page-header > p:not(.catalog-eyebrow) { @apply text-muted-foreground; max-width: 70ch; margin-top: .85rem; line-height: 1.75; }
+.catalog-eyebrow { @apply text-accent; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; }
 .catalog-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
-.catalog-card { @apply bg-surface text-foreground shadow-sm; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; padding: 1.25rem; border-radius: 1rem; transition: transform .15s, box-shadow .15s; }
+.catalog-card { @apply bg-surface-1 text-surface-0-foreground shadow-sm; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; padding: 1.25rem; border-radius: 1rem; transition: transform .15s, box-shadow .15s; }
 .catalog-card:hover { @apply shadow-md; transform: translateY(-2px); }
-.catalog-card:focus-visible, .catalog-info a:focus-visible { @apply outline-foreground-emphasis; outline-width: 2px; outline-style: solid; outline-offset: 4px; }
-.catalog-card-icon { @apply bg-surface-decoration text-surface-decoration-foreground; display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: .65rem; font-size: 1.4rem; }
+/* Cards and guide blocks enter with the same scroll-driven animation as [bcs-reveal]. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .catalog-card, .game-guide > section, .game-guide > h2 { animation: bcs-reveal-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+  }
+}
+.catalog-card:focus-visible, .catalog-info a:focus-visible { @apply outline-accent; outline-width: 2px; outline-style: solid; outline-offset: 4px; }
+.catalog-card-icon { @apply bg-accent-50 text-accent-700; display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: .65rem; font-size: 1.4rem; }
 .catalog-card h2, .catalog-empty h2 { font-size: 1.05rem; font-weight: 650; }
-.catalog-card p, .catalog-info p, .catalog-empty p { @apply text-foreground-light; font-size: .875rem; line-height: 1.7; }
-.catalog-card-action { @apply text-foreground-emphasis; display: inline-flex; gap: .75rem; align-items: center; margin-top: auto; padding-top: .5rem; font-size: .875rem; font-weight: 600; }
-.catalog-info { @apply border-foreground/10; border-top-width: 1px; margin-top: 2rem; padding-top: 1.5rem; max-width: 80ch; }
+.catalog-card p, .catalog-info p, .catalog-empty p { @apply text-muted-foreground; font-size: .875rem; line-height: 1.7; }
+.catalog-card-action { @apply text-accent; display: inline-flex; gap: .75rem; align-items: center; margin-top: auto; padding-top: .5rem; font-size: .875rem; font-weight: 600; }
+.catalog-info { @apply border-surface-0-foreground/10; border-top-width: 1px; margin-top: 2rem; padding-top: 1.5rem; max-width: 80ch; }
 .catalog-info h2 { margin-bottom: .75rem; font-size: 1.25rem; font-weight: 650; }
 .catalog-info a { margin-top: 1rem; }
-.catalog-empty { @apply border-foreground/20; display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-width: 1px; border-style: dashed; border-radius: 1rem; }
-.game-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: start; }
-.game-play { min-width: 0; width: 100%; max-width: 640px; margin-inline: auto; }
-.game-guide { min-width: 0; }
+.catalog-empty { @apply border-surface-0-foreground/20; display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-width: 1px; border-style: dashed; border-radius: 1rem; }
+/*
+ * Game pages. Phones: one column in reading order (controls → board → tools → guide).
+ * Desktop: controls and tools in a sidebar beside a smaller board; the guide always sits below.
+ */
+.game-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-xl); align-items: start; }
+.game-play { min-width: 0; width: 100%; max-width: 640px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.game-controls, .game-board, .game-dock { min-width: 0; }
+.game-board { margin-top: var(--gap-sm); }
+.game-guide { min-width: 0; width: 100%; max-width: var(--width-prose); margin-inline: auto; }
 .game-guide > :first-child { margin-top: 0; }
 .game-play button, .game-play select { min-height: 44px; }
-.game-play :is(button, select, summary, [role=gridcell], [tabindex]):focus-visible { @apply outline-foreground-emphasis; outline-width: 2px; outline-style: solid; outline-offset: 2px; }
-@media (min-width: 1200px) { .game-layout { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr); } }
+.game-play :is(button, select, summary, [role=gridcell], [tabindex]):focus-visible { outline: var(--focus-ring-width) solid rgb(var(--color-accent)); outline-offset: 2px; }
+@media (min-width: 1024px) {
+  .game-play {
+    max-width: none;
+    grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'controls board' 'dock board';
+    column-gap: var(--gap-xl);
+  }
+  .game-controls { grid-area: controls; }
+  .game-dock { grid-area: dock; align-self: start; }
+  .game-board {
+    grid-area: board;
+    margin-top: 0;
+    width: min(100%, var(--game-board-max, 30rem));
+    justify-self: center;
+  }
+  /* Sidebar controls stack instead of sharing a row. */
+  .game-controls > .grid:not(dl) { grid-template-columns: minmax(0, 1fr) auto; }
+}
 @media (max-width: 479px) { .catalog-empty { flex-direction: column; align-items: flex-start; } .catalog-card { padding: 1rem; } }

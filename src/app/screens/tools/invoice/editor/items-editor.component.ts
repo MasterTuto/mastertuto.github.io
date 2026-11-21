@@ -13,65 +13,7 @@ import { NumberInputDirective } from './number-input.directive';
   selector: 'app-items-editor',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NumberInputDirective],
-  template: `
-    <datalist id="inv-units">
-      @for (unit of units(); track unit) { <option [value]="unit"></option> }
-    </datalist>
-    <ol class="items">
-      @for (item of items(); track item.id; let i = $index, last = $last, first = $first) {
-        <li class="item">
-          <div class="item-top">
-            <span class="idx" aria-hidden="true">{{ i + 1 }}</span>
-            <div class="pro-field min-w-0 flex-1">
-              <label class="lbl" [for]="'item-desc-' + item.id">Descrição do item {{ i + 1 }}</label>
-              <input class="pro-input" [id]="'item-desc-' + item.id" [value]="item.description" (input)="set(item, 'description', $any($event.target).value)"
-                autocomplete="off" autocapitalize="sentences" placeholder="Ex.: Criação de site institucional" />
-            </div>
-            <div class="tools">
-              <button type="button" class="tool" [disabled]="first" (click)="move(item, -1)" [attr.aria-label]="'Mover item ' + (i + 1) + ' para cima'">↑</button>
-              <button type="button" class="tool" [disabled]="last" (click)="move(item, 1)" [attr.aria-label]="'Mover item ' + (i + 1) + ' para baixo'">↓</button>
-              <button type="button" class="tool del" (click)="store.removeItem(item.id)" [attr.aria-label]="'Remover item ' + (i + 1)">✕</button>
-            </div>
-          </div>
-          <div class="nums">
-            <div class="pro-field">
-              <label class="lbl" [for]="'item-qty-' + item.id">Qtd.</label>
-              <input class="pro-input" [id]="'item-qty-' + item.id" appNumber [decimals]="3" [fixed]="false" [blankZero]="false" [value]="item.qty" (valueChange)="set(item, 'qty', $event)" />
-            </div>
-            <div class="pro-field">
-              <label class="lbl" [for]="'item-unit-' + item.id">Unidade</label>
-              <input class="pro-input" [id]="'item-unit-' + item.id" list="inv-units" [value]="item.unit" (input)="set(item, 'unit', $any($event.target).value)" autocomplete="off" placeholder="h, un…" />
-            </div>
-            <div class="pro-field price">
-              <label class="lbl" [for]="'item-price-' + item.id">Preço unitário</label>
-              <div class="pro-input-wrap">
-                <span class="pre" aria-hidden="true">{{ symbol() }}</span>
-                <input class="pro-input" [id]="'item-price-' + item.id" [style.padding-left]="'calc(' + symbol().length + 'ch + 1.2rem)'" appNumber [decimals]="decimals()" [value]="item.price" (valueChange)="set(item, 'price', $event)" placeholder="0,00" />
-              </div>
-            </div>
-            <div class="pro-field">
-              <label class="lbl" [for]="'item-disc-' + item.id">Desconto</label>
-              <div class="pro-input-wrap disc">
-                <input class="pro-input" [id]="'item-disc-' + item.id" appNumber [decimals]="2" [fixed]="false" [max]="100" [value]="item.discount" (valueChange)="set(item, 'discount', $event)"
-                  (keydown.enter)="last && addAfter($event)" [attr.enterkeyhint]="last ? 'enter' : 'next'" placeholder="0" />
-                <span class="pro-suffix">%</span>
-              </div>
-            </div>
-            <p class="amount" aria-live="off"><span class="lbl">Valor</span><strong>{{ amounts()[i] }}</strong></p>
-          </div>
-        </li>
-      }
-    </ol>
-    <div class="mt-3 flex flex-wrap items-center gap-2">
-      <button type="button" class="pro-btn ghost" (click)="add()">+ Adicionar item</button>
-      <div class="pro-chips flex-1" role="group" aria-label="Itens prontos">
-        @for (preset of presets(); track preset.label) {
-          <button type="button" class="pro-chip" (click)="add(preset.item)">{{ preset.label }}</button>
-        }
-      </div>
-    </div>
-    <p class="pro-hint mt-2">Dica: Enter no desconto do último item cria uma nova linha.</p>
-  `,
+  templateUrl: './items-editor.component.html',
   styles: `
     .items { display: grid; }
     .item { padding: .9rem 0; border-top: 1px solid rgb(68 74 81 / .1); }

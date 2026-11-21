@@ -50,7 +50,7 @@
       </footer>
     </section>
   }
-  <button #trigger class="command-trigger" type="button" aria-label="Abrir comandos"
+  <button #trigger class="command-trigger" type="button" aria-keyshortcuts="Control+K"
           aria-haspopup="dialog" aria-controls="command-palette" [attr.aria-expanded]="isOpen()"
           (click)="isOpen() ? close() : open()">
     <span aria-hidden="true">⌘</span> Comandos <kbd>Ctrl + K</kbd>

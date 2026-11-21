@@ -1,0 +1,10 @@
+<div class="landing-hero__head">
+  <h1 bcs-text="h1">{{ title() }}</h1>
+  <p bcs-text="lead" tone="muted" class="landing-hero__subtitle">{{ subtitle() }}</p>
+  <div class="landing-hero__actions"><ng-content select="[hero-action]" /></div>
+</div>
+<div class="landing-hero__void">
+  @if (note()) {
+    <p bcs-text="small" tone="muted" class="landing-hero__note">{{ note() }}</p>
+  }
+</div>

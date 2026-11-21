@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Elegante: centered serif letterhead, double rules, small caps and a quiet frame. */
 @Component({
@@ -9,40 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <div class="e-frame">
-      <header class="e-head">
-        <inv-logo [doc]="doc()" />
-        <p class="e-brand">{{ doc().emitter.name || '—' }}</p>
-        <p class="e-lines">
-          @for (line of doc().emitter.lines; track $index) {
-            <span>{{ line }}</span>
-          }
-          @if (doc().emitter.taxId) {
-            <span>{{ doc().emitter.taxId }}</span>
-          }
-          @if (doc().emitter.email) {
-            <span>{{ doc().emitter.email }}</span>
-          }
-          @if (doc().emitter.phone) {
-            <span>{{ doc().emitter.phone }}</span>
-          }
-        </p>
-      </header>
-      <h1>{{ doc().title }}</h1>
-      <div class="e-info">
-        <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-        <inv-meta [doc]="doc()" />
-      </div>
-      <inv-items [doc]="doc()" />
-      <div class="e-totals"><inv-totals [doc]="doc()" /></div>
-      <div class="e-foot">
-        <inv-pay [doc]="doc()" />
-        <inv-notes [doc]="doc()" />
-      </div>
-      <p class="e-thanks">{{ doc().t.thanks }}</p>
-    </div>
-  `,
+  templateUrl: './tpl-elegant.component.html',
   styles: `
     inv-tpl-elegant { display: block; min-height: 1123px; padding: 36px; font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, 'Times New Roman', serif; color: #2b2b2b; }
     .tpl-elegant .e-frame { display: flex; flex-direction: column; min-height: 1051px; padding: 44px 48px 36px; border: 1px solid var(--brand); outline: 1px solid var(--brand-soft); outline-offset: -7px; }

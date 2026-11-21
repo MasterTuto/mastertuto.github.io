@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Clássico: letterhead on the left, title and details on the right, ruled table, total in a brand band. */
 @Component({
@@ -9,28 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <header class="c-head">
-      <div class="c-from">
-        <inv-logo [doc]="doc()" />
-        <inv-party [party]="doc().emitter" />
-      </div>
-      <div class="c-title">
-        <h1>{{ doc().title }}</h1>
-        <inv-meta [doc]="doc()" />
-      </div>
-    </header>
-    <section class="c-to">
-      <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-    </section>
-    <inv-items [doc]="doc()" />
-    <div class="c-sum">
-      <inv-notes [doc]="doc()" />
-      <inv-totals [doc]="doc()" />
-    </div>
-    <inv-pay [doc]="doc()" />
-    <footer class="c-foot">{{ doc().t.thanks }}</footer>
-  `,
+  templateUrl: './tpl-classic.component.html',
   styles: `
     inv-tpl-classic { display: flex; flex-direction: column; min-height: 1123px; padding: 56px 60px 40px; }
     .tpl-classic .c-head { display: flex; justify-content: space-between; gap: 32px; padding-bottom: 24px; border-bottom: 3px solid var(--brand); }

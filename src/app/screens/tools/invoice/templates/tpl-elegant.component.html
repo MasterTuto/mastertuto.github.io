@@ -1,0 +1,32 @@
+<div class="e-frame">
+  <header class="e-head">
+    <inv-logo [doc]="doc()" />
+    <p class="e-brand">{{ doc().emitter.name || '—' }}</p>
+    <p class="e-lines">
+      @for (line of doc().emitter.lines; track $index) {
+        <span>{{ line }}</span>
+      }
+      @if (doc().emitter.taxId) {
+        <span>{{ doc().emitter.taxId }}</span>
+      }
+      @if (doc().emitter.email) {
+        <span>{{ doc().emitter.email }}</span>
+      }
+      @if (doc().emitter.phone) {
+        <span>{{ doc().emitter.phone }}</span>
+      }
+    </p>
+  </header>
+  <h1>{{ doc().title }}</h1>
+  <div class="e-info">
+    <inv-party [party]="doc().client" [label]="doc().t.billTo" />
+    <inv-meta [doc]="doc()" />
+  </div>
+  <inv-items [doc]="doc()" />
+  <div class="e-totals"><inv-totals [doc]="doc()" /></div>
+  <div class="e-foot">
+    <inv-pay [doc]="doc()" />
+    <inv-notes [doc]="doc()" />
+  </div>
+  <p class="e-thanks">{{ doc().t.thanks }}</p>
+</div>

@@ -1,0 +1,13 @@
+<label class="bcs-field__label" [attr.for]="id">
+  {{ label() }}
+  @if (required()) {
+    <span class="bcs-field__required" aria-hidden="true">*</span>
+  }
+</label>
+<ng-content />
+@if (hint() && !error()) {
+  <p class="bcs-field__hint" [id]="id + '-hint'">{{ hint() }}</p>
+}
+@if (error()) {
+  <p class="bcs-field__error" [id]="id + '-error'" aria-live="polite">{{ error() }}</p>
+}

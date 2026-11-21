@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Recibo: a centered paper ticket with torn edges, stacked items, a big total and the PIX QR code. */
 @Component({
@@ -9,22 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <div class="q-ticket">
-      <header class="q-head">
-        <inv-logo [doc]="doc()" [monogram]="true" />
-        <inv-party [party]="doc().emitter" />
-      </header>
-      <h1>{{ doc().title }} · {{ doc().number }}</h1>
-      <inv-meta [doc]="doc()" />
-      <inv-party [party]="doc().client" [label]="doc().t.billTo" />
-      <inv-items [doc]="doc()" [stack]="true" />
-      <inv-totals [doc]="doc()" />
-      <inv-pay [doc]="doc()" />
-      <inv-notes [doc]="doc()" />
-      <p class="q-thanks">{{ doc().t.thanks }}</p>
-    </div>
-  `,
+  templateUrl: './tpl-receipt.component.html',
   styles: `
     inv-tpl-receipt { display: flex; justify-content: center; min-height: 1123px; padding: 48px 0; background: var(--brand-tint); }
     .tpl-receipt .q-ticket { position: relative; display: flex; flex-direction: column; gap: 16px; width: 460px; padding: 40px 36px; background: #fff; box-shadow: 0 1px 0 #e5e7eb; }

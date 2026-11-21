@@ -1,0 +1,14 @@
+<div class='h-full w-full flex flex-col bg-surface-1'>
+  <div class='flex flex-row items-center gap-3 border-b border-surface-0-foreground/15 p-3'>
+    <p class='text-lg font-semibold text-surface-0-foreground flex-1'>{{title()}}</p>
+
+    <button class='grid min-h-11 min-w-11 place-items-center rounded-sm' aria-label="Fechar" (click)="close()">
+      <ng-icon name='tablerX' class='text-primary' />
+    </button>
+  </div>
+  @if (url()) {
+    <iframe class="min-h-0 w-full flex-1 border-0" [title]="title()" [src]='url()' frameborder="0" allowfullscreen sandbox="allow-same-origin allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
+  } @else if (html()) {
+    <iframe class="min-h-0 w-full flex-1 border-0" [title]="title()" [srcdoc]='html()' frameborder="0" allowfullscreen sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"></iframe>
+  }
+</div>

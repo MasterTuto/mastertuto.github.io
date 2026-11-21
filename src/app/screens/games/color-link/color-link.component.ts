@@ -30,6 +30,7 @@ import type { ColorLinkPaths, ColorLinkPuzzle, Stroke } from 'src/app/utils/colo
 import { useGameSeo } from '../game-seo';
 import { GameShareButtonComponent } from '../shared/game-share-button.component';
 import { GameTimer } from '../shared/game-timer';
+import { useWinConfetti } from '../shared/win-confetti';
 
 /**
  * Colors chosen to stay apart for the common color-vision deficiencies (Okabe–Ito first, then Tol's
@@ -195,6 +196,7 @@ export class ColorLinkComponent {
   private pulseId = 0;
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo('color-link', 'colorLink.seo', () => [this.faqJsonLd()]);
     afterNextRender(() => {
       if (isPlatformBrowser(this.platformId)) this.load();

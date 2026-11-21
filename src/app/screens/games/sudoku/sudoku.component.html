@@ -5,6 +5,7 @@
   </header>
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Grid size + difficulty -->
       <div class="mb-2 flex items-center gap-2">
         <div class="pro-segmented flex-1" role="group" [attr.aria-label]="'sudoku.size' | translate">
@@ -15,7 +16,7 @@
         <button
           type="button"
           (click)="newGame()"
-          class="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5"
+          class="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-md px-3 text-sm font-semibold text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5"
         >
           <ng-icon name="tablerRefresh" aria-hidden="true" />
           {{ "games.newGame" | translate }}
@@ -30,32 +31,34 @@
       </div>
 
       <!-- Stats row -->
-      <dl class="grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
+      <dl class="grid grid-cols-3 divide-x divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 py-2 text-center">
         <div>
-          <dt class="text-xs text-foreground-light">{{ "games.time" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ timer.label() }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "games.time" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ timer.label() }}</dd>
         </div>
         <div>
-          <dt class="text-xs text-foreground-light">{{ "sudoku.mistakes" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums" [class]="mistakes() ? 'text-red-600' : 'text-foreground'">{{ mistakes() }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "sudoku.mistakes" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums" [class]="mistakes() ? 'text-error-600' : 'text-surface-0-foreground'">{{ mistakes() }}</dd>
         </div>
         <div>
-          <dt class="text-xs text-foreground-light">{{ "sudoku.hints-left" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ hintsRemaining() }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "sudoku.hints-left" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ hintsRemaining() }}</dd>
         </div>
       </dl>
       <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 sm:text-sm" aria-live="polite">
         @if (won()) {
-          <span class="text-foreground-light">{{ "games.time" | translate }} {{ timer.label() }}</span>
+          <span class="text-muted-foreground">{{ "games.time" | translate }} {{ timer.label() }}</span>
         } @else if (notice(); as msg) {
-          <span class="font-medium text-amber-700">{{ msg }}</span>
+          <span class="font-medium text-tertiary-700">{{ msg }}</span>
         } @else if (notesMode()) {
-          <span class="font-medium text-foreground-emphasis">{{ "sudoku.notes-on" | translate }}</span>
+          <span class="font-medium text-accent">{{ "sudoku.notes-on" | translate }}</span>
         } @else if (!started()) {
-          <span class="text-foreground-light">{{ "games.timerHint" | translate }}</span>
+          <span class="text-muted-foreground">{{ "games.timerHint" | translate }}</span>
         }
       </p>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
       @if (board().length > 0) {
         <div
@@ -65,26 +68,32 @@
           [attr.aria-label]="'sudoku.board-label' | translate"
           (keydown)="onKeydown($event)"
           (click)="boardEl.focus({ preventScroll: true })"
-          class="mx-auto grid w-full max-w-[520px] select-none overflow-hidden rounded-xl bg-surface shadow-sm outline-none ring-1 ring-foreground-emphasis/30 [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]"
+          class="mx-auto grid w-full max-w-[520px] select-none overflow-hidden rounded-md bg-surface-1 shadow-sm outline-none ring-1 ring-accent/30 [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]"
           [style.grid-template-columns]="'repeat(' + gridSize() + ', minmax(0, 1fr))'"
         >
-          @for (cell of board(); track $index; let i = $index) {
-            <div
-              role="gridcell"
-              (click)="select(i)"
-              [class]="cellClass(i)"
-              [attr.aria-label]="cellLabel(cell)"
-              [attr.aria-selected]="isSelected(i)"
-            >
-              @if (cell.value !== 0) {
-                <span [class]="valueSizeClass()">{{ cell.value }}</span>
-              } @else if (cell.notes.length > 0) {
-                <div class="grid h-full w-full place-content-stretch gap-0 p-0.5" [class]="noteGridClass()">
-                  @for (n of digits; track n) {
-                    <span
-                      class="grid place-items-center"
-                      [class]="noteTextClass() + ' ' + (cell.notes.includes(n) ? 'text-sky-700' : 'opacity-0')"
-                    >{{ n }}</span>
+          @for (r of lines(); track r) {
+            <div role="row" class="contents">
+              @for (c of lines(); track c) {
+                @let i = r * gridSize() + c;
+                @let cell = board()[i];
+                <div
+                  role="gridcell"
+                  (click)="select(i)"
+                  [class]="cellClass(i)"
+                  [attr.aria-label]="cellLabel(cell)"
+                  [attr.aria-selected]="isSelected(i)"
+                >
+                  @if (cell.value !== 0) {
+                    <span [class]="valueSizeClass()">{{ cell.value }}</span>
+                  } @else if (cell.notes.length > 0) {
+                    <div class="grid h-full w-full place-content-stretch gap-0 p-0.5" [class]="noteGridClass()">
+                      @for (n of digits; track n) {
+                        <span
+                          class="grid place-items-center"
+                          [class]="noteTextClass() + ' ' + (cell.notes.includes(n) ? 'text-accent-700' : 'opacity-0')"
+                        >{{ n }}</span>
+                      }
+                    </div>
                   }
                 </div>
               }
@@ -92,30 +101,32 @@
           }
         </div>
       } @else {
-        <div class="mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center rounded-xl bg-foreground/5">
-          <div class="text-center text-foreground-light">
-            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-foreground/10 border-t-foreground-emphasis motion-reduce:animate-none"></div>
+        <div class="mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center rounded-md bg-surface-0-foreground/5">
+          <div class="text-center text-muted-foreground">
+            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-surface-0-foreground/10 border-t-accent motion-reduce:animate-none"></div>
             <span class="text-sm">{{ "sudoku.loading" | translate }}</span>
           </div>
         </div>
       }
 
+      </div>
+      <div class="game-dock">
       <!-- Tools + number pad, or the result once solved (same place: the board never moves) -->
       <div class="mx-auto mt-3 max-w-[520px]">
         @if (won()) {
-          <div #winEl class="flex flex-col items-center gap-3 border-t border-green-600/30 pt-4 text-center wl-win">
-            <p class="text-lg font-semibold text-green-700"><span aria-hidden="true">🎉 </span>{{ "sudoku.congratulations" | translate }}</p>
-            <p class="text-sm text-foreground-light">
-              {{ "games.time" | translate }} <strong class="tabular-nums text-foreground">{{ timer.label() }}</strong>
-              · {{ "sudoku.mistakes" | translate }} <strong class="tabular-nums text-foreground">{{ mistakes() }}</strong>
-              · {{ "sudoku.hints-used" | translate }} <strong class="tabular-nums text-foreground">{{ 3 - hintsRemaining() }}</strong>
+          <div #winEl class="flex flex-col items-center gap-3 border-t border-success-600/30 pt-4 text-center wl-win">
+            <p class="text-lg font-semibold text-success-700"><span aria-hidden="true">🎉 </span>{{ "sudoku.congratulations" | translate }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ "games.time" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ timer.label() }}</strong>
+              · {{ "sudoku.mistakes" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ mistakes() }}</strong>
+              · {{ "sudoku.hints-used" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ 3 - hintsRemaining() }}</strong>
             </p>
             <div class="flex flex-wrap items-center justify-center gap-2">
               <app-game-share-button [text]="shareText()" />
               <button
                 type="button"
                 (click)="newGame()"
-                class="inline-flex min-h-[44px] items-center gap-2 rounded-xl px-4 text-sm font-semibold text-foreground ring-1 ring-foreground/15 transition-colors hover:bg-foreground/5"
+                class="inline-flex min-h-[44px] items-center gap-2 rounded-md px-4 text-sm font-semibold text-surface-0-foreground ring-1 ring-surface-0-foreground/15 transition-colors hover:bg-surface-0-foreground/5"
               >
                 <ng-icon name="tablerArrowsShuffle" aria-hidden="true" />
                 {{ "games.newGame" | translate }}
@@ -128,8 +139,8 @@
               type="button"
               (click)="notesMode.update(v => !v)"
               [attr.aria-pressed]="notesMode()"
-              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium transition-colors"
-              [class]="notesMode() ? 'bg-foreground-emphasis/15 text-foreground-emphasis' : 'text-foreground hover:bg-foreground/5'"
+              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium transition-colors"
+              [class]="notesMode() ? 'bg-accent/15 text-accent' : 'text-surface-0-foreground hover:bg-surface-0-foreground/5'"
             >
               <ng-icon name="tablerPencil" size="20" aria-hidden="true" />
               {{ "sudoku.notes" | translate }}
@@ -138,7 +149,7 @@
               type="button"
               (click)="undo()"
               [disabled]="!canUndo()"
-              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-foreground transition-colors hover:bg-foreground/5 disabled:opacity-40"
+              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5 disabled:opacity-40"
             >
               <ng-icon name="tablerArrowBackUp" size="20" aria-hidden="true" />
               {{ "sudoku.undo" | translate }}
@@ -147,7 +158,7 @@
               type="button"
               (click)="useHint()"
               [disabled]="hintsRemaining() <= 0"
-              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-amber-700 transition-colors hover:bg-amber-500/10 disabled:opacity-40"
+              class="flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium text-tertiary-700 transition-colors hover:bg-tertiary-500/10 disabled:opacity-40"
             >
               <ng-icon name="tablerBulb" size="20" aria-hidden="true" />
               {{ "sudoku.hint" | translate }} ({{ hintsRemaining() }})
@@ -164,45 +175,48 @@
                 type="button"
                 (click)="press(n)"
                 [disabled]="digitCounts()[n] >= gridSize()"
-                [attr.aria-label]="(notesMode() ? ('sudoku.notes' | translate) + ' ' : '') + n"
-                class="relative flex min-h-[52px] items-center justify-center rounded-xl text-2xl font-semibold tabular-nums transition-colors disabled:opacity-25"
-                [class]="notesMode() ? 'bg-foreground-emphasis/10 text-foreground-emphasis hover:bg-foreground-emphasis/20' : 'bg-foreground/5 text-foreground hover:bg-foreground/10 active:bg-foreground/15'"
+                class="relative flex min-h-[52px] items-center justify-center rounded-md text-2xl font-semibold tabular-nums transition-colors disabled:opacity-25"
+                [class]="notesMode() ? 'bg-accent/10 text-accent hover:bg-accent/20' : 'bg-surface-0-foreground/5 text-surface-0-foreground hover:bg-surface-0-foreground/10 active:bg-surface-0-foreground/15'"
               >
+                @if (notesMode()) {
+                  <span class="sr-only">{{ 'sudoku.notes' | translate }}</span>
+                }
                 {{ n }}
-                <span aria-hidden="true" class="absolute bottom-0.5 right-1.5 text-[0.6rem] font-medium text-foreground-light">{{ gridSize() - digitCounts()[n] }}</span>
+                <span class="absolute bottom-0.5 right-1.5 text-2xs font-medium text-muted-foreground">{{ gridSize() - digitCounts()[n] }}</span>
               </button>
             }
             <button
               type="button"
               (click)="clearCell()"
               [attr.aria-label]="'sudoku.eraser' | translate"
-              class="flex min-h-[52px] items-center justify-center rounded-xl bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10 active:bg-foreground/15"
+              class="flex min-h-[52px] items-center justify-center rounded-md bg-surface-0-foreground/5 text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/10 active:bg-surface-0-foreground/15"
             >
               <ng-icon name="tablerBackspace" size="22" aria-hidden="true" />
             </button>
           </div>
-          <p class="mt-3 hidden text-center text-xs text-foreground-light sm:block">{{ "sudoku.keyboard-hint" | translate }}</p>
+          <p class="mt-3 hidden text-center text-xs text-muted-foreground sm:block">{{ "sudoku.keyboard-hint" | translate }}</p>
         }
       </div>
+      </div>
     </div>
-    <div class="game-guide text-foreground">
+    <div class="game-guide text-surface-0-foreground">
       <h2 class="text-lg font-bold sm:text-xl">{{ "sudoku.how-to-play" | translate }}</h2>
-      <ol class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+      <ol class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 text-sm leading-relaxed sm:text-base">
         @for (n of [1, 2, 3]; track n) {
           <li class="flex gap-3 py-2.5">
-            <span class="w-5 shrink-0 font-semibold tabular-nums text-foreground-emphasis">{{ n }}</span>
+            <span class="w-5 shrink-0 font-semibold tabular-nums text-accent">{{ n }}</span>
             <span>{{ "sudoku.rule-" + n | translate }}</span>
           </li>
         }
       </ol>
-      <div class="mt-4 space-y-1.5 text-sm leading-relaxed text-foreground-light">
+      <div class="mt-4 space-y-1.5 text-sm leading-relaxed text-muted-foreground">
         <p>{{ "sudoku.tip-1" | translate }}</p>
         <p>{{ "sudoku.tip-2" | translate }}</p>
         <p>{{ "sudoku.tip-3" | translate }}</p>
       </div>
 
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "sudoku.strategy-title" | translate }}</h2>
-      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <p>{{ "sudoku.strategy-p1" | translate }}</p>
         <p>{{ "sudoku.strategy-p2" | translate }}</p>
         <p>{{ "sudoku.strategy-p3" | translate }}</p>
@@ -210,20 +224,20 @@
       </div>
 
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "sudoku.faq-title" | translate }}</h2>
-      <div class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10">
+      <div class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10">
         @for (n of [1, 2, 3, 4, 5]; track n) {
           <details class="group">
             <summary class="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base [&::-webkit-details-marker]:hidden">
               {{ "sudoku.faq-q" + n | translate }}
-              <span aria-hidden="true" class="text-lg leading-none text-foreground-light transition-transform group-open:rotate-45">+</span>
+              <span aria-hidden="true" class="text-lg leading-none text-muted-foreground transition-transform group-open:rotate-45">+</span>
             </summary>
-            <p class="pb-4 text-sm leading-relaxed text-foreground-light">{{ "sudoku.faq-a" + n | translate }}</p>
+            <p class="pb-4 text-sm leading-relaxed text-muted-foreground">{{ "sudoku.faq-a" + n | translate }}</p>
           </details>
         }
       </div>
 
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "sudoku.seo-title" | translate }}</h2>
-      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <p>{{ "sudoku.seo-p1" | translate }}</p>
         <p>{{ "sudoku.seo-p2" | translate }}</p>
         <p>{{ "sudoku.seo-p3" | translate }}</p>

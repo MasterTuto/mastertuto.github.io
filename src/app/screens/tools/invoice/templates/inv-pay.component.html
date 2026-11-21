@@ -1,0 +1,28 @@
+@if (doc().payment.length || doc().pix) {
+  <div class="ipay" data-keep>
+    @if (title()) {
+      <p class="ipay-title">{{ doc().t.payment }}</p>
+    }
+    <div class="ipay-body">
+      @if (doc().payment.length) {
+        <dl class="ipay-rows">
+          @for (row of doc().payment; track row.label) {
+            <div class="ipay-row">
+              <dt>{{ row.label }}</dt>
+              <dd>{{ row.value }}</dd>
+            </div>
+          }
+        </dl>
+      }
+      @if (qr(); as qr) {
+        <figure class="ipay-qr">
+          <svg [attr.viewBox]="'0 0 ' + qr.size + ' ' + qr.size" shape-rendering="crispEdges" role="img" [attr.aria-label]="doc().t.pixQr">
+            <rect [attr.width]="qr.size" [attr.height]="qr.size" fill="#fff" />
+            <path [attr.d]="qr.path" fill="#111" />
+          </svg>
+          <figcaption>{{ doc().t.pixQr }}</figcaption>
+        </figure>
+      }
+    </div>
+  </div>
+}

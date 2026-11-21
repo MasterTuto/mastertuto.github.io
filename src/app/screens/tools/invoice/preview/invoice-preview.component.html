@@ -1,0 +1,8 @@
+<div #frame class="frame" [style.height.px]="measured() ? height() * scale() : null">
+  <div #paper id="inv-paper" class="paper" [style.transform]="'scale(' + scale() + ')'">
+    <app-invoice-document [doc]="doc()" />
+  </div>
+  @for (n of breaks(); track n) {
+    <div class="break" [style.top.px]="n * pageHeight * scale()" aria-hidden="true"><span>{{ n + 1 }}</span></div>
+  }
+</div>

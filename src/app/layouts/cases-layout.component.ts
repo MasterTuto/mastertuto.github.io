@@ -11,7 +11,7 @@ import { injectCurrentPath } from './current-url';
   selector: 'app-cases-layout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageShellComponent, RouterOutlet],
-  template: `<app-page-shell [crumbs]="crumbs()"><router-outlet /></app-page-shell>`,
+  templateUrl: './cases-layout.component.html',
 })
 export class CasesLayoutComponent {
   private path = injectCurrentPath();

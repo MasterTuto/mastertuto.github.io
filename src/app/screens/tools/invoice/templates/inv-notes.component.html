@@ -1,0 +1,12 @@
+@if (doc().notes) {
+  <div class="in" data-keep>
+    <p class="in-title">{{ doc().t.notes }}</p>
+    <p class="in-text">{{ doc().notes }}</p>
+  </div>
+}
+@if (doc().terms) {
+  <div class="in" data-keep>
+    <p class="in-title">{{ doc().t.terms }}</p>
+    <p class="in-text">{{ doc().terms }}</p>
+  </div>
+}

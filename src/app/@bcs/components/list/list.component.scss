@@ -1,0 +1,54 @@
+.bcs-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: bcs-list;
+
+  > li {
+    position: relative;
+    padding-inline-start: 1.85rem;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    counter-increment: bcs-list;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0.2em;
+      width: 1.2em;
+      height: 1.2em;
+      background: currentColor;
+      mask: var(--_icon) center / contain no-repeat;
+      color: rgb(var(--_marker));
+    }
+  }
+}
+
+.bcs-list[data-marker='check'] {
+  --_marker: var(--color-success-ink);
+  --_icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
+}
+.bcs-list[data-marker='cross'] {
+  --_marker: var(--color-error-ink);
+  --_icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6l-12 12M6 6l12 12'/%3E%3C/svg%3E");
+}
+.bcs-list[data-marker='dash'] {
+  --_marker: var(--color-muted-ink);
+  --_icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 12h12'/%3E%3C/svg%3E");
+}
+.bcs-list[data-marker='number'] .bcs-list__items > li::before {
+  content: counter(bcs-list, decimal-leading-zero);
+  mask: none;
+  background: none;
+  width: auto;
+  height: auto;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgb(var(--color-accent-ink));
+}

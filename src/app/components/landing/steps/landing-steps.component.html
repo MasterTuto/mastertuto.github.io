@@ -1,0 +1,11 @@
+<ol class="landing-steps__items">
+  @for (step of items(); track step.title; let index = $index) {
+    <li class="landing-steps__item">
+      <span class="landing-steps__index" aria-hidden="true">{{ index + 1 }}</span>
+      <div class="landing-steps__body">
+        <h3 bcs-text="h4">{{ step.title }}</h3>
+        <p bcs-text="small" tone="muted">{{ step.text }}</p>
+      </div>
+    </li>
+  }
+</ol>

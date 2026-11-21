@@ -4,15 +4,21 @@ import {
   provideAppInitializer,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
+import {
+  provideRouter,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 import { routes } from './app.routes';
 import {
   provideClientHydration,
   withEventReplay,
+  withNoIncrementalHydration,
 } from '@angular/platform-browser';
 import { TranslationInitializer } from './service/translation.initializer';
 import { provideNavigationVerbs } from './service/navigation.verbs';
 import { provideLanguageVerb } from './service/language.verbs';
+import { provideContactVerbs } from './service/contact.verbs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,9 +31,10 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       }),
     ),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     provideNavigationVerbs(),
     provideLanguageVerb(),
+    provideContactVerbs(),
     provideAppInitializer(() => {
       return inject(TranslationInitializer).init();
     }),

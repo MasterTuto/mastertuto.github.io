@@ -1,0 +1,18 @@
+@if (label()) {
+  <p class="ip-label">{{ label() }}</p>
+}
+<p class="ip-name">{{ party().name || placeholder() }}</p>
+@if (party().contact) {
+  <p class="ip-line">{{ party().contact }}</p>
+}
+@if (party().taxId) {
+  <p class="ip-line ip-tax">{{ party().taxId }}</p>
+}
+@for (line of party().lines; track $index) {
+  <p class="ip-line">{{ line }}</p>
+}
+@if (party().email || party().phone) {
+  <p class="ip-line ip-contact">
+    @if (party().email) {<span class="ip-nw">{{ party().email }}</span>}@if (party().email && party().phone) {<span class="ip-sep"> · </span>}@if (party().phone) {<span class="ip-nw">{{ party().phone }}</span>}
+  </p>
+}

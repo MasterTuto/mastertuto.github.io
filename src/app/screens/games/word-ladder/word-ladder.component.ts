@@ -40,6 +40,7 @@ import { TranslateService } from 'src/app/service/translate.service';
 import { useGameSeo } from '../game-seo';
 import { GameTimer } from '../shared/game-timer';
 import { GameShareButtonComponent } from '../shared/game-share-button.component';
+import { useWinConfetti } from '../shared/win-confetti';
 
 type GameMode = 'classic' | 'daily';
 type GameStatus = 'idle' | 'playing' | 'won';
@@ -203,6 +204,7 @@ export class WordLadderComponent {
   }
 
   constructor() {
+    useWinConfetti(() => this.status() === 'won');
     useGameSeo('word-ladder', 'wordLadder', () => this.faqJsonLd());
 
     afterNextRender(() => {

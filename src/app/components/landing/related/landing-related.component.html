@@ -1,0 +1,5 @@
+<nav [attr.aria-label]="heading()">
+  <h2 bcs-text="h3">{{ heading() }}</h2>
+  <app-landing-link-list [items]="items()" />
+  <a bcs-text="small" tone="muted" class="landing-related__all" [routerLink]="allPath()">{{ allLabel() }} →</a>
+</nav>

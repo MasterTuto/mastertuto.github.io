@@ -1,0 +1,12 @@
+<div class="it" data-keep>
+  @for (row of doc().totals; track row.label) {
+    <div class="it-row">
+      <span>{{ row.label }}</span>
+      <span class="it-value">{{ row.value }}</span>
+    </div>
+  }
+  <div class="it-row it-total">
+    <span>{{ totalLabel() || doc().t.total }}</span>
+    <span class="it-value">{{ doc().total }}</span>
+  </div>
+</div>

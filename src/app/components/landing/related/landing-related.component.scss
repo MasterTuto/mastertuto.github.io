@@ -1,0 +1,12 @@
+.landing-related nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.landing-related__all {
+  align-self: flex-start;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  &:hover { color: rgb(var(--color-accent-ink)); }
+}

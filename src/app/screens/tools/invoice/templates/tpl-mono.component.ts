@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, input } from '@angular/core';
 
 import type { DocView } from '../invoice.view';
-import { PARTS } from './parts';
+import { PARTS } from './invoice-parts';
 
 /** Tech: monospace, a terminal-style header, dashed rules and the brand as the syntax color. */
 @Component({
@@ -9,28 +9,7 @@ import { PARTS } from './parts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [PARTS],
-  template: `
-    <header class="t-term">
-      <div class="t-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-      <p class="t-cmd"><span class="t-prompt">$</span> {{ doc().title.toLowerCase() }} <span class="t-flag">--id</span> {{ doc().number || '—' }}</p>
-      <div class="t-row">
-        <h1>{{ doc().emitter.name || '—' }}</h1>
-        <inv-logo [doc]="doc()" />
-      </div>
-    </header>
-    <div class="t-grid">
-      <inv-party [party]="doc().emitter" [label]="'// ' + doc().t.from" />
-      <inv-party [party]="doc().client" [label]="'// ' + doc().t.billTo" />
-      <inv-meta [doc]="doc()" />
-    </div>
-    <inv-items [doc]="doc()" [numbered]="true" />
-    <div class="t-totals"><inv-totals [doc]="doc()" /></div>
-    <div class="t-foot">
-      <inv-pay [doc]="doc()" />
-      <inv-notes [doc]="doc()" />
-    </div>
-    <p class="t-eof">EOF · {{ doc().t.thanks }}</p>
-  `,
+  templateUrl: './tpl-mono.component.html',
   styles: `
     inv-tpl-mono { display: flex; flex-direction: column; gap: 26px; min-height: 1123px; padding: 44px 48px; font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace; font-size: 12px; color: #1e293b; }
     .tpl-mono .t-term { padding: 14px 22px 22px; border-radius: 10px; background: #0f172a; color: #e2e8f0; }

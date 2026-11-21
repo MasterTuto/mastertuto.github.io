@@ -9,7 +9,7 @@ import {
 } from '@ng-icons/tabler-icons';
 import { RouterLink } from '@angular/router';
 
-import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { BcsButtonComponent } from '@bcs/components/button/button.component';
 import { services } from 'src/app/data/services.data';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslationInitializer } from 'src/app/service/translation.initializer';
@@ -25,7 +25,7 @@ import { usePageSeo } from 'src/app/seo/page-seo';
     RouterLink,
     NgIconComponent,
     TranslatePipe,
-    ButtonComponent,
+    BcsButtonComponent,
   ],
   providers: [
     provideIcons({

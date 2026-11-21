@@ -1,0 +1,12 @@
+<ul role="list" class="landing-link-list__items">
+  @for (item of items(); track item.path) {
+    <li>
+      <a class="landing-link-list__link" [routerLink]="item.path">
+        <span class="landing-link-list__label">{{ item.label }}</span>
+        @if (item.description) {
+          <span class="landing-link-list__description">{{ item.description }}</span>
+        }
+      </a>
+    </li>
+  }
+</ul>

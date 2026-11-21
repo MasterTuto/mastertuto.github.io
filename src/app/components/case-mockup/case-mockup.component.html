@@ -1,0 +1,31 @@
+<div
+  aria-hidden="true"
+  class="pointer-events-none absolute -inset-10 -z-10"
+  [style.background]="'radial-gradient(closest-side, ' + project().accent + '1a, transparent)'"
+></div>
+<figure class="overflow-hidden rounded-md border border-surface-0-foreground/10 bg-surface-1 shadow-lg shadow-surface-0-foreground/10">
+  <div class="flex items-center gap-3 border-b border-surface-0-foreground/10 px-4 py-2.5">
+    <span class="flex gap-1.5" aria-hidden="true">
+      <span class="size-2.5 rounded-full bg-surface-0-foreground/15"></span>
+      <span class="size-2.5 rounded-full bg-surface-0-foreground/15"></span>
+      <span class="size-2.5 rounded-full bg-surface-0-foreground/15"></span>
+    </span>
+    <span class="truncate rounded-sm bg-surface-0 px-3 py-0.5 text-xs text-muted-foreground">{{ project().domain }}</span>
+  </div>
+  <img
+    [src]="project().desktop"
+    [alt]="project().name + ' — ' + ('cases.desktop' | translate)"
+    [attr.loading]="eager() ? null : 'lazy'"
+    width="1440"
+    height="900"
+    class="aspect-[16/10] w-full object-cover object-top"
+  >
+</figure>
+<img
+  [src]="project().mobile"
+  [alt]="project().name + ' — ' + ('cases.mobile' | translate)"
+  [attr.loading]="eager() ? null : 'lazy'"
+  width="390"
+  height="844"
+  class="absolute bottom-0 right-0 aspect-[390/700] w-[26%] rounded-lg border-4 border-primary object-cover object-top shadow-lg"
+>

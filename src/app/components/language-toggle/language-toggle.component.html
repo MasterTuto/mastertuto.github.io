@@ -1,0 +1,27 @@
+<bcs-toggle size="sm" label="Idioma / Language" [value]="value()" (valueChange)="change($event)">
+  <ng-template bcsToggleOption="pt" [label]="names.pt">
+    <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+      <g>
+        <rect width="28" height="28" fill="#009c3b" />
+        <path d="M14 4.5 25 14 14 23.5 3 14Z" fill="#ffdf00" />
+        <circle cx="14" cy="14" r="5.2" fill="#002776" />
+        <path d="M8.9 13.1c3.4-.6 6.9.1 10 1.9" stroke="#fff" stroke-width="1" fill="none" />
+      </g>
+    </svg>
+  </ng-template>
+  <ng-template bcsToggleOption="en" [label]="names.en">
+    <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+      <g>
+        <rect width="28" height="28" fill="#fff" />
+        <path d="M0 0h28v2.15H0zm0 4.3h28v2.15H0zm0 4.3h28v2.15H0zm0 4.3h28v2.15H0zm0 4.3h28v2.15H0zm0 4.3h28v2.15H0zm0 4.3h28V28H0z" fill="#b22234" />
+        <rect width="13" height="15.05" fill="#3c3b6e" />
+        <g fill="#fff">
+          <circle cx="3" cy="3" r=".9" /><circle cx="7" cy="3" r=".9" /><circle cx="11" cy="3" r=".9" />
+          <circle cx="5" cy="6.5" r=".9" /><circle cx="9" cy="6.5" r=".9" />
+          <circle cx="3" cy="10" r=".9" /><circle cx="7" cy="10" r=".9" /><circle cx="11" cy="10" r=".9" />
+          <circle cx="5" cy="13.2" r=".9" /><circle cx="9" cy="13.2" r=".9" />
+        </g>
+      </g>
+    </svg>
+  </ng-template>
+</bcs-toggle>

@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'app-portfolio-feed',
-    templateUrl: './portfolio-feed.component.html',
-    styleUrls: ['./portfolio-feed.component.scss'],
-    standalone: false
+  selector: 'app-portfolio-feed',
+  templateUrl: './portfolio-feed.component.html',
+  styleUrls: ['./portfolio-feed.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
-export class PortfolioFeedComponent {
-}
+export class PortfolioFeedComponent {}

@@ -5,6 +5,7 @@ import {
   inject,
   signal,
   viewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   Verb,
@@ -19,6 +20,7 @@ import { injectCurrentPath } from 'src/app/layouts/current-url';
   selector: 'app-command-pallete',
   templateUrl: './command-pallete.component.html',
   styleUrl: './command-pallete.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '(document:keydown)': 'onGlobalKeydown($event)',
     '(document:pointerdown)': 'onOutside($event)',
@@ -35,7 +37,9 @@ export class CommandPalleteComponent {
     viewChild<ElementRef<HTMLButtonElement>>('trigger');
   private readonly path = injectCurrentPath();
   /** A game or tool page: boards and keypads use the whole phone screen, so the floating trigger hides there. */
-  readonly onWorkspace = computed(() => /\/(games|tools)\/[^/]+/.test(this.path()));
+  readonly onWorkspace = computed(() =>
+    /\/(games|tools)\/[^/]+/.test(this.path()),
+  );
   readonly isOpen = signal(false);
   readonly query = signal('');
   readonly activeIndex = signal(0);

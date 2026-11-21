@@ -1,0 +1,17 @@
+// Sized by its own width (container query), so it works full-width or beside a price box.
+.landing-contact {
+  display: grid;
+  gap: var(--gap-lg);
+  align-items: start;
+  container-type: inline-size;
+}
+
+@container (min-width: 44rem) {
+  .landing-contact__intro + * { grid-column: 2; }
+}
+
+.landing-contact__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}

@@ -10,16 +10,7 @@ import { InvoiceDocumentComponent } from '../templates/invoice-document.componen
   selector: 'app-template-strip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InvoiceDocumentComponent],
-  template: `
-    <div class="strip" role="radiogroup" aria-label="Modelo do documento">
-      @for (id of ids; track id) {
-        <button type="button" role="radio" class="thumb" [attr.aria-checked]="id === selected()" [attr.data-template]="id" (click)="pick.emit(id)">
-          <span class="mini" aria-hidden="true"><span class="scale"><app-invoice-document [doc]="doc()" [template]="id" /></span></span>
-          <span class="name">{{ names[id] }}</span>
-        </button>
-      }
-    </div>
-  `,
+  templateUrl: './template-strip.component.html',
   styles: `
     :host { display: block; min-width: 0; }
     .strip { display: flex; gap: .75rem; overflow-x: auto; padding: .25rem .1rem .6rem; scroll-snap-type: x proximity; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }

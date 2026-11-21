@@ -20,26 +20,7 @@ interface Step {
   selector: 'app-setup-stepper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PartyFormComponent, FormFlowDirective],
-  template: `
-    <ol class="steps" aria-label="Etapas">
-      @for (s of steps; track s.title; let i = $index) {
-        <li [class.done]="i < step()" [class.current]="i === step()" [attr.aria-current]="i === step() ? 'step' : null">
-          <button type="button" [disabled]="i > step()" (click)="go(i)"><span class="dot">{{ i < step() ? '✓' : i + 1 }}</span><span class="name">{{ s.title }}</span></button>
-        </li>
-      }
-    </ol>
-    <p class="mb-5 mt-4 text-sm leading-relaxed text-foreground-light">{{ steps[step()].hint }}</p>
-    <div #flow appFormFlow (flowDone)="next()" (keydown.enter)="$event.stopPropagation()">
-      <app-party-form [party]="draft()" (partyChange)="change($event)" [sections]="steps[step()].sections" [headings]="false" />
-    </div>
-    <div class="mt-6 flex flex-wrap items-center gap-2">
-      @if (step() > 0) {
-        <button type="button" class="pro-btn ghost" (click)="go(step() - 1)">Voltar</button>
-      }
-      <button type="button" class="pro-btn" (click)="next()">{{ step() === steps.length - 1 ? 'Concluir e salvar' : 'Continuar' }}</button>
-      <button type="button" class="ml-auto text-sm font-medium text-foreground-light underline underline-offset-4" (click)="skip()">Pular por enquanto</button>
-    </div>
-  `,
+  templateUrl: './setup-stepper.component.html',
   styles: `
     .steps { display: flex; gap: .25rem; counter-reset: s; }
     .steps li { position: relative; flex: 1; min-width: 0; }

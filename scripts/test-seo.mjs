@@ -12,10 +12,10 @@ const pages = {
   'index.html': { url: 'https://brenocs.dev.br/', lang: 'pt-BR', image: 'index', alternates: true },
   'en/index.html': { url: 'https://brenocs.dev.br/en/', lang: 'en', image: 'en', alternates: true },
   'pt/services/landing-pages/index.html': { url: 'https://brenocs.dev.br/pt/services/landing-pages/', lang: 'pt-BR', image: 'pt/services/landing-pages', alternates: true },
-  'ja/games/sudoku/index.html': { url: 'https://brenocs.dev.br/ja/games/sudoku/', lang: 'ja', image: 'ja/games/sudoku', alternates: true },
+  'en/games/sudoku/index.html': { url: 'https://brenocs.dev.br/en/games/sudoku/', lang: 'en', image: 'en/games/sudoku', alternates: true },
   'para/advogado/index.html': { url: 'https://brenocs.dev.br/para/advogado/', lang: 'pt-BR', image: 'para/advogado', alternates: false },
   'en/para/advogado/index.html': { url: 'https://brenocs.dev.br/para/advogado/', lang: 'pt-BR', image: 'para/advogado', alternates: false },
-  'de/tools/dev-tools/jwt-decoder/index.html': { url: 'https://brenocs.dev.br/tools/dev-tools/jwt-decoder/', lang: 'en', image: 'tools/dev-tools/jwt-decoder', alternates: false },
+  'en/tools/dev-tools/jwt-decoder/index.html': { url: 'https://brenocs.dev.br/tools/dev-tools/jwt-decoder/', lang: 'en', image: 'tools/dev-tools/jwt-decoder', alternates: false },
   'pt/cases/jingle-ia-br/index.html': { url: 'https://brenocs.dev.br/pt/cases/jingle-ia-br/', lang: 'pt-BR', image: 'pt/cases/jingle-ia-br', alternates: true },
 };
 
@@ -43,9 +43,10 @@ test('every page has one canonical, its language, social tags and its own card',
   }
 });
 
-test('translated pages list every language and x-default', () => {
+test('translated pages list both languages and x-default', () => {
+  assert.equal(count(read('pt/services/index.html'), /hreflang=/g), 3, 'pt, en and x-default only');
   const html = read('pt/services/index.html');
-  for (const lang of ['pt-BR', 'en', 'es', 'fr', 'de', 'it', 'ja', 'ru']) {
+  for (const lang of ['pt-BR', 'en']) {
     assert.match(html, new RegExp(`hreflang="${lang}" href="https://brenocs.dev.br/${lang.slice(0, 2)}/services/"`), lang);
   }
   assert.match(html, /hreflang="x-default" href="https:\/\/brenocs.dev.br\/services\/"/);
@@ -65,4 +66,11 @@ test('sitemap lists canonical URLs only and robots.txt points to it', () => {
   assert.ok(!xml.includes('/en/para/'));
   assert.ok(!xml.includes('<loc>https://brenocs.dev.br/services/landing-pages/</loc>'), 'redirect page');
   assert.match(read('robots.txt'), /Sitemap: https:\/\/brenocs\.dev\.br\/sitemap\.xml/);
+});
+
+test('llms.txt lists every service page in both languages', () => {
+  const text = read('llms.txt');
+  assert.match(text, /^# Breno Carvalho\n\n> /);
+  assert.equal((text.match(/\]\(https:\/\/brenocs\.dev\.br\/pt\/services\/[a-z-]+\/\)/g) ?? []).length, 12);
+  assert.equal((text.match(/\]\(https:\/\/brenocs\.dev\.br\/en\/services\/[a-z-]+\/\)/g) ?? []).length, 12);
 });

@@ -1,4 +1,8 @@
-import { afterNextRender, Component } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { SectionComponent } from 'src/app/components/section/section.component';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 
@@ -13,6 +17,7 @@ interface CalApi {
 @Component({
   selector: 'app-scheduling-section',
   imports: [SectionComponent, TranslatePipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './scheduling-section.component.html',
 })
 export class SchedulingSectionComponent {
@@ -24,7 +29,9 @@ export class SchedulingSectionComponent {
           if (args[0] === 'init' && typeof args[1] === 'string') {
             const namespace = args[1];
             if (!cal.ns[namespace]) {
-              const api = ((...commands: unknown[]) => { api.q.push(commands); }) as CalApi;
+              const api = ((...commands: unknown[]) => {
+                api.q.push(commands);
+              }) as CalApi;
               api.q = [];
               cal.ns[namespace] = api;
             }
@@ -52,7 +59,10 @@ export class SchedulingSectionComponent {
         config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true' },
         calLink: 'brenocs.dev/30min',
       });
-      cal.ns['30min']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+      cal.ns['30min']('ui', {
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      });
     });
   }
 }

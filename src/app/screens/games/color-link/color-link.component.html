@@ -6,6 +6,7 @@
 
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Size and puzzle source -->
       <div class="mb-4 grid grid-cols-[1fr_auto] gap-2 sm:grid-cols-[3fr_2fr]">
         <div class="pro-segmented" role="group" [attr.aria-label]="'colorLink.size' | translate">
@@ -27,39 +28,41 @@
       </div>
 
       <!-- Stats: fixed columns and tabular figures, so nothing moves while playing -->
-      <dl class="grid grid-cols-4 border-y border-foreground/10 py-2 text-center">
+      <dl class="grid grid-cols-4 border-y border-surface-0-foreground/10 py-2 text-center">
         <div class="min-w-0 px-1">
-          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'games.time' | translate }}</dt>
-          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ timer.label() }}</dd>
+          <dt class="truncate text-[11px] font-medium text-muted-foreground sm:text-xs">{{ 'games.time' | translate }}</dt>
+          <dd class="font-display text-lg font-semibold tabular-nums text-surface-0-foreground sm:text-xl">{{ timer.label() }}</dd>
         </div>
-        <div class="min-w-0 border-l border-foreground/10 px-1">
-          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'games.moves' | translate }}</dt>
-          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ moves() }}</dd>
+        <div class="min-w-0 border-l border-surface-0-foreground/10 px-1">
+          <dt class="truncate text-[11px] font-medium text-muted-foreground sm:text-xs">{{ 'games.moves' | translate }}</dt>
+          <dd class="font-display text-lg font-semibold tabular-nums text-surface-0-foreground sm:text-xl">{{ moves() }}</dd>
         </div>
-        <div class="min-w-0 border-l border-foreground/10 px-1">
-          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'colorLink.filled' | translate }}</dt>
-          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ progress().percent }}%</dd>
+        <div class="min-w-0 border-l border-surface-0-foreground/10 px-1">
+          <dt class="truncate text-[11px] font-medium text-muted-foreground sm:text-xs">{{ 'colorLink.filled' | translate }}</dt>
+          <dd class="font-display text-lg font-semibold tabular-nums text-surface-0-foreground sm:text-xl">{{ progress().percent }}%</dd>
         </div>
-        <div class="min-w-0 border-l border-foreground/10 px-1">
-          <dt class="truncate text-[11px] font-medium text-foreground-light sm:text-xs">{{ 'colorLink.pairs' | translate }}</dt>
-          <dd class="font-title text-lg font-semibold tabular-nums text-foreground sm:text-xl">{{ progress().connected }}/{{ progress().pairs }}</dd>
+        <div class="min-w-0 border-l border-surface-0-foreground/10 px-1">
+          <dt class="truncate text-[11px] font-medium text-muted-foreground sm:text-xs">{{ 'colorLink.pairs' | translate }}</dt>
+          <dd class="font-display text-lg font-semibold tabular-nums text-surface-0-foreground sm:text-xl">{{ progress().connected }}/{{ progress().pairs }}</dd>
         </div>
       </dl>
       <!-- Fill progress as a thin ruler under the stats -->
-      <div class="h-0.5 w-full bg-foreground/5" aria-hidden="true">
-        <div class="cl-bar h-full bg-foreground-emphasis" [style.width.%]="progress().percent"></div>
+      <div class="h-0.5 w-full bg-surface-0-foreground/5" aria-hidden="true">
+        <div class="cl-bar h-full bg-accent" [style.width.%]="progress().percent"></div>
       </div>
 
-      <p class="flex h-11 items-center justify-center px-2 text-center text-sm leading-snug text-foreground-light sm:h-9">
+      <p class="flex h-11 items-center justify-center px-2 text-center text-sm leading-snug text-muted-foreground sm:h-9">
         {{ statusKey() | translate }}
       </p>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
-      <div class="cl-frame relative -mx-5 aspect-square w-[calc(100%+2.5rem)] rounded-2xl sm:mx-auto sm:w-full sm:max-w-[560px] shadow-sm ring-1 ring-foreground/10" [class.cl-won]="won()">
+      <div class="cl-frame relative -mx-5 aspect-square w-[calc(100%+2.5rem)] rounded-lg sm:mx-auto sm:w-full sm:max-w-[560px] shadow-sm ring-1 ring-surface-0-foreground/10" [class.cl-won]="won()">
         @if (view(); as v) {
           <svg
             #board
-            class="cl-board block h-full w-full rounded-2xl"
+            class="cl-board block h-full w-full rounded-lg"
             [attr.viewBox]="'0 0 ' + v.extent + ' ' + v.extent"
             tabindex="0"
             role="application"
@@ -77,7 +80,7 @@
               <clipPath id="cl-clip"><rect [attr.width]="v.extent" [attr.height]="v.extent" rx="28" /></clipPath>
             </defs>
             <g clip-path="url(#cl-clip)">
-              <rect class="fill-surface" [attr.width]="v.extent" [attr.height]="v.extent" />
+              <rect class="fill-surface-1" [attr.width]="v.extent" [attr.height]="v.extent" />
               @for (t of v.tints; track $index) {
                 <rect [attr.x]="t.x" [attr.y]="t.y" [attr.width]="cellUnit" [attr.height]="cellUnit" [attr.fill]="t.fill" fill-opacity="0.17" />
               }
@@ -124,7 +127,7 @@
                   dominant-baseline="central"
                   font-size="32"
                   font-weight="700"
-                  class="pointer-events-none font-display"
+                  class="pointer-events-none font-body"
                 >{{ d.letter }}</text>
               </g>
             }
@@ -147,14 +150,16 @@
             }
           </svg>
         } @else {
-          <div class="grid h-full w-full place-items-center rounded-2xl bg-surface">
-            <span class="h-8 w-8 animate-spin rounded-full border-2 border-foreground/10 border-t-foreground-emphasis" aria-hidden="true"></span>
+          <div class="grid h-full w-full place-items-center rounded-lg bg-surface-1">
+            <span class="h-8 w-8 animate-spin rounded-full border-2 border-surface-0-foreground/10 border-t-accent" aria-hidden="true"></span>
             <span class="sr-only">{{ 'colorLink.loading' | translate }}</span>
           </div>
         }
       </div>
       <p class="sr-only" aria-live="polite">{{ liveText() }}</p>
 
+      </div>
+      <div class="game-dock">
       <!-- Actions and win panel share one cell, so the page never jumps when the puzzle is solved -->
       <div class="mt-4 grid min-h-[9.5rem] sm:min-h-[6rem]">
         <div class="flex items-start justify-center gap-2 [grid-area:1/1]" [class.invisible]="won()" [attr.aria-hidden]="won()">
@@ -173,9 +178,9 @@
         </div>
         @if (won()) {
           <div class="cl-win flex flex-col items-center gap-3 text-center [grid-area:1/1]" role="status">
-            <p class="font-title text-lg font-semibold text-foreground">
+            <p class="font-display text-lg font-semibold text-surface-0-foreground">
               {{ 'colorLink.win.title' | translate }}
-              <span class="ml-1 font-display text-base font-medium tabular-nums text-foreground-light">{{ size() }}×{{ size() }} · {{ timer.label() }} · {{ moves() }} {{ 'colorLink.win.moves' | translate }}</span>
+              <span class="ml-1 font-body text-base font-medium tabular-nums text-muted-foreground">{{ size() }}×{{ size() }} · {{ timer.label() }} · {{ moves() }} {{ 'colorLink.win.moves' | translate }}</span>
             </p>
             <div class="flex flex-wrap justify-center gap-2">
               <app-game-share-button [text]="shareText()" />
@@ -184,17 +189,18 @@
           </div>
         }
       </div>
-      <p class="mt-1 hidden text-center text-xs text-foreground-light sm:block">{{ 'colorLink.keyboardHint' | translate }}</p>
+      <p class="mt-1 hidden text-center text-xs text-muted-foreground sm:block">{{ 'colorLink.keyboardHint' | translate }}</p>
+      </div>
     </div>
 
     <!-- Guide: open layout with hairlines instead of boxes -->
-    <div class="game-guide text-foreground">
+    <div class="game-guide text-surface-0-foreground">
       <section>
-        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.howTo.title' | translate }}</h2>
-        <ol class="mt-4 border-t border-foreground/10">
+        <h2 class="font-display text-xl font-semibold sm:text-2xl">{{ 'colorLink.howTo.title' | translate }}</h2>
+        <ol class="mt-4 border-t border-surface-0-foreground/10">
           @for (i of [1, 2, 3, 4]; track i) {
-            <li class="flex gap-4 border-b border-foreground/10 py-3 leading-relaxed">
-              <span class="font-title text-sm font-semibold tabular-nums text-foreground-emphasis" aria-hidden="true">0{{ i }}</span>
+            <li class="flex gap-4 border-b border-surface-0-foreground/10 py-3 leading-relaxed">
+              <span class="font-display text-sm font-semibold tabular-nums text-accent" aria-hidden="true">0{{ i }}</span>
               <span>{{ 'colorLink.howTo.s' + i | translate }}</span>
             </li>
           }
@@ -202,33 +208,33 @@
       </section>
 
       <section class="mt-12">
-        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.tips.title' | translate }}</h2>
+        <h2 class="font-display text-xl font-semibold sm:text-2xl">{{ 'colorLink.tips.title' | translate }}</h2>
         <dl class="mt-4 grid gap-x-8 sm:grid-cols-[11rem_1fr]">
           @for (i of [1, 2, 3]; track i) {
-            <dt class="border-t border-foreground/10 pt-3 font-semibold sm:pb-3">{{ 'colorLink.tips.t' + i + 'Term' | translate }}</dt>
-            <dd class="pb-3 pt-1 leading-relaxed text-foreground-light sm:border-t sm:border-foreground/10 sm:pt-3">{{ 'colorLink.tips.t' + i | translate }}</dd>
+            <dt class="border-t border-surface-0-foreground/10 pt-3 font-semibold sm:pb-3">{{ 'colorLink.tips.t' + i + 'Term' | translate }}</dt>
+            <dd class="pb-3 pt-1 leading-relaxed text-muted-foreground sm:border-t sm:border-surface-0-foreground/10 sm:pt-3">{{ 'colorLink.tips.t' + i | translate }}</dd>
           }
         </dl>
       </section>
 
       <section class="mt-12">
-        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.faq.title' | translate }}</h2>
-        <div class="mt-4 border-t border-foreground/10">
+        <h2 class="font-display text-xl font-semibold sm:text-2xl">{{ 'colorLink.faq.title' | translate }}</h2>
+        <div class="mt-4 border-t border-surface-0-foreground/10">
           @for (i of faqItems; track i) {
-            <details class="group border-b border-foreground/10">
+            <details class="group border-b border-surface-0-foreground/10">
               <summary class="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 py-3 font-semibold">
                 <span>{{ 'colorLink.faq.q' + i | translate }}</span>
-                <span class="text-xl leading-none text-foreground-emphasis transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                <span class="text-xl leading-none text-accent transition-transform group-open:rotate-45" aria-hidden="true">+</span>
               </summary>
-              <p class="pb-4 leading-relaxed text-foreground-light">{{ 'colorLink.faq.a' + i | translate }}</p>
+              <p class="pb-4 leading-relaxed text-muted-foreground">{{ 'colorLink.faq.a' + i | translate }}</p>
             </details>
           }
         </div>
       </section>
 
       <section class="mt-12">
-        <h2 class="font-title text-xl font-semibold sm:text-2xl">{{ 'colorLink.about.title' | translate }}</h2>
-        <div class="mt-4 space-y-4 leading-relaxed text-foreground-light">
+        <h2 class="font-display text-xl font-semibold sm:text-2xl">{{ 'colorLink.about.title' | translate }}</h2>
+        <div class="mt-4 space-y-4 leading-relaxed text-muted-foreground">
           <p>{{ 'colorLink.about.p1' | translate }}</p>
           <p>{{ 'colorLink.about.p2' | translate }}</p>
           <p>{{ 'colorLink.about.p3' | translate }}</p>

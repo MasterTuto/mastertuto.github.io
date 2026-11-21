@@ -1,0 +1,8 @@
+<dl class="im">
+  @for (row of doc().meta; track row.label) {
+    <div class="im-row">
+      <dt>{{ row.label }}</dt>
+      <dd>{{ row.value }}</dd>
+    </div>
+  }
+</dl>

@@ -11,7 +11,7 @@ import { injectCurrentPath } from './current-url';
   selector: 'app-games-layout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageShellComponent, RouterOutlet],
-  template: `<app-page-shell [crumbs]="crumbs()"><router-outlet /></app-page-shell>`,
+  templateUrl: './games-layout.component.html',
 })
 export class GamesLayoutComponent {
   private path = injectCurrentPath();

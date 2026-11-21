@@ -183,7 +183,7 @@
       @if (p.logo) {
         <img [src]="p.logo" alt="Logo atual" />
       } @else {
-        <span class="text-xs text-foreground-light">sem logo</span>
+        <span class="text-xs text-muted-foreground">sem logo</span>
       }
     </div>
     <div class="flex flex-wrap gap-2">
@@ -201,8 +201,8 @@
       @for (color of brandColors; track color) {
         <button type="button" class="swatch" [style.background]="color" [attr.aria-pressed]="p.brandColor === color" [attr.aria-label]="'Cor ' + color" (click)="set('brandColor', color)"></button>
       }
-      <label class="ml-1 inline-flex items-center gap-2 text-sm text-foreground-light">
-        <input type="color" class="h-9 w-12 cursor-pointer rounded-md border border-foreground/15 bg-transparent" [value]="p.brandColor" (input)="text('brandColor', $event)" />
+      <label class="ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground">
+        <input type="color" class="h-9 w-12 cursor-pointer rounded-sm border border-surface-0-foreground/15 bg-transparent" [value]="p.brandColor" (input)="text('brandColor', $event)" />
         outra
       </label>
     </div>

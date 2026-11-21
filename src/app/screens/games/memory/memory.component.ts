@@ -22,6 +22,7 @@ import type { MemoryLevel, MemoryState } from 'src/app/utils/memory-game';
 import { useGameSeo } from '../game-seo';
 import { GameShareButtonComponent } from '../shared/game-share-button.component';
 import { GameTimer, formatDuration } from '../shared/game-timer';
+import { useWinConfetti } from '../shared/win-confetti';
 
 /** The card faces: a fruit market, each fruit on its own pastel tile. */
 const FACES = [
@@ -126,6 +127,7 @@ export class MemoryComponent {
   private hideTimer: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
+    useWinConfetti(() => this.won());
     useGameSeo('memory', 'memory.seo', () => [this.faqJsonLd()]);
     inject(DestroyRef).onDestroy(() => clearTimeout(this.hideTimer));
     afterNextRender(() => {

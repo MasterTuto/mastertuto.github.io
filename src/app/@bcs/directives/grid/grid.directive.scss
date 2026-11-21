@@ -1,0 +1,14 @@
+$gaps: xs, sm, md, lg, xl, 2xl;
+
+@each $gap in $gaps {
+  .bcs-grid[data-gap='#{$gap}'] { gap: var(--gap-#{$gap}); }
+}
+
+.bcs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--_min)), 1fr));
+
+  &[data-min='sm'] { --_min: 14rem; }
+  &[data-min='md'] { --_min: 18rem; }
+  &[data-min='lg'] { --_min: 24rem; }
+}

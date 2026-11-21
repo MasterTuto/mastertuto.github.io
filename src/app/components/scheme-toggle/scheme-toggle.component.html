@@ -1,0 +1,10 @@
+@if (!scheme.fixed()) {
+  <bcs-toggle size="sm" [label]="'scheme.label' | translate" [value]="scheme.scheme()" (valueChange)="change($event)">
+    <ng-template bcsToggleOption="light" [label]="'scheme.light' | translate">
+      <ng-icon name="tablerSun" size="1rem" aria-hidden="true" />
+    </ng-template>
+    <ng-template bcsToggleOption="dark" [label]="'scheme.dark' | translate">
+      <ng-icon name="tablerMoon" size="1rem" aria-hidden="true" />
+    </ng-template>
+  </bcs-toggle>
+}

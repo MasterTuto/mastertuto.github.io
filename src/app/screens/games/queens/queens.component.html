@@ -5,6 +5,7 @@
   </header>
   <div class="game-layout">
     <div class="game-play">
+      <div class="game-controls">
       <!-- Puzzle type + new game -->
       <div class="mb-2 flex items-center gap-2">
         <div class="pro-segmented" role="group" [attr.aria-label]="'queens.mode' | translate">
@@ -20,7 +21,7 @@
         <button
           type="button"
           (click)="newGame()"
-          class="ml-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5"
+          class="ml-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-md px-3 text-sm font-semibold text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5"
         >
           <ng-icon name="tablerRefresh" aria-hidden="true" />
           {{ "games.newGame" | translate }}
@@ -38,45 +39,47 @@
             (click)="setLevel(lvl)"
           >
             <span class="hidden sm:inline">{{ "queens.level-" + lvl | translate }} </span>
-            <span class="tabular-nums sm:text-xs sm:font-medium sm:text-foreground-light">{{ sizes[lvl - 1] }}×{{ sizes[lvl - 1] }}</span>
+            <span class="tabular-nums sm:text-xs sm:font-medium sm:text-muted-foreground">{{ sizes[lvl - 1] }}×{{ sizes[lvl - 1] }}</span>
           </button>
         }
       </div>
 
       <!-- Stats row -->
-      <dl class="grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
+      <dl class="grid grid-cols-3 divide-x divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 py-2 text-center">
         <div>
-          <dt class="text-xs text-foreground-light">{{ "games.time" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ timer.label() }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "games.time" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ timer.label() }}</dd>
         </div>
         <div>
-          <dt class="text-xs text-foreground-light">{{ "queens.queens" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ queenCount() }}/{{ size() || "–" }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "queens.queens" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ queenCount() }}/{{ size() || "–" }}</dd>
         </div>
         <div>
-          <dt class="text-xs text-foreground-light">{{ "queens.hints-left" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ hintsRemaining() }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "queens.hints-left" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ hintsRemaining() }}</dd>
         </div>
       </dl>
       <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 sm:text-sm" aria-live="polite">
         @if (won()) {
-          <span class="text-foreground-light">{{ "games.time" | translate }} {{ timer.label() }}</span>
+          <span class="text-muted-foreground">{{ "games.time" | translate }} {{ timer.label() }}</span>
         } @else if (errorCells().size > 0) {
-          <span class="font-medium text-red-700">{{ "queens.check-errors" | translate }}</span>
+          <span class="font-medium text-error-700">{{ "queens.check-errors" | translate }}</span>
         } @else if (!started()) {
-          <span class="text-foreground-light">{{ "games.timerHint" | translate }}</span>
+          <span class="text-muted-foreground">{{ "games.timerHint" | translate }}</span>
         } @else {
-          <span class="text-foreground-light">{{ "queens.tip-short" | translate }}</span>
+          <span class="text-muted-foreground">{{ "queens.tip-short" | translate }}</span>
         }
       </p>
 
+      </div>
+      <div class="game-board">
       <!-- Board -->
       @if (board().length > 0) {
         <div
           #boardEl
           role="grid"
           [attr.aria-label]="'queens.board-label' | translate"
-          class="mx-auto grid aspect-square w-full max-w-[500px] touch-none select-none overflow-hidden rounded-xl shadow-xl ring-1 ring-foreground/10 [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]"
+          class="mx-auto grid aspect-square w-full max-w-[500px] touch-none select-none overflow-hidden rounded-md shadow-lg ring-1 ring-surface-0-foreground/10 [-webkit-touch-callout:none] [-webkit-tap-highlight-color:transparent]"
           [style.grid-template-columns]="'repeat(' + size() + ', minmax(0, 1fr))'"
           [style.font-size]="'min(' + 50 / size() + 'vw, ' + 300 / size() + 'px)'"
           (pointerdown)="onPointerDown($event)"
@@ -105,11 +108,11 @@
                     <span aria-hidden="true" class="absolute inset-0 bg-[repeating-linear-gradient(135deg,rgb(185_28_28/.55)_0_6px,rgb(185_28_28/.25)_6px_12px)]"></span>
                   }
                   @if (cell.hasQueen) {
-                    <span aria-hidden="true" class="relative text-[1em] leading-none text-white drop-shadow-md">♛</span>
+                    <span aria-hidden="true" class="relative text-[1em] leading-none text-primary-foreground drop-shadow-md">♛</span>
                   } @else if (cell.hasX) {
-                    <span aria-hidden="true" class="relative text-[0.55em] font-bold leading-none text-white/85">✕</span>
+                    <span aria-hidden="true" class="relative text-[0.55em] font-bold leading-none text-primary-foreground/85">✕</span>
                   } @else if (attacked().has(i)) {
-                    <span aria-hidden="true" class="relative text-[0.45em] leading-none text-white/45">✕</span>
+                    <span aria-hidden="true" class="relative text-[0.45em] leading-none text-primary-foreground/45">✕</span>
                   }
                 </div>
               }
@@ -117,30 +120,32 @@
           }
         </div>
       } @else {
-        <div class="mx-auto flex aspect-square w-full max-w-[500px] items-center justify-center rounded-xl bg-foreground/5">
-          <div class="text-center text-foreground-light">
-            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-foreground/10 border-t-foreground-emphasis motion-reduce:animate-none"></div>
+        <div class="mx-auto flex aspect-square w-full max-w-[500px] items-center justify-center rounded-md bg-surface-0-foreground/5">
+          <div class="text-center text-muted-foreground">
+            <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-surface-0-foreground/10 border-t-accent motion-reduce:animate-none"></div>
             <span class="text-sm">{{ "queens.loading" | translate }}</span>
           </div>
         </div>
       }
 
+      </div>
+      <div class="game-dock">
       <!-- Tools, or the result once solved (same place, the board never moves) -->
       <div class="mx-auto mt-3 min-h-[60px] max-w-[500px]">
         @if (won()) {
-          <div #winEl class="flex flex-col items-center gap-3 border-t border-green-600/30 pt-4 text-center wl-win">
-            <p class="text-lg font-semibold text-green-700"><span aria-hidden="true">👑 </span>{{ "queens.congratulations" | translate }}</p>
-            <p class="text-sm text-foreground-light">
+          <div #winEl class="flex flex-col items-center gap-3 border-t border-success-600/30 pt-4 text-center wl-win">
+            <p class="text-lg font-semibold text-success-700"><span aria-hidden="true">👑 </span>{{ "queens.congratulations" | translate }}</p>
+            <p class="text-sm text-muted-foreground">
               {{ "queens.solved-summary" | translate }}
-              <strong class="tabular-nums text-foreground">{{ timer.label() }}</strong>
-              · {{ "queens.hints-used" | translate }} <strong class="tabular-nums text-foreground">{{ 3 - hintsRemaining() }}</strong>
+              <strong class="tabular-nums text-surface-0-foreground">{{ timer.label() }}</strong>
+              · {{ "queens.hints-used" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ 3 - hintsRemaining() }}</strong>
             </p>
             <div class="flex flex-wrap items-center justify-center gap-2">
               <app-game-share-button [text]="shareText()" />
               <button
                 type="button"
                 (click)="newGame()"
-                class="inline-flex min-h-[44px] items-center gap-2 rounded-xl px-4 text-sm font-semibold text-foreground ring-1 ring-foreground/15 transition-colors hover:bg-foreground/5"
+                class="inline-flex min-h-[44px] items-center gap-2 rounded-md px-4 text-sm font-semibold text-surface-0-foreground ring-1 ring-surface-0-foreground/15 transition-colors hover:bg-surface-0-foreground/5"
               >
                 <ng-icon name="tablerArrowsShuffle" aria-hidden="true" />
                 {{ "games.newGame" | translate }}
@@ -153,7 +158,7 @@
               type="button"
               (click)="undo()"
               [disabled]="!canUndo()"
-              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-foreground transition-colors hover:bg-foreground/5 disabled:opacity-40"
+              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5 disabled:opacity-40"
             >
               <ng-icon name="tablerArrowBackUp" size="20" aria-hidden="true" />
               {{ "queens.undo" | translate }}
@@ -161,7 +166,7 @@
             <button
               type="button"
               (click)="clearBoard()"
-              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-foreground transition-colors hover:bg-foreground/5"
+              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5"
             >
               <ng-icon name="tablerEraser" size="20" aria-hidden="true" />
               {{ "queens.clear" | translate }}
@@ -170,7 +175,7 @@
               type="button"
               (click)="useHint()"
               [disabled]="hintsRemaining() <= 0"
-              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium text-amber-700 transition-colors hover:bg-amber-500/10 disabled:opacity-40"
+              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium text-tertiary-700 transition-colors hover:bg-tertiary-500/10 disabled:opacity-40"
             >
               <ng-icon name="tablerBulb" size="20" aria-hidden="true" />
               {{ "queens.hint" | translate }} ({{ hintsRemaining() }})
@@ -180,8 +185,8 @@
               (click)="toggleAutoX()"
               [attr.aria-pressed]="autoX()"
               [title]="'queens.auto-x-title' | translate"
-              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs font-medium transition-colors"
-              [class]="autoX() ? 'bg-foreground-emphasis/15 text-foreground-emphasis' : 'text-foreground hover:bg-foreground/5'"
+              class="flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-md text-xs font-medium transition-colors"
+              [class]="autoX() ? 'bg-accent/15 text-accent' : 'text-surface-0-foreground hover:bg-surface-0-foreground/5'"
             >
               <ng-icon name="tablerWand" size="20" aria-hidden="true" />
               {{ "queens.auto-x" | translate }}
@@ -190,20 +195,21 @@
         }
       </div>
       <p class="sr-only" aria-live="polite">{{ announcement() }}</p>
+      </div>
     </div>
 
-    <div class="game-guide text-foreground">
+    <div class="game-guide text-surface-0-foreground">
       <!-- How to play: ruled list -->
       <h2 class="text-lg font-bold sm:text-xl">{{ "queens.how-to-play" | translate }}</h2>
-      <ol class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+      <ol class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 text-sm leading-relaxed sm:text-base">
         @for (rule of ["rule-row", "rule-col", "rule-region", "rule-adjacent"]; track rule; let n = $index) {
           <li class="flex gap-3 py-2.5">
-            <span class="w-5 shrink-0 font-semibold tabular-nums text-foreground-emphasis">{{ n + 1 }}</span>
+            <span class="w-5 shrink-0 font-semibold tabular-nums text-accent">{{ n + 1 }}</span>
             <span>{{ "queens." + rule | translate }}</span>
           </li>
         }
       </ol>
-      <div class="mt-4 space-y-1.5 text-sm leading-relaxed text-foreground-light">
+      <div class="mt-4 space-y-1.5 text-sm leading-relaxed text-muted-foreground">
         <p>{{ "queens.tip-tap" | translate }}</p>
         <p>{{ "queens.tip-x" | translate }}</p>
         <p>{{ "queens.tip-slide" | translate }}</p>
@@ -211,21 +217,21 @@
 
       <!-- FAQ: accordion -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "queens.faq-title" | translate }}</h2>
-      <div class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10">
+      <div class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10">
         @for (n of [1, 2, 3, 4]; track n) {
           <details class="group">
             <summary class="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base [&::-webkit-details-marker]:hidden">
               {{ "queens.faq-q" + n | translate }}
-              <span aria-hidden="true" class="text-lg leading-none text-foreground-light transition-transform group-open:rotate-45">+</span>
+              <span aria-hidden="true" class="text-lg leading-none text-muted-foreground transition-transform group-open:rotate-45">+</span>
             </summary>
-            <p class="pb-4 text-sm leading-relaxed text-foreground-light">{{ "queens.faq-a" + n | translate }}</p>
+            <p class="pb-4 text-sm leading-relaxed text-muted-foreground">{{ "queens.faq-a" + n | translate }}</p>
           </details>
         }
       </div>
 
       <!-- SEO text: flowing prose -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "queens.seo-title" | translate }}</h2>
-      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <p>{{ "queens.seo-p1" | translate }}</p>
         <p>{{ "queens.seo-p2" | translate }}</p>
         <p>{{ "queens.seo-p3" | translate }}</p>

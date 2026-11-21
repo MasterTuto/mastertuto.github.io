@@ -33,19 +33,13 @@ const FONT = {
     'Poppins-Medium.ttf',
     'Inter-Regular.ttf',
     'Inter-SemiBold.ttf',
-    'NotoSansJP-Regular.ttf',
-    'NotoSansJP-SemiBold.ttf',
   ].map((file) => path.join(fontsDir, file)),
   loadSystemFonts: false,
   defaultFontFamily: 'Inter',
 };
-const CJK = /[\u3040-\u30ff\u4e00-\u9fff]/;
-/**
- * Poppins (headings) has no Cyrillic or Japanese glyphs. Font fallback in resvg ignores the weight,
- * so the family is chosen by script instead: Inter for Cyrillic, Noto Sans JP for Japanese.
- */
-const headingFont = (text) => (CJK.test(text) ? 'Noto Sans JP' : /[\u0400-\u04ff]/.test(text) ? 'Inter' : 'Poppins');
-const bodyFont = (text) => (CJK.test(text) ? 'Noto Sans JP' : 'Inter');
+/** Headings use Poppins and body text Inter; both cover every Latin character the site uses. */
+const headingFont = () => 'Poppins';
+const bodyFont = () => 'Inter';
 const HEADING = 'Poppins';
 
 /** Colors from tailwind.config.js. */
@@ -64,12 +58,6 @@ const BRAND = {
 const LANGUAGE_FILES = {
   pt: 'portuguese',
   en: 'english',
-  es: 'spanish',
-  fr: 'french',
-  de: 'german',
-  it: 'italian',
-  ja: 'japanese',
-  ru: 'russian',
 };
 
 /** Must stay in sync with `shareImageUrl` in `src/app/seo/page-seo.ts`. */

@@ -1,0 +1,20 @@
+<span class="bcs-toggle__knob" aria-hidden="true"></span>
+@for (option of resolved(); track option.value; let i = $index) {
+  <button
+    type="button"
+    role="radio"
+    class="bcs-toggle__option"
+    [attr.aria-checked]="i === index()"
+    [attr.aria-label]="option.label"
+    [attr.title]="option.label"
+    [tabindex]="i === index() ? 0 : -1"
+    (click)="press(i)"
+    (keydown)="key($event)"
+  >
+    @if (option.template) {
+      <ng-container [ngTemplateOutlet]="option.template" />
+    } @else {
+      <span class="bcs-toggle__text">{{ option.text }}</span>
+    }
+  </button>
+}

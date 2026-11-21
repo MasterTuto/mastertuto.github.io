@@ -1,0 +1,100 @@
+<!-- Layout of this service page. Words: content/lojas-virtuais.ts. Theme: src/styles/_themes.scss. -->
+<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
+  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
+</app-landing-hero>
+
+<section bcs-section space="lg">
+  <div bcs-container bcs-reveal width="prose">
+    <div bcs-stack gap="md">
+      <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
+      <bcs-list [items]="copy.problem.items" marker="cross" />
+    </div>
+  </div>
+</section>
+
+<section bcs-section space="lg">
+  <div bcs-container bcs-reveal width="content">
+    <div bcs-stack gap="lg">
+      <div bcs-stack gap="md">
+        <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
+        <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
+      </div>
+      <div bcs-grid min="sm" gap="md" role="list">
+        @for (item of copy.solution.items; track item) {
+          <div bcs-surface bcs-reveal="scale" pad="md" role="listitem"><p bcs-text="body">{{ item }}</p></div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section bcs-section space="lg">
+  <div bcs-container bcs-reveal width="content">
+    <div bcs-surface pad="lg">
+      <div bcs-grid min="md" gap="xl">
+        <app-landing-price
+          [label]="common.priceLabel"
+          [prefix]="copy.price.prefix"
+          [amount]="copy.price.amount"
+          [period]="copy.price.period ?? ''"
+          [includes]="copy.price.includes"
+          [note]="copy.price.note"
+        />
+        <div bcs-stack gap="lg">
+          <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
+          <div bcs-grid min="sm" gap="lg">
+            @for (item of copy.proof.items; track item.value) {
+              <app-landing-stat [value]="item.value" [label]="item.label" />
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section bcs-section space="lg">
+  <div bcs-container bcs-reveal width="content">
+    <div bcs-stack gap="lg">
+      <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
+      <app-landing-steps [items]="copy.steps.items" layout="horizontal" />
+    </div>
+  </div>
+</section>
+
+<section bcs-section space="lg" id="form">
+  <div bcs-container bcs-reveal width="content">
+    <div bcs-surface pad="lg">
+      <app-landing-contact
+        [heading]="copy.form.title"
+        [text]="copy.form.text"
+        [fields]="copy.form.fields"
+        [phone]="phone"
+        [message]="copy.form.heading"
+        [submitLabel]="common.submit"
+        [messages]="common.messages"
+        [note]="common.formNote"
+        color="accent"
+        (sent)="track($event)"
+      />
+    </div>
+  </div>
+</section>
+
+<section bcs-section space="md">
+  <div bcs-container bcs-reveal width="prose">
+    <app-landing-quote [text]="copy.outcome" />
+  </div>
+</section>
+
+<section bcs-section space="lg">
+  <div bcs-container bcs-reveal width="prose">
+    <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
+  </div>
+</section>
+
+<section bcs-section space="md">
+  <div bcs-container bcs-reveal width="content">
+    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+  </div>
+</section>

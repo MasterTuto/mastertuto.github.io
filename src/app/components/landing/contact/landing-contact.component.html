@@ -1,0 +1,15 @@
+<div class="landing-contact__intro">
+  <h2 bcs-text="h2" id="contact-title">{{ heading() }}</h2>
+  <p bcs-text="body" tone="muted">{{ text() }}</p>
+</div>
+<app-landing-whatsapp-form
+  aria-labelledby="contact-title"
+  [fields]="fields()"
+  [phone]="phone()"
+  [heading]="message()"
+  [submitLabel]="submitLabel()"
+  [messages]="messages()"
+  [note]="note()"
+  [color]="color()"
+  (sent)="sent.emit($event)"
+/>

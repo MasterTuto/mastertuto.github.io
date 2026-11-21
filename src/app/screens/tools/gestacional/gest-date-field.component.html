@@ -1,0 +1,13 @@
+<div class="pro-input-wrap">
+  <input [id]="inputId()" class="pro-input !pr-14" appMask="date" placeholder="dd/mm/aaaa" autocomplete="off"
+    [value]="value()" (input)="value.set($any($event.target).value)"
+    [attr.aria-invalid]="invalid()" [attr.aria-describedby]="invalid() ? inputId() + '-err' : null" />
+  <span class="absolute right-1.5 grid h-10 w-10 place-items-center rounded-sm text-muted-foreground hover:bg-surface-0-foreground/5" data-flow-skip>
+    <ng-icon name="tablerCalendar" size="1.25rem" aria-hidden="true" />
+    <input type="date" tabindex="-1" class="absolute inset-0 h-full w-full cursor-pointer opacity-0" [attr.aria-label]="'Abrir calendário: ' + label()"
+      [value]="iso()" (click)="openPicker($event)" (change)="fromPicker($event)" />
+  </span>
+</div>
+@if (invalid()) {
+  <p class="pro-error mt-1" [id]="inputId() + '-err'">Data inválida. Use dd/mm/aaaa.</p>
+}

@@ -1,0 +1,52 @@
+@if (stack()) {
+  <div class="ii ii-stack">
+    @for (item of doc().items; track item.n) {
+      <div class="ii-srow" data-keep>
+        <div class="ii-sdesc">
+          <span>{{ item.description || '—' }}</span>
+          <span class="ii-sdetail">{{ item.qtyUnit }} × {{ item.unitPrice }}@if (item.discount) { <span> − {{ item.discount }}</span>}</span>
+        </div>
+        <span class="ii-amount">{{ item.amount }}</span>
+      </div>
+    } @empty {
+      <p class="ii-empty">{{ emptyText() }}</p>
+    }
+  </div>
+} @else {
+  <table class="ii">
+    <thead>
+      <tr>
+        @if (numbered()) {
+          <th class="ii-n">#</th>
+        }
+        <th class="ii-desc">{{ doc().t.description }}</th>
+        <th class="ii-num">{{ doc().t.qty }}</th>
+        <th class="ii-num">{{ doc().t.unitPrice }}</th>
+        @if (doc().hasDiscount) {
+          <th class="ii-num">{{ doc().t.discount }}</th>
+        }
+        <th class="ii-num">{{ doc().t.amount }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of doc().items; track item.n) {
+        <tr data-keep>
+          @if (numbered()) {
+            <td class="ii-n">{{ item.n < 10 ? '0' + item.n : item.n }}</td>
+          }
+          <td class="ii-desc">{{ item.description || '—' }}</td>
+          <td class="ii-num">{{ item.qtyUnit }}</td>
+          <td class="ii-num">{{ item.unitPrice }}</td>
+          @if (doc().hasDiscount) {
+            <td class="ii-num">{{ item.discount || '—' }}</td>
+          }
+          <td class="ii-num ii-amount">{{ item.amount }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="ii-empty" [attr.colspan]="6">{{ emptyText() }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

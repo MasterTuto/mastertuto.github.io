@@ -1,0 +1,74 @@
+// Context rules.
+//
+// Some properties are not a token but a RELATION between an element and its container. They are set
+// here once, through inherited custom properties, so no component (and no page) decides them alone.
+//
+// 1. Concentric corners — a surface inside another uses `outer radius − outer padding`, so both curves
+//    share one center. Never below --radius-xs.
+// 2. Padding never grows inward — an inner surface's padding is at most its parent's (Law of Proximity:
+//    content must look closer to its own container than to the container's edge).
+// 3. Elevation follows nesting — a surface placed inside a surface rises one level (surface-1 → 2 → 3)
+//    and takes that level's foreground (Law of Common Region: each region is visibly bounded).
+// 4. Controls follow the corner they sit in — buttons and inputs inside a surface use at most the
+//    surface's inner radius, so a button at a card's edge never looks rounder than the card.
+//
+// Levels come from `BcsSurface` (Angular DI counts the ancestors); the CSS only reads `data-level`.
+// Names are per level (`--ctx-l2-*`, `--ctx-l3-*`) because a custom property cannot read its parent's
+// value of itself.
+
+.bcs-surface {
+  --_pad-token: var(--pad-md);
+  border-radius: var(--_r);
+  padding: var(--_p);
+  --ctx-inner-radius: max(var(--radius-xs), calc(var(--_r) - var(--_p)));
+}
+
+.bcs-surface[data-level='1'] {
+  --_r: var(--radius-surface);
+  --_p: var(--_pad-token);
+  --ctx-l2-radius: max(var(--radius-xs), calc(var(--_r) - var(--_p)));
+  --ctx-l2-pad: var(--_p);
+  background-color: rgb(var(--color-surface-1));
+  color: rgb(var(--color-surface-1-foreground));
+}
+
+.bcs-surface[data-level='2'] {
+  --_r: var(--ctx-l2-radius, var(--radius-lg));
+  --_p: min(var(--_pad-token), var(--ctx-l2-pad, var(--_pad-token)));
+  --ctx-l3-radius: max(var(--radius-xs), calc(var(--_r) - var(--_p)));
+  --ctx-l3-pad: var(--_p);
+  background-color: rgb(var(--color-surface-2));
+  color: rgb(var(--color-surface-2-foreground));
+}
+
+.bcs-surface[data-level='3'] {
+  --_r: var(--ctx-l3-radius, var(--radius-md));
+  --_p: min(var(--_pad-token), var(--ctx-l3-pad, var(--_pad-token)));
+  background-color: rgb(var(--color-surface-3));
+  color: rgb(var(--color-surface-3-foreground));
+}
+
+/// Rule 4: the radius every control uses.
+:root {
+  --ctx-control-radius: min(var(--radius-control), var(--ctx-inner-radius, var(--radius-control)));
+}
+.bcs-surface {
+  --ctx-control-radius: min(var(--radius-control), var(--ctx-inner-radius));
+}
+
+/// Focus is always visible and always the same (WCAG 2.4.7 / 2.4.11), whatever the component.
+:focus-visible {
+  outline: var(--focus-ring-width) solid rgb(var(--color-accent));
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
