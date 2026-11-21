@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { DestroyRef, inject } from '@angular/core';
 
+import { BcsColorSchemeService } from '@bcs/services/color-scheme/color-scheme.service';
+
 import { Landing } from './landing.model';
 
 /**
@@ -10,7 +12,9 @@ import { Landing } from './landing.model';
 export function useLandingTheme(landing: Landing): void {
   const document = inject(DOCUMENT);
   const root = document.documentElement;
+  const scheme = inject(BcsColorSchemeService);
   root.setAttribute('data-theme', landing.theme);
+  scheme.fix(true);
 
   const id = `font-${landing.theme}`;
   if (!document.getElementById(id)) {
@@ -22,6 +26,7 @@ export function useLandingTheme(landing: Landing): void {
   }
 
   inject(DestroyRef).onDestroy(() => {
+    scheme.fix(false);
     if (root.getAttribute('data-theme') === landing.theme) root.removeAttribute('data-theme');
   });
 }

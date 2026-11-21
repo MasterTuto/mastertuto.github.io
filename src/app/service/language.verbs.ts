@@ -1,49 +1,35 @@
-import { DOCUMENT } from '@angular/common';
 import { inject, Provider } from '@angular/core';
-import { Router } from '@angular/router';
-import { translations } from '../i18n/translations';
-import { TranslationInitializer } from './translation.initializer';
-import { VERBS, VerbRecord } from './verb';
 
-const languageNames: Record<string, string> = {
-  pt: 'Português',
-  en: 'English',
-};
+import { translations } from '../i18n/translations';
+import { LANGUAGE_NAMES, LanguageSwitchService, SiteLanguage } from './language-switch.service';
+import { VERBS, VerbRecord } from './verb';
 
 export function provideLanguageVerb(): Provider {
   return {
     provide: VERBS,
     multi: true,
     useFactory: (): VerbRecord => {
-      const router = inject(Router);
-      const document = inject(DOCUMENT);
-      const translationInitializer = inject(TranslationInitializer);
+      const languages = inject(LanguageSwitchService);
 
       return {
         changeLanguage: {
           id: 'changeLanguage',
           title: 'Change language',
-          description: 'Choose the language for this page',
-          queries: ['change language', 'switch language', 'language', 'idioma', 'mudar idioma', 'trocar idioma'],
+          description: 'Português ⇄ English',
+          queries: ['change language', 'switch language', 'language', 'english', 'português', 'idioma', 'mudar idioma', 'trocar idioma', 'inglês'],
           run: () => ({
             message: 'Choose a language.',
             actionSheet: {
               title: 'Choose a language',
               description: 'The current page will open in your selected language.',
-              actions: Object.keys(translations).map((language) => ({
+              actions: (Object.keys(translations) as SiteLanguage[]).map((language) => ({
                 id: language,
-                label: languageNames[language] ?? language,
+                label: LANGUAGE_NAMES[language],
                 description: language.toUpperCase(),
-                selected: translationInitializer.currentLang === language,
+                selected: languages.current === language,
                 run: () => {
-                  const url = router.url;
-                  const path = url.split(/[?#]/, 1)[0];
-                  const suffix = url.slice(path.length);
-                  const segments = path.split('/').filter(Boolean);
-                  if (segments.length && segments[0] in translations) segments.shift();
-                  const destination = '/' + [language, ...segments].join('/') + suffix;
-                  document.defaultView?.location.assign(destination);
-                  return { message: 'Opening this page in ' + (languageNames[language] ?? language) + '.', close: true };
+                  languages.switchTo(language);
+                  return { message: 'Opening this page in ' + LANGUAGE_NAMES[language] + '.', close: true };
                 },
               })),
             },

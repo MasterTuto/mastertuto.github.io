@@ -348,6 +348,7 @@ export const portugueseTranslations: Translations = {
     estimateBudget: 'Solicitar um orçamento',
   },
   /** Name, one-line description and tagline of each service category (pages: screens/services/landings). */
+  scheme: { label: 'Tema', light: 'Modo claro', dark: 'Modo escuro' },
   serviceCatalog: {
     landingPages: { name: 'Landing pages', short: 'Páginas com um único objetivo, rápidas e ligadas ao WhatsApp, para transformar anúncio em cliente.', tagline: 'Mais contatos por clique' },
     websitesForFreelancers: { name: 'Sites para autônomos', short: 'Site próprio que aparece no Google e leva o cliente direto para o seu WhatsApp.', tagline: 'Seja encontrado na sua região' },

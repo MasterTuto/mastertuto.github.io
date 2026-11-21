@@ -33,6 +33,8 @@ import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
 import { BcsButtonComponent } from '@bcs/components/button/button.component';
+import { LanguageToggleComponent } from '../language-toggle/language-toggle.component';
+import { SchemeToggleComponent } from '../scheme-toggle/scheme-toggle.component';
 import { createWhatsAppLink } from 'src/app/utils/html';
 import { injectCurrentPath } from 'src/app/layouts/current-url';
 
@@ -64,6 +66,8 @@ const ANIMATION_THRESHOLD = 120;
     TranslatePipe,
     LangLinkPipe,
     BcsButtonComponent,
+    LanguageToggleComponent,
+    SchemeToggleComponent,
     NgIconComponent,
   ],
 })

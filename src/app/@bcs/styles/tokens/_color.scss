@@ -128,3 +128,19 @@ $site: (
   surface-2: (#ffffff, #30353b),
   surface-3: (#ffffff, #1f2328),
 );
+
+// Site theme, dark scheme. Same roles, inverted surfaces: primary becomes the light ink.
+$site-dark: (
+  scheme: dark,
+  primary: (#e8e6e1, #12161c),
+  secondary: (#a9bcc7, #10161b),
+  tertiary: (#e3ad52, #17130b),
+  muted: (#272d35, #a9afb8),
+  accent: (#a49cff, #14112e),
+  error: (#ff8f80, #1a0f0e),
+  success: (#73d6a0, #0c1a12),
+  surface-0: (#0f1318, #e4e6ea),
+  surface-1: (#161b22, #e4e6ea),
+  surface-2: (#1c222b, #e4e6ea),
+  surface-3: (#232a34, #f1f2f4),
+);

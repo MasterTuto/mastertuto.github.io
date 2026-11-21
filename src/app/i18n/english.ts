@@ -347,6 +347,7 @@ export const englishTranslations = {
     estimateBudget: 'Request a Quote',
   },
   /** Name, one-line description and tagline of each service category (pages: screens/services/landings). */
+  scheme: { label: 'Theme', light: 'Light mode', dark: 'Dark mode' },
   serviceCatalog: {
     landingPages: { name: 'Landing pages', short: 'Fast single-goal pages wired to WhatsApp that turn ad clicks into customers.', tagline: 'More leads per click' },
     websitesForFreelancers: { name: 'Websites for freelancers', short: 'Your own website that shows up on Google and sends clients straight to WhatsApp.', tagline: 'Get found locally' },

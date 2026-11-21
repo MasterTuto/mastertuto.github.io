@@ -11,6 +11,11 @@
   @include space.tokens;
 }
 
+// Dark mode applies to the site theme only; pages with their own palette (data-theme) keep it.
+html[data-scheme='dark']:not([data-theme]) {
+  @include color.theme(color.$site-dark);
+}
+
 @tailwind base;
 @tailwind components;
 

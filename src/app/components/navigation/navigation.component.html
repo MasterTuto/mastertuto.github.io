@@ -57,11 +57,17 @@
     }
   </ul>
 
+  <div class="flex shrink-0 items-center gap-3">
+  <div class="hidden items-center gap-2 md:flex">
+    <app-scheme-toggle />
+    <app-language-toggle />
+  </div>
   <a bcs-button class="shrink-0" [href]="whatsappLink" target="_blank" rel="noopener">
     <span class="hidden sm:inline">{{ "home.estimateBudget" | translate }}</span>
     <span class="flex sm:hidden"><ng-icon name="tablerBrandWhatsapp" /></span>
     <span class="hidden sm:flex"><ng-icon name="tablerArrowRight" /></span>
   </a>
+  </div>
 
   @if (menuOpen()) {
     <ul id="site-menu" class="absolute inset-x-0 top-full flex max-h-[80dvh] flex-col gap-1 overflow-y-auto rounded-b-lg bg-surface-1 p-3 shadow-lg lg:hidden">
@@ -90,6 +96,10 @@
           }
         </li>
       }
+      <li class="flex items-center gap-3 px-4 pb-2 pt-4 md:hidden">
+        <app-scheme-toggle />
+        <app-language-toggle />
+      </li>
     </ul>
   }
 </nav>
