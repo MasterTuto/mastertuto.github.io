@@ -347,6 +347,21 @@ export const portugueseTranslations: Translations = {
     },
     estimateBudget: 'Solicitar um orçamento',
   },
+  /** Name, one-line description and tagline of each service category (pages: screens/services/landings). */
+  serviceCatalog: {
+    landingPages: { name: 'Landing pages', short: 'Páginas com um único objetivo, rápidas e ligadas ao WhatsApp, para transformar anúncio em cliente.', tagline: 'Mais contatos por clique' },
+    websitesForFreelancers: { name: 'Sites para autônomos', short: 'Site próprio que aparece no Google e leva o cliente direto para o seu WhatsApp.', tagline: 'Seja encontrado na sua região' },
+    seoGeo: { name: 'SEO e GEO', short: 'Apareça no Google e nas respostas do ChatGPT, Gemini e Perplexity.', tagline: 'Encontrável por buscas e por IAs' },
+    blogsAndPortfolios: { name: 'Blogs e portfólios', short: 'Seu trabalho organizado como estudos de caso e artigos que ranqueiam.', tagline: 'Mostre o que você faz' },
+    ecommerce: { name: 'Lojas virtuais', short: 'Loja rápida com Pix, frete na página do produto e estoque integrado ao ERP.', tagline: 'Menos carrinho abandonado' },
+    aiAgents: { name: 'Agentes de IA', short: 'Atendimento 24h no WhatsApp com IA que consulta seus dados e agenda.', tagline: 'Atendimento que não dorme' },
+    automation: { name: 'Automação de processos', short: 'Relatórios, cobranças e planilhas que rodam sozinhos, com n8n ou código.', tagline: 'Horas de volta toda semana' },
+    integrations: { name: 'Integrações', short: 'Site, WhatsApp, CRM, ERP e pagamentos conversando sem copiar e colar.', tagline: 'Dados digitados uma vez só' },
+    customSoftware: { name: 'Sistemas sob medida', short: 'Sistema web que tira a operação da planilha, com permissões e relatórios.', tagline: 'Sua operação num lugar só' },
+    mvpSaas: { name: 'MVP e SaaS', short: 'Do rascunho ao primeiro cliente pagante em semanas.', tagline: 'Valide antes de gastar' },
+    cloudDevops: { name: 'Cloud e DevOps', short: 'Conta da AWS menor, deploy automático e monitoramento.', tagline: 'Nuvem enxuta e previsível' },
+    modernization: { name: 'Modernização de sistemas', short: 'Sistema legado migrado por partes, sem parar a operação.', tagline: 'Volte a evoluir o sistema' },
+  },
   servicesPage: {
     common: {
       backHome: 'Voltar ao início',

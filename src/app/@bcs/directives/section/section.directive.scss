@@ -1,0 +1,5 @@
+.bcs-section {
+  &[data-space='md'] { padding-block: var(--gap-lg); }
+  &[data-space='lg'] { padding-block: var(--gap-xl); }
+  &[data-space='xl'] { padding-block: var(--gap-2xl); }
+}

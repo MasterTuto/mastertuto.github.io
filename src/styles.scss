@@ -1,9 +1,9 @@
 // Global styles. Order matters: tokens → Tailwind base → design-system components and context rules →
 // page themes → legacy page styles → Tailwind utilities (utilities always win).
 @use 'sass:meta';
-@use 'styles/tokens/color';
-@use 'styles/tokens/type';
-@use 'styles/tokens/space';
+@use 'app/@bcs/styles/tokens/color';
+@use 'app/@bcs/styles/tokens/type';
+@use 'app/@bcs/styles/tokens/space';
 
 :root {
   @include color.theme(color.$site);
@@ -14,8 +14,7 @@
 @tailwind base;
 @tailwind components;
 
-@include meta.load-css('styles/context');
-@include meta.load-css('app/components/@bcs/index');
+@include meta.load-css('app/@bcs/styles/bcs');
 @include meta.load-css('styles/themes');
 @include meta.load-css('styles/pro-tools');
 

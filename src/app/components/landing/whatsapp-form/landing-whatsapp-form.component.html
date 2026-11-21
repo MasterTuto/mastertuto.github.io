@@ -1,0 +1,50 @@
+<form class="landing-whatsapp-form__form" novalidate (submit)="submit($event)">
+  @for (field of fields(); track field.name) {
+    <bcs-field
+      [label]="field.label"
+      [hint]="field.hint ?? ''"
+      [error]="errors()[field.name] ?? ''"
+      [required]="!!field.required"
+      [class.landing-whatsapp-form__wide]="field.type === 'textarea'"
+    >
+      @switch (field.type) {
+        @case ('select') {
+          <select bcs-input [color]="color()" [name]="field.name" (change)="update(field, $event)">
+            <option value="">{{ field.placeholder ?? '' }}</option>
+            @for (option of field.options ?? []; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select>
+        }
+        @case ('textarea') {
+          <textarea
+            bcs-input
+            [color]="color()"
+            [name]="field.name"
+            [attr.placeholder]="field.placeholder ?? null"
+            rows="3"
+            (input)="update(field, $event)"
+          ></textarea>
+        }
+        @default {
+          <input
+            bcs-input
+            [color]="color()"
+            [type]="field.type"
+            [name]="field.name"
+            [attr.placeholder]="field.placeholder ?? null"
+            [attr.autocomplete]="field.autocomplete ?? null"
+            [attr.inputmode]="field.type === 'tel' ? 'tel' : null"
+            (input)="update(field, $event)"
+          />
+        }
+      }
+    </bcs-field>
+  }
+  <div class="landing-whatsapp-form__footer">
+    <button bcs-button type="submit" size="lg" [color]="color()">{{ submitLabel() }}</button>
+    @if (note()) {
+      <p class="landing-whatsapp-form__note">{{ note() }}</p>
+    }
+  </div>
+</form>

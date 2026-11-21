@@ -20,7 +20,7 @@
     "useDefineForClassFields": false,
     "paths": {
       "src/*": ["./src/*"],
-      "@bcs/*": ["./src/app/components/@bcs/*"],
+      "@bcs/*": ["./src/app/@bcs/*"],
       "zone.js/node": ["./node_modules/zone.js/dist/zone-node.js"]
     }
   },

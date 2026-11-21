@@ -1,0 +1,13 @@
+@if (marker() === 'number') {
+  <ol class="bcs-list__items">
+    @for (item of items(); track item) {
+      <li>{{ item }}</li>
+    }
+  </ol>
+} @else {
+  <ul class="bcs-list__items" role="list">
+    @for (item of items(); track item) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+}

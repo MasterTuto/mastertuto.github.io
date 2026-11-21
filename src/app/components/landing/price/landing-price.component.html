@@ -1,0 +1,17 @@
+<p bcs-text="label" tone="muted">{{ label() }}</p>
+<p class="landing-price__amount">
+  @if (prefix()) {
+    <span class="landing-price__prefix">{{ prefix() }}</span>
+  }
+  <span class="landing-price__value">{{ amount() }}</span>
+  @if (period()) {
+    <span class="landing-price__period">{{ period() }}</span>
+  }
+</p>
+@if (includes().length) {
+  <bcs-list [items]="includes()" marker="check" />
+}
+@if (note()) {
+  <p bcs-text="small" tone="muted">{{ note() }}</p>
+}
+<ng-content />

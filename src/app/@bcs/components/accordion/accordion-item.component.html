@@ -1,0 +1,4 @@
+<details class="bcs-accordion__details" [attr.name]="accordion.single() ? accordion.group : null">
+  <summary class="bcs-accordion__summary">{{ heading() }}</summary>
+  <div class="bcs-accordion__panel"><ng-content /></div>
+</details>

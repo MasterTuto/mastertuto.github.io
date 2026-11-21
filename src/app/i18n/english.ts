@@ -346,6 +346,21 @@ export const englishTranslations = {
     },
     estimateBudget: 'Request a Quote',
   },
+  /** Name, one-line description and tagline of each service category (pages: screens/services/landings). */
+  serviceCatalog: {
+    landingPages: { name: 'Landing pages', short: 'Fast single-goal pages wired to WhatsApp that turn ad clicks into customers.', tagline: 'More leads per click' },
+    websitesForFreelancers: { name: 'Websites for freelancers', short: 'Your own website that shows up on Google and sends clients straight to WhatsApp.', tagline: 'Get found locally' },
+    seoGeo: { name: 'SEO and GEO', short: 'Show up on Google and in ChatGPT, Gemini and Perplexity answers.', tagline: 'Findable by search and AI' },
+    blogsAndPortfolios: { name: 'Blogs and portfolios', short: 'Your work as case studies and articles that rank.', tagline: 'Show what you do' },
+    ecommerce: { name: 'Online stores', short: 'Fast store, shipping on the product page and stock synced with your ERP.', tagline: 'Fewer abandoned carts' },
+    aiAgents: { name: 'AI agents', short: '24/7 WhatsApp support with AI that checks your data and books appointments.', tagline: 'Support that never sleeps' },
+    automation: { name: 'Process automation', short: 'Reports, payment reminders and spreadsheets that run themselves.', tagline: 'Hours back every week' },
+    integrations: { name: 'Integrations', short: 'Website, WhatsApp, CRM, ERP and payments talking without copy and paste.', tagline: 'Data typed once' },
+    customSoftware: { name: 'Custom software', short: 'A web system that takes operations off the spreadsheet.', tagline: 'Your operation in one place' },
+    mvpSaas: { name: 'MVP and SaaS', short: 'From sketch to first paying customer in weeks.', tagline: 'Validate before you spend' },
+    cloudDevops: { name: 'Cloud and DevOps', short: 'Smaller AWS bill, automated deploys and monitoring.', tagline: 'Lean, predictable cloud' },
+    modernization: { name: 'Legacy modernization', short: 'Legacy systems migrated in slices without stopping operations.', tagline: 'Ship features again' },
+  },
   servicesPage: {
     common: {
       backHome: 'Back to home',

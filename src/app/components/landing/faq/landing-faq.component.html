@@ -1,0 +1,8 @@
+<h2 bcs-text="h2" id="faq-title">{{ heading() }}</h2>
+<bcs-accordion aria-labelledby="faq-title">
+  @for (item of items(); track item.question) {
+    <bcs-accordion-item [heading]="item.question">
+      <p bcs-text="body" tone="muted">{{ item.answer }}</p>
+    </bcs-accordion-item>
+  }
+</bcs-accordion>

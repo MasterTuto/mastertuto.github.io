@@ -1,0 +1,14 @@
+// Global part of the @bcs design system: context rules plus the styles of directives and services
+// (they have no component to attach a stylesheet to). Component styles load with their component.
+@use 'sass:meta';
+
+@include meta.load-css('context');
+@include meta.load-css('../directives/ripple/ripple.directive');
+@include meta.load-css('../directives/input/input.directive');
+@include meta.load-css('../directives/text/text.directive');
+@include meta.load-css('../directives/surface/surface.directive');
+@include meta.load-css('../directives/stack/stack.directive');
+@include meta.load-css('../directives/grid/grid.directive');
+@include meta.load-css('../directives/container/container.directive');
+@include meta.load-css('../directives/section/section.directive');
+@include meta.load-css('../services/confetti/confetti.service');

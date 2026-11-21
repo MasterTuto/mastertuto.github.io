@@ -32,7 +32,7 @@ import { NavLink } from 'src/app/model/nav-item.model';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
-import { BcsButton } from '@bcs/button';
+import { BcsButtonComponent } from '@bcs/components/button/button.component';
 import { createWhatsAppLink } from 'src/app/utils/html';
 import { injectCurrentPath } from 'src/app/layouts/current-url';
 
@@ -63,7 +63,7 @@ const ANIMATION_THRESHOLD = 120;
     RouterLinkActive,
     TranslatePipe,
     LangLinkPipe,
-    BcsButton,
+    BcsButtonComponent,
     NgIconComponent,
   ],
 })

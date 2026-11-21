@@ -1,0 +1,8 @@
+.bcs-container {
+  width: 100%;
+  margin-inline: auto;
+
+  &[data-width='prose'] { max-width: var(--width-prose); }
+  &[data-width='content'] { max-width: var(--width-content); }
+  &[data-width='wide'] { max-width: var(--width-wide); }
+}

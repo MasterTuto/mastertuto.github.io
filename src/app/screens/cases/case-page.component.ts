@@ -15,7 +15,7 @@ import {
 } from '@ng-icons/tabler-icons';
 import { map } from 'rxjs';
 
-import { BcsButton } from '@bcs/button';
+import { BcsButtonComponent } from '@bcs/components/button/button.component';
 import { CaseMockupComponent } from 'src/app/components/case-mockup/case-mockup.component';
 import { CaseRole, projectCases } from 'src/app/data/cases.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
@@ -29,7 +29,7 @@ import { createWhatsAppLink } from 'src/app/utils/html';
   selector: 'app-case-page',
   templateUrl: './case-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, NgIconComponent, TranslatePipe, LangLinkPipe, BcsButton, CaseMockupComponent],
+  imports: [RouterLink, NgIconComponent, TranslatePipe, LangLinkPipe, BcsButtonComponent, CaseMockupComponent],
   providers: [
     provideIcons({
       tablerArrowLeft,
