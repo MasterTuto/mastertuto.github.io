@@ -55,22 +55,22 @@ interface DragState {
 }
 
 const REGION_BG: string[] = [
-  "bg-red-500",
-  "bg-blue-500",
-  "bg-green-500",
-  "bg-yellow-500",
-  "bg-purple-500",
-  "bg-pink-500",
-  "bg-indigo-500",
-  "bg-teal-500",
-  "bg-orange-500",
-  "bg-cyan-500",
-  "bg-rose-500",
-  "bg-lime-500",
-  "bg-emerald-500",
-  "bg-violet-500",
-  "bg-fuchsia-500",
-  "bg-sky-500",
+  "bg-error-500",
+  "bg-accent-500",
+  "bg-success-500",
+  "bg-tertiary-500",
+  "bg-accent-500",
+  "bg-error-500",
+  "bg-accent-500",
+  "bg-secondary-500",
+  "bg-tertiary-500",
+  "bg-secondary-500",
+  "bg-error-500",
+  "bg-success-500",
+  "bg-success-500",
+  "bg-accent-500",
+  "bg-error-500",
+  "bg-accent-500",
 ];
 
 const SIZES = [5, 6, 7, 8, 10];
@@ -438,12 +438,12 @@ export class QueensComponent {
     const same = (i: number) => cells[i].region === cell.region;
     const parts = [REGION_BG[cell.region % REGION_BG.length]];
     parts.push(
-      r > 0 && same(index - N) ? "border-t-[0.5px] border-t-white/15" : "border-t-2 border-t-white/60",
-      r < N - 1 && same(index + N) ? "border-b-[0.5px] border-b-white/15" : "border-b-2 border-b-white/60",
-      c > 0 && same(index - 1) ? "border-l-[0.5px] border-l-white/15" : "border-l-2 border-l-white/60",
-      c < N - 1 && same(index + 1) ? "border-r-[0.5px] border-r-white/15" : "border-r-2 border-r-white/60",
+      r > 0 && same(index - N) ? "border-t-[0.5px] border-t-primary-foreground/15" : "border-t-2 border-t-primary-foreground/60",
+      r < N - 1 && same(index + N) ? "border-b-[0.5px] border-b-primary-foreground/15" : "border-b-2 border-b-primary-foreground/60",
+      c > 0 && same(index - 1) ? "border-l-[0.5px] border-l-primary-foreground/15" : "border-l-2 border-l-primary-foreground/60",
+      c < N - 1 && same(index + 1) ? "border-r-[0.5px] border-r-primary-foreground/15" : "border-r-2 border-r-primary-foreground/60",
     );
-    if (cell.locked) parts.push("ring-2 ring-inset ring-amber-300");
+    if (cell.locked) parts.push("ring-2 ring-inset ring-tertiary-300");
     return parts.join(" ");
   }
 

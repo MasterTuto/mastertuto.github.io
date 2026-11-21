@@ -108,7 +108,7 @@ const FAQ: FaqItem[] = [
             @if (result(); as r) {
               <span>Vence em</span>
               <strong>{{ short(r.end) }} {{ br(r.end) }}</strong>
-              <span class="text-xs font-semibold" [class.text-green-300]="status()?.tone === 'ok'" [class.text-amber-300]="status()?.tone === 'warn'" [class.text-red-300]="status()?.tone === 'bad'">{{ status()?.short }}</span>
+              <span class="text-xs font-semibold" [class.text-success-300]="status()?.tone === 'ok'" [class.text-tertiary-300]="status()?.tone === 'warn'" [class.text-error-300]="status()?.tone === 'bad'">{{ status()?.short }}</span>
             } @else {
               <span>Informe a data da intimação</span><strong>–</strong>
             }
@@ -130,7 +130,7 @@ const FAQ: FaqItem[] = [
                   <div class="pro-input-wrap min-w-0 flex-1 sm:max-w-[13rem]">
                     <input id="dl-date" class="pro-input" appMask="date" placeholder="dd/mm/aaaa" [value]="date()"
                       (input)="date.set(val($event))" (focus)="select($event)" [attr.aria-invalid]="dateInvalid()" aria-describedby="dl-date-hint" />
-                    <span class="absolute right-1 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-lg text-foreground-light hover:bg-foreground/5">
+                    <span class="absolute right-1 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-sm text-muted-foreground hover:bg-surface-0-foreground/5">
                       <ng-icon name="tablerCalendar" size="1.2rem" aria-hidden="true" />
                       <input type="date" tabindex="-1" aria-label="Escolher no calendário" class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
                         [value]="isoDate()" (change)="pickDate($event)" (click)="openPicker($event)" />
@@ -141,7 +141,7 @@ const FAQ: FaqItem[] = [
                     <button type="button" class="pro-chip" [attr.aria-pressed]="startDay() === todayNum() - 1" (click)="setDay(todayNum() - 1)">Ontem</button>
                   </div>
                 </div>
-                <p id="dl-date-hint" class="pro-hint mt-1.5" [class.!text-red-600]="dateInvalid()">
+                <p id="dl-date-hint" class="pro-hint mt-1.5" [class.!text-error-600]="dateInvalid()">
                   @if (dateInvalid()) { Data inválida. Use dd/mm/aaaa. }
                   @else if (startDay() !== null) { {{ weekday(startDay()!) }}{{ dje() ? ' · publicação no 1º dia útil seguinte' : '' }} }
                   @else { Digite só os números: 15122025 }
@@ -190,23 +190,23 @@ const FAQ: FaqItem[] = [
             <details class="f group !block">
               <summary class="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3">
                 <span class="pro-label">Feriados e suspensões</span>
-                <span class="text-right text-sm text-foreground-light">
+                <span class="text-right text-sm text-muted-foreground">
                   {{ calendarSummary() }}
                   <span class="ml-1 inline-block transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
                 </span>
               </summary>
               <div class="mt-1 grid">
                 @for (opt of options; track opt.key) {
-                  <label class="flex cursor-pointer items-center justify-between gap-4 border-t border-foreground/10 py-3 first:border-t-0">
+                  <label class="flex cursor-pointer items-center justify-between gap-4 border-t border-surface-0-foreground/10 py-3 first:border-t-0">
                     <span class="min-w-0">
-                      <span class="block text-sm font-semibold text-foreground" [id]="'dl-opt-' + opt.key">{{ opt.label }}</span>
+                      <span class="block text-sm font-semibold text-surface-0-foreground" [id]="'dl-opt-' + opt.key">{{ opt.label }}</span>
                       <span class="pro-hint block">{{ opt.hint }}</span>
                     </span>
                     <button type="button" role="switch" class="sw" [attr.aria-labelledby]="'dl-opt-' + opt.key" [attr.aria-checked]="opt.value()" (click)="opt.value.set(!opt.value())"></button>
                   </label>
                 }
-                <div class="border-t border-foreground/10 py-3" data-flow-skip>
-                  <label class="block text-sm font-semibold text-foreground" for="dl-custom">Feriados locais e suspensões do tribunal</label>
+                <div class="border-t border-surface-0-foreground/10 py-3" data-flow-skip>
+                  <label class="block text-sm font-semibold text-surface-0-foreground" for="dl-custom">Feriados locais e suspensões do tribunal</label>
                   <span class="pro-hint block">Feriados estaduais e municipais, portarias de suspensão, indisponibilidade do sistema.</span>
                   <div class="mt-2 flex gap-2">
                     <input id="dl-custom" class="pro-input max-w-[13rem]" appMask="date" [maskAutoAdvance]="false" placeholder="dd/mm/aaaa"
@@ -218,9 +218,9 @@ const FAQ: FaqItem[] = [
                   @if (customDays().length) {
                     <ul class="mt-3 flex flex-wrap gap-2" aria-label="Datas adicionadas">
                       @for (day of customDays(); track day) {
-                        <li class="inline-flex items-center gap-1 rounded-full bg-surface-decoration py-1 pl-3 pr-1 text-sm font-medium text-surface-decoration-foreground">
+                        <li class="inline-flex items-center gap-1 rounded-full bg-accent-50 py-1 pl-3 pr-1 text-sm font-medium text-accent-700">
                           {{ short(day) }} {{ br(day) }}
-                          <button type="button" class="grid h-8 w-8 place-items-center rounded-full hover:bg-white/60" [attr.aria-label]="'Remover ' + br(day)" (click)="removeCustom(day)">
+                          <button type="button" class="grid h-8 w-8 place-items-center rounded-full hover:bg-primary-foreground/60" [attr.aria-label]="'Remover ' + br(day)" (click)="removeCustom(day)">
                             <ng-icon name="tablerX" size="0.95rem" />
                           </button>
                         </li>
@@ -280,10 +280,10 @@ const FAQ: FaqItem[] = [
         </aside>
 
         @if (result(); as r) {
-          <details class="group min-w-0 border-y border-foreground/10" [open]="timelineOpen()" (toggle)="timelineOpen.set($any($event.target).open)">
+          <details class="group min-w-0 border-y border-surface-0-foreground/10" [open]="timelineOpen()" (toggle)="timelineOpen.set($any($event.target).open)">
             <summary class="flex min-h-[52px] cursor-pointer list-none items-center justify-between gap-3">
-              <span class="font-semibold text-foreground">Contagem dia a dia</span>
-              <span class="text-sm text-foreground-light">
+              <span class="font-semibold text-surface-0-foreground">Contagem dia a dia</span>
+              <span class="text-sm text-muted-foreground">
                 {{ r.total }} contados · {{ r.end - r.firstCounted + 1 }} no calendário
                 <span class="ml-1 inline-block transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
               </span>
@@ -291,21 +291,21 @@ const FAQ: FaqItem[] = [
             <ol class="tl pb-3" aria-label="Dias do prazo">
               @for (row of rows(); track row.day) {
                 <li [class.opacity-60]="row.kind === 'weekend'">
-                  <span class="tabular-nums text-foreground-light">{{ short(row.day) }} <span class="text-foreground">{{ dm(row.day) }}</span></span>
+                  <span class="tabular-nums text-muted-foreground">{{ short(row.day) }} <span class="text-surface-0-foreground">{{ dm(row.day) }}</span></span>
                   @switch (row.kind) {
                     @case ('counted') {
-                      <b [class]="row.day === r.end ? 'bg-foreground-emphasis text-white' : 'bg-primary text-primary-foreground'">{{ row.n ?? '✓' }}</b>
+                      <b [class]="row.day === r.end ? 'bg-accent text-primary-foreground' : 'bg-primary text-primary-foreground'">{{ row.n ?? '✓' }}</b>
                     }
-                    @case ('holiday') { <b class="bg-amber-100 text-amber-700" aria-hidden="true">F</b> }
-                    @case ('custom') { <b class="bg-amber-100 text-amber-700" aria-hidden="true">L</b> }
-                    @case ('recess') { <b class="bg-surface-decoration text-surface-decoration-foreground" aria-hidden="true">R</b> }
-                    @case ('suspended') { <b class="bg-surface-decoration text-surface-decoration-foreground" aria-hidden="true">S</b> }
-                    @case ('weekend') { <b class="text-foreground-light" aria-hidden="true">–</b> }
-                    @default { <b class="border border-foreground/25 text-foreground" aria-hidden="true">0</b> }
+                    @case ('holiday') { <b class="bg-tertiary-100 text-tertiary-700" aria-hidden="true">F</b> }
+                    @case ('custom') { <b class="bg-tertiary-100 text-tertiary-700" aria-hidden="true">L</b> }
+                    @case ('recess') { <b class="bg-accent-50 text-accent-700" aria-hidden="true">R</b> }
+                    @case ('suspended') { <b class="bg-accent-50 text-accent-700" aria-hidden="true">S</b> }
+                    @case ('weekend') { <b class="text-muted-foreground" aria-hidden="true">–</b> }
+                    @default { <b class="border border-surface-0-foreground/25 text-surface-0-foreground" aria-hidden="true">0</b> }
                   }
-                  <span class="min-w-0 text-foreground">
+                  <span class="min-w-0 text-surface-0-foreground">
                     @if (row.until) {
-                      até {{ dm(row.until) }} · {{ row.label }} <span class="text-foreground-light">({{ row.count }} dias)</span>
+                      até {{ dm(row.until) }} · {{ row.label }} <span class="text-muted-foreground">({{ row.count }} dias)</span>
                     } @else if (row.kind === 'counted') {
                       {{ row.day === r.end ? 'Último dia do prazo' : 'Dia ' + row.n }}{{ row.label ? ' · ' + row.label : '' }}
                     } @else {
@@ -377,10 +377,10 @@ const FAQ: FaqItem[] = [
                     <td>{{ br(h.day) }}</td>
                     <td>{{ short(h.day) }}</td>
                     <td>{{ h.name }}</td>
-                    <td class="text-foreground-light">{{ h.group === 'national' ? 'Nacional' : h.group === 'optional' ? 'Ponto facultativo' : 'Forense (Lei 5.010/66)' }}</td>
+                    <td class="text-muted-foreground">{{ h.group === 'national' ? 'Nacional' : h.group === 'optional' ? 'Ponto facultativo' : 'Forense (Lei 5.010/66)' }}</td>
                   </tr>
                 }
-                <tr><td>20/12 a 20/01</td><td>–</td><td>Recesso e suspensão dos prazos</td><td class="text-foreground-light">CPC, art. 220</td></tr>
+                <tr><td>20/12 a 20/01</td><td>–</td><td>Recesso e suspensão dos prazos</td><td class="text-muted-foreground">CPC, art. 220</td></tr>
               </tbody>
             </table>
           </div>

@@ -139,7 +139,7 @@ const FAQ: FaqItem[] = [
           @if (best(); as b) {
             <svg class="profile" [attr.viewBox]="profile().viewBox" role="img" [attr.aria-label]="'Corte da escada: ' + b.risers + ' espelhos de ' + fmt(b.riser, 1) + ' cm e ' + b.treads + ' pisos de ' + fmt(b.tread, 1) + ' cm'">
               <path [attr.d]="profile().fill" fill="rgb(122 112 225 / .14)" />
-              <path [attr.d]="profile().line" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" class="text-foreground" />
+              <path [attr.d]="profile().line" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" class="text-surface-0-foreground" />
               @for (r of profile().slabs; track r.x) {
                 <rect [attr.x]="r.x" y="0" [attr.width]="r.width" [attr.height]="profile().slab" fill="rgb(68 74 81 / .28)" />
               }
@@ -192,7 +192,7 @@ const FAQ: FaqItem[] = [
 
       @if (plan().options.length > 1) {
         <section class="mt-8 max-w-3xl" aria-labelledby="es-options">
-          <h2 id="es-options" class="text-base font-semibold text-foreground">Outras combinações para {{ fmt(riseValue() / 100, 2) }} m</h2>
+          <h2 id="es-options" class="text-base font-semibold text-surface-0-foreground">Outras combinações para {{ fmt(riseValue() / 100, 2) }} m</h2>
           <div class="pro-table-scroll mt-2">
             <table class="pro-table">
               <thead><tr><th scope="col">Espelhos</th><th scope="col">Espelho</th><th scope="col">Piso</th><th scope="col">2e + p</th><th scope="col">Degraus</th><th scope="col">Inclinação</th></tr></thead>

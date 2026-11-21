@@ -136,7 +136,7 @@ const FAQ: FaqItem[] = [
                       <input id="pi-first" class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Comprimento em metros" [value]="depth()" (input)="depth.set(val($event))" />
                       <span class="pro-suffix">m</span>
                     </label>
-                    <span class="text-foreground-light" aria-hidden="true">×</span>
+                    <span class="text-muted-foreground" aria-hidden="true">×</span>
                     <label class="pro-input-wrap flex-1">
                       <input class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Largura em metros" [value]="width()" (input)="width.set(val($event))" />
                       <span class="pro-suffix">m</span>
@@ -172,7 +172,7 @@ const FAQ: FaqItem[] = [
                     <input class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Comprimento da peça em centímetros" [value]="tileLength()" (input)="tileLength.set(val($event))" />
                     <span class="pro-suffix">cm</span>
                   </label>
-                  <span class="text-foreground-light" aria-hidden="true">×</span>
+                  <span class="text-muted-foreground" aria-hidden="true">×</span>
                   <label class="pro-input-wrap flex-1">
                     <input class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Largura da peça em centímetros" [value]="tileWidth()" (input)="tileWidth.set(val($event))" />
                     <span class="pro-suffix">cm</span>

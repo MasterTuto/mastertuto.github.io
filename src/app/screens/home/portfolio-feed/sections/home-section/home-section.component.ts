@@ -6,7 +6,7 @@ import {
   tablerDeviceMobile,
   tablerWorldSearch,
 } from '@ng-icons/tabler-icons';
-import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { BcsButton } from '@bcs/button';
 import { SectionComponent } from 'src/app/components/section/section.component';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { TranslateService } from 'src/app/service/translate.service';
@@ -15,7 +15,7 @@ import { createWhatsAppLink } from 'src/app/utils/html';
 @Component({
   selector: 'app-home-section',
   templateUrl: './home-section.component.html',
-  imports: [TranslatePipe, SectionComponent, NgIconComponent, ButtonComponent],
+  imports: [TranslatePipe, SectionComponent, NgIconComponent, BcsButton],
   changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     provideIcons({

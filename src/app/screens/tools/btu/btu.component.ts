@@ -130,7 +130,7 @@ const FAQ: FaqItem[] = [
                       <input id="btu-depth" class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Comprimento em metros" [value]="depth()" (input)="depth.set(val($event))" />
                       <span class="pro-suffix">m</span>
                     </label>
-                    <span class="text-foreground-light" aria-hidden="true">×</span>
+                    <span class="text-muted-foreground" aria-hidden="true">×</span>
                     <label class="pro-input-wrap flex-1">
                       <span class="sr-only">Largura</span>
                       <input class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Largura em metros" [value]="width()" (input)="width.set(val($event))" />
@@ -176,7 +176,7 @@ const FAQ: FaqItem[] = [
               <span class="pro-label">Ocupação</span>
               <div class="grid grid-cols-2 gap-3 sm:flex sm:gap-8">
                 <div class="grid justify-items-start gap-1.5">
-                  <span class="text-sm text-foreground-light" id="btu-people">Pessoas</span>
+                  <span class="text-sm text-muted-foreground" id="btu-people">Pessoas</span>
                   <div class="step" role="group" aria-labelledby="btu-people">
                     <button type="button" aria-label="Menos uma pessoa" [disabled]="people() <= 1" (click)="people.set(clamp(people() - 1, 1, 50))"><ng-icon name="tablerMinus" /></button>
                     <output aria-live="polite">{{ people() }}</output>
@@ -184,7 +184,7 @@ const FAQ: FaqItem[] = [
                   </div>
                 </div>
                 <div class="grid justify-items-start gap-1.5">
-                  <span class="text-sm text-foreground-light" id="btu-devices">Aparelhos <small>(TV, PC…)</small></span>
+                  <span class="text-sm text-muted-foreground" id="btu-devices">Aparelhos <small>(TV, PC…)</small></span>
                   <div class="step" role="group" aria-labelledby="btu-devices">
                     <button type="button" aria-label="Menos um aparelho" [disabled]="devices() <= 0" (click)="devices.set(clamp(devices() - 1, 0, 50))"><ng-icon name="tablerMinus" /></button>
                     <output aria-live="polite">{{ devices() }}</output>
@@ -205,8 +205,8 @@ const FAQ: FaqItem[] = [
               </div>
             </div>
 
-            <div class="mt-6 border-t-2 border-foreground/80 pt-4">
-              <h2 class="text-base font-semibold text-foreground">Consumo estimado</h2>
+            <div class="mt-6 border-t-2 border-surface-0-foreground/80 pt-4">
+              <h2 class="text-base font-semibold text-surface-0-foreground">Consumo estimado</h2>
               <div class="mt-3 grid grid-cols-2 gap-3">
                 <div class="pro-field">
                   <label class="pro-label" for="btu-hours">Uso por dia</label>
@@ -229,16 +229,16 @@ const FAQ: FaqItem[] = [
                 }
               </div>
               @if (usage(); as u) {
-                <div class="mt-4 grid grid-cols-2 border-y border-foreground/10 py-3" aria-live="polite">
+                <div class="mt-4 grid grid-cols-2 border-y border-surface-0-foreground/10 py-3" aria-live="polite">
                   <div class="stat">
-                    <span class="text-xs font-semibold text-foreground-light">Inverter</span>
-                    <b class="text-foreground">{{ money(u.inverter.costMonth) }}</b>
-                    <span class="text-sm text-foreground-light">{{ fmt(u.inverter.kwhMonth) }} kWh/mês</span>
+                    <span class="text-xs font-semibold text-muted-foreground">Inverter</span>
+                    <b class="text-surface-0-foreground">{{ money(u.inverter.costMonth) }}</b>
+                    <span class="text-sm text-muted-foreground">{{ fmt(u.inverter.kwhMonth) }} kWh/mês</span>
                   </div>
                   <div class="stat">
-                    <span class="text-xs font-semibold text-foreground-light">Convencional</span>
-                    <b class="text-foreground">{{ money(u.conventional.costMonth) }}</b>
-                    <span class="text-sm text-foreground-light">{{ fmt(u.conventional.kwhMonth) }} kWh/mês</span>
+                    <span class="text-xs font-semibold text-muted-foreground">Convencional</span>
+                    <b class="text-surface-0-foreground">{{ money(u.conventional.costMonth) }}</b>
+                    <span class="text-sm text-muted-foreground">{{ fmt(u.conventional.kwhMonth) }} kWh/mês</span>
                   </div>
                 </div>
                 <p class="pro-hint mt-2">

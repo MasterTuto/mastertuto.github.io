@@ -23,21 +23,21 @@ import { TranslationInitializer } from 'src/app/service/translation.initializer'
   ],
   template: `
     <section class="flex flex-col gap-6">
-      <h2 class="text-2xl font-semibold text-foreground sm:text-3xl">
+      <h2 class="text-2xl font-semibold text-surface-0-foreground sm:text-3xl">
         {{ 'servicesPage.common.otherServices' | translate }}
       </h2>
       <div class="grid gap-4 md:grid-cols-3">
         @for (other of others(); track other.slug) {
           <a
             [routerLink]="['/', lang, 'services', other.slug]"
-            class="group flex flex-col gap-3 rounded-xl bg-surface p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+            class="group flex flex-col gap-3 rounded-md bg-surface-1 p-5 transition hover:-translate-y-0.5 hover:shadow-md"
           >
-            <span class="grid size-11 place-items-center rounded-lg bg-surface-decoration text-xl text-surface-decoration-foreground">
+            <span class="grid size-11 place-items-center rounded-sm bg-accent-50 text-xl text-accent-700">
               <ng-icon [name]="other.icon" />
             </span>
-            <h3 class="font-semibold text-foreground">{{ other.nameKey | translate }}</h3>
-            <p class="text-sm text-foreground-light">{{ other.descriptionKey | translate }}</p>
-            <span class="mt-auto flex items-center gap-1 text-sm font-semibold text-foreground-emphasis">
+            <h3 class="font-semibold text-surface-0-foreground">{{ other.nameKey | translate }}</h3>
+            <p class="text-sm text-muted-foreground">{{ other.descriptionKey | translate }}</p>
+            <span class="mt-auto flex items-center gap-1 text-sm font-semibold text-accent">
               {{ 'servicesPage.index.viewAll' | translate }}
               <ng-icon name="tablerArrowRight" class="transition-transform group-hover:translate-x-0.5" />
             </span>

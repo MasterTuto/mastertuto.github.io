@@ -1,0 +1,23 @@
+.bcs-whatsapp-form__form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--gap-md);
+}
+
+.bcs-whatsapp-form__wide,
+.bcs-whatsapp-form__footer { grid-column: 1 / -1; }
+
+.bcs-whatsapp-form__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-md);
+  margin-top: var(--gap-sm);
+}
+
+.bcs-whatsapp-form__note {
+  flex: 1 1 14rem;
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: rgb(var(--color-muted-ink));
+}

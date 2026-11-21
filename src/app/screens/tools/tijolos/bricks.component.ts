@@ -123,7 +123,7 @@ const FAQ: FaqItem[] = [
                       <input class="pro-input" inputmode="decimal" autocomplete="off" [attr.id]="i === 0 ? 'tj-wall' : null" [attr.aria-label]="'Comprimento da parede ' + (i + 1) + ' em metros'" [value]="wall.length" (input)="setWall(i, 'length', val($event))" />
                       <span class="pro-suffix">m</span>
                     </div>
-                    <span class="text-foreground-light" aria-hidden="true">×</span>
+                    <span class="text-muted-foreground" aria-hidden="true">×</span>
                     <div class="pro-input-wrap">
                       <input class="pro-input" inputmode="decimal" autocomplete="off" [attr.aria-label]="'Altura da parede ' + (i + 1) + ' em metros'" [value]="wall.height" (input)="setWall(i, 'height', val($event))" />
                       <span class="pro-suffix">m</span>
@@ -131,7 +131,7 @@ const FAQ: FaqItem[] = [
                     <button type="button" class="x" [attr.aria-label]="'Remover parede ' + (i + 1)" [disabled]="walls().length === 1" [class.invisible]="walls().length === 1" (click)="removeWall(i)"><ng-icon name="tablerX" /></button>
                   </div>
                 }
-                <button type="button" class="add text-foreground-emphasis" (click)="addWall()"><ng-icon name="tablerPlus" aria-hidden="true" /> Adicionar parede</button>
+                <button type="button" class="add text-accent" (click)="addWall()"><ng-icon name="tablerPlus" aria-hidden="true" /> Adicionar parede</button>
                 @if (result(); as r) {
                   <p class="pro-hint">Área bruta: {{ fmt(r.gross, 2) }} m²</p>
                 }
@@ -147,7 +147,7 @@ const FAQ: FaqItem[] = [
                       <input class="pro-input" inputmode="decimal" autocomplete="off" [attr.aria-label]="'Largura do vão ' + (i + 1) + ' em metros'" [value]="item.width" (input)="setOpening(i, 'width', val($event))" />
                       <span class="pro-suffix">m</span>
                     </div>
-                    <span class="text-foreground-light" aria-hidden="true">×</span>
+                    <span class="text-muted-foreground" aria-hidden="true">×</span>
                     <div class="pro-input-wrap">
                       <input class="pro-input" inputmode="decimal" autocomplete="off" [attr.aria-label]="'Altura do vão ' + (i + 1) + ' em metros'" [value]="item.height" (input)="setOpening(i, 'height', val($event))" />
                       <span class="pro-suffix">m</span>

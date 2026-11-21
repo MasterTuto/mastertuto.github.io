@@ -28,7 +28,7 @@ interface Step {
         </li>
       }
     </ol>
-    <p class="mb-5 mt-4 text-sm leading-relaxed text-foreground-light">{{ steps[step()].hint }}</p>
+    <p class="mb-5 mt-4 text-sm leading-relaxed text-muted-foreground">{{ steps[step()].hint }}</p>
     <div #flow appFormFlow (flowDone)="next()" (keydown.enter)="$event.stopPropagation()">
       <app-party-form [party]="draft()" (partyChange)="change($event)" [sections]="steps[step()].sections" [headings]="false" />
     </div>
@@ -37,7 +37,7 @@ interface Step {
         <button type="button" class="pro-btn ghost" (click)="go(step() - 1)">Voltar</button>
       }
       <button type="button" class="pro-btn" (click)="next()">{{ step() === steps.length - 1 ? 'Concluir e salvar' : 'Continuar' }}</button>
-      <button type="button" class="ml-auto text-sm font-medium text-foreground-light underline underline-offset-4" (click)="skip()">Pular por enquanto</button>
+      <button type="button" class="ml-auto text-sm font-medium text-muted-foreground underline underline-offset-4" (click)="skip()">Pular por enquanto</button>
     </div>
   `,
   styles: `

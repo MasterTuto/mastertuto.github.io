@@ -196,7 +196,7 @@ const FAQ: FaqItem[] = [
                   <input id="wg-length" class="pro-input" inputmode="decimal" autocomplete="off" [value]="length()" (input)="length.set(val($event))" />
                   <span class="pro-suffix">m</span>
                 </div>
-                <input type="range" min="1" max="100" step="1" class="h-2 min-w-0 flex-1 cursor-pointer accent-foreground-emphasis" aria-label="Distância em metros"
+                <input type="range" min="1" max="100" step="1" class="h-2 min-w-0 flex-1 cursor-pointer accent-accent" aria-label="Distância em metros"
                   [value]="lengthValue() || 1" (input)="length.set(val($event))" />
               </div>
             </div>
@@ -221,7 +221,7 @@ const FAQ: FaqItem[] = [
             <details class="f group !block">
               <summary class="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3">
                 <span class="pro-label">Instalação</span>
-                <span class="text-right text-sm text-foreground-light">
+                <span class="text-right text-sm text-muted-foreground">
                   {{ material() === 'cu' ? 'Cobre' : 'Alumínio' }} · {{ method() }} · {{ grouped() }} {{ grouped() === 1 ? 'circuito' : 'circuitos' }}
                   <span class="ml-1 inline-block transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
                 </span>
@@ -297,7 +297,7 @@ const FAQ: FaqItem[] = [
 
       @if (result(); as r) {
         <section class="mt-8 max-w-3xl" aria-labelledby="wg-compare">
-          <h2 id="wg-compare" class="text-base font-semibold text-foreground">Comparativo de seções</h2>
+          <h2 id="wg-compare" class="text-base font-semibold text-surface-0-foreground">Comparativo de seções</h2>
           <p class="pro-hint mt-1">
             {{ fmt(r.current, 1) }} A em {{ fmt(lengthValue(), 0) }} m · {{ r.loadedConductors }} condutores carregados
             @if (r.groupingFactor < 1) { · fator de agrupamento {{ fmt(r.groupingFactor, 2) }} }
@@ -313,10 +313,10 @@ const FAQ: FaqItem[] = [
                     <td>{{ fmt(row.dropPct, 2) }}%</td>
                     <td>
                       @if (row.section === r.recommended) { <span class="pro-pill ok">Indicado</span> }
-                      @else if (!row.ampacityOk) { <span class="text-foreground-light">Aquece (Iz &lt; Ib)</span> }
-                      @else if (!row.dropOk) { <span class="text-foreground-light">Queda acima de {{ maxDrop() }}%</span> }
-                      @else if (row.section < r.byMinimum) { <span class="text-foreground-light">Abaixo do mínimo</span> }
-                      @else { <span class="text-foreground-light">Atende (folga)</span> }
+                      @else if (!row.ampacityOk) { <span class="text-muted-foreground">Aquece (Iz &lt; Ib)</span> }
+                      @else if (!row.dropOk) { <span class="text-muted-foreground">Queda acima de {{ maxDrop() }}%</span> }
+                      @else if (row.section < r.byMinimum) { <span class="text-muted-foreground">Abaixo do mínimo</span> }
+                      @else { <span class="text-muted-foreground">Atende (folga)</span> }
                     </td>
                   </tr>
                 }

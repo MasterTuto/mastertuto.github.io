@@ -1,0 +1,27 @@
+.bcs-price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.bcs-price__amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-sm);
+}
+
+.bcs-price__prefix,
+.bcs-price__period {
+  font-size: var(--text-sm);
+  color: rgb(var(--color-muted-ink));
+}
+
+.bcs-price__value {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums;
+}

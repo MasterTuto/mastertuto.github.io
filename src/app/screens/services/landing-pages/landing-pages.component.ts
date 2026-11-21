@@ -11,7 +11,7 @@ import {
   tablerWriting,
 } from '@ng-icons/tabler-icons';
 
-import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { BcsButton } from '@bcs/button';
 import { projectCases } from 'src/app/data/cases.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
@@ -29,7 +29,7 @@ import { ServicePage } from '../shared/service-page';
     NgIconComponent,
     TranslatePipe,
     LangLinkPipe,
-    ButtonComponent,
+    BcsButton,
     OtherServicesComponent,
   ],
   providers: [

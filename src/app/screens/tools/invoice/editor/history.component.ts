@@ -20,7 +20,7 @@ import { downloadBlob } from '../invoice.export';
       }
     </div>
     @if (!store.history().length) {
-      <p class="mt-3 max-w-[60ch] text-sm leading-relaxed text-foreground-light">
+      <p class="mt-3 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
         Ao salvar ou exportar, a invoice entra aqui, neste navegador. Daqui dá para reabrir, duplicar para o mês seguinte ou marcar como paga.
       </p>
     } @else {
@@ -43,14 +43,14 @@ import { downloadBlob } from '../invoice.export';
               </td>
             </tr>
           } @empty {
-            <tr><td colspan="6" class="py-6 text-center text-sm text-foreground-light">Nada encontrado para “{{ query() }}”.</td></tr>
+            <tr><td colspan="6" class="py-6 text-center text-sm text-muted-foreground">Nada encontrado para “{{ query() }}”.</td></tr>
           }
         </tbody>
       </table>
-      <p class="mt-3 text-sm text-foreground-light">Recebido: <strong class="text-foreground">{{ paidCount() }}</strong> de {{ store.history().length }} invoices.</p>
+      <p class="mt-3 text-sm text-muted-foreground">Recebido: <strong class="text-surface-0-foreground">{{ paidCount() }}</strong> de {{ store.history().length }} invoices.</p>
     }
     <div class="backup">
-      <span class="text-sm text-foreground-light">Seus perfis, clientes e invoices ficam só neste navegador.</span>
+      <span class="text-sm text-muted-foreground">Seus perfis, clientes e invoices ficam só neste navegador.</span>
       <button type="button" class="link" (click)="exportBackup()">Exportar backup (.json)</button>
       <label class="link cursor-pointer">Importar backup<input type="file" accept="application/json,.json" class="sr-only" (change)="importBackup($event)" /></label>
     </div>

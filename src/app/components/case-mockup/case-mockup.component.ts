@@ -22,14 +22,14 @@ import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
       class="pointer-events-none absolute -inset-10 -z-10"
       [style.background]="'radial-gradient(closest-side, ' + project().accent + '1a, transparent)'"
     ></div>
-    <figure class="overflow-hidden rounded-xl border border-foreground/10 bg-surface shadow-2xl shadow-foreground/10">
-      <div class="flex items-center gap-3 border-b border-foreground/10 px-4 py-2.5">
+    <figure class="overflow-hidden rounded-md border border-surface-0-foreground/10 bg-surface-1 shadow-lg shadow-surface-0-foreground/10">
+      <div class="flex items-center gap-3 border-b border-surface-0-foreground/10 px-4 py-2.5">
         <span class="flex gap-1.5" aria-hidden="true">
-          <span class="size-2.5 rounded-full bg-foreground/15"></span>
-          <span class="size-2.5 rounded-full bg-foreground/15"></span>
-          <span class="size-2.5 rounded-full bg-foreground/15"></span>
+          <span class="size-2.5 rounded-full bg-surface-0-foreground/15"></span>
+          <span class="size-2.5 rounded-full bg-surface-0-foreground/15"></span>
+          <span class="size-2.5 rounded-full bg-surface-0-foreground/15"></span>
         </span>
-        <span class="truncate rounded-md bg-background px-3 py-0.5 text-xs text-foreground-light">{{ project().domain }}</span>
+        <span class="truncate rounded-sm bg-surface-0 px-3 py-0.5 text-xs text-muted-foreground">{{ project().domain }}</span>
       </div>
       <img
         [src]="project().desktop"
@@ -46,7 +46,7 @@ import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
       [attr.loading]="eager() ? null : 'lazy'"
       width="390"
       height="844"
-      class="absolute bottom-0 right-0 aspect-[390/700] w-[26%] rounded-2xl border-4 border-primary object-cover object-top shadow-xl"
+      class="absolute bottom-0 right-0 aspect-[390/700] w-[26%] rounded-lg border-4 border-primary object-cover object-top shadow-lg"
     >
   `,
 })

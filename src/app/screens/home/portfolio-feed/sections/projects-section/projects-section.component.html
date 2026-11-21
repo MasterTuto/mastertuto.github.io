@@ -1,9 +1,9 @@
 <app-section name="projects" title="home.projects.name" containerClass="items-center gap-10 px-4">
   <div class="flex flex-col items-center gap-3 text-center">
-    <h3 class="text-foreground text-4xl max-w-[18ch] font-semibold">
+    <h3 class="text-surface-0-foreground text-4xl max-w-[18ch] font-semibold">
       {{ "home.projects.title" | translate }}
     </h3>
-    <p class="text-foreground-light max-w-[60ch]">
+    <p class="text-muted-foreground max-w-[60ch]">
       {{ "home.projects.description" | translate }}
     </p>
   </div>
@@ -11,7 +11,7 @@
   <div class="flex w-full max-w-6xl flex-col overflow-x-clip">
     @for (project of projects; track project.slug; let odd = $odd, first = $first) {
       @if (!first) {
-        <hr class="border-foreground/10">
+        <hr class="border-surface-0-foreground/10">
       }
       <article
         class="grid w-full items-center gap-10 py-14 md:py-20 lg:grid-cols-2 lg:gap-16"
@@ -21,23 +21,23 @@
           <div class="flex flex-col gap-1">
             <h4
               [id]="'case-' + project.slug"
-              class="w-fit text-4xl font-semibold text-foreground sm:text-5xl"
+              class="w-fit text-4xl font-semibold text-surface-0-foreground sm:text-5xl"
               [style.view-transition-name]="'case-title-' + project.slug"
             >
               {{ project.name }}
             </h4>
-            <p class="text-xl font-medium text-foreground">
+            <p class="text-xl font-medium text-surface-0-foreground">
               {{ "cases.items." + project.key + ".tagline" | translate }}
             </p>
           </div>
-          <p class="max-w-[60ch] leading-relaxed text-foreground-light">
+          <p class="max-w-[60ch] leading-relaxed text-muted-foreground">
             {{ "cases.items." + project.key + ".summary" | translate }}
           </p>
 
           <ul class="flex flex-wrap gap-2" [attr.aria-label]="'cases.myRole' | translate">
             @for (work of project.work; track work.role) {
               <li
-                class="rounded-full border bg-surface px-3 py-1 text-sm font-medium"
+                class="rounded-full border bg-surface-1 px-3 py-1 text-sm font-medium"
                 [style.border-color]="project.accent + '33'"
                 [style.color]="project.accent"
               >{{ "cases.roles." + work.role | translate }}</li>
@@ -45,7 +45,7 @@
           </ul>
 
           <div class="flex flex-wrap items-center gap-3 pt-2">
-            <a myButton="cta" class="max-w-fit" [routerLink]="'cases/' + project.slug | langLink">
+            <a bcs-button [routerLink]="'cases/' + project.slug | langLink">
               {{ "cases.viewCase" | translate }}
               <ng-icon name="tablerArrowRight" />
             </a>
@@ -53,7 +53,7 @@
               [href]="project.url"
               target="_blank"
               rel="noopener"
-              class="flex items-center gap-1 px-2 py-3 font-medium text-foreground transition hover:text-foreground-emphasis"
+              class="flex items-center gap-1 px-2 py-3 font-medium text-surface-0-foreground transition hover:text-accent"
             >
               {{ "cases.visitSite" | translate }}
               <ng-icon name="tablerExternalLink" class="h-4 w-4" />

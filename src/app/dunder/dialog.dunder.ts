@@ -1,8 +1,8 @@
 import { inject, Type } from "@angular/core";
 
 
-import { DialogService } from "../components/@my/dialogs/dialog.service";
-import { DialogController, DialogData, DialogOutput, DialogRef } from "../components/@my/dialogs/dialog.model";
+import { DialogService } from "@bcs/dialog/dialog.service";
+import { DialogController, DialogData, DialogOutput, DialogRef } from "@bcs/dialog/dialog.model";
 import { Subject } from "rxjs";
 
 

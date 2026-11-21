@@ -17,7 +17,7 @@
         <button
           type="button"
           (click)="startGame()"
-          class="ml-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5"
+          class="ml-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-md px-3 text-sm font-semibold text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5"
         >
           <ng-icon name="tablerRefresh" aria-hidden="true" />
           {{ "games.newGame" | translate }}
@@ -35,33 +35,33 @@
             }
           </div>
         } @else {
-          <p class="flex items-center gap-2 text-sm font-medium text-foreground">
-            <ng-icon name="tablerCalendar" class="text-foreground-emphasis" aria-hidden="true" />
+          <p class="flex items-center gap-2 text-sm font-medium text-surface-0-foreground">
+            <ng-icon name="tablerCalendar" class="text-accent" aria-hidden="true" />
             {{ "wordLadder.daily-today" | translate }}
           </p>
         }
       </div>
 
       <!-- Stats row -->
-      <dl class="grid grid-cols-3 divide-x divide-foreground/10 border-y border-foreground/10 py-2 text-center">
+      <dl class="grid grid-cols-3 divide-x divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 py-2 text-center">
         <div>
-          <dt class="text-xs text-foreground-light">{{ "games.time" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ timer.label() }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "games.time" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ timer.label() }}</dd>
         </div>
         <div>
-          <dt class="text-xs text-foreground-light">{{ "wordLadder.moves" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">
-            {{ moves }}<span class="text-sm font-medium text-foreground-light"> / {{ puzzle()?.optimalMoves ?? "–" }}</span>
+          <dt class="text-xs text-muted-foreground">{{ "wordLadder.moves" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">
+            {{ moves }}<span class="text-sm font-medium text-muted-foreground"> / {{ puzzle()?.optimalMoves ?? "–" }}</span>
           </dd>
         </div>
         <div>
-          <dt class="text-xs text-foreground-light">{{ "wordLadder.best" | translate }}</dt>
-          <dd class="text-xl font-semibold tabular-nums text-foreground">{{ currentBest ?? "–" }}</dd>
+          <dt class="text-xs text-muted-foreground">{{ "wordLadder.best" | translate }}</dt>
+          <dd class="text-xl font-semibold tabular-nums text-surface-0-foreground">{{ currentBest ?? "–" }}</dd>
         </div>
       </dl>
-      <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 text-foreground-light sm:text-sm">
+      <p class="flex h-10 items-center justify-center px-2 text-center text-xs leading-4 text-muted-foreground sm:text-sm">
         @if (mode() === "daily" && dailyCompleted() && path().length <= 1) {
-          <span class="text-amber-700">{{ "wordLadder.daily-done" | translate }}</span>
+          <span class="text-tertiary-700">{{ "wordLadder.daily-done" | translate }}</span>
         } @else if (!timer.running() && status() === "playing" && moves === 0) {
           {{ "games.timerHint" | translate }}
         } @else {
@@ -73,10 +73,10 @@
       <div class="mx-auto w-full max-w-sm select-none">
         <!-- Start -->
         <div class="grid h-12 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
-          <span class="text-[11px] font-medium leading-tight text-foreground-emphasis">{{ "wordLadder.start" | translate }}</span>
+          <span class="text-[11px] font-medium leading-tight text-accent">{{ "wordLadder.start" | translate }}</span>
           <div class="flex justify-center gap-1">
             @for (ch of letters(puzzle()?.start ?? "····"); track $index) {
-              <span class="grid h-10 w-10 place-items-center rounded-lg bg-foreground-emphasis text-xl font-bold text-white">{{ ch }}</span>
+              <span class="grid h-10 w-10 place-items-center rounded-sm bg-accent text-xl font-bold text-primary-foreground">{{ ch }}</span>
             }
           </div>
         </div>
@@ -84,7 +84,7 @@
         <!-- History: fixed height, scrolls inside, newest word right above the input -->
         <div
           #historyEl
-          class="my-1 h-[8.75rem] overflow-y-auto overscroll-contain border-y border-dashed border-foreground/15 [scrollbar-gutter:stable_both-edges]"
+          class="my-1 h-[8.75rem] overflow-y-auto overscroll-contain border-y border-dashed border-surface-0-foreground/15 [scrollbar-gutter:stable_both-edges]"
           [attr.aria-label]="'wordLadder.history' | translate"
           role="list"
         >
@@ -92,31 +92,31 @@
             @for (word of chainWords(); track $index; let i = $index) {
               @let changed = changedIndex(i + 1);
               <div role="listitem" class="grid h-10 shrink-0 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center" [class.wl-word-enter]="i === chainWords().length - 1 && status() === 'playing'">
-                <span class="text-xs tabular-nums text-foreground-light">{{ i + 1 }}</span>
+                <span class="text-xs tabular-nums text-muted-foreground">{{ i + 1 }}</span>
                 <div class="flex justify-center gap-1">
                   @for (ch of letters(word); track $index; let k = $index) {
                     <span
-                      class="grid h-9 w-10 place-items-center rounded-lg text-lg font-bold"
-                      [class]="k === changed ? 'bg-foreground-emphasis/20 text-foreground-emphasis' : 'bg-foreground/5 text-foreground'"
+                      class="grid h-9 w-10 place-items-center rounded-sm text-lg font-bold"
+                      [class]="k === changed ? 'bg-accent/20 text-accent' : 'bg-surface-0-foreground/5 text-surface-0-foreground'"
                     >{{ ch }}</span>
                   }
                 </div>
               </div>
             } @empty {
-              <p class="m-auto px-4 text-center text-xs text-foreground-light">{{ "wordLadder.history-empty" | translate }}</p>
+              <p class="m-auto px-4 text-center text-xs text-muted-foreground">{{ "wordLadder.history-empty" | translate }}</p>
             }
           </div>
         </div>
 
         <!-- Current move (input) or the reached target: same 52px row -->
         <div class="grid h-[52px] grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
-          <label for="wl-move-input" class="text-xs font-medium text-foreground">
+          <label for="wl-move-input" class="text-xs font-medium text-surface-0-foreground">
             @if (status() === "won") { ✓ } @else { {{ moves + 1 }} }
           </label>
           @if (status() === "won") {
             <div class="flex justify-center gap-1">
               @for (ch of letters(puzzle()?.target ?? ""); track $index) {
-                <span class="grid h-11 w-10 place-items-center rounded-lg bg-green-600 text-xl font-bold text-white">{{ ch }}</span>
+                <span class="grid h-11 w-10 place-items-center rounded-sm bg-success-600 text-xl font-bold text-primary-foreground">{{ ch }}</span>
               }
             </div>
           } @else {
@@ -140,15 +140,15 @@
                 (input)="onGuessInput($event)"
                 (focus)="onInputFocus()"
                 [disabled]="status() !== 'playing'"
-                class="h-11 w-full min-w-0 rounded-xl bg-surface px-2 text-center text-xl font-bold uppercase tracking-[0.4em] text-foreground caret-foreground-emphasis outline-none ring-2 transition-shadow placeholder:font-semibold placeholder:tracking-[0.3em] placeholder:text-foreground-light/50 focus:ring-foreground-emphasis"
-                [class]="error() ? 'ring-red-500 ' + (tick % 2 ? 'wl-shake' : 'wl-shake-b') : 'ring-foreground/15'"
+                class="h-11 w-full min-w-0 rounded-md bg-surface-1 px-2 text-center text-xl font-bold uppercase tracking-[0.4em] text-surface-0-foreground caret-accent outline-none ring-2 transition-shadow placeholder:font-semibold placeholder:tracking-[0.3em] placeholder:text-muted-foreground/50 focus:ring-accent"
+                [class]="error() ? 'ring-error-500 ' + (tick % 2 ? 'wl-shake' : 'wl-shake-b') : 'ring-surface-0-foreground/15'"
                 placeholder="{{ 'wordLadder.input-placeholder' | translate }}"
               />
               <button
                 type="submit"
                 (mousedown)="$event.preventDefault()"
                 [attr.aria-label]="'wordLadder.submit' | translate"
-                class="ml-1.5 inline-flex h-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition hover:opacity-90"
+                class="ml-1.5 inline-flex h-11 items-center justify-center rounded-md bg-primary text-primary-foreground transition hover:opacity-90"
               >
                 <ng-icon name="tablerCornerDownLeft" size="20" aria-hidden="true" />
               </button>
@@ -163,24 +163,24 @@
           [attr.role]="error() ? 'alert' : null"
         >
           @if (error(); as err) {
-            <span class="font-medium text-red-600">{{ err }}</span>
+            <span class="font-medium text-error-600">{{ err }}</span>
           } @else if (status() === "won") {
-            <span class="font-semibold text-green-700">{{ "wordLadder.complete" | translate }}</span>
+            <span class="font-semibold text-success-700">{{ "wordLadder.complete" | translate }}</span>
           } @else if (hintText(); as hint) {
-            <span class="font-medium text-amber-700">{{ hint }}</span>
+            <span class="font-medium text-tertiary-700">{{ hint }}</span>
           } @else {
-            <span class="text-foreground-light">{{ "wordLadder.hint-text" | translate }}</span>
+            <span class="text-muted-foreground">{{ "wordLadder.hint-text" | translate }}</span>
           }
         </p>
 
         <!-- Target -->
         <div class="grid h-12 grid-cols-[3.25rem_minmax(0,1fr)_3.25rem] items-center">
-          <span class="text-[11px] font-medium leading-tight" [class]="status() === 'won' ? 'text-green-700' : 'text-amber-700'">{{ "wordLadder.target" | translate }}</span>
+          <span class="text-[11px] font-medium leading-tight" [class]="status() === 'won' ? 'text-success-700' : 'text-tertiary-700'">{{ "wordLadder.target" | translate }}</span>
           <div class="flex justify-center gap-1">
             @for (ch of letters(puzzle()?.target ?? "····"); track $index) {
               <span
-                class="grid h-10 w-10 place-items-center rounded-lg text-xl font-bold ring-2 ring-inset"
-                [class]="status() === 'won' ? 'bg-green-600/10 text-green-700 ring-green-600/40' : 'bg-amber-500/10 text-amber-800 ring-amber-500/50'"
+                class="grid h-10 w-10 place-items-center rounded-sm text-xl font-bold ring-2 ring-inset"
+                [class]="status() === 'won' ? 'bg-success-600/10 text-success-700 ring-success-600/40' : 'bg-tertiary-500/10 text-tertiary-800 ring-tertiary-500/50'"
               >{{ ch }}</span>
             }
           </div>
@@ -190,17 +190,17 @@
       <!-- Tools, or the result once solved -->
       <div class="mx-auto mt-3 min-h-[56px] w-full max-w-sm">
         @if (status() === "won" && puzzle(); as p) {
-          <div class="wl-win flex flex-col items-center gap-2 border-t border-green-600/30 pt-4 text-center">
+          <div class="wl-win flex flex-col items-center gap-2 border-t border-success-600/30 pt-4 text-center">
             @if (path().length > 1) {
-              <p class="text-sm text-foreground">{{ "wordLadder.result-moves" | translate }}</p>
-              <p class="text-sm text-foreground-light">
-                {{ "wordLadder.moves" | translate }} <strong class="tabular-nums text-foreground">{{ moves }}</strong>
-                · {{ "wordLadder.par" | translate }} <strong class="tabular-nums text-foreground">{{ p.optimalMoves }}</strong>
-                · {{ "games.time" | translate }} <strong class="tabular-nums text-foreground">{{ timer.label() }}</strong>
+              <p class="text-sm text-surface-0-foreground">{{ "wordLadder.result-moves" | translate }}</p>
+              <p class="text-sm text-muted-foreground">
+                {{ "wordLadder.moves" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ moves }}</strong>
+                · {{ "wordLadder.par" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ p.optimalMoves }}</strong>
+                · {{ "games.time" | translate }} <strong class="tabular-nums text-surface-0-foreground">{{ timer.label() }}</strong>
               </p>
             }
             @if (mode() === "daily" && dailyBest() !== null) {
-              <p class="text-sm text-amber-700">{{ "wordLadder.daily-streak" | translate }} <strong class="tabular-nums">{{ streak() }}</strong></p>
+              <p class="text-sm text-tertiary-700">{{ "wordLadder.daily-streak" | translate }} <strong class="tabular-nums">{{ streak() }}</strong></p>
             }
             <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
               <app-game-share-button [text]="shareText()" />
@@ -208,7 +208,7 @@
                 <button
                   type="button"
                   (click)="nextPuzzle()"
-                  class="inline-flex min-h-[44px] items-center gap-2 rounded-xl px-4 text-sm font-semibold text-foreground ring-1 ring-foreground/15 transition-colors hover:bg-foreground/5"
+                  class="inline-flex min-h-[44px] items-center gap-2 rounded-md px-4 text-sm font-semibold text-surface-0-foreground ring-1 ring-surface-0-foreground/15 transition-colors hover:bg-surface-0-foreground/5"
                 >
                   <ng-icon name="tablerArrowsShuffle" aria-hidden="true" />
                   {{ "wordLadder.next-puzzle" | translate }}
@@ -223,7 +223,7 @@
               (mousedown)="$event.preventDefault()"
               (click)="useHint()"
               [disabled]="hintsRemaining() <= 0 || status() !== 'playing'"
-              class="flex min-h-[52px] items-center justify-center gap-2 rounded-xl text-sm font-medium text-amber-700 transition-colors hover:bg-amber-500/10 disabled:opacity-40"
+              class="flex min-h-[52px] items-center justify-center gap-2 rounded-md text-sm font-medium text-tertiary-700 transition-colors hover:bg-tertiary-500/10 disabled:opacity-40"
             >
               <ng-icon name="tablerBulb" size="20" aria-hidden="true" />
               {{ "wordLadder.hint" | translate }} ({{ hintsRemaining() }})
@@ -233,7 +233,7 @@
               (mousedown)="$event.preventDefault()"
               (click)="undoMove()"
               [disabled]="path().length <= 1 || status() !== 'playing'"
-              class="flex min-h-[52px] items-center justify-center gap-2 rounded-xl text-sm font-medium text-foreground transition-colors hover:bg-foreground/5 disabled:opacity-40"
+              class="flex min-h-[52px] items-center justify-center gap-2 rounded-md text-sm font-medium text-surface-0-foreground transition-colors hover:bg-surface-0-foreground/5 disabled:opacity-40"
             >
               <ng-icon name="tablerArrowBackUp" size="20" aria-hidden="true" />
               {{ "wordLadder.undo" | translate }}
@@ -245,13 +245,13 @@
       <!-- Screen-reader live region -->
       <div aria-live="polite" class="sr-only">{{ lastLiveAnnouncement() }}</div>
     </div>
-    <div class="game-guide text-foreground">
+    <div class="game-guide text-surface-0-foreground">
       <!-- How to play: ruled, numbered list -->
       <h2 class="text-lg font-bold sm:text-xl">{{ "wordLadder.how-to-play" | translate }}</h2>
-      <ol class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+      <ol class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 text-sm leading-relaxed sm:text-base">
         @for (n of [1, 2, 3, 4, 5]; track n) {
           <li class="flex gap-3 py-2.5">
-            <span class="w-5 shrink-0 font-semibold tabular-nums text-foreground-emphasis">{{ n }}</span>
+            <span class="w-5 shrink-0 font-semibold tabular-nums text-accent">{{ n }}</span>
             <span>{{ "wordLadder.rule-" + n | translate }}</span>
           </li>
         }
@@ -259,7 +259,7 @@
 
       <!-- Rules: prose -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.rules-title" | translate }}</h2>
-      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <p>{{ "wordLadder.rules-p1" | translate }}</p>
         <p>{{ "wordLadder.rules-p2" | translate }}</p>
         <p>{{ "wordLadder.rules-p3" | translate }}</p>
@@ -267,10 +267,10 @@
 
       <!-- Tips: ruled list -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.tips-title" | translate }}</h2>
-      <ul class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+      <ul class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 text-sm leading-relaxed sm:text-base">
         @for (n of [1, 2, 3, 4, 5]; track n) {
           <li class="flex gap-3 py-2.5">
-            <span aria-hidden="true" class="shrink-0 text-foreground-emphasis">→</span>
+            <span aria-hidden="true" class="shrink-0 text-accent">→</span>
             <span>{{ "wordLadder.tip-" + n | translate }}</span>
           </li>
         }
@@ -278,57 +278,57 @@
 
       <!-- What is it: prose -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.whatis-title" | translate }}</h2>
-      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <p>{{ "wordLadder.whatis-p1" | translate }}</p>
         <p>{{ "wordLadder.whatis-p2" | translate }}</p>
       </div>
 
       <!-- Difficulty levels: term / explanation -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.levels-title" | translate }}</h2>
-      <dl class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm leading-relaxed sm:text-base">
+      <dl class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 text-sm leading-relaxed sm:text-base">
         @for (d of difficulties; track d) {
           <div class="grid gap-1 py-2.5 sm:grid-cols-[7rem_1fr] sm:gap-4">
             <dt class="font-semibold">{{ "wordLadder.levels-" + d | translate }}</dt>
-            <dd class="text-foreground-light">{{ "wordLadder.levels-" + d + "-p" | translate }}</dd>
+            <dd class="text-muted-foreground">{{ "wordLadder.levels-" + d + "-p" | translate }}</dd>
           </div>
         }
       </dl>
 
       <!-- For kids: prose -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.kids-title" | translate }}</h2>
-      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-foreground-light sm:text-base">
+      <div class="mt-3 max-w-[70ch] space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <p>{{ "wordLadder.kids-p1" | translate }}</p>
         <p>{{ "wordLadder.kids-p2" | translate }}</p>
       </div>
 
       <!-- FAQ: accordion -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.faq-title" | translate }}</h2>
-      <div class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10">
+      <div class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10">
         @for (q of faqKeys; track q.question) {
           <details class="group">
             <summary class="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base [&::-webkit-details-marker]:hidden">
               {{ q.question | translate }}
-              <span aria-hidden="true" class="text-lg leading-none text-foreground-light transition-transform group-open:rotate-45">+</span>
+              <span aria-hidden="true" class="text-lg leading-none text-muted-foreground transition-transform group-open:rotate-45">+</span>
             </summary>
-            <p class="pb-4 text-sm leading-relaxed text-foreground-light">{{ q.answer | translate }}</p>
+            <p class="pb-4 text-sm leading-relaxed text-muted-foreground">{{ q.answer | translate }}</p>
           </details>
         }
       </div>
 
       <!-- Related games: inline links in prose -->
       <h2 class="mt-10 text-lg font-bold sm:text-xl">{{ "wordLadder.related-title" | translate }}</h2>
-      <p class="mt-3 max-w-[70ch] text-sm leading-relaxed text-foreground-light sm:text-base">{{ "wordLadder.related-p" | translate }}</p>
-      <ul class="mt-3 divide-y divide-foreground/10 border-y border-foreground/10 text-sm sm:text-base">
+      <p class="mt-3 max-w-[70ch] text-sm leading-relaxed text-muted-foreground sm:text-base">{{ "wordLadder.related-p" | translate }}</p>
+      <ul class="mt-3 divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10 text-sm sm:text-base">
         <li>
           <a [routerLink]="['/', lang, 'games', 'sudoku']" class="group flex min-h-[48px] items-center justify-between gap-3 py-2.5">
-            <span><span class="font-semibold text-foreground group-hover:text-foreground-emphasis">{{ "sudoku.sudoku" | translate }}</span> <span class="text-foreground-light">— {{ "wordLadder.related-sudoku" | translate }}</span></span>
-            <span aria-hidden="true" class="text-foreground-emphasis transition-transform group-hover:translate-x-1">→</span>
+            <span><span class="font-semibold text-surface-0-foreground group-hover:text-accent">{{ "sudoku.sudoku" | translate }}</span> <span class="text-muted-foreground">— {{ "wordLadder.related-sudoku" | translate }}</span></span>
+            <span aria-hidden="true" class="text-accent transition-transform group-hover:translate-x-1">→</span>
           </a>
         </li>
         <li>
           <a [routerLink]="['/', lang, 'games', 'queens']" class="group flex min-h-[48px] items-center justify-between gap-3 py-2.5">
-            <span><span class="font-semibold text-foreground group-hover:text-foreground-emphasis">{{ "queens.queens" | translate }}</span> <span class="text-foreground-light">— {{ "wordLadder.related-queens" | translate }}</span></span>
-            <span aria-hidden="true" class="text-foreground-emphasis transition-transform group-hover:translate-x-1">→</span>
+            <span><span class="font-semibold text-surface-0-foreground group-hover:text-accent">{{ "queens.queens" | translate }}</span> <span class="text-muted-foreground">— {{ "wordLadder.related-queens" | translate }}</span></span>
+            <span aria-hidden="true" class="text-accent transition-transform group-hover:translate-x-1">→</span>
           </a>
         </li>
       </ul>

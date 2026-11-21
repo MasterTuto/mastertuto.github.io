@@ -204,16 +204,16 @@ const FAQ: FaqItem[] = [
                   </div>
                   @if (factor(); as f) {
                     <div class="mt-3" aria-hidden="true">
-                      <div class="relative h-2 rounded-full bg-foreground/10">
-                        <div class="h-2 rounded-full transition-[width]" [class]="f.value >= minFactor ? 'bg-green-600' : 'bg-amber-500'" [style.width.%]="min(100, f.value * 200)"></div>
-                        <div class="absolute -top-1 h-4 w-0.5 bg-foreground" style="left: 56%"></div>
+                      <div class="relative h-2 rounded-full bg-surface-0-foreground/10">
+                        <div class="h-2 rounded-full transition-[width]" [class]="f.value >= minFactor ? 'bg-success-600' : 'bg-tertiary-500'" [style.width.%]="min(100, f.value * 200)"></div>
+                        <div class="absolute -top-1 h-4 w-0.5 bg-surface-0-foreground" style="left: 56%"></div>
                       </div>
-                      <div class="relative mt-1 h-4 text-xs text-foreground-light"><span class="absolute left-0">0%</span><span class="absolute left-[56%] -translate-x-1/2">28%</span><span class="absolute right-0">50%</span></div>
+                      <div class="relative mt-1 h-4 text-xs text-muted-foreground"><span class="absolute left-0">0%</span><span class="absolute left-[56%] -translate-x-1/2">28%</span><span class="absolute right-0">50%</span></div>
                     </div>
-                    <p class="mt-1 text-sm text-foreground">
+                    <p class="mt-1 text-sm text-surface-0-foreground">
                       Fator R <strong class="tabular-nums">{{ pct(f.value) }}</strong> →
                       <strong>{{ f.annex === 'III' ? 'Anexo III' : 'Anexo V' }}</strong>
-                      @if (f.annex === 'V') { <span class="text-foreground-light"> · faltam {{ money(f.missing) }} de folha em 12 meses</span> }
+                      @if (f.annex === 'V') { <span class="text-muted-foreground"> · faltam {{ money(f.missing) }} de folha em 12 meses</span> }
                     </p>
                   }
                 </div>
@@ -275,18 +275,18 @@ const FAQ: FaqItem[] = [
         @if (result(); as r) {
           <div class="min-w-0">
             @if (comparison(); as c) {
-              <section class="border-t border-foreground/10 py-5" aria-labelledby="sn-compare">
-                <h2 id="sn-compare" class="font-semibold text-foreground">Anexo III × Anexo V</h2>
-                <div class="mt-3 grid grid-cols-2 divide-x divide-foreground/10">
+              <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="sn-compare">
+                <h2 id="sn-compare" class="font-semibold text-surface-0-foreground">Anexo III × Anexo V</h2>
+                <div class="mt-3 grid grid-cols-2 divide-x divide-surface-0-foreground/10">
                   @for (side of c.sides; track side.id) {
                     <div class="px-3 first:pl-0" [class.opacity-60]="side.id !== r.annex.id">
-                      <p class="text-sm text-foreground-light">Anexo {{ side.id }} {{ side.id === r.annex.id ? '· aplicado' : '' }}</p>
-                      <p class="mt-1 text-2xl font-bold tabular-nums tracking-tight text-foreground">{{ money(side.das) }}</p>
-                      <p class="text-sm tabular-nums text-foreground-light">{{ pct(side.effective) }} efetiva</p>
+                      <p class="text-sm text-muted-foreground">Anexo {{ side.id }} {{ side.id === r.annex.id ? '· aplicado' : '' }}</p>
+                      <p class="mt-1 text-2xl font-bold tabular-nums tracking-tight text-surface-0-foreground">{{ money(side.das) }}</p>
+                      <p class="text-sm tabular-nums text-muted-foreground">{{ pct(side.effective) }} efetiva</p>
                     </div>
                   }
                 </div>
-                <p class="mt-3 text-sm leading-relaxed text-foreground">
+                <p class="mt-3 text-sm leading-relaxed text-surface-0-foreground">
                   @if (c.applied === 'III') {
                     Com Fator R de {{ pct(c.factor) }}, o Anexo III economiza <strong>{{ money(c.saving) }}</strong> neste mês.
                     A folha pode cair até {{ money(c.needed) }} em 12 meses sem perder o benefício.
@@ -299,8 +299,8 @@ const FAQ: FaqItem[] = [
               </section>
             }
 
-            <section class="border-t border-foreground/10 py-5" aria-labelledby="sn-split">
-              <h2 id="sn-split" class="font-semibold text-foreground">Repartição dos tributos no DAS</h2>
+            <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="sn-split">
+              <h2 id="sn-split" class="font-semibold text-surface-0-foreground">Repartição dos tributos no DAS</h2>
               <div class="pro-table-scroll mt-2">
                 <table class="pro-table">
                   <thead><tr><th scope="col">Tributo</th><th scope="col">%</th><th scope="col">Alíquota</th><th scope="col" class="!text-right">Valor</th></tr></thead>

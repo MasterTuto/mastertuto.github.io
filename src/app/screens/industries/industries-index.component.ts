@@ -16,8 +16,8 @@ import { usePageSeo } from 'src/app/seo/page-seo';
   template: `
     <div class="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 pt-4" lang="pt-BR">
       <section class="flex max-w-3xl flex-col gap-4">
-        <h1 class="text-4xl font-semibold leading-tight text-foreground sm:text-6xl">Cada profissão tem uma rotina própria.</h1>
-        <p class="max-w-[60ch] text-lg leading-relaxed text-foreground-light">
+        <h1 class="text-4xl font-semibold leading-tight text-surface-0-foreground sm:text-6xl">Cada profissão tem uma rotina própria.</h1>
+        <p class="max-w-[60ch] text-lg leading-relaxed text-muted-foreground">
           Seu site também deveria ter. Escolha seu segmento e veja os problemas do dia a dia que um site com automação resolve.
         </p>
       </section>
@@ -27,26 +27,26 @@ import { usePageSeo } from 'src/app/seo/page-seo';
           @for (item of industries; track item.slug; let last = $last) {
             <a
               [routerLink]="'para/' + item.slug | langLink"
-              class="transition-colors hover:text-foreground-emphasis focus-visible:text-foreground-emphasis"
-              [class]="selected().slug === item.slug ? 'text-foreground' : 'text-foreground/35'"
+              class="transition-colors hover:text-accent focus-visible:text-accent"
+              [class]="selected().slug === item.slug ? 'text-surface-0-foreground' : 'text-surface-0-foreground/35'"
               (mouseenter)="select(item.slug)"
               (focus)="select(item.slug)"
-            >{{ item.name }}</a>@if (!last) {<span aria-hidden="true" class="text-foreground/20">{{ ' / ' }}</span>}
+            >{{ item.name }}</a>@if (!last) {<span aria-hidden="true" class="text-surface-0-foreground/20">{{ ' / ' }}</span>}
           }
         </p>
 
         <aside class="flex min-w-0 flex-col gap-5 lg:sticky lg:top-32" aria-live="polite">
           <div class="relative isolate">
             <div aria-hidden="true" class="pointer-events-none absolute -inset-8 -z-10 bg-[radial-gradient(closest-side,rgba(122,112,225,0.14),transparent)]"></div>
-            <img [src]="selected().images.hero.src" [alt]="selected().images.hero.alt" width="800" height="600" class="w-full rounded-3xl">
+            <img [src]="selected().images.hero.src" [alt]="selected().images.hero.alt" width="800" height="600" class="w-full rounded-xl">
           </div>
           <div class="flex flex-col gap-2">
-            <h2 class="text-2xl font-semibold text-foreground">{{ selected().title }}</h2>
-            <p class="leading-relaxed text-foreground-light">{{ selected().intro }}</p>
+            <h2 class="text-2xl font-semibold text-surface-0-foreground">{{ selected().title }}</h2>
+            <p class="leading-relaxed text-muted-foreground">{{ selected().intro }}</p>
           </div>
           <a
             [routerLink]="'para/' + selected().slug | langLink"
-            class="flex w-fit items-center gap-1 font-semibold text-foreground-emphasis"
+            class="flex w-fit items-center gap-1 font-semibold text-accent"
           >
             Ver a página de {{ selected().name }}
             <ng-icon name="tablerArrowRight" />

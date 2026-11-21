@@ -18,7 +18,7 @@ import {
   tablerX,
 } from '@ng-icons/tabler-icons';
 
-import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { BcsButton } from '@bcs/button';
 import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
 import { OtherServicesComponent } from '../shared/other-services.component';
 import { ServicePage } from '../shared/service-page';
@@ -31,7 +31,7 @@ import { ServicePage } from '../shared/service-page';
     RouterLink,
     NgIconComponent,
     TranslatePipe,
-    ButtonComponent,
+    BcsButton,
     OtherServicesComponent,
   ],
   providers: [

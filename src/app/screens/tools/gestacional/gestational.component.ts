@@ -35,7 +35,7 @@ import {
       <input [id]="inputId()" class="pro-input !pr-14" appMask="date" placeholder="dd/mm/aaaa" autocomplete="off"
         [value]="value()" (input)="value.set($any($event.target).value)"
         [attr.aria-invalid]="invalid()" [attr.aria-describedby]="invalid() ? inputId() + '-err' : null" />
-      <span class="absolute right-1.5 grid h-10 w-10 place-items-center rounded-lg text-foreground-light hover:bg-foreground/5" data-flow-skip>
+      <span class="absolute right-1.5 grid h-10 w-10 place-items-center rounded-sm text-muted-foreground hover:bg-surface-0-foreground/5" data-flow-skip>
         <ng-icon name="tablerCalendar" size="1.25rem" aria-hidden="true" />
         <input type="date" tabindex="-1" class="absolute inset-0 h-full w-full cursor-pointer opacity-0" [attr.aria-label]="'Abrir calendário: ' + label()"
           [value]="iso()" (click)="openPicker($event)" (change)="fromPicker($event)" />
@@ -195,7 +195,7 @@ const FAQ: FaqItem[] = [
                         [attr.aria-invalid]="usWeeksInvalid()" />
                       <span class="pro-suffix">sem</span>
                     </div>
-                    <span class="text-foreground-light" aria-hidden="true">+</span>
+                    <span class="text-muted-foreground" aria-hidden="true">+</span>
                     <div class="pro-input-wrap w-28">
                       <input class="pro-input" appMask="0" autocomplete="off" aria-label="Dias (0 a 6)" [value]="usDays()" (input)="usDays.set(val($event))"
                         [attr.aria-invalid]="usDaysInvalid()" />
@@ -263,7 +263,7 @@ const FAQ: FaqItem[] = [
               <div><dt>Termo <small>37s–41s6d</small></dt><dd>{{ date(r.lmp + 259).slice(0, 5) }} a {{ date(r.lmp + 293) }}</dd></div>
             </dl>
             @for (w of r.warnings; track w) {
-              <p class="mt-3 text-sm text-amber-200">{{ w }}</p>
+              <p class="mt-3 text-sm text-tertiary-200">{{ w }}</p>
             }
             <button type="button" class="pro-btn mt-4 w-full" (click)="copy()">
               <ng-icon [name]="copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" />
@@ -278,19 +278,19 @@ const FAQ: FaqItem[] = [
 
       @if (result(); as r) {
         <section class="mt-8 max-w-3xl" aria-labelledby="g-windows">
-          <h2 id="g-windows" class="text-base font-semibold text-foreground">Janelas do pré-natal</h2>
+          <h2 id="g-windows" class="text-base font-semibold text-surface-0-foreground">Janelas do pré-natal</h2>
           <p class="pro-hint mt-1">Datas calculadas a partir da {{ method() === 'lmp' ? 'DUM' : 'DUM equivalente' }} {{ date(r.lmp) }}.</p>
           <ol class="tl mt-3">
             @for (w of r.windows; track w.label) {
               <li [class]="w.state" [attr.aria-current]="w.state === 'current' ? 'step' : null">
                 <div>
-                  <p class="font-semibold text-foreground">
+                  <p class="font-semibold text-surface-0-foreground">
                     {{ w.label }}
                     @if (w.state === 'current') { <span class="pro-pill ok ml-1 align-middle">{{ w.end === w.start ? 'hoje' : 'agora' }}</span> }
                   </p>
-                  <p class="text-sm text-foreground-light">{{ w.detail }} · {{ range(w) }}</p>
+                  <p class="text-sm text-muted-foreground">{{ w.detail }} · {{ range(w) }}</p>
                 </div>
-                <p class="text-sm font-semibold tabular-nums text-foreground sm:text-right">{{ dates(w) }}</p>
+                <p class="text-sm font-semibold tabular-nums text-surface-0-foreground sm:text-right">{{ dates(w) }}</p>
               </li>
             }
           </ol>

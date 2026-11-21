@@ -18,7 +18,7 @@ import { shareResult } from './share-result';
     <button
       type="button"
       (click)="share()"
-      class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground-emphasis"
+      class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <ng-icon [name]="copied() ? 'tablerCheck' : 'tablerShare'" aria-hidden="true" />
       <span>{{ (copied() ? 'games.shareCopied' : 'games.share') | translate }}</span>

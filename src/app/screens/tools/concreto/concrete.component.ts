@@ -158,7 +158,7 @@ const FAQ: FaqItem[] = [
                     </label>
                   </div>
                   <div class="mt-3 flex items-center gap-3">
-                    <span class="text-sm text-foreground-light" id="ct-count">Quantidade</span>
+                    <span class="text-sm text-muted-foreground" id="ct-count">Quantidade</span>
                     <div class="step" role="group" aria-labelledby="ct-count">
                       <button type="button" aria-label="Uma peça a menos" [disabled]="count() <= 1" (click)="count.set(clamp(count() - 1))"><ng-icon name="tablerMinus" /></button>
                       <output aria-live="polite">{{ count() }}</output>

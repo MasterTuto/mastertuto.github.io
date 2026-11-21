@@ -20,7 +20,7 @@ import {
 } from '@ng-icons/tabler-icons';
 import { map } from 'rxjs';
 
-import { ButtonComponent } from 'src/app/components/@my/button/button.component';
+import { BcsButton } from '@bcs/button';
 import { industries } from 'src/app/data/industries.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { PERSON_REF, usePageSeo } from 'src/app/seo/page-seo';
@@ -32,7 +32,7 @@ import { TOOLS_PER_SEGMENT, toolSegments } from 'src/app/screens/tools/pro-tools
   selector: 'app-industry-page',
   templateUrl: './industry-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, NgIconComponent, ButtonComponent, LangLinkPipe],
+  imports: [RouterLink, NgIconComponent, BcsButton, LangLinkPipe],
   providers: [
     provideIcons({
       tablerArrowDown,

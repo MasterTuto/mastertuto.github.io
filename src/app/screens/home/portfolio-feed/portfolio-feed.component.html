@@ -1,15 +1,20 @@
+<!--
+  Order follows the visitor's questions: who is this (hero) → what do you do (services) → why you
+  (why-me) → show me (projects) → who vouches (testimonials) → let's talk (scheduling). The meeting
+  call to action closes the page (serial-position effect: the last item is the one remembered).
+-->
 <div class="flex flex-col gap-16 md:gap-24">
     <app-home-section />
-    <app-testimonials-section />
-    <app-scheduling-section />
     <app-services-section />
     <app-why-me-section />
     <app-projects-section />
+    <app-testimonials-section />
     <section class="px-4 py-4">
-      <nav class="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 rounded-xl bg-surface px-4 py-5 text-lg font-semibold text-foreground">
-        <a routerLink="/games" class="transition hover:text-foreground-emphasis">{{ 'games.label' | translate }} →</a>
-        <span aria-hidden="true" class="text-foreground-light">·</span>
-        <a routerLink="/tools" class="transition hover:text-foreground-emphasis">{{ 'tools.label' | translate }} →</a>
+      <nav class="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 rounded-md bg-surface-1 px-4 py-5 text-lg font-semibold text-surface-0-foreground" aria-label="Jogos e ferramentas">
+        <a routerLink="/games" class="transition hover:text-accent">{{ 'games.label' | translate }} →</a>
+        <span aria-hidden="true" class="text-muted-foreground">·</span>
+        <a routerLink="/tools" class="transition hover:text-accent">{{ 'tools.label' | translate }} →</a>
       </nav>
     </section>
+    <app-scheduling-section />
 </div>

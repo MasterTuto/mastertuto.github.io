@@ -1,0 +1,22 @@
+@use '../../../../styles/tokens/color' as color;
+
+.bcs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  min-height: 1.5rem;
+  padding: 0 0.625rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+
+  @each $role in color.$roles {
+    &[data-color='#{$role}'] {
+      background-color: rgb(var(--color-#{$role}-soft));
+      color: rgb(var(--color-#{$role}-soft-ink));
+    }
+  }
+}

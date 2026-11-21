@@ -12,13 +12,13 @@ import { TranslatePipe } from 'src/app/pipes/translate/translate.pipe';
   imports: [RouterLink, TranslatePipe, LangLinkPipe],
   template: `
     <nav aria-label="Breadcrumb">
-      <ol class="flex flex-wrap items-center gap-2 text-sm text-foreground-light">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
         @for (crumb of crumbs(); track crumb.label; let last = $last) {
           <li class="flex items-center gap-2">
             @if (last) {
-              <span aria-current="page" class="text-foreground">{{ crumb.literal ? crumb.label : (crumb.label | translate) }}</span>
+              <span aria-current="page" class="text-surface-0-foreground">{{ crumb.literal ? crumb.label : (crumb.label | translate) }}</span>
             } @else {
-              <a [routerLink]="crumb.path | langLink" class="transition hover:text-foreground">
+              <a [routerLink]="crumb.path | langLink" class="transition hover:text-surface-0-foreground">
                 {{ crumb.literal ? crumb.label : (crumb.label | translate) }}
               </a>
               <span aria-hidden="true">/</span>

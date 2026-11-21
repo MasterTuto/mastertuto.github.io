@@ -220,7 +220,7 @@ export const englishTranslations = {
   },
   home: {
     title:
-      "Programming professional specialized in <span class='text-foreground-emphasis'>landing pages</span> and <span class='text-foreground-emphasis'>autonomous websites</span>.",
+      "Programming professional specialized in <span class='text-accent'>landing pages</span> and <span class='text-accent'>autonomous websites</span>.",
     description:
       'I create fast, modern and optimized websites to convert visitors into customers and strengthen your online presence.',
     websiteLikeThis: 'I want an website like this',

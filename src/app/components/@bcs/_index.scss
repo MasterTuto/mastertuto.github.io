@@ -1,0 +1,20 @@
+// Global styles of the @bcs components. They are global (not encapsulated) on purpose: themes and the
+// context rules in `src/styles/_context.scss` must reach every instance.
+@use 'ripple/ripple';
+@use 'button/button';
+@use 'input/input';
+@use 'field/field';
+@use 'text/text';
+@use 'surface/surface';
+@use 'layout/layout';
+@use 'tag/tag';
+@use 'confetti/confetti';
+@use 'hero/hero';
+@use 'list/list';
+@use 'steps/steps';
+@use 'faq/faq';
+@use 'price/price';
+@use 'link-list/link-list';
+@use 'stat/stat';
+@use 'quote/quote';
+@use 'whatsapp-form/whatsapp-form';

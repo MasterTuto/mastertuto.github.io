@@ -1,0 +1,22 @@
+.bcs-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.bcs-stat__value {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: rgb(var(--color-accent-ink));
+  font-variant-numeric: tabular-nums;
+}
+
+.bcs-stat__label {
+  max-width: 22ch;
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: rgb(var(--color-muted-ink));
+}

@@ -1,0 +1,56 @@
+// Space, radius, size and motion tokens.
+//
+// Space follows the Law of Proximity (lawsofux.com/law-of-proximity): the gap between related items is
+// always smaller than the gap between groups, which is smaller than the gap between sections. Components
+// only accept the named steps below, never a raw length.
+@mixin tokens {
+  // Gaps between siblings, from "same thing" to "different topic".
+  --gap-xs: 0.25rem;
+  --gap-sm: 0.5rem;
+  --gap-md: 1rem;
+  --gap-lg: 2rem;
+  --gap-xl: clamp(3rem, 2rem + 4vw, 6rem);
+  --gap-2xl: clamp(5rem, 3rem + 8vw, 10rem);
+
+  // Inner padding of a surface (card, panel, dialog).
+  --pad-sm: 0.75rem;
+  --pad-md: 1.25rem;
+  --pad-lg: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+
+  // Corner radius. Nested surfaces never use these directly: see `_context.scss`.
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 999px;
+  --radius-surface: var(--radius-xl);
+  --radius-control: var(--radius-md);
+
+  // Interactive target heights. Fitts's Law + WCAG 2.5.8: md and lg meet the 44px touch target;
+  // sm is for dense desktop toolbars only and still clears the 24px minimum.
+  --control-sm: 2.25rem;
+  --control-md: 2.75rem;
+  --control-lg: 3.25rem;
+
+  // Page widths.
+  --width-prose: 42rem;
+  --width-content: 72rem;
+  --width-wide: 80rem;
+
+  // Motion. Doherty Threshold: every interaction answers in well under 400ms.
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 360ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  // Focus ring, shared by every focusable element.
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+
+  // Elevation, always tinted by the page's own ink so shadows match the theme.
+  --shadow-sm: 0 1px 2px rgb(var(--color-primary) / 0.06), 0 1px 1px rgb(var(--color-primary) / 0.04);
+  --shadow-md: 0 6px 16px -6px rgb(var(--color-primary) / 0.14), 0 2px 4px rgb(var(--color-primary) / 0.04);
+  --shadow-lg: 0 24px 48px -18px rgb(var(--color-primary) / 0.28);
+}

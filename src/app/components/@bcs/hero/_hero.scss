@@ -1,0 +1,40 @@
+.bcs-hero {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: min(92svh, 60rem);
+  padding-inline: var(--pad-md);
+  text-align: center;
+}
+
+.bcs-hero__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-md);
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-top: clamp(3rem, 12svh, 9rem);
+}
+
+.bcs-hero__subtitle { margin-inline: auto; max-width: 38rem; }
+
+.bcs-hero__actions:not(:empty) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-sm);
+}
+
+.bcs-hero__void {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: var(--gap-lg);
+}
+
+.bcs-hero__note {
+  font-family: var(--font-mono);
+  letter-spacing: var(--tracking-wide);
+  opacity: 0.85;
+}

@@ -221,7 +221,7 @@ export const portugueseTranslations: Translations = {
   },
   home: {
     title:
-      'Programador de <span class="text-foreground-emphasis">sistemas de IA</span> e <span class="text-foreground-emphasis">soluções para autônomos</span>.',
+      'Programador de <span class="text-accent">sistemas de IA</span> e <span class="text-accent">soluções para autônomos</span>.',
     description:
       'Sistemas agênticos, automações, sites para eletricista, médicos, advogados, sistemas de gerenciamento',
     websiteLikeThis: 'Conversar comigo',

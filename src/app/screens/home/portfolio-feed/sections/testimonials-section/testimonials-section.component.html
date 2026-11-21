@@ -1,20 +1,20 @@
 <app-section name="testimonials" containerClass="justify-center px-4 py-10">
-  <div class="mx-auto flex w-full max-w-6xl flex-col gap-6 rounded-xl bg-surface p-4 text-foreground sm:p-6 lg:p-8">
-    <p class="text-sm font-semibold uppercase text-foreground-light">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-6 rounded-md bg-surface-1 p-4 text-surface-0-foreground sm:p-6 lg:p-8">
+    <p class="text-sm font-semibold uppercase text-muted-foreground">
       {{ "home.testimonials.name" | translate }}
     </p>
 
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
       <div class="flex min-w-0 flex-col gap-4 lg:col-span-3">
         <div class="flex items-center justify-between gap-3">
-          <h3 class="text-2xl font-semibold text-foreground sm:text-3xl">
+          <h3 class="text-2xl font-semibold text-surface-0-foreground sm:text-3xl">
             {{ "home.testimonials.title" | translate }}
           </h3>
 
           <div class="flex shrink-0 items-center gap-2">
             <button
               type="button"
-              class="grid h-10 w-10 place-items-center rounded-md border border-foreground-light/40 text-foreground transition hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-foreground-light/40"
+              class="grid h-10 w-10 place-items-center rounded-sm border border-muted-foreground/40 text-surface-0-foreground transition hover:border-surface-0-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-muted-foreground/40"
               [disabled]="currentPage() === 0"
               (click)="previousPage()"
               [attr.aria-label]="'home.testimonials.previous' | translate"
@@ -23,7 +23,7 @@
             </button>
             <button
               type="button"
-              class="grid h-10 w-10 place-items-center rounded-md border border-foreground-light/40 text-foreground transition hover:border-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-foreground-light/40"
+              class="grid h-10 w-10 place-items-center rounded-sm border border-muted-foreground/40 text-surface-0-foreground transition hover:border-surface-0-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-muted-foreground/40"
               [disabled]="currentPage() === lastPage()"
               (click)="nextPage()"
               [attr.aria-label]="'home.testimonials.next' | translate"
@@ -40,21 +40,21 @@
                 [attr.inert]="pageIndex !== currentPage() ? '' : null"
                 [attr.aria-hidden]="pageIndex !== currentPage() ? 'true' : null">
                 @for (testimonial of page; track testimonial.title) {
-                  <article class="relative flex min-h-64 flex-col rounded-lg bg-[#fefdfe] p-5 shadow-sm">
+                  <article class="relative flex min-h-64 flex-col rounded-sm bg-[#fefdfe] p-5 shadow-sm">
                     <div class="mb-5 flex items-center gap-2" aria-label="5 / 5">
-                      <span class="text-xl tracking-widest text-amber-600" aria-hidden="true">★★★★★</span>
-                      <span class="text-sm font-semibold text-foreground">5.0 / 5</span>
+                      <span class="text-xl tracking-widest text-tertiary-600" aria-hidden="true">★★★★★</span>
+                      <span class="text-sm font-semibold text-surface-0-foreground">5.0 / 5</span>
                     </div>
                     @if (testimonial.quote) {
-                      <blockquote lang="en" class="mb-6 text-foreground-light">“{{ testimonial.quote }}”</blockquote>
+                      <blockquote lang="en" class="mb-6 text-muted-foreground">“{{ testimonial.quote }}”</blockquote>
                     }
                     <div class="mt-auto flex items-center justify-between gap-3">
                       <div class="min-w-0">
-                        <h4 lang="en" class="font-semibold text-foreground">{{ testimonial.title }}</h4>
-                        <p lang="en" class="mt-2 text-sm text-foreground-light">{{ testimonial.date }}</p>
+                        <h4 lang="en" class="font-semibold text-surface-0-foreground">{{ testimonial.title }}</h4>
+                        <p lang="en" class="mt-2 text-sm text-muted-foreground">{{ testimonial.date }}</p>
                       </div>
                       <a [href]="upworkProfileUrl" target="_blank" rel="noopener noreferrer"
-                        class="grid size-11 shrink-0 place-items-center rounded-md text-[#108a00] transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#108a00]"
+                        class="grid size-11 shrink-0 place-items-center rounded-sm text-[#108a00] transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#108a00]"
                         aria-label="Upwork — Breno">
                         <ng-icon name="tablerBrandUpwork" size="32" aria-hidden="true" />
                       </a>
@@ -67,9 +67,9 @@
         </div>
       </div>
 
-      <aside class="flex flex-col justify-between gap-6 rounded-xl bg-secondary-surface p-5 text-secondary-surface-foreground-light">
+      <aside class="flex flex-col justify-between gap-6 rounded-md bg-primary p-5 text-primary-foreground/70">
         <div class="flex flex-col gap-3">
-          <p class="text-xl font-semibold text-secondary-surface-foreground">
+          <p class="text-xl font-semibold text-primary-foreground">
             {{ "home.testimonials.ctaTitle" | translate }}
           </p>
           <p>
@@ -82,7 +82,7 @@
             [href]="whatsappLink"
             target="_blank"
             rel="noopener"
-            class="flex items-center justify-center gap-2 rounded-lg bg-[#fefdfe] px-4 py-3 font-semibold text-secondary-surface transition hover:opacity-90"
+            class="flex items-center justify-center gap-2 rounded-sm bg-[#fefdfe] px-4 py-3 font-semibold text-primary transition hover:opacity-90"
           >
             <ng-icon name="tablerBrandWhatsapp" />
             {{ "home.testimonials.whatsapp" | translate }}

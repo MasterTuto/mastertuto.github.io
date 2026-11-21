@@ -16,7 +16,7 @@ import { PartyFormComponent } from './party-form.component';
       @if (draft(); as d) {
         <form method="dialog" class="flex h-full flex-col" (submit)="$event.preventDefault(); save()">
           <header class="sheet-head">
-            <h2 id="party-dialog-title" class="text-lg font-semibold text-foreground">{{ title() }}</h2>
+            <h2 id="party-dialog-title" class="text-lg font-semibold text-surface-0-foreground">{{ title() }}</h2>
             <button type="button" class="pro-btn ghost !min-h-[40px] !px-3" (click)="close()" aria-label="Fechar">✕</button>
           </header>
           <div class="sheet-body" appFormFlow (flowDone)="save()" (keydown.enter)="$event.stopPropagation()">
