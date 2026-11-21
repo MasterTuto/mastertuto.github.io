@@ -126,7 +126,7 @@
           @for (line of page.chat.lines; track $index) {
             <p
               class="max-w-[85%] rounded-lg px-3.5 py-2 text-sm leading-snug shadow-sm"
-              [class]="line.from === 'client' ? 'self-start rounded-tl-xs bg-surface-1 text-surface-0-foreground' : 'self-end rounded-tr-xs bg-accent-50 text-primary'"
+              [class]="line.from === 'client' ? 'self-start rounded-tl-xs bg-surface-1 text-surface-0-foreground' : 'self-end rounded-tr-xs bg-accent-50 text-accent-900'"
             >{{ line.text }}</p>
           }
         </div>

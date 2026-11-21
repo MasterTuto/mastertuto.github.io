@@ -24,6 +24,8 @@ const colors = {
       {
         DEFAULT: channel(role),
         foreground: channel(`${role}-foreground`),
+        // The shade of the role that is safe as text on the page's surfaces, in any theme or scheme.
+        ink: channel(`${role}-ink`),
         ...Object.fromEntries(STEPS.map((step) => [step, channel(`${role}-${step}`)])),
       },
     ]),

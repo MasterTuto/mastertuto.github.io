@@ -43,7 +43,7 @@
         @for (item of project.highlights; track item) {
           <div class="flex flex-col gap-1 rounded-md bg-surface-1 p-5">
             <dt class="order-2 text-sm text-muted-foreground">{{ 'cases.items.' + project.key + '.highlights.' + item + '.label' | translate }}</dt>
-            <dd class="order-1 text-3xl font-semibold" [style.color]="project.accent">
+            <dd class="order-1 text-3xl font-semibold" [style.--case-accent]="project.accent" data-case-accent>
               {{ 'cases.items.' + project.key + '.highlights.' + item + '.value' | translate }}
             </dd>
           </div>
@@ -63,7 +63,7 @@
             <span
               class="grid size-11 place-items-center rounded-sm text-xl"
               [style.background-color]="project.tint"
-              [style.color]="project.accent"
+              [style.--case-accent]="project.accent" data-case-accent
             >
               <ng-icon [name]="roleIcons[work.role]" />
             </span>
@@ -145,7 +145,7 @@
         >
           <span class="text-2xl font-semibold text-surface-0-foreground">{{ other.name }}</span>
           <span class="text-muted-foreground">{{ 'cases.items.' + other.key + '.tagline' | translate }}</span>
-          <span class="mt-auto flex items-center gap-1 pt-2 font-semibold" [style.color]="other.accent">
+          <span class="mt-auto flex items-center gap-1 pt-2 font-semibold" [style.--case-accent]="other.accent" data-case-accent>
             {{ 'cases.viewCase' | translate }}
             <ng-icon name="tablerArrowRight" class="transition-transform group-hover:translate-x-0.5" />
           </span>

@@ -71,6 +71,8 @@ export class SudokuComponent {
   sizes = [4, 6, 9];
   difficulties = [0, 1, 2];
   gridSize = signal(9);
+  /** 0…size-1, to render the board as rows of cells (ARIA grid → row → gridcell). */
+  readonly lines = computed(() => Array.from({ length: this.gridSize() }, (_, index) => index));
   difficulty = signal(1);
   puzzle = signal<SudokuPuzzle | null>(null);
   board = signal<SudokuCell[]>([]);

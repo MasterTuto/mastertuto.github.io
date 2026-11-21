@@ -12,7 +12,7 @@
         <a
           [routerLink]="'para/' + item.slug | langLink"
           class="transition-colors hover:text-accent focus-visible:text-accent"
-          [class]="selected().slug === item.slug ? 'text-surface-0-foreground' : 'text-surface-0-foreground/35'"
+          [class]="selected().slug === item.slug ? 'text-surface-0-foreground' : 'text-muted-foreground'"
           (mouseenter)="select(item.slug)"
           (focus)="select(item.slug)"
         >{{ item.name }}</a>@if (!last) {<span aria-hidden="true" class="text-surface-0-foreground/20">{{ ' / ' }}</span>}

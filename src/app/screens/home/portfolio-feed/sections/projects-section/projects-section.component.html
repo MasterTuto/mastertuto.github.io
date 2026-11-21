@@ -39,7 +39,7 @@
               <li
                 class="rounded-full border bg-surface-1 px-3 py-1 text-sm font-medium"
                 [style.border-color]="project.accent + '33'"
-                [style.color]="project.accent"
+                [style.--case-accent]="project.accent" data-case-accent
               >{{ "cases.roles." + work.role | translate }}</li>
             }
           </ul>

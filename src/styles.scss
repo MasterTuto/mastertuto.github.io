@@ -23,6 +23,10 @@ html[data-scheme='dark']:not([data-theme]) {
 @include meta.load-css('styles/themes');
 @include meta.load-css('styles/pro-tools');
 
+/* Brand colors of client projects (case pages, project cards), lifted for contrast in dark mode. */
+[data-case-accent] { color: var(--case-accent); }
+html[data-scheme='dark']:not([data-theme]) [data-case-accent] { color: color-mix(in oklab, var(--case-accent) 45%, white); }
+
 @tailwind utilities;
 
 * {

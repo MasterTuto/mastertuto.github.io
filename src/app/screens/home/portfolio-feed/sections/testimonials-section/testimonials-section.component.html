@@ -40,7 +40,7 @@
                 [attr.inert]="pageIndex !== currentPage() ? '' : null"
                 [attr.aria-hidden]="pageIndex !== currentPage() ? 'true' : null">
                 @for (testimonial of page; track testimonial.title) {
-                  <article class="relative flex min-h-64 flex-col rounded-sm bg-[#fefdfe] p-5 shadow-sm">
+                  <article class="relative flex min-h-64 flex-col rounded-sm bg-surface-2 p-5 shadow-sm">
                     <div class="mb-5 flex items-center gap-2" aria-label="5 / 5">
                       <span class="text-xl tracking-widest text-tertiary-600" aria-hidden="true">★★★★★</span>
                       <span class="text-sm font-semibold text-surface-0-foreground">5.0 / 5</span>
@@ -82,7 +82,7 @@
             [href]="whatsappLink"
             target="_blank"
             rel="noopener"
-            class="flex items-center justify-center gap-2 rounded-sm bg-[#fefdfe] px-4 py-3 font-semibold text-primary transition hover:opacity-90"
+            class="flex items-center justify-center gap-2 rounded-sm bg-surface-2 px-4 py-3 font-semibold text-primary transition hover:opacity-90"
           >
             <ng-icon name="tablerBrandWhatsapp" />
             {{ "home.testimonials.whatsapp" | translate }}

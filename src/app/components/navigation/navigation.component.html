@@ -21,8 +21,8 @@
         @if (item.children) {
           <button
             type="button"
-            class="flex items-center gap-1 border-b-2 border-b-transparent text-surface-0-foreground transition hover:text-accent"
-            [class.!text-accent]="isGroupActive(item)"
+            class="flex items-center gap-1 border-b-2 border-b-transparent text-surface-0-foreground transition hover:text-accent-ink"
+            [class.!text-accent-ink]="isGroupActive(item)"
             [attr.aria-expanded]="openGroup() === item.label"
             [attr.aria-controls]="'menu-' + $index"
             (click)="toggleGroup(item.label)"
@@ -51,7 +51,7 @@
             </div>
           }
         } @else {
-          <ng-container *ngTemplateOutlet="link; context: { $implicit: item, classes: 'border-b-2 border-b-transparent text-surface-0-foreground transition hover:text-accent' }" />
+          <ng-container *ngTemplateOutlet="link; context: { $implicit: item, classes: 'border-b-2 border-b-transparent text-surface-0-foreground transition hover:text-accent-ink' }" />
         }
       </li>
     }
@@ -109,7 +109,7 @@
     <a
       [routerLink]="item.path | langLink"
       [fragment]="item.fragment"
-      routerLinkActive="!text-accent !border-b-accent"
+      routerLinkActive="!text-accent-ink !border-b-accent"
       [routerLinkActiveOptions]="activeOptions(item)"
       ariaCurrentWhenActive="page"
       [class]="classes"
