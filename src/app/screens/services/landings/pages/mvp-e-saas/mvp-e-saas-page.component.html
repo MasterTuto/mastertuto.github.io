@@ -1,55 +1,115 @@
-<!-- Layout of this service page. Words: content/mvp-e-saas.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
+<!-- Layout: a zero on the counter, then an eight-week roadmap. Words: content/mvp-e-saas.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: display title beside a flat usage chart -->
+  <section class="grid items-end gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+    <div class="flex flex-col gap-6">
+      <h1 bcs-text="display">{{ copy.hero.title }}</h1>
+      <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+      <a bcs-button size="lg" color="accent" class="w-fit" routerLink="." fragment="form">
+        {{ copy.hero.cta }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
+    </div>
+    <figure class="flex flex-col gap-4 rounded-2xl bg-surface-1 p-6 shadow-md">
+      <figcaption class="font-mono text-sm text-muted-foreground">{{ copy.hero.note }}</figcaption>
+      <span aria-hidden="true" class="font-display text-7xl font-semibold leading-none text-surface-0-foreground">0</span>
+      <span aria-hidden="true" class="relative h-24 border-b border-l border-surface-0-foreground/20">
+        <span class="absolute inset-x-0 bottom-0 h-0.5 bg-error-ink"></span>
+      </span>
+      <span aria-hidden="true" class="flex justify-between font-mono text-xs text-muted-foreground">
+        <span>{{ pt ? 'mês 1' : 'month 1' }}</span><span>{{ pt ? 'mês 6' : 'month 6' }}</span>
+      </span>
+    </figure>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
-      <div bcs-grid min="sm" gap="lg">
-        @for (item of copy.proof.items; track item.value) {
-          <app-landing-stat [value]="item.value" [label]="item.label" />
+  <!-- Problem: four reasons, numbered -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="mvp-problem">
+    <h2 bcs-text="h2" id="mvp-problem" class="max-w-2xl">{{ copy.problem.title }}</h2>
+    <ol class="grid gap-x-12 gap-y-8 md:grid-cols-2">
+      @for (item of copy.problem.items; track item; let i = $index) {
+        <li class="flex gap-5 border-l-2 border-error-300 pl-5">
+          <span class="font-display text-3xl font-semibold leading-none text-error-ink" aria-hidden="true">{{ i + 1 }}</span>
+          <span class="text-lg text-surface-0-foreground">{{ item }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Solution: what goes in the first version, under one bracket -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="mvp-solution">
+    <div class="flex max-w-3xl flex-col gap-4">
+      <h2 bcs-text="h2" id="mvp-solution">{{ copy.solution.title }}</h2>
+      <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <span aria-hidden="true" class="relative hidden h-4 rounded-t-lg border-x-2 border-t-2 border-accent lg:block">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-surface-0 px-3 font-mono text-xs font-semibold text-accent-ink">MVP</span>
+      </span>
+      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        @for (item of copy.solution.items; track item) {
+          <li class="flex items-start gap-3 rounded-xl bg-accent-50 p-5 text-accent-900">
+            <ng-icon name="tablerCheck" class="mt-1 shrink-0" aria-hidden="true" />
+            <span class="font-medium">{{ item }}</span>
+          </li>
         }
-      </div>
+      </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="xl">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-      <app-landing-steps [items]="copy.steps.items" layout="horizontal" />
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-        <bcs-list [items]="copy.problem.items" marker="cross" />
+  <!-- Steps: a roadmap over eight weeks -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="mvp-steps">
+    <h2 bcs-text="h2" id="mvp-steps">{{ copy.steps.title }}</h2>
+    <div class="flex flex-col">
+      <div aria-hidden="true" class="hidden grid-cols-[minmax(0,18rem)_1fr] gap-6 pb-3 md:grid">
+        <span></span>
+        <span class="grid grid-cols-9 font-mono text-xs text-muted-foreground">
+          @for (week of weeks; track week) {
+            <span class="pl-1">{{ week }}</span>
+          }
+        </span>
       </div>
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
-        <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-        <bcs-list [items]="copy.solution.items" marker="check" />
-      </div>
+      <ol class="flex flex-col">
+        @for (step of copy.steps.items; track step.title; let i = $index; let last = $last) {
+          <li class="grid gap-3 border-t border-surface-0-foreground/10 py-5 md:grid-cols-[minmax(0,18rem)_1fr] md:items-center md:gap-6">
+            <span class="flex flex-col gap-1">
+              <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
+            </span>
+            <span aria-hidden="true" class="grid h-8 grid-cols-9 rounded-md bg-muted">
+              <span
+                class="col-start-[var(--from)] col-end-[var(--to)] rounded-md"
+                [class]="last ? 'bg-accent' : 'bg-accent-200'"
+                [style.--from]="spans[i][0]"
+                [style.--to]="spans[i][1]"
+              ></span>
+            </span>
+          </li>
+        }
+      </ol>
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="prose">
-    <app-landing-quote [text]="copy.outcome" />
-  </div>
-</section>
+  <!-- Proof: three oversized numbers -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="mvp-proof">
+    <h2 bcs-text="h3" tone="muted" id="mvp-proof">{{ copy.proof.title }}</h2>
+    <dl class="grid gap-10 sm:grid-cols-3">
+      @for (item of copy.proof.items; track item.value) {
+        <div class="flex flex-col gap-3">
+          <dt class="order-2 text-muted-foreground">{{ item.label }}</dt>
+          <dd class="order-1 font-display text-7xl font-semibold leading-none text-accent-ink">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
-    <div bcs-surface pad="lg">
+  <!-- Outcome -->
+  <figure bcs-reveal class="flex flex-col gap-4 rounded-2xl bg-primary px-8 py-12 text-primary-foreground sm:px-12">
+    <blockquote class="max-w-4xl font-display text-3xl font-semibold leading-snug sm:text-4xl">“{{ copy.outcome }}”</blockquote>
+  </figure>
+
+  <!-- Price and form -->
+  <section bcs-reveal id="form" class="grid scroll-mt-28 gap-6 lg:grid-cols-[minmax(0,22rem)_1fr]">
+    <div bcs-surface variant="outline" pad="lg" class="lg:self-start">
       <app-landing-price
         [label]="common.priceLabel"
         [prefix]="copy.price.prefix"
@@ -59,34 +119,25 @@
         [note]="copy.price.note"
       />
     </div>
-  </div>
-</section>
+    <div bcs-surface pad="lg">
+      <app-landing-contact
+        [heading]="copy.form.title"
+        [text]="copy.form.text"
+        [fields]="copy.form.fields"
+        [phone]="phone"
+        [message]="copy.form.heading"
+        [submitLabel]="common.submit"
+        [messages]="common.messages"
+        [note]="common.formNote"
+        color="accent"
+        (sent)="track($event)"
+      />
+    </div>
+  </section>
 
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-contact
-      [heading]="copy.form.title"
-      [text]="copy.form.text"
-      [fields]="copy.form.fields"
-      [phone]="phone"
-      [message]="copy.form.heading"
-      [submitLabel]="common.submit"
-      [messages]="common.messages"
-      [note]="common.formNote"
-      color="accent"
-      (sent)="track($event)"
-    />
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

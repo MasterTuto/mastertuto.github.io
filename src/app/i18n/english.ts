@@ -385,6 +385,7 @@ export const englishTranslations = {
       letsTalk: "Let's talk?",
       downloadCurriculum: 'Download CV',
       rights: 'All rights reserved.',
+      regions: 'By region',
     },
     estimateBudget: 'Request a Quote',
   },

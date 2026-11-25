@@ -43,6 +43,7 @@ const sections = [
   ['Serviços (português)', children('pt/services')],
   ['Services (English)', children('en/services')],
   ['Sites e automação por profissão', children('para')],
+  ['Sites e automação por região', children('regioes')],
   ['Ferramentas gratuitas', children('tools').filter((path) => !path.endsWith('dev-tools'))],
   ['Developer tools', children('tools/dev-tools')],
   ['Cases', children('pt/cases')],

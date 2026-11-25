@@ -4,6 +4,7 @@ import path from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 
 import { projectCases } from '../src/app/data/cases.data.ts';
+import { regions } from '../src/app/data/regions.data.ts';
 import { allProTools } from '../src/app/screens/tools/pro-tools/pro-tools.data.ts';
 import { existsSync } from 'node:fs';
 
@@ -177,6 +178,10 @@ async function describePage(pagePath, labels) {
     const hero = `src/assets/images/segments/${slug ?? 'advogado'}/hero.svg`;
     const art = existsSync(path.join(root, hero)) ? { href: await dataUri(hero, 'image/svg+xml'), kind: 'scene' } : undefined;
     return { eyebrow: 'Sites para cada profissão', ...theme, art };
+  }
+  if (section === 'regioes') {
+    const region = regions.find((item) => item.slug === slug);
+    return { eyebrow: region ? `Sites e automação · ${region.name}` : 'Sites e automação por região', ...theme };
   }
   if (section === 'cases') {
     const project = projectCases.find((item) => item.slug === slug);

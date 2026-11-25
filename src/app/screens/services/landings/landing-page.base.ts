@@ -11,10 +11,9 @@ import { WHATSAPP_NUMBER } from 'src/app/utils/html';
 import { landingCommon } from './content/common';
 import { Landing, LandingContent, LandingCopy, LandingLanguage } from './landing.model';
 import { landingBySlug } from './landings.registry';
-import { useLandingTheme } from './use-landing-theme';
 
 /**
- * State shared by the twelve service pages: content in the current language, theme, SEO, related
+ * State shared by the twelve service pages: content in the current language, SEO, related
  * links and form tracking. Each page component only decides the layout.
  */
 @Directive()
@@ -25,6 +24,8 @@ export abstract class LandingPageBase {
 
   protected readonly landing: Landing = landingBySlug.get(inject(ActivatedRoute).snapshot.data['slug'])!;
   protected readonly lang: LandingLanguage = inject(TranslationInitializer).currentLang === 'en' ? 'en' : 'pt';
+  /** For the few illustrative words a layout draws (mockups), which are not page copy. */
+  protected readonly pt = this.lang === 'pt';
   protected readonly copy: LandingCopy;
   protected readonly common = landingCommon[this.lang];
   protected readonly phone = WHATSAPP_NUMBER;
@@ -41,7 +42,6 @@ export abstract class LandingPageBase {
 
   constructor(content: LandingContent) {
     this.copy = content[this.lang];
-    useLandingTheme(this.landing);
     const { seo, faq, price } = this.copy;
     const t = (key: string) => this.t(key);
     usePageSeo(() => ({

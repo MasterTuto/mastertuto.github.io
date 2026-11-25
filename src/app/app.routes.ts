@@ -1,4 +1,5 @@
 import { industryRoutes } from './screens/industries/industry.routes';
+import { regionRoutes } from './screens/regions/regions.routes';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './screens/home/home.component';
 import { LanguageWrapperComponent } from './components/language-wrpaper/language-wrapper.component';
@@ -14,6 +15,7 @@ import { caseRedirectRoutes, casesRoute } from './screens/cases/cases.routes';
 
 export const routes: Routes = [
   ...industryRoutes,
+  ...regionRoutes,
   {
     path: '',
     component: HomeComponent,
@@ -37,6 +39,6 @@ export const routes: Routes = [
   {
     path: ':lang',
     component: LanguageWrapperComponent,
-    children: [...industryRoutes, gamesRoute, toolsRoute, servicesRoute, casesRoute],
+    children: [...industryRoutes, ...regionRoutes, gamesRoute, toolsRoute, servicesRoute, casesRoute],
   },
 ];

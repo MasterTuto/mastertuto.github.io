@@ -1,63 +1,125 @@
-<!-- Layout of this service page. Words: content/automacao-de-processos.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
-    <div bcs-stack gap="md">
-      <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-      <bcs-list [items]="copy.problem.items" marker="number" />
+<!-- Layout: a week of manual work, then the flow that replaces it. Words: content/automacao-de-processos.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: promise beside a running flow -->
+  <section class="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+    <div class="flex flex-col gap-6">
+      <h1 bcs-text="h1">{{ copy.hero.title }}</h1>
+      <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+      <a bcs-button size="lg" color="accent" class="w-fit" routerLink="." fragment="form">
+        {{ copy.hero.cta }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
     </div>
-  </div>
-</section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="md">
-      <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
-      <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-      <bcs-list [items]="copy.solution.items" marker="check" />
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="lg">
-        <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-        <app-landing-steps [items]="copy.steps.items" layout="vertical" />
-      </div>
-      <div bcs-surface pad="lg">
-        <app-landing-price
-          [label]="common.priceLabel"
-          [prefix]="copy.price.prefix"
-          [amount]="copy.price.amount"
-          [period]="copy.price.period ?? ''"
-          [includes]="copy.price.includes"
-          [note]="copy.price.note"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
-      <div bcs-grid min="sm" gap="lg">
-        @for (item of copy.proof.items; track item.value) {
-          <app-landing-stat [value]="item.value" [label]="item.label" />
+    <figure class="flex flex-col items-center gap-0">
+      <figcaption class="flex items-center gap-2 rounded-full bg-primary px-4 py-2 font-mono text-xs text-primary-foreground">
+        <ng-icon name="tablerClock" aria-hidden="true" />
+        {{ copy.hero.note }}
+      </figcaption>
+      <div aria-hidden="true" class="flex w-full flex-col items-center">
+        @for (node of flow; track node.label; let last = $last) {
+          <span class="h-8 w-0.5 bg-accent-300"></span>
+          <span class="flex w-full max-w-xs items-center gap-3 rounded-lg border border-surface-0-foreground/10 bg-surface-2 px-4 py-3 shadow-sm">
+            <span class="grid size-8 shrink-0 place-items-center rounded-md bg-accent-50 text-accent-800"><ng-icon [name]="node.icon" /></span>
+            <span class="text-sm font-medium text-surface-0-foreground">{{ node.label }}</span>
+            @if (last) {
+              <span class="ml-auto rounded-full bg-success-50 px-2 py-0.5 text-xs font-semibold text-success-800">OK</span>
+            }
+          </span>
         }
       </div>
-    </div>
-  </div>
-</section>
+    </figure>
+  </section>
 
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
+  <!-- Problem: one manual task per weekday -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="auto-problem">
+    <h2 bcs-text="h2" id="auto-problem">{{ copy.problem.title }}</h2>
+    <ol class="grid gap-3 md:grid-cols-5">
+      @for (item of copy.problem.items; track item; let i = $index) {
+        <li class="flex flex-col gap-3 rounded-lg bg-surface-1 p-5 shadow-sm md:min-h-48">
+          <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{{ weekdays[i % weekdays.length] }}</span>
+          <span class="text-surface-0-foreground">{{ item }}</span>
+          <span class="mt-auto flex items-center gap-1.5 text-xs text-muted-foreground"><ng-icon name="tablerClock" aria-hidden="true" /> {{ pt ? 'manual' : 'by hand' }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Solution: a pipeline of capabilities -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="auto-solution">
+    <div class="flex max-w-3xl flex-col gap-4">
+      <h2 bcs-text="h2" id="auto-solution">{{ copy.solution.title }}</h2>
+      <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
+    </div>
+    <ol class="flex flex-col gap-3 lg:flex-row lg:items-stretch lg:gap-0">
+      @for (item of copy.solution.items; track item; let last = $last) {
+        <li class="flex items-stretch lg:flex-1">
+          <span class="flex-1 rounded-lg border border-accent-200 bg-accent-50 px-4 py-4 text-sm font-medium text-accent-900">{{ item }}</span>
+          @if (!last) {
+            <ng-icon name="tablerArrowRight" class="mx-2 hidden shrink-0 self-center text-accent-ink lg:block" aria-hidden="true" />
+          }
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Proof and steps side by side -->
+  <section bcs-reveal class="grid gap-16 md:grid-cols-[1fr_1.4fr]" aria-labelledby="auto-steps">
+    <div class="flex flex-col gap-6">
+      <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
+      <dl class="flex flex-col divide-y divide-surface-0-foreground/10">
+        @for (item of copy.proof.items; track item.value) {
+          <div class="flex items-baseline gap-4 py-4">
+            <dt class="w-24 shrink-0 font-display text-3xl font-semibold text-accent-ink">{{ item.value }}</dt>
+            <dd class="text-sm text-muted-foreground">{{ item.label }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+    <div class="flex flex-col gap-8">
+      <h2 bcs-text="h2" id="auto-steps">{{ copy.steps.title }}</h2>
+      <ol class="relative flex flex-col gap-8">
+        <span aria-hidden="true" class="absolute bottom-5 left-5 top-5 w-px bg-surface-0-foreground/15"></span>
+        @for (step of copy.steps.items; track step.title; let i = $index) {
+          <li class="relative flex gap-5">
+            <span class="z-10 grid size-10 shrink-0 place-items-center rounded-md bg-primary font-mono text-sm font-semibold text-primary-foreground">{{ i + 1 }}</span>
+            <span class="flex flex-col gap-1">
+              <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
+              <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
+            </span>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Outcome: an email that arrives on its own -->
+  <figure bcs-reveal class="mx-auto flex w-full max-w-2xl flex-col gap-3 rounded-xl border border-surface-0-foreground/10 bg-surface-2 p-6 shadow-sm">
+    <figcaption class="flex items-center justify-between gap-4 font-mono text-xs text-muted-foreground">
+      <span>{{ pt ? 'robo@suaempresa.com.br' : 'robot@yourcompany.com' }}</span>
+      <span>06:00</span>
+    </figcaption>
+    <blockquote class="text-2xl font-medium leading-snug text-surface-0-foreground">{{ copy.outcome }}</blockquote>
+  </figure>
+
+  <!-- Form with the price above it -->
+  <section bcs-reveal id="form" class="flex scroll-mt-28 flex-col gap-6">
+    <div class="flex flex-col gap-6 rounded-xl bg-surface-1 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-semibold text-muted-foreground">{{ common.priceLabel }}</p>
+        <p class="flex flex-wrap items-baseline gap-2 text-surface-0-foreground">
+          <span class="text-sm text-muted-foreground">{{ copy.price.prefix }}</span>
+          <span class="font-display text-4xl font-semibold">{{ copy.price.amount }}</span>
+          @if (copy.price.period) { <span class="text-sm text-muted-foreground">{{ copy.price.period }}</span> }
+        </p>
+        <p class="max-w-[60ch] text-sm text-muted-foreground">{{ copy.price.note }}</p>
+      </div>
+      <ul class="flex flex-col gap-2 text-sm text-surface-0-foreground">
+        @for (item of copy.price.includes; track item) {
+          <li class="flex gap-2"><ng-icon name="tablerCheck" class="mt-0.5 shrink-0 text-success-ink" aria-hidden="true" />{{ item }}</li>
+        }
+      </ul>
+    </div>
     <div bcs-surface pad="lg">
       <app-landing-contact
         [heading]="copy.form.title"
@@ -72,23 +134,11 @@
         (sent)="track($event)"
       />
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="prose">
-    <app-landing-quote [text]="copy.outcome" />
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

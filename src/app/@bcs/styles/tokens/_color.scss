@@ -8,7 +8,7 @@
 // Surfaces only expose the base and its foreground: they are themselves a scale (0 = page, 3 = top layer).
 //
 // Values are stored as space-separated RGB channels so Tailwind can add opacity (`bg-primary/10`).
-// A theme (see `_themes.scss`) only declares role bases; the scale is always derived here, so a page can
+// A theme only declares role bases; the scale is always derived here, so a page can
 // never introduce a one-off color.
 @use 'sass:color';
 @use 'sass:list';

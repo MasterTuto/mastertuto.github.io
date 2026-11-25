@@ -1,89 +1,151 @@
-<!-- Layout of this service page. Words: content/landing-pages.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
-
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
-      <div bcs-grid min="sm" gap="lg">
-        @for (item of copy.proof.items; track item.value) {
-          <app-landing-stat [value]="item.value" [label]="item.label" />
-        }
+<!-- Layout: the anatomy of a page that converts. Words: content/landing-pages.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: the promise beside a landing page in a browser, each part pinned -->
+  <section class="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+    <div class="flex flex-col gap-6">
+      <h1 bcs-text="h1">{{ copy.hero.title }}</h1>
+      <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a bcs-button size="lg" color="accent" routerLink="." fragment="form">
+          {{ copy.hero.cta }}
+          <ng-icon name="tablerArrowRight" />
+        </a>
+        <span class="font-mono text-sm text-muted-foreground line-through">{{ copy.hero.note }}</span>
       </div>
     </div>
-  </div>
-</section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-        <bcs-list [items]="copy.problem.items" marker="cross" />
+    <div aria-hidden="true" class="relative pb-6 pr-6">
+      <div class="overflow-hidden rounded-xl border border-surface-0-foreground/10 bg-surface-2 shadow-lg">
+        <div class="flex items-center gap-2 border-b border-surface-0-foreground/10 px-4 py-3">
+          <span class="size-2.5 rounded-full bg-muted-300"></span>
+          <span class="size-2.5 rounded-full bg-muted-300"></span>
+          <span class="size-2.5 rounded-full bg-muted-300"></span>
+          <span class="ml-3 flex-1 truncate rounded-full bg-surface-0 px-3 py-1 font-mono text-xs text-muted-foreground">{{ pt ? 'suaoferta.com.br' : 'youroffer.com' }}</span>
+        </div>
+        <div class="flex flex-col gap-5 p-8">
+          <span class="h-5 w-4/5 rounded-sm bg-surface-0-foreground/80"></span>
+          <span class="h-3 w-3/5 rounded-sm bg-muted-300"></span>
+          <span class="mt-2 w-fit rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground">{{ copy.hero.cta }}</span>
+          <div class="mt-4 grid grid-cols-3 gap-3">
+            <span class="h-14 rounded-md bg-muted"></span>
+            <span class="h-14 rounded-md bg-muted"></span>
+            <span class="h-14 rounded-md bg-muted"></span>
+          </div>
+          <div class="flex flex-col gap-2 rounded-md border border-surface-0-foreground/10 p-4">
+            <span class="h-3 w-1/3 rounded-sm bg-muted-300"></span>
+            <span class="h-8 rounded-sm bg-surface-0"></span>
+          </div>
+        </div>
       </div>
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
-        <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-        <bcs-list [items]="copy.solution.items" marker="check" />
-      </div>
+      @for (pin of pins; track pin.label; let i = $index) {
+        <span class="absolute right-0 flex items-center gap-2 rounded-full bg-primary py-1 pl-1 pr-3 text-xs font-semibold text-primary-foreground shadow-md" [style.top]="pin.top">
+          <span class="grid size-5 place-items-center rounded-full bg-accent text-accent-foreground">{{ i + 1 }}</span>
+          {{ pin.label }}
+        </span>
+      }
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-      <app-landing-steps [items]="copy.steps.items" layout="horizontal" />
+  <!-- Problem: a funnel that narrows with every leak -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="lp-problem">
+    <h2 bcs-text="h2" id="lp-problem" class="text-center">{{ copy.problem.title }}</h2>
+    <ol class="flex flex-col items-center gap-2">
+      @for (item of copy.problem.items; track item; let i = $index) {
+        <li
+          class="flex w-[calc(100%_-_var(--i)_*_1.25rem)] min-w-0 items-center gap-4 rounded-lg bg-muted px-5 py-4 text-muted-foreground md:w-[calc(100%_-_var(--i)_*_4rem)]"
+          [style.--i]="i"
+        >
+          <ng-icon name="tablerArrowDown" class="shrink-0 text-error-ink" />
+          <span>{{ item }}</span>
+        </li>
+      }
+      <li class="mt-2 rounded-full bg-error-50 px-5 py-2 font-mono text-sm font-semibold text-error-800">{{ copy.hero.note }}</li>
+    </ol>
+  </section>
+
+  <!-- Solution: sticky claim, the parts of the page beside it -->
+  <section bcs-reveal class="grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16" aria-labelledby="lp-solution">
+    <div class="flex flex-col gap-4 md:sticky md:top-32 md:self-start">
+      <h2 bcs-text="h2" id="lp-solution">{{ copy.solution.title }}</h2>
+      <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
     </div>
-  </div>
-</section>
+    <ol class="flex flex-col divide-y divide-surface-0-foreground/10 border-y border-surface-0-foreground/10">
+      @for (item of copy.solution.items; track item; let i = $index) {
+        <li class="grid grid-cols-[3rem_1fr] items-baseline py-5">
+          <span class="font-mono text-sm font-semibold text-accent-ink">{{ (i + 1).toString().padStart(2, '0') }}</span>
+          <span class="text-lg text-surface-0-foreground">{{ item }}</span>
+        </li>
+      }
+    </ol>
+  </section>
 
-<section bcs-section space="xl">
-  <div bcs-container bcs-reveal width="prose">
-    <app-landing-quote [text]="copy.outcome" />
-  </div>
-</section>
+  <!-- Proof: three measurements, side by side -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="lp-proof">
+    <h2 bcs-text="h3" tone="muted" id="lp-proof">{{ copy.proof.title }}</h2>
+    <dl class="grid gap-8 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-surface-0-foreground/10">
+      @for (item of copy.proof.items; track item.value) {
+        <div class="flex flex-col gap-2 sm:px-8 sm:first:pl-0">
+          <dt class="order-2 text-sm text-muted-foreground">{{ item.label }}</dt>
+          <dd class="order-1 font-display text-6xl font-semibold text-surface-0-foreground">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
 
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
+  <!-- Steps: one line from the briefing to the page live -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="lp-steps">
+    <h2 bcs-text="h2" id="lp-steps">{{ copy.steps.title }}</h2>
+    <ol class="relative grid gap-8 md:grid-cols-4 md:gap-6">
+      <span aria-hidden="true" class="absolute left-5 right-[12%] top-5 hidden h-px bg-surface-0-foreground/15 md:block"></span>
+      @for (step of copy.steps.items; track step.title; let i = $index) {
+        <li class="relative flex gap-4 md:flex-col">
+          <span class="z-10 grid size-10 shrink-0 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground ring-8 ring-surface-0">{{ i + 1 }}</span>
+          <span class="flex flex-col gap-1">
+            <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
+          </span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Outcome -->
+  <figure bcs-reveal class="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+    <ng-icon name="tablerSparkles" class="text-3xl text-accent-ink" aria-hidden="true" />
+    <blockquote class="font-display text-3xl font-medium leading-snug text-surface-0-foreground sm:text-4xl">“{{ copy.outcome }}”</blockquote>
+  </figure>
+
+  <!-- Price and form -->
+  <section bcs-reveal id="form" class="grid scroll-mt-28 gap-6 lg:grid-cols-[minmax(0,22rem)_1fr]">
+    <div bcs-surface variant="outline" pad="lg">
+      <app-landing-price
+        [label]="common.priceLabel"
+        [prefix]="copy.price.prefix"
+        [amount]="copy.price.amount"
+        [period]="copy.price.period ?? ''"
+        [includes]="copy.price.includes"
+        [note]="copy.price.note"
+      />
+    </div>
     <div bcs-surface pad="lg">
-      <div bcs-grid min="md" gap="xl">
-        <app-landing-price
-          [label]="common.priceLabel"
-          [prefix]="copy.price.prefix"
-          [amount]="copy.price.amount"
-          [period]="copy.price.period ?? ''"
-          [includes]="copy.price.includes"
-          [note]="copy.price.note"
-        />
-        <app-landing-contact
-          [heading]="copy.form.title"
-          [text]="copy.form.text"
-          [fields]="copy.form.fields"
-          [phone]="phone"
-          [message]="copy.form.heading"
-          [submitLabel]="common.submit"
-          [messages]="common.messages"
-          [note]="common.formNote"
-          color="accent"
-          (sent)="track($event)"
-        />
-      </div>
+      <app-landing-contact
+        [heading]="copy.form.title"
+        [text]="copy.form.text"
+        [fields]="copy.form.fields"
+        [phone]="phone"
+        [message]="copy.form.heading"
+        [submitLabel]="common.submit"
+        [messages]="common.messages"
+        [note]="common.formNote"
+        color="accent"
+        (sent)="track($event)"
+      />
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

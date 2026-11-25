@@ -1,52 +1,102 @@
-<!-- Layout of this service page. Words: content/modernizacao-de-sistemas.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
-
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="prose">
-    <app-landing-quote [text]="copy.outcome" />
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-        <bcs-list [items]="copy.problem.items" marker="cross" />
-      </div>
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
-        <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-        <bcs-list [items]="copy.solution.items" marker="check" />
+<!-- Layout: old and new side by side, the new one growing slice by slice. Words: content/modernizacao-de-sistemas.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: copy over an editor split in legacy and new -->
+  <section class="flex flex-col gap-12">
+    <div class="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:gap-16">
+      <h1 bcs-text="h1">{{ copy.hero.title }}</h1>
+      <div class="flex flex-col gap-6">
+        <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+        <a bcs-button size="lg" color="accent" class="w-fit" routerLink="." fragment="form">
+          {{ copy.hero.cta }}
+          <ng-icon name="tablerArrowRight" />
+        </a>
       </div>
     </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="lg">
-        <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-        <app-landing-steps [items]="copy.steps.items" layout="vertical" />
+    <div class="grid overflow-hidden rounded-xl font-mono text-sm shadow-lg md:grid-cols-2">
+      <div class="flex flex-col gap-1.5 bg-muted p-6 text-muted-foreground">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wider">legacy/</p>
+        <p>{{ copy.hero.note }}</p>
+        <p aria-hidden="true">&lt;% if (user != null) &#123; %&gt;</p>
+        <p aria-hidden="true" class="pl-4">&lt;%= relatorio.gerar(user) %&gt;</p>
+        <p aria-hidden="true">&lt;% &#125; %&gt;</p>
       </div>
-      <div bcs-stack gap="lg">
-        <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
-        <div bcs-grid min="sm" gap="lg">
-          @for (item of copy.proof.items; track item.value) {
-            <app-landing-stat [value]="item.value" [label]="item.label" />
-          }
+      <div aria-hidden="true" class="flex flex-col gap-1.5 bg-primary p-6 text-primary-foreground">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wider">app/</p>
+        <p>&#64;if (user()) &#123;</p>
+        <p class="pl-4">&lt;app-report [user]="user()" /&gt;</p>
+        <p>&#125;</p>
+        <p class="mt-2">// {{ pt ? 'testado e documentado' : 'tested and documented' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem and solution: the cost of staying vs the way out -->
+  <div bcs-reveal class="grid gap-12 md:grid-cols-2 md:gap-0 md:divide-x md:divide-surface-0-foreground/10">
+    <section class="flex flex-col gap-6 md:pr-12" aria-labelledby="mod-problem">
+      <h2 bcs-text="h2" id="mod-problem">{{ copy.problem.title }}</h2>
+      <bcs-list [items]="copy.problem.items" marker="cross" />
+    </section>
+    <section class="flex flex-col gap-6 md:pl-12" aria-labelledby="mod-solution">
+      <h2 bcs-text="h2" id="mod-solution">{{ copy.solution.title }}</h2>
+      <p bcs-text="body" tone="muted">{{ copy.solution.text }}</p>
+      <bcs-list [items]="copy.solution.items" marker="check" />
+    </section>
+  </div>
+
+  <!-- Steps: each slice moves a share of the system to the new code -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="mod-steps">
+    <h2 bcs-text="h2" id="mod-steps">{{ copy.steps.title }}</h2>
+    <ol class="flex flex-col gap-6">
+      @for (step of copy.steps.items; track step.title; let i = $index) {
+        <li class="grid gap-3 md:grid-cols-[minmax(0,20rem)_1fr] md:items-center md:gap-10">
+          <span class="flex flex-col gap-1">
+            <span class="font-semibold text-surface-0-foreground">{{ i + 1 }}. {{ step.title }}</span>
+            <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
+          </span>
+          <span aria-hidden="true" class="flex h-9 overflow-hidden rounded-md font-mono text-xs">
+            <span class="flex items-center bg-primary px-3 text-primary-foreground" [style.width.%]="shares[i]">{{ shares[i] }}%</span>
+            <span class="flex flex-1 items-center justify-end bg-muted px-3 text-muted-foreground">legacy</span>
+          </span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Proof: cases as a list -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="mod-proof">
+    <h2 bcs-text="h3" tone="muted" id="mod-proof">{{ copy.proof.title }}</h2>
+    <dl class="flex flex-col border-t border-surface-0-foreground/10">
+      @for (item of copy.proof.items; track item.value) {
+        <div class="grid gap-2 border-b border-surface-0-foreground/10 py-5 sm:grid-cols-[16rem_1fr] sm:gap-8">
+          <dt class="font-display text-xl font-semibold text-surface-0-foreground">{{ item.value }}</dt>
+          <dd class="text-muted-foreground">{{ item.label }}</dd>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      }
+    </dl>
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <!-- Outcome -->
+  <figure bcs-reveal class="mx-auto max-w-3xl text-center">
+    <blockquote class="font-display text-4xl font-semibold leading-tight text-surface-0-foreground sm:text-5xl">“{{ copy.outcome }}”</blockquote>
+  </figure>
+
+  <!-- Price and form -->
+  <section bcs-reveal id="form" class="grid scroll-mt-28 gap-6 lg:grid-cols-[1fr_minmax(0,22rem)]">
     <div bcs-surface pad="lg">
+      <app-landing-contact
+        [heading]="copy.form.title"
+        [text]="copy.form.text"
+        [fields]="copy.form.fields"
+        [phone]="phone"
+        [message]="copy.form.heading"
+        [submitLabel]="common.submit"
+        [messages]="common.messages"
+        [note]="common.formNote"
+        color="accent"
+        (sent)="track($event)"
+      />
+    </div>
+    <div bcs-surface variant="outline" pad="lg" class="lg:self-start">
       <app-landing-price
         [label]="common.priceLabel"
         [prefix]="copy.price.prefix"
@@ -56,34 +106,11 @@
         [note]="copy.price.note"
       />
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-contact
-      [heading]="copy.form.title"
-      [text]="copy.form.text"
-      [fields]="copy.form.fields"
-      [phone]="phone"
-      [message]="copy.form.heading"
-      [submitLabel]="common.submit"
-      [messages]="common.messages"
-      [note]="common.formNote"
-      color="accent"
-      (sent)="track($event)"
-    />
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

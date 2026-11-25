@@ -1,0 +1,142 @@
+@if (region(); as page) {
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-20 overflow-x-clip px-4 md:gap-28" lang="pt-BR">
+    <!-- Hero: the place, the promise, and how people there search -->
+    <section class="grid items-center gap-12 pt-4 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+      <div class="flex flex-col gap-6">
+        <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent-ink">
+          <ng-icon name="tablerMapPin" aria-hidden="true" />
+          {{ page.name }}{{ page.group === 'baixada' && !page.isRegion ? ' · Baixada Santista' : '' }}
+        </p>
+        <h1 class="text-4xl font-semibold leading-tight text-surface-0-foreground sm:text-6xl">{{ page.title }}</h1>
+        <p class="max-w-[54ch] text-lg leading-relaxed text-muted-foreground">{{ page.intro }}</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a bcs-button color="accent" [href]="contact()" target="_blank" rel="noopener">
+            <ng-icon name="tablerBrandWhatsapp" />
+            Conversar pelo WhatsApp
+          </a>
+          <a href="#por-onde-comecar" class="flex items-center gap-1 px-2 py-3 font-medium text-surface-0-foreground transition hover:text-accent-ink">
+            O que faz sentido {{ page.where }}
+            <ng-icon name="tablerArrowDown" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      <figure class="flex flex-col gap-3">
+        <figcaption class="text-sm font-medium text-muted-foreground">Como seus clientes procuram {{ page.where }}</figcaption>
+        <ul class="flex flex-col gap-3">
+          @for (search of page.searches; track search; let i = $index) {
+            <li
+              class="flex items-center gap-3 rounded-full bg-surface-2 px-5 py-3.5 text-surface-0-foreground shadow-md ring-1 ring-surface-0-foreground/5"
+              [style.margin-left.rem]="i % 2 ? 1.5 : 0"
+            >
+              <ng-icon name="tablerSearch" class="shrink-0 text-muted-foreground" aria-hidden="true" />
+              <span class="truncate">{{ search }}</span>
+            </li>
+          }
+        </ul>
+      </figure>
+    </section>
+
+    <!-- Places: the neighborhoods (or cities) people type -->
+    <section class="flex flex-col gap-6 rounded-2xl bg-surface-1 p-6 sm:p-10" aria-labelledby="lugares">
+      <h2 id="lugares" class="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+        {{ page.isRegion ? 'As cidades da região' : 'Bairros que aparecem nas buscas' }}
+      </h2>
+      <p class="text-2xl font-semibold leading-snug text-surface-0-foreground sm:text-4xl sm:leading-snug">
+        @for (place of page.places; track place; let last = $last) {
+          <span>{{ place }}</span>@if (!last) {<span aria-hidden="true" class="text-accent-ink">{{ ' · ' }}</span>}
+        }
+      </p>
+    </section>
+
+    <!-- Context: how the local market works -->
+    <section class="grid gap-6 md:grid-cols-[1fr_1.6fr] md:gap-16" aria-labelledby="mercado">
+      <h2 id="mercado" class="text-2xl font-semibold text-surface-0-foreground sm:text-3xl">O mercado {{ page.where }}</h2>
+      <p class="text-lg leading-relaxed text-muted-foreground sm:text-xl">{{ page.context }}</p>
+    </section>
+
+    <!-- Opportunities: three local reasons -->
+    <section class="flex flex-col gap-10" aria-labelledby="oportunidades">
+      <h2 id="oportunidades" class="text-2xl font-semibold text-surface-0-foreground sm:text-3xl">Onde um site faz diferença aqui</h2>
+      <ol class="grid gap-10 md:grid-cols-3 md:gap-8">
+        @for (item of page.opportunities; track item.title; let i = $index) {
+          <li class="flex flex-col gap-3 border-t-2 border-accent pt-5">
+            <span class="font-mono text-sm font-semibold text-accent-ink" aria-hidden="true">0{{ i + 1 }}</span>
+            <h3 class="text-lg font-semibold text-surface-0-foreground">{{ item.title }}</h3>
+            <p class="leading-relaxed text-muted-foreground">{{ item.text }}</p>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <!-- Services: where I would start, linked to each service page -->
+    <section id="por-onde-comecar" class="flex scroll-mt-28 flex-col gap-8" aria-labelledby="comecar-titulo">
+      <h2 id="comecar-titulo" class="text-2xl font-semibold text-surface-0-foreground sm:text-3xl">Por onde eu começaria {{ page.where }}</h2>
+      <ul class="grid gap-4 md:grid-cols-3">
+        @for (service of services(); track service.slug) {
+          <li>
+            <a
+              [routerLink]="'services/' + service.slug | langLink"
+              class="group flex h-full flex-col gap-3 rounded-xl bg-surface-1 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <span class="flex items-center justify-between gap-3 text-lg font-semibold text-surface-0-foreground">
+                {{ service.name }}
+                <ng-icon name="tablerArrowRight" class="shrink-0 text-accent-ink transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+              </span>
+              <span class="text-muted-foreground">{{ service.why }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+      @if (segments().length) {
+        <div class="flex flex-col gap-3 pt-4">
+          <h3 class="text-sm font-semibold text-muted-foreground">Profissões com muita procura {{ page.where }}</h3>
+          <ul class="flex flex-wrap gap-2">
+            @for (segment of segments(); track segment!.slug) {
+              <li>
+                <a [routerLink]="'para/' + segment!.slug | langLink" class="block rounded-full border border-surface-0-foreground/15 px-4 py-2 text-sm font-medium text-surface-0-foreground transition hover:border-accent hover:text-accent-ink">
+                  Site para {{ segment!.name }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </section>
+
+    <!-- FAQ -->
+    <section class="mx-auto w-full max-w-3xl">
+      <app-landing-faq heading="Perguntas frequentes" [items]="page.faq" />
+    </section>
+
+    <!-- Closing call -->
+    <section class="flex flex-col items-start gap-6 rounded-2xl bg-primary px-6 py-12 text-primary-foreground sm:px-12 md:flex-row md:items-center md:justify-between" aria-labelledby="conversar">
+      <div class="flex max-w-2xl flex-col gap-2">
+        <h2 id="conversar" class="text-2xl font-semibold sm:text-3xl">Tem um negócio {{ page.where }}?</h2>
+        <p>Me conte o que você faz e quem é o seu cliente. Eu respondo com o que faria primeiro e quanto custa.</p>
+      </div>
+      <a bcs-button color="accent" size="lg" class="shrink-0" [href]="contact()" target="_blank" rel="noopener">
+        <ng-icon name="tablerBrandWhatsapp" />
+        Chamar no WhatsApp
+      </a>
+    </section>
+
+    <!-- Nearby places -->
+    <nav class="flex flex-col gap-4" aria-labelledby="perto">
+      <h2 id="perto" class="text-lg font-semibold text-surface-0-foreground">Também atendo</h2>
+      <ul class="flex flex-wrap gap-x-8 gap-y-3">
+        @for (other of nearby(); track other!.slug) {
+          <li>
+            <a [routerLink]="'regioes/' + other!.slug | langLink" class="flex items-center gap-1 font-medium text-accent-ink underline-offset-4 hover:underline">
+              Sites {{ other!.where }}
+              <ng-icon name="tablerArrowRight" aria-hidden="true" />
+            </a>
+          </li>
+        }
+        <li>
+          <a [routerLink]="'regioes' | langLink" class="font-medium text-muted-foreground underline underline-offset-4 hover:text-surface-0-foreground">Todas as regiões</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+}
