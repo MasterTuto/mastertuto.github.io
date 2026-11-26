@@ -1,89 +1,150 @@
-<!-- Layout of this service page. Words: content/sistemas-sob-medida.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
+<!-- Layout: from the spreadsheet to the system, a dashboard as the hero. Words: content/sistemas-sob-medida.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: centered promise over a dashboard -->
+  <section class="flex flex-col items-center gap-12">
+    <div class="flex max-w-3xl flex-col items-center gap-6 text-center">
+      <h1 bcs-text="h1">{{ copy.hero.title }}</h1>
+      <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+      <a bcs-button size="lg" color="accent" routerLink="." fragment="form">
+        {{ copy.hero.cta }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
+    </div>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-        <bcs-list [items]="copy.problem.items" marker="cross" />
-      </div>
-      <div bcs-stack gap="lg">
-        <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
-        <div bcs-grid min="sm" gap="lg">
-          @for (item of copy.proof.items; track item.value) {
-            <app-landing-stat [value]="item.value" [label]="item.label" />
+    <figure class="flex w-full flex-col gap-3">
+      <figcaption class="flex w-fit items-center gap-2 rounded-t-lg bg-muted px-4 py-2 font-mono text-xs text-muted-foreground">
+        <ng-icon name="tablerFileSpreadsheet" aria-hidden="true" />
+        <span class="line-through">{{ copy.hero.note }}</span>
+      </figcaption>
+      <div aria-hidden="true" class="grid grid-cols-[4rem_1fr] overflow-hidden rounded-xl rounded-tl-none bg-surface-2 shadow-lg sm:grid-cols-[11rem_1fr]">
+        <div class="flex flex-col gap-3 bg-primary p-3 sm:p-5">
+          <span class="h-6 w-6 rounded-md bg-accent sm:w-20"></span>
+          @for (item of [1, 2, 3, 4, 5]; track item) {
+            <span class="h-2.5 rounded-sm bg-primary-foreground/30" [class.bg-primary-foreground]="item === 1"></span>
+          }
+        </div>
+        <div class="flex min-w-0 flex-col gap-4 p-4 sm:p-6">
+          <div class="grid grid-cols-3 gap-3">
+            @for (kpi of kpis; track kpi.label) {
+              <span class="flex min-w-0 flex-col gap-1 rounded-lg border border-surface-0-foreground/10 p-3">
+                <span class="truncate text-xs text-muted-foreground">{{ kpi.label }}</span>
+                <span class="font-display text-lg font-semibold text-surface-0-foreground sm:text-2xl">{{ kpi.value }}</span>
+              </span>
+            }
+          </div>
+          <div class="flex h-24 items-end gap-1.5 rounded-lg border border-surface-0-foreground/10 p-3 sm:h-32">
+            @for (bar of bars; track $index) {
+              <span class="flex-1 rounded-t-sm bg-accent-300" [style.height.%]="bar"></span>
+            }
+          </div>
+          @for (row of [1, 2, 3]; track row) {
+            <span class="grid grid-cols-[1fr_4rem_5rem] items-center gap-3 border-b border-surface-0-foreground/10 pb-2">
+              <span class="h-2.5 rounded-sm bg-muted-300"></span>
+              <span class="h-2.5 rounded-sm bg-muted"></span>
+              <span class="h-5 rounded-full bg-success-50"></span>
+            </span>
           }
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </figure>
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
-    <div bcs-stack gap="md">
-      <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
-      <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-      <bcs-list [items]="copy.solution.items" marker="check" />
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-      <app-landing-steps [items]="copy.steps.items" layout="horizontal" />
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-surface pad="lg">
-      <div bcs-grid min="md" gap="xl">
-        <app-landing-price
-          [label]="common.priceLabel"
-          [prefix]="copy.price.prefix"
-          [amount]="copy.price.amount"
-          [period]="copy.price.period ?? ''"
-          [includes]="copy.price.includes"
-          [note]="copy.price.note"
-        />
-        <app-landing-quote [text]="copy.outcome" />
+  <!-- Problem: rows of a spreadsheet -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="sis-problem">
+    <h2 bcs-text="h2" id="sis-problem">{{ copy.problem.title }}</h2>
+    <div class="overflow-hidden rounded-lg border border-surface-0-foreground/15 bg-surface-2">
+      <div aria-hidden="true" class="grid grid-cols-[3rem_1fr] border-b border-surface-0-foreground/15 bg-muted font-mono text-xs text-muted-foreground">
+        <span class="border-r border-surface-0-foreground/15 px-3 py-1.5"></span>
+        <span class="px-3 py-1.5">A</span>
       </div>
+      <ol>
+        @for (item of copy.problem.items; track item; let i = $index) {
+          <li class="grid grid-cols-[3rem_1fr] border-b border-surface-0-foreground/15 last:border-b-0">
+            <span class="border-r border-surface-0-foreground/15 bg-muted px-3 py-4 text-center font-mono text-xs text-muted-foreground" aria-hidden="true">{{ i + 1 }}</span>
+            <span class="px-4 py-4 text-surface-0-foreground">{{ item }}</span>
+          </li>
+        }
+      </ol>
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-contact
-      [heading]="copy.form.title"
-      [text]="copy.form.text"
-      [fields]="copy.form.fields"
-      [phone]="phone"
-      [message]="copy.form.heading"
-      [submitLabel]="common.submit"
-      [messages]="common.messages"
-      [note]="common.formNote"
-      color="primary"
-      (sent)="track($event)"
-    />
-  </div>
-</section>
+  <!-- Solution: a bento of modules -->
+  <section bcs-reveal class="grid gap-4 md:grid-cols-3" aria-labelledby="sis-solution">
+    <div class="flex flex-col justify-end gap-4 rounded-2xl bg-primary p-8 text-primary-foreground md:row-span-2">
+      <h2 bcs-text="h2" tone="inherit" id="sis-solution">{{ copy.solution.title }}</h2>
+      <p bcs-text="body" tone="inherit">{{ copy.solution.text }}</p>
+    </div>
+    @for (item of copy.solution.items; track item; let i = $index) {
+      <p class="flex flex-col gap-4 rounded-2xl bg-surface-1 p-6 text-surface-0-foreground shadow-sm md:last:col-span-3">
+        <span class="font-mono text-xs font-semibold text-accent-ink">{{ (i + 1).toString().padStart(2, '0') }}</span>
+        <span class="font-medium">{{ item }}</span>
+      </p>
+    }
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <!-- Proof: three facts in a band -->
+  <section bcs-reveal class="flex flex-col gap-8 border-y border-surface-0-foreground/10 py-10" aria-labelledby="sis-proof">
+    <h2 bcs-text="h3" tone="muted" id="sis-proof">{{ copy.proof.title }}</h2>
+    <dl class="grid gap-8 sm:grid-cols-3">
+      @for (item of copy.proof.items; track item.value) {
+        <div class="flex flex-col gap-2">
+          <dt class="order-2 text-sm text-muted-foreground">{{ item.label }}</dt>
+          <dd class="order-1 font-display text-4xl font-semibold text-surface-0-foreground">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <!-- Steps: a staircase, each delivery one step up -->
+  <section bcs-reveal class="flex flex-col gap-10" aria-labelledby="sis-steps">
+    <h2 bcs-text="h2" id="sis-steps">{{ copy.steps.title }}</h2>
+    <ol class="grid items-end gap-4 md:grid-cols-4">
+      @for (step of copy.steps.items; track step.title; let i = $index) {
+        <li class="flex flex-col gap-2 rounded-t-xl border-t-4 border-accent bg-surface-1 p-5 md:min-h-[var(--h)]" [style.--h]="10 + i * 3 + 'rem'">
+          <span class="font-mono text-xs font-semibold text-accent-ink">{{ i + 1 }}</span>
+          <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
+          <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Outcome -->
+  <figure bcs-reveal class="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+    <blockquote class="font-display text-3xl font-medium leading-snug text-surface-0-foreground sm:text-4xl">“{{ copy.outcome }}”</blockquote>
+  </figure>
+
+  <!-- Price and form -->
+  <section bcs-reveal id="form" class="grid scroll-mt-28 gap-6 lg:grid-cols-[1fr_minmax(0,22rem)]">
+    <div bcs-surface pad="lg">
+      <app-landing-contact
+        [heading]="copy.form.title"
+        [text]="copy.form.text"
+        [fields]="copy.form.fields"
+        [phone]="phone"
+        [message]="copy.form.heading"
+        [submitLabel]="common.submit"
+        [messages]="common.messages"
+        [note]="common.formNote"
+        color="accent"
+        (sent)="track($event)"
+      />
+    </div>
+    <div bcs-surface variant="outline" pad="lg" class="lg:self-start">
+      <app-landing-price
+        [label]="common.priceLabel"
+        [prefix]="copy.price.prefix"
+        [amount]="copy.price.amount"
+        [period]="copy.price.period ?? ''"
+        [includes]="copy.price.includes"
+        [note]="copy.price.note"
+      />
+    </div>
+  </section>
+
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

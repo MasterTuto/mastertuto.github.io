@@ -1,5 +1,5 @@
 // Global styles. Order matters: tokens → Tailwind base → design-system components and context rules →
-// page themes → legacy page styles → Tailwind utilities (utilities always win).
+// legacy page styles → Tailwind utilities (utilities always win).
 @use 'sass:meta';
 @use 'app/@bcs/styles/tokens/color';
 @use 'app/@bcs/styles/tokens/type';
@@ -11,8 +11,7 @@
   @include space.tokens;
 }
 
-// Dark mode applies to the site theme only; pages with their own palette (data-theme) keep it.
-html[data-scheme='dark']:not([data-theme]) {
+html[data-scheme='dark'] {
   @include color.theme(color.$site-dark);
 }
 
@@ -20,12 +19,11 @@ html[data-scheme='dark']:not([data-theme]) {
 @tailwind components;
 
 @include meta.load-css('app/@bcs/styles/bcs');
-@include meta.load-css('styles/themes');
 @include meta.load-css('styles/pro-tools');
 
 /* Brand colors of client projects (case pages, project cards), lifted for contrast in dark mode. */
 [data-case-accent] { color: var(--case-accent); }
-html[data-scheme='dark']:not([data-theme]) [data-case-accent] { color: color-mix(in oklab, var(--case-accent) 45%, white); }
+html[data-scheme='dark'] [data-case-accent] { color: color-mix(in oklab, var(--case-accent) 45%, white); }
 
 @tailwind utilities;
 

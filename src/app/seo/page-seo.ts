@@ -17,10 +17,10 @@ const LOCALES: Record<string, { html: string; og: string }> = {
 };
 
 /**
- * Sections that also exist without a language prefix (`/`, `/games`, `/tools`, `/para`, `/services`).
+ * Sections that also exist without a language prefix (`/`, `/games`, `/tools`, `/para`, `/regioes`, `/services`).
  * Those URLs adapt to the visitor's language and are the `x-default` of each page.
  */
-const UNPREFIXED = /^\/(?:(?:games|tools|para)(?:\/.*)?|services)?$/;
+const UNPREFIXED = /^\/(?:(?:games|tools|para|regioes)(?:\/.*)?|services)?$/;
 
 export interface PageSeo {
   /** Page title without the site name; `| Breno Carvalho` is appended to the document `<title>`. */

@@ -1,63 +1,121 @@
-<!-- Layout of this service page. Words: content/seo-e-geo.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
-    <div bcs-stack gap="md">
-      <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-      <bcs-list [items]="copy.problem.items" marker="cross" />
+<!-- Layout: a ranking, an audit report, then the fixes. Words: content/seo-e-geo.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: promise beside the ranking and the AI answer that leave you out -->
+  <section class="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+    <div class="flex flex-col gap-6">
+      <h1 bcs-text="h1">{{ copy.hero.title }}</h1>
+      <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+      <a bcs-button size="lg" color="accent" class="w-fit" routerLink="." fragment="form">
+        {{ copy.hero.cta }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
     </div>
-  </div>
-</section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="md">
-      <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
+    <figure class="flex flex-col gap-4">
+      <div aria-hidden="true" class="flex flex-col gap-4">
+        <ol class="flex flex-col gap-2 rounded-xl bg-surface-2 p-5 shadow-md">
+          @for (position of [1, 2, 3]; track position) {
+            <li class="flex items-center gap-4 rounded-md px-2 py-2">
+              <span class="w-6 font-mono text-sm font-semibold text-muted-foreground">{{ position }}</span>
+              <span class="h-3 flex-1 rounded-sm bg-muted-300" [style.max-width.%]="100 - position * 12"></span>
+            </li>
+          }
+          <li class="my-1 border-t border-dashed border-surface-0-foreground/20"></li>
+          <li class="flex items-center gap-4 rounded-md bg-accent-50 px-2 py-2 text-accent-800">
+            <span class="w-6 font-mono text-sm font-semibold">14</span>
+            <span class="text-sm font-semibold">{{ pt ? 'seu site' : 'your site' }}</span>
+          </li>
+        </ol>
+        <div class="ml-auto flex w-11/12 flex-col gap-2 rounded-xl border border-surface-0-foreground/10 bg-surface-1 p-5">
+          <span class="flex items-center gap-2 text-sm font-semibold text-surface-0-foreground"><ng-icon name="tablerSparkles" class="text-accent-ink" /> {{ pt ? 'Resposta da IA' : 'AI answer' }}</span>
+          <span class="h-2.5 w-full rounded-sm bg-muted"></span>
+          <span class="h-2.5 w-4/5 rounded-sm bg-muted"></span>
+          <span class="text-xs text-muted-foreground">{{ pt ? 'Fontes: concorrente.com.br' : 'Sources: competitor.com' }}</span>
+        </div>
+      </div>
+      <figcaption class="text-right font-mono text-sm text-muted-foreground">{{ copy.hero.note }}</figcaption>
+    </figure>
+  </section>
+
+  <!-- Problem: an audit report, every line failing -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="seo-problem">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 bcs-text="h2" id="seo-problem">{{ copy.problem.title }}</h2>
+      <span class="font-mono text-sm text-muted-foreground">{{ pt ? 'auditoria' : 'audit' }} · 0/{{ copy.problem.items.length }}</span>
+    </div>
+    <ul class="flex flex-col overflow-hidden rounded-lg border border-surface-0-foreground/10">
+      @for (item of copy.problem.items; track item) {
+        <li class="flex flex-wrap items-center justify-between gap-3 border-b border-surface-0-foreground/10 bg-surface-1 px-5 py-4 last:border-b-0">
+          <span class="min-w-0 flex-1 text-surface-0-foreground">{{ item }}</span>
+          <span class="rounded-full bg-error-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-error-800">{{ pt ? 'Reprovado' : 'Failing' }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Solution: the same report, passing -->
+  <section bcs-reveal class="grid gap-10 md:grid-cols-[1fr_1.3fr] md:gap-16" aria-labelledby="seo-solution">
+    <div class="flex flex-col gap-4">
+      <h2 bcs-text="h2" id="seo-solution">{{ copy.solution.title }}</h2>
       <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-      <bcs-list [items]="copy.solution.items" marker="check" />
     </div>
-  </div>
-</section>
+    <ul class="flex flex-col gap-3">
+      @for (item of copy.solution.items; track item) {
+        <li class="flex items-start gap-4 rounded-lg bg-surface-1 px-5 py-4 shadow-sm">
+          <span class="grid size-7 shrink-0 place-items-center rounded-full bg-success-50 text-success-800"><ng-icon name="tablerCheck" /></span>
+          <span class="text-surface-0-foreground">{{ item }}</span>
+        </li>
+      }
+    </ul>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h3" tone="muted">{{ copy.proof.title }}</h2>
-      <div bcs-grid min="sm" gap="lg">
-        @for (item of copy.proof.items; track item.value) {
-          <app-landing-stat [value]="item.value" [label]="item.label" />
-        }
-      </div>
+  <!-- Proof: what this very site ships, as structured data -->
+  <section bcs-reveal class="grid items-center gap-8 md:grid-cols-[1fr_1.4fr]" aria-labelledby="seo-proof">
+    <h2 bcs-text="h2" id="seo-proof">{{ copy.proof.title }}</h2>
+    <dl class="flex flex-col gap-3 rounded-xl bg-primary p-6 font-mono text-sm text-primary-foreground shadow-lg sm:p-8">
+      @for (item of copy.proof.items; track item.value) {
+        <div class="flex flex-col gap-1 sm:flex-row sm:gap-4">
+          <dt class="shrink-0 font-semibold sm:w-24">{{ item.value }}</dt>
+          <dd>{{ item.label }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <!-- Steps: vertical plan with large numerals -->
+  <section bcs-reveal class="grid gap-10 md:grid-cols-[1fr_2fr]" aria-labelledby="seo-steps">
+    <h2 bcs-text="h2" id="seo-steps">{{ copy.steps.title }}</h2>
+    <ol class="flex flex-col">
+      @for (step of copy.steps.items; track step.title; let i = $index) {
+        <li class="mb-8 grid grid-cols-[4.5rem_1fr] gap-4 border-b border-surface-0-foreground/10 pb-8 last:mb-0 last:border-b-0 last:pb-0">
+          <span class="font-display text-5xl font-semibold leading-none text-accent-ink" aria-hidden="true">0{{ i + 1 }}</span>
+          <span class="flex flex-col gap-1">
+            <span class="text-lg font-semibold text-surface-0-foreground">{{ step.title }}</span>
+            <span class="leading-relaxed text-muted-foreground">{{ step.text }}</span>
+          </span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Outcome: the answer you want an AI to give -->
+  <figure bcs-reveal class="mx-auto flex w-full max-w-3xl flex-col gap-4 rounded-xl border border-surface-0-foreground/10 bg-surface-1 p-8">
+    <figcaption class="flex items-center gap-2 text-sm font-semibold text-accent-ink"><ng-icon name="tablerSparkles" aria-hidden="true" /> {{ pt ? 'A resposta que você quer' : 'The answer you want' }}</figcaption>
+    <blockquote class="font-display text-3xl font-medium leading-snug text-surface-0-foreground">{{ copy.outcome }}</blockquote>
+  </figure>
+
+  <!-- Price and form -->
+  <section bcs-reveal id="form" class="grid scroll-mt-28 gap-6 lg:grid-cols-[minmax(0,22rem)_1fr]">
+    <div bcs-surface variant="outline" pad="lg" class="lg:self-start">
+      <app-landing-price
+        [label]="common.priceLabel"
+        [prefix]="copy.price.prefix"
+        [amount]="copy.price.amount"
+        [period]="copy.price.period ?? ''"
+        [includes]="copy.price.includes"
+        [note]="copy.price.note"
+      />
     </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-grid min="md" gap="xl">
-      <div bcs-stack gap="lg">
-        <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-        <app-landing-steps [items]="copy.steps.items" layout="vertical" />
-      </div>
-      <div bcs-surface pad="lg">
-        <app-landing-price
-          [label]="common.priceLabel"
-          [prefix]="copy.price.prefix"
-          [amount]="copy.price.amount"
-          [period]="copy.price.period ?? ''"
-          [includes]="copy.price.includes"
-          [note]="copy.price.note"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
     <div bcs-surface pad="lg">
       <app-landing-contact
         [heading]="copy.form.title"
@@ -68,27 +126,15 @@
         [submitLabel]="common.submit"
         [messages]="common.messages"
         [note]="common.formNote"
-        color="primary"
+        color="accent"
         (sent)="track($event)"
       />
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="prose">
-    <app-landing-quote [text]="copy.outcome" />
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

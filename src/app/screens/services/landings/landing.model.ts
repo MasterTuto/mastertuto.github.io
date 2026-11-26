@@ -1,4 +1,3 @@
-import { LandingStep } from 'src/app/components/landing/steps/landing-steps.component';
 import { LandingFormField } from 'src/app/components/landing/whatsapp-form/landing-whatsapp-form.component';
 
 export interface LandingFaqItem {
@@ -6,12 +5,17 @@ export interface LandingFaqItem {
   readonly answer: string;
 }
 
+export interface LandingStep {
+  readonly title: string;
+  readonly text: string;
+}
+
 export type LandingLanguage = 'pt' | 'en';
 
 /** Every word of one service page, in one language. Layout lives in the page component, words live here. */
 export interface LandingCopy {
   readonly seo: { readonly title: string; readonly description: string };
-  /** Problem first, then a hint of the solution. Keep both short: the empty space does the rest. */
+  /** Problem first, then a hint of the solution. `note` is the symptom, drawn by each layout its own way. */
   readonly hero: { readonly title: string; readonly subtitle: string; readonly note: string; readonly cta: string };
   readonly problem: { readonly title: string; readonly items: readonly string[] };
   readonly solution: { readonly title: string; readonly text: string; readonly items: readonly string[] };
@@ -52,10 +56,6 @@ export interface Landing {
   /** Key under `servicesPage` in the translations (name, shortDescription, tagline). */
   readonly key: string;
   readonly icon: string;
-  /** `data-theme` of the page (see `src/styles/_themes.scss`). */
-  readonly theme: string;
-  /** Google Fonts `family=` parameters for the theme's display and body faces. */
-  readonly fonts: string;
   /** Services linked at the bottom of the page (internal links, chosen by topic). */
   readonly related: readonly string[];
 }

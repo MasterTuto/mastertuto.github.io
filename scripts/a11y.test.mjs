@@ -23,7 +23,7 @@ const SERVICES = [
   'automacao-de-processos', 'integracoes', 'sistemas-sob-medida', 'mvp-e-saas', 'cloud-e-devops', 'modernizacao-de-sistemas',
 ];
 const PAGES = [
-  '/pt/', '/en/', '/pt/services/', '/para/', '/para/advogado/', '/tools/', '/pt/games/', '/pt/games/sudoku/',
+  '/pt/', '/en/', '/pt/services/', '/para/', '/para/advogado/', '/regioes/', '/regioes/santos/', '/regioes/baixada-santista/', '/tools/', '/pt/games/', '/pt/games/sudoku/',
   '/pt/games/minesweeper/', '/pt/cases/jingle-ia-br/',
   ...SERVICES.map((slug) => `/pt/services/${slug}/`),
   '/en/services/agentes-de-ia/',

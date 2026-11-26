@@ -8,9 +8,6 @@ const STORAGE_KEY = 'bcs-color-scheme';
 /**
  * Light/dark mode. The choice is stored and written to `<html data-scheme>`; the tokens do the rest.
  * The inline script in `index.html` applies the stored scheme before first paint, so there is no flash.
- *
- * A page with its own palette (`<html data-theme>`) calls `fix()`: the scheme then has no effect and
- * toggles can hide themselves.
  */
 @Injectable({ providedIn: 'root' })
 export class BcsColorSchemeService {
@@ -18,8 +15,6 @@ export class BcsColorSchemeService {
   private browser = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly scheme = signal<BcsColorScheme>(this.initial());
-  /** True while the current page imposes its own palette. */
-  readonly fixed = signal(false);
 
   constructor() {
     effect(() => {
@@ -36,10 +31,6 @@ export class BcsColorSchemeService {
 
   toggle(): void {
     this.scheme.update((scheme) => (scheme === 'dark' ? 'light' : 'dark'));
-  }
-
-  fix(fixed: boolean): void {
-    this.fixed.set(fixed);
   }
 
   private initial(): BcsColorScheme {

@@ -386,6 +386,7 @@ export const portugueseTranslations: Translations = {
       letsTalk: 'Vamos conversar?',
       downloadCurriculum: 'Baixar currículo',
       rights: 'Todos os direitos reservados.',
+      regions: 'Por região',
     },
     estimateBudget: 'Solicitar um orçamento',
   },

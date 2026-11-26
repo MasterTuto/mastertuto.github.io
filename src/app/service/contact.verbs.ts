@@ -38,7 +38,6 @@ export function provideContactVerbs(): Provider {
             'light', 'escuro', 'claro', 'theme', 'toggle theme', 'noite', 'dia',
           ],
           run: () => {
-            if (scheme.fixed()) return { message: 'Esta página usa uma paleta própria; o tema volta nas outras páginas.' };
             scheme.toggle();
             return { message: scheme.scheme() === 'dark' ? 'Modo escuro ativado.' : 'Modo claro ativado.' };
           },

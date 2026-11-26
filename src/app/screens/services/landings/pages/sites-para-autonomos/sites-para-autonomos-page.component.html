@@ -1,41 +1,112 @@
-<!-- Layout of this service page. Words: content/sites-para-autonomos.ts. Theme: src/styles/_themes.scss. -->
-<app-landing-hero [title]="copy.hero.title" [subtitle]="copy.hero.subtitle" [note]="copy.hero.note">
-  <a bcs-button hero-action size="lg" color="accent" routerLink="." fragment="form">{{ copy.hero.cta }}</a>
-</app-landing-hero>
-
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="prose">
-    <app-landing-quote [text]="copy.outcome" />
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
-    <div bcs-stack gap="md">
-      <h2 bcs-text="h2">{{ copy.problem.title }}</h2>
-      <bcs-list [items]="copy.problem.items" marker="cross" />
+<!-- Layout: the local search where the visitor should have found you. Words: content/sites-para-autonomos.ts. -->
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-24 overflow-x-clip px-4 pt-4 md:gap-32">
+  <!-- Hero: centered promise over a search results page without you in it -->
+  <section class="flex flex-col items-center gap-12 text-center">
+    <div class="flex max-w-3xl flex-col items-center gap-6">
+      <h1 bcs-text="h1">{{ copy.hero.title }}</h1>
+      <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+      <a bcs-button size="lg" color="accent" routerLink="." fragment="form">
+        {{ copy.hero.cta }}
+        <ng-icon name="tablerArrowRight" />
+      </a>
     </div>
-  </div>
-</section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <div bcs-stack gap="md">
-        <h2 bcs-text="h2">{{ copy.solution.title }}</h2>
-        <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
-      </div>
-      <div bcs-grid min="sm" gap="md" role="list">
-        @for (item of copy.solution.items; track item) {
-          <div bcs-surface bcs-reveal="scale" pad="md" role="listitem"><p bcs-text="body">{{ item }}</p></div>
+    <figure class="flex w-full max-w-2xl flex-col gap-3">
+      <div aria-hidden="true" class="flex flex-col gap-4 rounded-xl bg-surface-2 p-5 text-left shadow-lg sm:p-6">
+        <div class="flex items-center gap-3 rounded-full border border-surface-0-foreground/15 px-4 py-3">
+          <ng-icon name="tablerSearch" class="shrink-0 text-muted-foreground" />
+          <span class="truncate text-surface-0-foreground">{{ pt ? 'eletricista perto de mim' : 'electrician near me' }}</span>
+        </div>
+        @for (row of [1, 2]; track row) {
+          <div class="flex flex-col gap-2 border-b border-surface-0-foreground/10 pb-4">
+            <span class="text-xs text-muted-foreground">{{ pt ? 'concorrente' : 'competitor' }}{{ row === 1 ? '.com.br' : '.net' }}</span>
+            <span class="h-3.5 w-3/4 rounded-sm bg-accent-200"></span>
+            <span class="h-2.5 w-full rounded-sm bg-muted"></span>
+            <span class="h-2.5 w-2/3 rounded-sm bg-muted"></span>
+          </div>
         }
+        <div class="grid place-items-center rounded-lg border-2 border-dashed border-surface-0-foreground/20 px-4 py-6 text-sm font-medium text-muted-foreground">
+          {{ pt ? 'seu site' : 'your site' }}
+        </div>
+      </div>
+      <figcaption class="font-mono text-sm text-muted-foreground">{{ copy.hero.note }}</figcaption>
+    </figure>
+  </section>
+
+  <!-- Problem: four things a visitor finds today -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="spa-problem">
+    <h2 bcs-text="h2" id="spa-problem">{{ copy.problem.title }}</h2>
+    <ul class="grid gap-4 sm:grid-cols-2">
+      @for (item of copy.problem.items; track item) {
+        <li class="flex gap-4 rounded-lg bg-surface-1 p-6 shadow-sm">
+          <span class="grid size-9 shrink-0 place-items-center rounded-full bg-error-50 text-error-800"><ng-icon name="tablerX" /></span>
+          <span class="text-surface-0-foreground">{{ item }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Solution: the site on a phone, the list beside it -->
+  <section bcs-reveal class="grid items-center gap-12 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-20" aria-labelledby="spa-solution">
+    <div aria-hidden="true" class="mx-auto w-full max-w-[20rem] overflow-hidden rounded-[2.25rem] border-8 border-primary bg-surface-2 shadow-lg">
+      <div class="flex flex-col gap-4 p-5">
+        <span class="mx-auto h-1.5 w-16 rounded-full bg-muted-300"></span>
+        <span class="grid size-12 place-items-center rounded-full bg-accent text-lg font-semibold text-accent-foreground">S</span>
+        <span class="h-4 w-3/4 rounded-sm bg-surface-0-foreground/80"></span>
+        <span class="h-2.5 w-full rounded-sm bg-muted"></span>
+        <div class="grid grid-cols-2 gap-2 pt-2">
+          <span class="h-16 rounded-md bg-muted"></span>
+          <span class="h-16 rounded-md bg-muted"></span>
+          <span class="h-16 rounded-md bg-muted"></span>
+          <span class="h-16 rounded-md bg-muted"></span>
+        </div>
+        <span class="flex items-center justify-center gap-2 rounded-full bg-success px-4 py-3 text-sm font-semibold text-success-foreground">
+          <ng-icon name="tablerBrandWhatsapp" /> WhatsApp
+        </span>
       </div>
     </div>
-  </div>
-</section>
+    <div class="flex flex-col gap-5">
+      <h2 bcs-text="h2" id="spa-solution">{{ copy.solution.title }}</h2>
+      <p bcs-text="lead" tone="muted">{{ copy.solution.text }}</p>
+      <bcs-list [items]="copy.solution.items" marker="check" />
+    </div>
+  </section>
 
-<section bcs-section space="lg" id="form">
-  <div bcs-container bcs-reveal width="content">
+  <!-- Proof: three badges -->
+  <section bcs-reveal class="flex flex-col items-center gap-8 text-center" aria-labelledby="spa-proof">
+    <h2 bcs-text="h3" id="spa-proof">{{ copy.proof.title }}</h2>
+    <ul class="flex flex-wrap justify-center gap-4">
+      @for (item of copy.proof.items; track item.value) {
+        <li class="flex items-center gap-3 rounded-full bg-surface-1 py-2 pl-2 pr-5 text-left shadow-sm">
+          <span class="rounded-full bg-primary px-4 py-2 font-display font-semibold text-primary-foreground">{{ item.value }}</span>
+          <span class="max-w-[22ch] text-sm text-muted-foreground">{{ item.label }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Steps: four cards with a large index -->
+  <section bcs-reveal class="flex flex-col gap-8" aria-labelledby="spa-steps">
+    <h2 bcs-text="h2" id="spa-steps">{{ copy.steps.title }}</h2>
+    <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      @for (step of copy.steps.items; track step.title; let i = $index) {
+        <li class="flex flex-col gap-3 rounded-lg border border-surface-0-foreground/10 p-6">
+          <span class="font-display text-5xl font-semibold text-accent-ink" aria-hidden="true">{{ i + 1 }}</span>
+          <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
+          <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- Outcome: the message you want to receive -->
+  <figure bcs-reveal class="mx-auto flex w-full max-w-xl flex-col gap-3">
+    <figcaption class="text-sm font-medium text-muted-foreground">{{ pt ? 'A mensagem que você quer receber' : 'The message you want to get' }}</figcaption>
+    <blockquote class="w-fit max-w-full rounded-2xl rounded-tl-xs bg-surface-1 px-6 py-4 text-2xl font-medium leading-snug text-surface-0-foreground shadow-sm">{{ copy.outcome }}</blockquote>
+  </figure>
+
+  <!-- Form first, price beside it -->
+  <section bcs-reveal id="form" class="grid scroll-mt-28 gap-6 lg:grid-cols-[1fr_minmax(0,20rem)]">
     <div bcs-surface pad="lg">
       <app-landing-contact
         [heading]="copy.form.title"
@@ -50,21 +121,7 @@
         (sent)="track($event)"
       />
     </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="content">
-    <div bcs-stack gap="lg">
-      <h2 bcs-text="h2">{{ copy.steps.title }}</h2>
-      <app-landing-steps [items]="copy.steps.items" layout="horizontal" />
-    </div>
-  </div>
-</section>
-
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
-    <div bcs-surface pad="lg">
+    <div bcs-surface variant="outline" pad="lg" class="lg:self-start">
       <app-landing-price
         [label]="common.priceLabel"
         [prefix]="copy.price.prefix"
@@ -74,17 +131,11 @@
         [note]="copy.price.note"
       />
     </div>
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="lg">
-  <div bcs-container bcs-reveal width="prose">
+  <section bcs-reveal class="mx-auto w-full max-w-3xl">
     <app-landing-faq [heading]="common.faqTitle" [items]="copy.faq" />
-  </div>
-</section>
+  </section>
 
-<section bcs-section space="md">
-  <div bcs-container bcs-reveal width="content">
-    <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
-  </div>
-</section>
+  <app-landing-related [heading]="common.relatedTitle" [items]="related" [allLabel]="common.allServices" [allPath]="servicesPath" />
+</div>

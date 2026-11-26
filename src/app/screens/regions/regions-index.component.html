@@ -1,0 +1,60 @@
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-14 px-4 pt-4" lang="pt-BR">
+  <section class="flex max-w-3xl flex-col gap-4">
+    <h1 class="text-4xl font-semibold leading-tight text-surface-0-foreground sm:text-6xl">Cada cidade procura do seu jeito.</h1>
+    <p class="max-w-[60ch] text-lg leading-relaxed text-muted-foreground">
+      Moro em Santos e atendo negócios da Baixada Santista inteira, da capital e do ABC. Escolha a sua cidade e veja como as pessoas
+      procuram serviço por lá e onde um site ou uma automação faz diferença.
+    </p>
+  </section>
+
+  <div class="grid items-start gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+    <!-- The coast, north to south -->
+    <section class="flex flex-col gap-6" aria-labelledby="litoral">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="litoral" class="text-2xl font-semibold text-surface-0-foreground">Baixada Santista</h2>
+        <a [routerLink]="'regioes/' + overview.slug | langLink" class="flex items-center gap-1 text-sm font-semibold text-accent-ink">
+          Visão da região
+          <ng-icon name="tablerArrowRight" aria-hidden="true" />
+        </a>
+      </div>
+      <p class="text-sm text-muted-foreground">Do norte ao sul do litoral.</p>
+      <ol class="relative flex flex-col">
+        <span aria-hidden="true" class="absolute bottom-6 left-[0.4375rem] top-6 w-0.5 rounded-full bg-accent-200"></span>
+        @for (item of coast; track item.slug) {
+          <li>
+            <a [routerLink]="'regioes/' + item.slug | langLink" class="group relative flex items-start gap-5 rounded-lg py-4 pr-3">
+              <span aria-hidden="true" class="mt-2.5 size-4 shrink-0 rounded-full border-4 border-surface-0 bg-accent ring-1 ring-accent transition-transform group-hover:scale-125"></span>
+              <span class="flex min-w-0 flex-1 flex-col gap-1">
+                <span class="text-2xl font-semibold text-surface-0-foreground transition-colors group-hover:text-accent-ink">{{ item.name }}</span>
+                <span class="text-muted-foreground">{{ item.title }}</span>
+              </span>
+              <ng-icon name="tablerArrowRight" class="mt-2.5 shrink-0 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-accent-ink" aria-hidden="true" />
+            </a>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <!-- Up the mountain -->
+    <section class="flex flex-col gap-6 lg:sticky lg:top-32" aria-labelledby="capital">
+      <h2 id="capital" class="text-2xl font-semibold text-surface-0-foreground">Serra acima</h2>
+      <ul class="flex flex-col gap-4">
+        @for (item of capital; track item.slug) {
+          <li>
+            <a [routerLink]="'regioes/' + item.slug | langLink" class="group flex flex-col gap-3 rounded-xl bg-surface-1 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <span class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent-ink">
+                <ng-icon name="tablerMapPin" aria-hidden="true" />
+                {{ item.name }}
+              </span>
+              <span class="text-lg font-semibold leading-snug text-surface-0-foreground">{{ item.title }}</span>
+              <span class="text-sm text-muted-foreground">{{ item.places.slice(0, 4).join(' · ') }}…</span>
+            </a>
+          </li>
+        }
+      </ul>
+      <p class="text-sm leading-relaxed text-muted-foreground">
+        Não achou a sua cidade? O trabalho é remoto: atendo negócios de qualquer lugar do Brasil pelo WhatsApp e por videochamada.
+      </p>
+    </section>
+  </div>
+</div>
