@@ -1,0 +1,284 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Digite o valor da condenação ou do proveito econômico e diga quem perdeu: a calculadora aplica o art. 85 do CPC,
+      com as faixas escalonadas em salários mínimos contra a Fazenda Pública, a majoração recursal do § 11 e, se quiser,
+      os honorários contratuais.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>CPC/2015, art. 85</span><span>Salário mínimo 2026</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (result(); as r) {
+          <span>Honorários · {{ percent(r.effective) }}</span><strong>{{ money(appeal() ? r.appealFees : r.fees) }}</strong>
+        } @else {
+          <span>Informe a base</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="pro-f">
+          <label class="pro-label" for="hn-base">Base de cálculo <small>condenação, proveito ou valor da causa</small></label>
+          <div class="min-w-0">
+            <div class="pro-input-wrap pro-money">
+              <span>R$</span>
+              <input id="hn-base" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                [value]="base()" (input)="onMoney(base, $event)" (blur)="tidy(base)" (focus)="selectOnFocus($event)" />
+            </div>
+            <div class="pro-chips mt-2" role="group" aria-label="Valores comuns">
+              @for (value of basePresets; track value) {
+                <button type="button" class="pro-chip sm" [attr.aria-pressed]="baseValue() === value" (click)="setBase(value)">{{ compact(value) }}</button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="hn-loser">Parte vencida</span>
+          <div class="pro-segmented" role="group" aria-labelledby="hn-loser">
+            <button type="button" [attr.aria-pressed]="!publicTreasury()" (click)="publicTreasury.set(false)">Particular</button>
+            <button type="button" [attr.aria-pressed]="publicTreasury()" (click)="publicTreasury.set(true)">Fazenda Pública</button>
+          </div>
+        </div>
+
+        @if (!publicTreasury()) {
+          <div class="pro-f">
+            <label class="pro-label" for="hn-rate">Percentual <small>de 10% a 20% (§ 2º)</small></label>
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
+                <div class="pro-input-wrap w-24 shrink-0">
+                  <input id="hn-rate" class="pro-input" inputmode="decimal" autocomplete="off" maxlength="5" [value]="rate()" (input)="rate.set(val($event))" (focus)="selectOnFocus($event)"
+                    [attr.aria-invalid]="rateInvalid()" [attr.aria-describedby]="rateInvalid() ? 'hn-rate-err' : null" />
+                  <span class="pro-suffix">%</span>
+                </div>
+                <div class="pro-chips" role="group" aria-label="Percentuais comuns">
+                  @for (value of rateChips; track value) {
+                    <button type="button" class="pro-chip sm" [attr.aria-pressed]="rateValue() === value" (click)="rate.set(value + '')">{{ value }}%</button>
+                  }
+                </div>
+              </div>
+              @if (rateInvalid()) { <p id="hn-rate-err" class="pro-error mt-1">Fora do intervalo legal: a conta usa o limite mais próximo.</p> }
+            </div>
+          </div>
+        } @else {
+          <div class="pro-f">
+            <span class="pro-label" id="hn-pos">Percentual <small>em cada faixa do § 3º</small></span>
+            <div class="pro-segmented" role="group" aria-labelledby="hn-pos">
+              @for (p of positions; track p.value) {
+                <button type="button" [attr.aria-pressed]="position() === p.value" (click)="position.set(p.value)">{{ p.label }}</button>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="pro-f">
+          <span class="pro-label" id="hn-appeal">Majoração recursal <small>§ 11, em pontos</small></span>
+          <div class="pro-chips" role="group" aria-labelledby="hn-appeal">
+            @for (value of appealChips; track value) {
+              <button type="button" class="pro-chip" [attr.aria-pressed]="appeal() === value" (click)="appeal.set(value)">{{ value ? '+' + value + ' p.p.' : 'Sem recurso' }}</button>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label">Contratuais <small>e salário mínimo</small></span>
+          <div class="min-w-0">
+            <button type="button" class="pro-more" [attr.aria-expanded]="more()" aria-controls="hn-more" (click)="more.set(!more())">
+              {{ more() ? 'Ocultar' : 'Honorários do contrato, salário mínimo da sentença…' }}
+              <ng-icon name="tablerChevronDown" aria-hidden="true" [class.rotate-180]="more()" class="transition-transform" />
+            </button>
+            @if (more()) {
+              <div id="hn-more" class="mt-2 grid gap-4">
+                <div class="pro-row">
+                  <div class="pro-field">
+                    <label class="pro-label" for="hn-contract">Êxito <small>% do que o cliente recebe</small></label>
+                    <div class="flex items-center gap-2">
+                      <div class="pro-input-wrap w-24 shrink-0">
+                        <input id="hn-contract" class="pro-input" inputmode="decimal" autocomplete="off" maxlength="5" [value]="contractRate()" (input)="contractRate.set(val($event))" (focus)="selectOnFocus($event)" />
+                        <span class="pro-suffix">%</span>
+                      </div>
+                      <div class="pro-chips" role="group" aria-label="Percentuais de êxito">
+                        @for (value of contractChips; track value) {
+                          <button type="button" class="pro-chip sm" [attr.aria-pressed]="contractRate() === value + ''" (click)="contractRate.set(value + '')">{{ value }}%</button>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="hn-fixed">Pró-labore <small>valor fixo</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="hn-fixed" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00" [value]="fixed()" (input)="onMoney(fixed, $event)" (blur)="tidy(fixed)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                </div>
+                <div class="pro-field max-w-xs">
+                  <label class="pro-label" for="hn-wage">Salário mínimo <small>da data da sentença</small></label>
+                  <div class="pro-input-wrap pro-money"><span>R$</span>
+                    <input id="hn-wage" class="pro-input" inputmode="decimal" autocomplete="off" [value]="wage()" (input)="onMoney(wage, $event)" (blur)="tidy(wage)" (focus)="selectOnFocus($event)" />
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result min-[960px]:row-span-2" aria-live="polite" aria-label="Resultado">
+      @if (result(); as r) {
+        <div class="flex items-start justify-between gap-3">
+          <p class="pro-result-label">Honorários de sucumbência</p>
+          <span class="pro-pill ok">{{ publicTreasury() ? '§ 3º · ' + r.shares.length + (r.shares.length === 1 ? ' faixa' : ' faixas') : '§ 2º' }}</span>
+        </div>
+        <p class="pro-result-main">{{ money(appeal() ? r.appealFees : r.fees) }}</p>
+        <p class="pro-result-sub">
+          {{ percent(appeal() ? r.appealEffective : r.effective) }} de {{ money(r.base) }}{{ appeal() ? ' com a majoração' : '' }}
+        </p>
+        <dl class="pro-result-list">
+          <div><dt>Fixados na sentença</dt><dd>{{ money(r.fees) }}</dd></div>
+          @if (appeal()) {
+            <div><dt>Majoração do § 11</dt><dd>+ {{ money(r.appealFees - r.fees) }}</dd></div>
+          }
+          <div><dt>Mínimo legal</dt><dd>{{ money(r.minFees) }}</dd></div>
+          <div><dt>Máximo legal</dt><dd>{{ money(r.maxFees) }}</dd></div>
+          @if (contract().total) {
+            <div><dt>Contratuais</dt><dd>{{ money(contract().total) }}</dd></div>
+            <div><dt>Total do advogado</dt><dd>{{ money(lawyerTotal()) }}</dd></div>
+            <div><dt>Cliente recebe</dt><dd>{{ money(contract().client) }}</dd></div>
+          }
+        </dl>
+        @if (r.appealCapped) {
+          <p class="mt-3 text-sm leading-relaxed opacity-85">A majoração bateu no teto legal ({{ publicTreasury() ? 'máximo de cada faixa' : '20%' }}), que o § 11 não permite ultrapassar.</p>
+        }
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="pro-btn" (click)="copy()">
+            <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" /> {{ flag.copied() ? 'Copiado' : 'Copiar resumo' }}
+          </button>
+        </div>
+      } @else {
+        <p class="pro-result-label">Honorários de sucumbência</p>
+        <p class="pro-result-empty">Digite o valor da condenação, do proveito econômico ou, na falta deles, o valor atualizado da causa.</p>
+      }
+    </aside>
+
+    @if (result(); as r) {
+      @if (r.shares.length) {
+        <div class="min-w-0">
+          <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="hn-shares">
+            <h2 id="hn-shares" class="font-semibold text-surface-0-foreground">Cálculo em cascata (§ 5º)</h2>
+            <div class="pro-table-scroll mt-2">
+              <table class="pro-table">
+                <thead><tr><th scope="col">Inciso</th><th scope="col">Parte da base</th><th scope="col">Faixa legal</th><th scope="col">Aplicado</th><th scope="col" class="!text-right">Honorários</th></tr></thead>
+                <tbody>
+                  @for (s of r.shares; track s.inciso) {
+                    <tr><td>{{ s.inciso }}</td><td>{{ money(s.base) }}</td><td>{{ percent(s.min) }} a {{ percent(s.max) }}</td><td>{{ percent(s.rate) }}</td><td class="text-right">{{ money(s.value) }}</td></tr>
+                  }
+                </tbody>
+                <tfoot><tr><td colspan="4">Total · {{ percent(r.effective, 3) }} efetivo</td><td class="text-right">{{ money(r.fees) }}</td></tr></tfoot>
+              </table>
+            </div>
+          </section>
+        </div>
+      }
+    }
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Estimativa para conferência.</strong> A base deve estar atualizada (correção monetária e juros até a data
+    do cálculo). Na sucumbência recíproca, cada parte paga os honorários do advogado da outra na proporção da sua
+    derrota, sem compensação (§ 14). Causas de família, trabalhistas e de juizados seguem regras próprias.
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar a calculadora de honorários</h2>
+      <ol>
+        <li>Digite a <strong>base de cálculo</strong>: a condenação; se não houver, o proveito econômico; e, se ele não puder ser medido, o valor atualizado da causa (ordem do § 2º).</li>
+        <li>Diga se a parte vencida é um <strong>particular</strong> ou a <strong>Fazenda Pública</strong> (União, estados, municípios, autarquias e fundações).</li>
+        <li>Escolha o percentual entre 10% e 20%, ou, contra a Fazenda, se o juiz ficou no mínimo, no meio ou no máximo de cada faixa.</li>
+        <li>Para estimar o recurso, escolha a <strong>majoração</strong> em pontos percentuais. A calculadora respeita os tetos do § 11.</li>
+        <li>Em <em>Contratuais</em>, informe o percentual de êxito e o pró-labore combinados com o cliente para ver o total do escritório e o líquido do cliente.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>As faixas do § 3º em 2026</h2>
+      <p>Com o salário mínimo de {{ money(wageValue()) }}, as faixas da Fazenda Pública ficam assim:</p>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Inciso</th><th scope="col">Salários mínimos</th><th scope="col">Em reais</th><th scope="col">Percentual</th></tr></thead>
+          <tbody>
+            @for (b of bracketRows(); track b.inciso; let i = $index) {
+              <tr><td>{{ b.inciso }}</td><td>{{ i === 0 ? 'até 200' : i === 4 ? 'acima de 100.000' : 'de ' + brackets[i - 1].upToWages.toLocaleString('pt-BR') + ' a ' + b.upToWages.toLocaleString('pt-BR') }}</td><td>{{ i === 4 ? 'acima de ' + compact(b.from) : (i === 0 ? 'até ' : compact(b.from) + ' a ') + compact(b.to) }}</td><td>{{ percent(b.min) }} a {{ percent(b.max) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <h3>Exemplo: condenação de R$ 1 milhão contra um município</h3>
+      <div class="pro-formula">Faixa I:   324.200,00 × 10%                 =  32.420,00
+Faixa II: (1.000.000 − 324.200) × 8%      =  54.064,00
+Honorários mínimos                         =  86.484,00 (8,65%)
+No máximo: 324.200 × 20% + 675.800 × 10%  = 132.420,00 (13,24%)</div>
+      <p>
+        Sem o escalonamento do § 5º, aplicar 8% sobre tudo daria R$ 80.000; o cálculo em cascata garante que a
+        primeira parte do valor seja sempre remunerada pela faixa mais alta, como numa tabela de imposto de renda.
+      </p>
+    </section>
+
+    <section>
+      <h2>Da Lei de 1973 ao CPC de 2015</h2>
+      <p>
+        No CPC de 1973, o art. 20 já previa de 10% a 20% sobre a condenação, mas permitia que, nas causas contra a
+        Fazenda Pública ou sem condenação, o juiz fixasse os honorários "por apreciação equitativa". Na prática isso
+        gerava valores muito baixos em causas milionárias e muita insegurança. O CPC de 2015 trocou essa liberdade
+        por regras objetivas: a ordem de bases do § 2º, as faixas em salários mínimos do § 3º e o escalonamento do
+        § 5º.
+      </p>
+      <p>
+        Duas novidades do CPC/2015 mudaram a rotina dos escritórios: os honorários recursais do § 11, que remuneram
+        o trabalho extra no tribunal e desestimulam recursos protelatórios, e a regra do § 14, que acabou com a
+        compensação de honorários na sucumbência recíproca (antes admitida pela Súmula 306 do STJ). Em 2022, o STJ
+        fixou no Tema 1076 que a equidade não pode ser usada para reduzir honorários de causas de valor elevado, e a
+        Lei 14.365/2022 acrescentou os §§ 6º-A e 8º-A.
+      </p>
+      <p>
+        Para contar o prazo do recurso que pode render a majoração, use a
+        <a [routerLink]="'tools/calculadora-de-prazos-processuais' | langLink">calculadora de prazos processuais</a>.
+        Em causas trabalhistas, a <a [routerLink]="'tools/calculadora-de-rescisao-trabalhista' | langLink">calculadora de rescisão</a>
+        ajuda a estimar o valor da condenação (lá, os honorários são de 5% a 15%, pelo art. 791-A da CLT).
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm" target="_blank" rel="noopener">Código de Processo Civil (Lei 13.105/2015)</a>, art. 85, §§ 2º a 19.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l8906.htm" target="_blank" rel="noopener">Estatuto da Advocacia (Lei 8.906/1994)</a>, arts. 22 e 23.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14365.htm" target="_blank" rel="noopener">Lei 14.365/2022</a>, que incluiu os §§ 6º-A e 8º-A no art. 85.</li>
+        <li>STJ, Tema Repetitivo 1076 (REsp 1.850.512/SP e outros) e Tema 1059 (honorários recursais).</li>
+        <li>Decreto 12.797/2025: salário mínimo de R$ 1.621,00 em 2026.</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

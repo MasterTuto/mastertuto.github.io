@@ -1,0 +1,310 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Quanto custa contratar com carteira assinada? Informe o salário e o regime tributário: a calculadora soma 13º,
+      férias e 1/3, FGTS, INSS patronal, RAT × FAP, terceiros e benefícios, e compara o custo no Simples Nacional e no
+      Lucro Presumido.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>Encargos de 2026</span><span>Sem cadastro</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (result(); as r) {
+          <span>Custo mensal · {{ times(r.multiplier) }}</span><strong>{{ money(r.monthly) }}</strong>
+        } @else {
+          <span>Informe o salário</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="pro-f">
+          <label class="pro-label" for="cf-salary">Salário <small>bruto mensal</small></label>
+          <div class="min-w-0">
+            <div class="pro-input-wrap pro-money">
+              <span>R$</span>
+              <input id="cf-salary" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                [value]="salary()" (input)="onMoney(salary, $event)" (blur)="tidy(salary)" (focus)="selectOnFocus($event)" />
+            </div>
+            <div class="pro-chips mt-2" role="group" aria-label="Salários comuns">
+              @for (value of presets; track value) {
+                <button type="button" class="pro-chip sm" [attr.aria-pressed]="salaryValue() === value" (click)="setSalary(value)">
+                  {{ value === presets[0] ? 'Mínimo · ' : '' }}{{ money(value).replace(',00', '') }}
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label" id="cf-regime">Regime da empresa</span>
+          <div class="min-w-0">
+            <div class="grid gap-2 sm:grid-cols-3" role="radiogroup" aria-labelledby="cf-regime">
+              @for (r of regimes; track r.id) {
+                <button type="button" role="radio" class="pro-chip !h-auto !whitespace-normal !rounded-xl !py-2 text-left leading-tight" [attr.aria-checked]="regime() === r.id" (click)="regime.set(r.id)">
+                  {{ r.label }}<br /><small class="font-normal opacity-75">{{ r.short }}</small>
+                </button>
+              }
+            </div>
+            <p class="pro-hint mt-1.5">{{ regimeHint() }}</p>
+          </div>
+        </div>
+
+        @if (regime() !== 'simples') {
+          <div class="pro-f">
+            <span class="pro-label" id="cf-rat">RAT <small>risco da atividade</small></span>
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="pro-segmented w-48" role="group" aria-labelledby="cf-rat">
+                @for (value of ratOptions; track value) {
+                  <button type="button" [attr.aria-pressed]="rat() === value" (click)="rat.set(value)">{{ value }}%</button>
+                }
+              </div>
+              <label class="flex items-center gap-2 text-sm text-muted-foreground" for="cf-fap">× FAP
+                <span class="pro-input-wrap w-24"><input id="cf-fap" class="pro-input !pr-3" inputmode="decimal" autocomplete="off" [value]="fap()" (input)="fap.set(val($event))" (focus)="selectOnFocus($event)" /></span>
+              </label>
+            </div>
+          </div>
+          @if (regime() === 'presumido') {
+            <div class="pro-f">
+              <label class="pro-label" for="cf-third">Terceiros <small>Sistema S, INCRA, salário-educação</small></label>
+              <div class="flex items-center gap-3">
+                <div class="pro-input-wrap w-28 shrink-0">
+                  <input id="cf-third" class="pro-input" inputmode="decimal" autocomplete="off" [value]="thirdParty()" (input)="thirdParty.set(val($event))" (focus)="selectOnFocus($event)" />
+                  <span class="pro-suffix">%</span>
+                </div>
+                <span class="pro-hint">5,8% para a maioria das empresas de comércio, indústria e serviços.</span>
+              </div>
+            </div>
+          }
+        }
+
+        <div class="pro-f top">
+          <span class="pro-label">Benefícios <small>opcional</small></span>
+          <div class="min-w-0">
+            <button type="button" class="pro-more" [attr.aria-expanded]="more()" aria-controls="cf-more" (click)="more.set(!more())">
+              {{ more() ? 'Ocultar' : 'Vale-transporte, refeição, plano de saúde…' }}
+              <ng-icon name="tablerChevronDown" aria-hidden="true" [class.rotate-180]="more()" class="transition-transform" />
+            </button>
+            @if (more()) {
+              <div id="cf-more" class="mt-2 grid gap-4">
+                <div class="pro-row cols-3">
+                  <div class="pro-field">
+                    <label class="pro-label" for="cf-vt">Vale-transporte <small>custo/mês</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="cf-vt" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00" [value]="transport()" (input)="onMoney(transport, $event)" (blur)="tidy(transport)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="cf-vr">VR/VA <small>por mês</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="cf-vr" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00" [value]="meal()" (input)="onMoney(meal, $event)" (blur)="tidy(meal)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="cf-health">Saúde e outros <small>por mês</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="cf-health" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00" [value]="health()" (input)="onMoney(health, $event)" (blur)="tidy(health)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                </div>
+                @if (result()?.transportEmployee) {
+                  <p class="pro-hint -mt-2">O empregado paga {{ money(result()!.transportEmployee) }} do vale (até 6% do salário); entra no custo só o restante.</p>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="cf-fine">Multa do FGTS</span>
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="pro-segmented w-56" role="group" aria-labelledby="cf-fine">
+              <button type="button" [attr.aria-pressed]="provisionFine()" (click)="provisionFine.set(true)">Provisionar</button>
+              <button type="button" [attr.aria-pressed]="!provisionFine()" (click)="provisionFine.set(false)">Não</button>
+            </div>
+            <span class="pro-hint">40% do FGTS, devida na demissão sem justa causa.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result min-[960px]:row-span-2" aria-live="polite" aria-label="Resultado">
+      @if (result(); as r) {
+        <div class="flex items-start justify-between gap-3">
+          <p class="pro-result-label">Custo mensal</p>
+          <span class="pro-pill" [class.ok]="r.multiplier < 1.45" [class.warn]="r.multiplier >= 1.45">{{ times(r.multiplier) }} o salário</span>
+        </div>
+        <p class="pro-result-main">{{ money(r.monthly) }}</p>
+        <p class="pro-result-sub">{{ money(r.yearly) }} por ano · {{ money(r.monthly - salaryValue()) }} além do salário</p>
+        <div class="pro-bar mt-4" aria-hidden="true">
+          @for (part of bar(); track part.id) { <span [style.width.%]="part.pct" [style.background]="part.color"></span> }
+        </div>
+        <div class="pro-legend" aria-hidden="true">
+          @for (part of bar(); track part.id) { <span><i [style.background]="part.color"></i>{{ part.label }} {{ percent(part.pct / 100, 0) }}</span> }
+        </div>
+        <dl class="pro-result-list">
+          @for (line of r.lines; track line.id) {
+            <div><dt>{{ line.label }}</dt><dd>{{ money(line.value) }}</dd></div>
+          }
+        </dl>
+        @if (net(); as n) {
+          <p class="mt-3 text-sm leading-relaxed opacity-85">O empregado recebe cerca de <strong>{{ money(n.net) }}</strong> líquidos: a empresa gasta {{ times(r.monthly / n.net) }} o que chega ao bolso dele.</p>
+        }
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="pro-btn" (click)="copy()">
+            <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" /> {{ flag.copied() ? 'Copiado' : 'Copiar resumo' }}
+          </button>
+        </div>
+      } @else {
+        <p class="pro-result-label">Custo mensal</p>
+        <p class="pro-result-empty">Digite o salário bruto do empregado para ver o custo total.</p>
+      }
+    </aside>
+
+    @if (result(); as r) {
+      <div class="min-w-0">
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="cf-lines">
+          <h2 id="cf-lines" class="font-semibold text-surface-0-foreground">Composição do custo</h2>
+          <div class="pro-table-scroll mt-2">
+            <table class="pro-table">
+              <thead><tr><th scope="col">Item</th><th scope="col">Como é calculado</th><th scope="col" class="!text-right">Mês</th><th scope="col" class="!text-right">% do salário</th></tr></thead>
+              <tbody>
+                @for (line of r.lines; track line.id) {
+                  <tr><td>{{ line.label }}</td><td class="text-muted-foreground">{{ line.detail }}</td><td class="text-right">{{ money(line.value) }}</td><td class="text-right">{{ percent(line.value / salaryValue(), 1) }}</td></tr>
+                }
+              </tbody>
+              <tfoot><tr><td colspan="2">Total</td><td class="text-right">{{ money(r.monthly) }}</td><td class="text-right">{{ percent(r.multiplier, 1) }}</td></tr></tfoot>
+            </table>
+          </div>
+        </section>
+
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="cf-compare">
+          <h2 id="cf-compare" class="font-semibold text-surface-0-foreground">O mesmo salário em cada regime</h2>
+          <div class="mt-3 grid grid-cols-3 divide-x divide-surface-0-foreground/10">
+            @for (c of comparison(); track c.id) {
+              <button type="button" class="px-3 text-left first:pl-0" [class.opacity-60]="c.id !== regime()" (click)="regime.set(c.id)" [attr.aria-pressed]="c.id === regime()">
+                <span class="block text-xs text-muted-foreground">{{ c.label }}</span>
+                <span class="mt-1 block text-lg font-bold tabular-nums tracking-tight text-surface-0-foreground sm:text-2xl">{{ money(c.result!.monthly) }}</span>
+                <span class="block text-sm tabular-nums text-muted-foreground">{{ times(c.result!.multiplier) }}</span>
+              </button>
+            }
+          </div>
+          <p class="pro-hint mt-2">No Simples, a contribuição patronal sai no DAS, que incide sobre o faturamento e não aparece aqui.</p>
+        </section>
+      </div>
+    }
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Estimativa de planejamento.</strong> Não inclui horas extras, adicionais, convenção coletiva (pisos,
+    PLR, seguro de vida obrigatório), desoneração da folha de alguns setores nem o custo de demissão além da multa do
+    FGTS. Confirme RAT, FAP e terceiros no cadastro da empresa (FAP no portal da Previdência, terceiros pelo FPAS).
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar a calculadora de custo de funcionário</h2>
+      <ol>
+        <li>Digite o <strong>salário bruto</strong> previsto na carteira. Os atalhos trazem o salário mínimo de 2026 e valores comuns.</li>
+        <li>Escolha o <strong>regime tributário</strong>: Simples Nacional (a maioria das pequenas empresas), Simples no Anexo IV ou Lucro Presumido/Real.</li>
+        <li>No regime normal, ajuste o <strong>RAT</strong> (1%, 2% ou 3%), o <strong>FAP</strong> e o percentual de <strong>terceiros</strong>, se souber. Os padrões servem para a maioria.</li>
+        <li>Abra <em>Benefícios</em> para somar vale-transporte, vale-refeição e plano de saúde.</li>
+        <li>O resultado aparece na hora, com a composição e a comparação entre regimes. Suas escolhas ficam salvas neste navegador.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>A conta: do salário ao custo total</h2>
+      <p>
+        O ponto de partida é a <strong>remuneração anual</strong>: 12 salários, o 13º e as férias com o terço
+        constitucional. Dividida por 12, dá a remuneração mensal equivalente, sobre a qual incidem FGTS e encargos.
+      </p>
+      <div class="pro-formula">Remuneração mensal = salário × (1 + 1/12 + 1/12 + 1/36) = salário × 1,1944
+FGTS              = 8% × remuneração mensal
+INSS patronal     = 20% × remuneração mensal       (fora do Simples)
+RAT × FAP         = (1% a 3%) × (0,5 a 2,0) × remuneração
+Terceiros         = 5,8% × remuneração mensal       (Lucro Presumido/Real)
+Multa do FGTS     = 40% × FGTS do mês               (provisão)
+Custo mensal      = remuneração + FGTS + encargos + multa + benefícios</div>
+      <h3>Exemplo: salário de R$ 3.000,00</h3>
+      <p>
+        Remuneração mensal: R$ 3.583,33 (R$ 3.000 + R$ 250 de 13º + R$ 250 de férias + R$ 83,33 de 1/3). FGTS:
+        R$ 286,67. No <strong>Simples Nacional</strong>, o custo fica em <strong>R$ 3.870,00</strong> (1,29×). No
+        <strong>Lucro Presumido</strong>, com RAT de 2%, FAP 1 e terceiros de 5,8%, somam-se R$ 996,17 de encargos
+        (27,8%): <strong>R$ 4.866,17</strong> (1,62×). Com a provisão da multa do FGTS, mais R$ 114,67 nos dois casos.
+      </p>
+    </section>
+
+    <section>
+      <h2>Encargos sobre a folha de pagamento em 2026</h2>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Encargo</th><th scope="col">Alíquota</th><th scope="col">Simples (I, II, III, V)</th><th scope="col">Simples IV</th><th scope="col">Presumido/Real</th></tr></thead>
+          <tbody>
+            <tr><td>FGTS</td><td>8%</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
+            <tr><td>INSS patronal (CPP)</td><td>20%</td><td>No DAS</td><td>Sim</td><td>Sim</td></tr>
+            <tr><td>RAT/GILRAT × FAP</td><td>0,5% a 6%</td><td>No DAS</td><td>Sim</td><td>Sim</td></tr>
+            <tr><td>Salário-educação</td><td>2,5%</td><td>Não</td><td>Não</td><td>Sim</td></tr>
+            <tr><td>SENAI/SENAC + SESI/SESC</td><td>2,5%</td><td>Não</td><td>Não</td><td>Sim</td></tr>
+            <tr><td>SEBRAE</td><td>0,6%</td><td>Não</td><td>Não</td><td>Sim</td></tr>
+            <tr><td>INCRA</td><td>0,2%</td><td>Não</td><td>Não</td><td>Sim</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pro-hint mt-2">Percentuais de terceiros do código FPAS 515 (comércio) e 507 (indústria, com SENAI/SESI). Cada FPAS tem a sua combinação.</p>
+    </section>
+
+    <section>
+      <h2>Por que o custo de um funcionário é tão maior que o salário</h2>
+      <p>
+        A legislação trabalhista brasileira foi montada em camadas. A Consolidação das Leis do Trabalho, de 1943,
+        reuniu direitos como férias e jornada; o 13º salário veio com a Lei 4.090/1962; o FGTS, em 1966, substituiu a
+        estabilidade decenal por um fundo depositado mês a mês; e a Constituição de 1988 acrescentou o terço de férias
+        e a multa de 40%. Do outro lado, o financiamento da Previdência e de entidades como SENAI, SESC e SEBRAE foi
+        sendo colocado sobre a folha de salários.
+      </p>
+      <p>
+        O Simples Nacional (Lei Complementar 123/2006) mudou essa conta para as pequenas empresas ao trocar a
+        contribuição patronal sobre a folha por um percentual do faturamento, recolhido no DAS. Por isso o mesmo
+        empregado custa bem menos numa empresa do Simples. Para empresas de serviços do Fator R, a folha alta ainda
+        ajuda a ficar no Anexo III: veja a <a [routerLink]="'tools/calculadora-simples-nacional' | langLink">calculadora do Simples Nacional</a>.
+      </p>
+      <p>
+        O lado do empregado (INSS e IRRF descontados do salário) está na
+        <a [routerLink]="'tools/calculadora-de-salario-liquido' | langLink">calculadora de salário líquido</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm" target="_blank" rel="noopener">Lei 8.212/1991</a>, art. 22: contribuição de 20% e RAT de 1%, 2% ou 3%.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm" target="_blank" rel="noopener">Lei 8.036/1990</a>, arts. 15 e 18: depósito de 8% e multa de 40% do FGTS.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm" target="_blank" rel="noopener">Lei Complementar 123/2006</a>, arts. 13 e 18, § 5º-C: CPP no DAS e exceção do Anexo IV.</li>
+        <li>Decreto 3.048/1999, art. 202-A e Anexo V: FAP e graus de risco do RAT.</li>
+        <li>Instrução Normativa RFB 2.110/2022, Anexo II: tabela de FPAS e alíquotas de terceiros.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l4090.htm" target="_blank" rel="noopener">Lei 4.090/1962</a> (13º) e CLT, arts. 129 a 145 (férias); Constituição Federal, art. 7º, XVII (1/3 de férias).</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

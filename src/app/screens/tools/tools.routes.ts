@@ -53,6 +53,31 @@ export const toolsRoute: Route = {
       loadComponent: () => import('./escada/stairs.component').then((m) => m.StairsCalculatorComponent),
     },
     {
+      path: proTools[9].slug,
+      loadComponent: () => import('./salario/net-salary.component').then((m) => m.NetSalaryCalculatorComponent),
+    },
+    {
+      path: proTools[10].slug,
+      loadComponent: () =>
+        import('./custo-funcionario/employee-cost.component').then((m) => m.EmployeeCostCalculatorComponent),
+    },
+    {
+      path: proTools[11].slug,
+      loadComponent: () => import('./rescisao/severance.component').then((m) => m.SeveranceCalculatorComponent),
+    },
+    {
+      path: proTools[12].slug,
+      loadComponent: () => import('./honorarios/fees.component').then((m) => m.FeesCalculatorComponent),
+    },
+    {
+      path: proTools[13].slug,
+      loadComponent: () => import('./solar/solar.component').then((m) => m.SolarCalculatorComponent),
+    },
+    {
+      path: proTools[14].slug,
+      loadComponent: () => import('./luminotecnico/lighting.component').then((m) => m.LightingCalculatorComponent),
+    },
+    {
       path: invoiceTool.slug,
       loadComponent: () => import('./invoice/invoice.component').then((m) => m.InvoiceGeneratorComponent),
     },
