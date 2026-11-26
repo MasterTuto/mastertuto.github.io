@@ -1,0 +1,321 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Escolha o ambiente, digite as medidas e a lâmpada: a calculadora aplica o método dos lúmens com o nível de
+      iluminância da NBR ISO/CIE 8995-1, o índice do recinto e os fatores de utilização e de manutenção, e desenha
+      a distribuição das luminárias no teto.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>NBR ISO/CIE 8995-1</span><span>Planta automática</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (result(); as r) {
+          <span>{{ r.rows }} × {{ r.cols }} · {{ fmt(r.achievedLux) }} lux</span><strong>{{ r.count }} luminárias</strong>
+        } @else {
+          <span>Informe as medidas</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="pro-f">
+          <label class="pro-label" for="lt-room">Ambiente <small>{{ fmt(luxValue()) }} lux</small></label>
+          <select id="lt-room" class="pro-select" [value]="room()" (change)="pickRoom(val($event))">
+            @for (g of roomGroups; track g.group) {
+              <optgroup [label]="g.group">
+                @for (r of g.items; track r.id) { <option [value]="r.id" [selected]="r.id === room()">{{ r.label }} · {{ r.lux }} lux</option> }
+              </optgroup>
+            }
+          </select>
+        </div>
+
+        <div class="pro-f">
+          <label class="pro-label" for="lt-length">Medidas <small>comprimento × largura</small></label>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <label class="pro-input-wrap flex-1">
+                <span class="sr-only">Comprimento</span>
+                <input id="lt-length" class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Comprimento em metros" [value]="length()" (input)="length.set(val($event))" (focus)="selectOnFocus($event)" />
+                <span class="pro-suffix">m</span>
+              </label>
+              <span class="text-muted-foreground" aria-hidden="true">×</span>
+              <label class="pro-input-wrap flex-1">
+                <span class="sr-only">Largura</span>
+                <input class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Largura em metros" [value]="width()" (input)="width.set(val($event))" (focus)="selectOnFocus($event)" />
+                <span class="pro-suffix">m</span>
+              </label>
+            </div>
+            @if (result(); as r) { <p class="pro-hint mt-1.5">= {{ fmt(r.area, 2) }} m²</p> }
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <label class="pro-label" for="lt-ceiling">Pé-direito</label>
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="pro-input-wrap w-28 shrink-0">
+              <input id="lt-ceiling" class="pro-input" inputmode="decimal" autocomplete="off" [value]="ceiling()" (input)="ceiling.set(val($event))" (focus)="selectOnFocus($event)"
+                [attr.aria-invalid]="heightInvalid()" [attr.aria-describedby]="heightInvalid() ? 'lt-ceiling-err' : null" />
+              <span class="pro-suffix">m</span>
+            </div>
+            <div class="pro-chips" role="group" aria-label="Pés-direitos comuns">
+              @for (value of ceilingChips; track value) {
+                <button type="button" class="pro-chip sm" [attr.aria-pressed]="ceiling() === value" (click)="ceiling.set(value)">{{ value }} m</button>
+              }
+            </div>
+            @if (heightInvalid()) { <p id="lt-ceiling-err" class="pro-error w-full">O pé-direito precisa ser maior que a altura do plano de trabalho ({{ fmt(planeValue(), 2) }} m).</p> }
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <label class="pro-label" for="lt-lamp">Lâmpada <small>ou luminária</small></label>
+          <div class="min-w-0">
+            <select id="lt-lamp" class="pro-select" [value]="lamp()" (change)="pickLamp(val($event))">
+              @for (l of lamps; track l.id) { <option [value]="l.id" [selected]="l.id === lamp()">{{ l.label }} · {{ fmt(l.lumens) }} lm</option> }
+              <option [value]="custom" [selected]="lamp() === custom">Outra (informar lúmens e watts)</option>
+            </select>
+            @if (lamp() === custom) {
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <label class="pro-input-wrap"><span class="sr-only">Lúmens</span>
+                  <input class="pro-input !pr-12" inputmode="decimal" autocomplete="off" aria-label="Lúmens por lâmpada" [value]="lumens()" (input)="lumens.set(val($event))" (focus)="selectOnFocus($event)" />
+                  <span class="pro-suffix">lm</span>
+                </label>
+                <label class="pro-input-wrap"><span class="sr-only">Watts</span>
+                  <input class="pro-input" inputmode="decimal" autocomplete="off" aria-label="Watts por lâmpada" [value]="watts()" (input)="watts.set(val($event))" (focus)="selectOnFocus($event)" />
+                  <span class="pro-suffix">W</span>
+                </label>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="lt-finish">Cores <small>teto, paredes, piso</small></span>
+          <div class="min-w-0">
+            <div class="pro-segmented" role="group" aria-labelledby="lt-finish">
+              @for (f of finishes; track f.id) {
+                <button type="button" [attr.aria-pressed]="finish() === f.id" (click)="finish.set(f.id)">{{ f.label }}</button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="lt-upkeep">Manutenção</span>
+          <div class="pro-segmented" role="group" aria-labelledby="lt-upkeep">
+            @for (u of upkeeps; track u.id) {
+              <button type="button" [attr.aria-pressed]="upkeep() === u.id" (click)="upkeep.set(u.id)" [attr.title]="u.detail">{{ u.label }}</button>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label">Ajustes <small>opcional</small></span>
+          <div class="min-w-0">
+            <button type="button" class="pro-more" [attr.aria-expanded]="more()" aria-controls="lt-more" (click)="more.set(!more())">
+              {{ more() ? 'Ocultar' : 'Lux, plano de trabalho, pendente, lâmpadas por luminária…' }}
+              <ng-icon name="tablerChevronDown" aria-hidden="true" [class.rotate-180]="more()" class="transition-transform" />
+            </button>
+            @if (more()) {
+              <div id="lt-more" class="mt-2 grid gap-4">
+                <div class="pro-row cols-3">
+                  <div class="pro-field">
+                    <label class="pro-label" for="lt-lux">Iluminância</label>
+                    <div class="pro-input-wrap"><input id="lt-lux" class="pro-input !pr-10" inputmode="decimal" autocomplete="off" [placeholder]="roomData().lux + ''" [value]="lux()" (input)="lux.set(val($event))" (focus)="selectOnFocus($event)" /><span class="pro-suffix">lx</span></div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="lt-plane">Plano de trabalho</label>
+                    <div class="pro-input-wrap"><input id="lt-plane" class="pro-input" inputmode="decimal" autocomplete="off" [placeholder]="fmt(roomData().plane, 2)" [value]="plane()" (input)="plane.set(val($event))" (focus)="selectOnFocus($event)" /><span class="pro-suffix">m</span></div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="lt-susp">Pendente <small>abaixo do teto</small></label>
+                    <div class="pro-input-wrap"><input id="lt-susp" class="pro-input" inputmode="decimal" autocomplete="off" [value]="suspension()" (input)="suspension.set(val($event))" (focus)="selectOnFocus($event)" /><span class="pro-suffix">m</span></div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="text-sm font-semibold text-surface-0-foreground" id="lt-per">Lâmpadas por luminária</span>
+                  <div class="pro-step" role="group" aria-labelledby="lt-per">
+                    <button type="button" aria-label="Menos uma lâmpada" [disabled]="perLuminaire() <= 1" (click)="perLuminaire.set(clamp(perLuminaire() - 1, 1, 8))"><ng-icon name="tablerMinus" /></button>
+                    <output aria-live="polite">{{ perLuminaire() }}</output>
+                    <button type="button" aria-label="Mais uma lâmpada" (click)="perLuminaire.set(clamp(perLuminaire() + 1, 1, 8))"><ng-icon name="tablerPlus" /></button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result min-[960px]:row-span-2" aria-live="polite" aria-label="Resultado">
+      @if (result(); as r) {
+        <div class="flex items-start justify-between gap-3">
+          <p class="pro-result-label">Luminárias</p>
+          <span class="pro-pill" [class.ok]="r.spacingRatio <= 1.5" [class.warn]="r.spacingRatio > 1.5">{{ r.spacingRatio <= 1.5 ? 'Uniforme' : 'Espaçamento grande' }}</span>
+        </div>
+        <p class="pro-result-main">{{ r.count }} <small>em {{ r.rows }} × {{ r.cols }}</small></p>
+        <p class="pro-result-sub">{{ fmt(r.achievedLux) }} lux médios · meta de {{ fmt(luxValue()) }} lux</p>
+        @if (plan(); as p) {
+          <svg class="mt-4 w-full" [attr.viewBox]="'0 0 ' + (p.w + p.pad * 2) + ' ' + (p.h + p.pad * 2)" role="img"
+            [attr.aria-label]="'Planta de ' + fmt(p.length, 2) + ' por ' + fmt(p.width, 2) + ' metros com ' + r.count + ' luminárias em ' + r.rows + ' fileiras de ' + r.cols">
+            <rect [attr.x]="p.pad" [attr.y]="p.pad" [attr.width]="p.w" [attr.height]="p.h" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="2" rx="2" />
+            @for (pt of p.points; track $index) {
+              <circle [attr.cx]="p.pad + pt.x" [attr.cy]="p.pad + pt.y" [attr.r]="p.dot * 2.2" fill="#fde68a" fill-opacity=".18" />
+              <circle [attr.cx]="p.pad + pt.x" [attr.cy]="p.pad + pt.y" [attr.r]="p.dot" fill="#fcd34d" />
+            }
+            <text [attr.x]="p.pad + p.w / 2" [attr.y]="p.pad - 9" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity=".75">{{ fmt(p.length, 2) }} m</text>
+            <text [attr.x]="p.pad - 9" [attr.y]="p.pad + p.h / 2" text-anchor="middle" font-size="13" fill="currentColor" fill-opacity=".75" [attr.transform]="'rotate(-90 ' + (p.pad - 9) + ' ' + (p.pad + p.h / 2) + ')'">{{ fmt(p.width, 2) }} m</text>
+          </svg>
+        }
+        <dl class="pro-result-list">
+          <div><dt>Fluxo necessário</dt><dd>{{ fmt(r.flux) }} lm</dd></div>
+          <div><dt>Mínimo pelo cálculo</dt><dd>{{ r.needed }} {{ r.needed === 1 ? 'luminária' : 'luminárias' }}</dd></div>
+          <div><dt>Espaçamento</dt><dd>{{ fmt(r.spacingLength, 2) }} × {{ fmt(r.spacingWidth, 2) }} m</dd></div>
+          <div><dt>Da parede</dt><dd>{{ fmt(r.spacingLength / 2, 2) }} e {{ fmt(r.spacingWidth / 2, 2) }} m</dd></div>
+          <div><dt>Potência total</dt><dd>{{ fmt(r.watts) }} W · {{ fmt(r.density, 1) }} W/m²</dd></div>
+        </dl>
+        @if (r.count > r.needed) {
+          <p class="mt-3 text-sm leading-relaxed opacity-85">{{ r.count - r.needed }} a mais que o mínimo para a grade ficar simétrica.</p>
+        }
+        @if (r.spacingRatio > 1.5) {
+          <p class="mt-3 text-sm leading-relaxed opacity-85">O espaçamento passa de 1,5 × a altura de montagem ({{ fmt(r.height, 2) }} m): use mais pontos de menor potência para evitar áreas escuras.</p>
+        }
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="pro-btn" (click)="copy()">
+            <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" /> {{ flag.copied() ? 'Copiado' : 'Copiar resumo' }}
+          </button>
+        </div>
+      } @else {
+        <p class="pro-result-label">Luminárias</p>
+        <p class="pro-result-empty">Informe comprimento, largura e pé-direito do ambiente.</p>
+      }
+    </aside>
+
+    @if (result(); as r) {
+      <div class="min-w-0">
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="lt-steps">
+          <h2 id="lt-steps" class="font-semibold text-surface-0-foreground">Memória de cálculo</h2>
+          <div class="pro-formula">h = {{ fmt(num2(ceiling())) }} − {{ fmt(planeValue(), 2) }} − {{ fmt(num2(suspension()), 2) }} = {{ fmt(r.height, 2) }} m
+K = (C × L) ÷ (h × (C + L)) = {{ fmt(r.area, 2) }} ÷ ({{ fmt(r.height, 2) }} × {{ fmt(num2(length()) + num2(width()), 2) }}) = {{ fmt(r.k, 2) }}
+U (tabela, cores {{ finish() }}) = {{ fmt(r.u, 3) }}   FM = {{ fmt(r.fm, 2) }}
+Φ = E × A ÷ (U × FM) = {{ fmt(luxValue()) }} × {{ fmt(r.area, 2) }} ÷ ({{ fmt(r.u, 3) }} × {{ fmt(r.fm, 2) }}) = {{ fmt(r.flux) }} lm
+N = Φ ÷ (lm por luminária) = {{ fmt(r.flux) }} ÷ {{ fmt(lampData().lumens * perLuminaire()) }} = {{ fmt(r.flux / (lampData().lumens * perLuminaire()), 2) }} → {{ r.needed }}
+E real = N × lm × U × FM ÷ A = {{ fmt(r.achievedLux) }} lux</div>
+        </section>
+      </div>
+    }
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Pré-dimensionamento.</strong> O método dos lúmens dá a iluminância média com uma tabela de utilização
+    típica de luminárias de facho direto. Para projetos comerciais, use a curva fotométrica (arquivo IES) da luminária
+    escolhida e confira uniformidade, ofuscamento (UGR) e reprodução de cor exigidos pela NBR ISO/CIE 8995-1.
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar a calculadora luminotécnica</h2>
+      <ol>
+        <li>Escolha o <strong>ambiente</strong>: ele define a iluminância recomendada (lux) e a altura do plano de trabalho.</li>
+        <li>Digite o <strong>comprimento</strong> e a <strong>largura</strong> em metros e confira o <strong>pé-direito</strong>.</li>
+        <li>Escolha a <strong>lâmpada ou luminária</strong> pelos lúmens. Se a sua não estiver na lista, escolha <em>Outra</em> e copie os lúmens e watts da embalagem.</li>
+        <li>Indique as <strong>cores</strong> do ambiente e a <strong>manutenção</strong> esperada. Em <em>Ajustes</em>, troque o lux, a altura do plano de trabalho ou informe luminárias pendentes.</li>
+        <li>O resultado traz o número de luminárias, a grade com espaçamentos, a planta e a memória de cálculo para o memorial descritivo.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>O método dos lúmens, passo a passo</h2>
+      <div class="pro-formula">1. Altura útil       h = pé-direito − plano de trabalho − pendente
+2. Índice do recinto K = (C × L) ÷ [h × (C + L)]
+3. Fator de utilização U = tabela da luminária (K, refletâncias)
+4. Fluxo total       Φ = E × A ÷ (U × FM)
+5. Luminárias        N = Φ ÷ (lúmens por luminária), arredondado para cima
+6. Conferência       E = N × φ × U × FM ÷ A</div>
+      <p>
+        O índice do recinto resume a geometria: salas grandes e baixas têm K alto (a luz vai direto ao plano de
+        trabalho), salas pequenas e altas têm K baixo (boa parte da luz bate nas paredes e se perde). As refletâncias
+        de teto, paredes e piso dizem quanto dessa luz volta para o ambiente.
+      </p>
+      <h3>Fatores de utilização usados (luminária de facho direto)</h3>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">K</th>@for (k of kValues; track k) { <th scope="col">{{ fmt(k, 2) }}</th> }</tr></thead>
+          <tbody>
+            @for (f of finishes; track f.id) {
+              <tr [class.on]="finish() === f.id"><td>{{ f.label }}</td>@for (u of utilizationTable[f.id]; track $index) { <td>{{ fmt(u, 2) }}</td> }</tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="pro-hint mt-2">Claro: teto 70%, paredes 50%, piso 20%. Médio: 50/30/10. Escuro: 30/10/10. Valores típicos de catálogo para downlights, plafons e painéis embutidos.</p>
+    </section>
+
+    <section>
+      <h2>Iluminância recomendada por ambiente</h2>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Ambiente</th><th scope="col">Lux</th><th scope="col">Plano de trabalho</th></tr></thead>
+          <tbody>
+            @for (r of luxTable; track r.id) {
+              <tr [class.on]="r.id === room()"><td>{{ r.label }}</td><td>{{ r.lux }}</td><td>{{ r.plane ? fmt(r.plane, 2) + ' m' : 'piso' }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="pro-hint mt-2">Ambientes de trabalho, comércio e serviços: NBR ISO/CIE 8995-1:2013. Ambientes residenciais: valores usuais da antiga NBR 5413, que a norma de 2013 substituiu.</p>
+    </section>
+
+    <section>
+      <h2>Da lâmpada incandescente ao LED</h2>
+      <p>
+        O método dos lúmens se difundiu na primeira metade do século XX, quando o fluxo luminoso das lâmpadas
+        passou a ser medido de forma padronizada e sociedades como a Illuminating Engineering Society publicaram
+        tabelas de fatores de utilização; virou o cálculo padrão de iluminação de interiores no mundo inteiro. No Brasil, a NBR 5413 (1992) fixou por duas décadas os
+        níveis de lux por atividade, até ser substituída em 2013 pela NBR ISO/CIE 8995-1, que também trata de
+        ofuscamento, uniformidade e reprodução de cor.
+      </p>
+      <p>
+        A conta continua a mesma, mas os números mudaram. Uma incandescente de 60 W emitia cerca de 800 lm (13 lm/W);
+        uma fluorescente compacta de 15 W, perto de 900 lm; um bulbo LED de 9 W entrega os mesmos 800 lm, com mais de
+        90 lm/W. As incandescentes de uso geral saíram do mercado brasileiro em etapas entre 2012 e 2016 (Portaria
+        Interministerial 1.007/2010), e hoje as LEDs vendidas no país passam pela etiquetagem do Inmetro.
+      </p>
+      <p>
+        Depois de definir as luminárias, dimensione o circuito com a
+        <a [routerLink]="'tools/calculadora-de-bitola-e-queda-de-tensao' | langLink">calculadora de bitola e queda de tensão</a>.
+        Em escadas, a <a [routerLink]="'tools/calculadora-de-escada' | langLink">calculadora de escada</a> ajuda a posicionar os pontos de luz nos patamares.
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li>ABNT NBR ISO/CIE 8995-1:2013, Iluminação de ambientes de trabalho, Parte 1: Interior.</li>
+        <li>ABNT NBR 5413:1992, Iluminância de interiores (cancelada em 2013; referência para residências).</li>
+        <li>CIE 97:2005, Guide on the maintenance of indoor electric lighting systems (fatores de manutenção).</li>
+        <li>ABNT NBR 5410:2004, Instalações elétricas de baixa tensão, item 9.5.2 (cargas de iluminação).</li>
+        <li>Inmetro e Procel: Programa Brasileiro de Etiquetagem de lâmpadas LED (lúmens, watts e eficiência na embalagem).</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

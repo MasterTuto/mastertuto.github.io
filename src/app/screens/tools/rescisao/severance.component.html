@@ -1,0 +1,319 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Informe o salário, as datas de admissão e de saída e o motivo: a calculadora projeta o aviso prévio proporcional
+      da Lei 12.506/2011, conta os avos de 13º e de férias, aplica os descontos de INSS e IRRF de 2026 e estima o FGTS
+      com a multa.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>CLT e Reforma Trabalhista</span><span>Sem cadastro</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (result(); as r) {
+          <span>Líquido{{ r.fgts.withdraw ? ' + FGTS ' + money(r.fgts.withdraw) : '' }}</span><strong>{{ money(r.net) }}</strong>
+        } @else {
+          <span>Informe salário e datas</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="pro-f">
+          <label class="pro-label" for="rs-salary">Último salário <small>bruto, com médias</small></label>
+          <div class="min-w-0">
+            <div class="pro-input-wrap pro-money">
+              <span>R$</span>
+              <input id="rs-salary" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                [value]="salary()" (input)="onMoney(salary, $event)" (blur)="tidy(salary)" (focus)="selectOnFocus($event)" />
+            </div>
+            <div class="pro-chips mt-2" role="group" aria-label="Salários comuns">
+              @for (value of presets; track value) {
+                <button type="button" class="pro-chip sm" [attr.aria-pressed]="salaryValue() === value" (click)="setSalary(value)">
+                  {{ value === presets[0] ? 'Mínimo · ' : '' }}{{ money(value).replace(',00', '') }}
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label">Contrato <small>{{ service() || 'datas de entrada e saída' }}</small></span>
+          <div class="min-w-0">
+            <div class="pro-row">
+              <div class="pro-field">
+                <label class="pro-label" for="rs-admission">Admissão</label>
+                <app-gest-date inputId="rs-admission" label="data de admissão" [(value)]="admission" />
+              </div>
+              <div class="pro-field">
+                <label class="pro-label" for="rs-end">Último dia <small>sem o aviso indenizado</small></label>
+                <app-gest-date inputId="rs-end" label="data de saída" [(value)]="end" />
+              </div>
+            </div>
+            @if (datesInverted()) {
+              <p class="pro-error mt-1.5" role="alert">A saída precisa ser depois da admissão.</p>
+            } @else if (todayText() && end() !== todayText()) {
+              <button type="button" class="pro-chip sm mt-2" (click)="end.set(todayText())">Saída hoje</button>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label" id="rs-reason">Motivo</span>
+          <div class="min-w-0">
+            <div class="pro-chips wrap" role="radiogroup" aria-labelledby="rs-reason">
+              @for (r of reasons; track r.id) {
+                <button type="button" role="radio" class="pro-chip" [attr.aria-checked]="reason() === r.id" (click)="reason.set(r.id)">{{ r.label }}</button>
+              }
+            </div>
+            <p class="pro-hint mt-1.5">{{ reasonHint() }}</p>
+          </div>
+        </div>
+
+        @if (noticeOptions().length) {
+          <div class="pro-f">
+            <span class="pro-label" id="rs-notice">Aviso prévio <small>{{ reason() === 'pedido' ? '30 dias, do empregado' : (result()?.noticeDays ?? 30) + ' dias' }}</small></span>
+            <div class="pro-segmented" role="group" aria-labelledby="rs-notice">
+              @for (o of noticeOptions(); track o.id) {
+                <button type="button" [attr.aria-pressed]="effectiveNotice() === o.id" (click)="notice.set(o.id)">{{ o.label }}</button>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="pro-f top">
+          <span class="pro-label">Mais detalhes <small>opcional</small></span>
+          <div class="min-w-0">
+            <button type="button" class="pro-more" [attr.aria-expanded]="more()" aria-controls="rs-more" (click)="more.set(!more())">
+              {{ more() ? 'Ocultar' : 'Férias vencidas, saldo do FGTS, dependentes…' }}
+              <ng-icon name="tablerChevronDown" aria-hidden="true" [class.rotate-180]="more()" class="transition-transform" />
+            </button>
+            @if (more()) {
+              <div id="rs-more" class="mt-2 grid gap-4">
+                <div class="flex flex-wrap gap-x-8 gap-y-4">
+                  <div class="grid justify-items-start gap-1.5">
+                    <span class="text-sm font-semibold text-surface-0-foreground" id="rs-overdue">Férias vencidas <small class="font-normal text-muted-foreground">não tiradas</small></span>
+                    <div class="pro-step" role="group" aria-labelledby="rs-overdue">
+                      <button type="button" aria-label="Menos um período" [disabled]="overdue() <= 0" (click)="overdue.set(clamp(overdue() - 1, 0, 2))"><ng-icon name="tablerMinus" /></button>
+                      <output aria-live="polite">{{ overdue() }}</output>
+                      <button type="button" aria-label="Mais um período" [disabled]="overdue() >= 2" (click)="overdue.set(clamp(overdue() + 1, 0, 2))"><ng-icon name="tablerPlus" /></button>
+                    </div>
+                  </div>
+                  <div class="grid justify-items-start gap-1.5">
+                    <span class="text-sm font-semibold text-surface-0-foreground" id="rs-deps">Dependentes <small class="font-normal text-muted-foreground">no IR</small></span>
+                    <div class="pro-step" role="group" aria-labelledby="rs-deps">
+                      <button type="button" aria-label="Menos um dependente" [disabled]="dependents() <= 0" (click)="dependents.set(clamp(dependents() - 1, 0, 15))"><ng-icon name="tablerMinus" /></button>
+                      <output aria-live="polite">{{ dependents() }}</output>
+                      <button type="button" aria-label="Mais um dependente" (click)="dependents.set(clamp(dependents() + 1, 0, 15))"><ng-icon name="tablerPlus" /></button>
+                    </div>
+                  </div>
+                </div>
+                @if (overdue() === 2) { <p class="pro-hint -mt-2">Com dois períodos vencidos, o mais antigo passou do prazo de concessão e é pago em dobro (art. 137).</p> }
+                <div class="pro-row">
+                  <div class="pro-field">
+                    <label class="pro-label" for="rs-fgts">Saldo para fins rescisórios <small>FGTS</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="rs-fgts" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="estimar" [value]="fgts()" (input)="onMoney(fgts, $event)" (blur)="tidy(fgts)" (focus)="selectOnFocus($event)" />
+                    </div>
+                    <span class="pro-hint">Está no extrato do app FGTS. Vazio: estimamos 8% por mês.</span>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="rs-adv">13º já adiantado <small>1ª parcela</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="rs-adv" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00" [value]="advance13()" (input)="onMoney(advance13, $event)" (blur)="tidy(advance13)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result min-[960px]:row-span-2" aria-live="polite" aria-label="Resultado">
+      @if (result(); as r) {
+        <div class="flex items-start justify-between gap-3">
+          <p class="pro-result-label">Líquido da rescisão</p>
+          <span class="pro-pill ok">Pagar até {{ formatDate(r.paymentDeadline) }}</span>
+        </div>
+        <p class="pro-result-main">{{ money(r.net) }}</p>
+        <p class="pro-result-sub">{{ money(r.gross) }} de verbas − {{ money(r.totalDeductions) }} de descontos</p>
+        <dl class="pro-result-list">
+          @for (line of r.earnings; track line.id) {
+            <div><dt>{{ line.label }} · {{ line.reference }}</dt><dd>{{ money(line.value) }}</dd></div>
+          }
+          @for (line of r.deductions; track line.id) {
+            <div><dt>{{ line.label }}</dt><dd>− {{ money(line.value) }}</dd></div>
+          }
+        </dl>
+        <div class="mt-4 rounded-xl bg-white/10 p-3 text-sm">
+          <p class="font-semibold">FGTS {{ r.fgts.estimated ? '(estimado)' : '' }}</p>
+          <dl class="mt-1 grid gap-1">
+            <div class="flex justify-between gap-3"><dt class="opacity-75">Saldo + depósitos da rescisão</dt><dd class="tabular-nums">{{ money(r.fgts.balance + r.fgts.onSeverance) }}</dd></div>
+            @if (r.fgts.fine) { <div class="flex justify-between gap-3"><dt class="opacity-75">Multa de {{ r.fgts.fineRate * 100 }}%</dt><dd class="tabular-nums">{{ money(r.fgts.fine) }}</dd></div> }
+            <div class="flex justify-between gap-3"><dt class="opacity-75">Saque</dt><dd class="tabular-nums font-semibold">{{ r.fgts.withdrawRate ? money(r.fgts.withdraw) + (r.fgts.withdrawRate < 1 ? ' (80%)' : '') : 'Não pode sacar' }}</dd></div>
+          </dl>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="pro-btn" (click)="copy()">
+            <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" /> {{ flag.copied() ? 'Copiado' : 'Copiar resumo' }}
+          </button>
+        </div>
+      } @else {
+        <p class="pro-result-label">Líquido da rescisão</p>
+        <p class="pro-result-empty">
+          {{ datesInverted() ? 'A data de saída está antes da admissão.' : 'Informe o salário e as datas de admissão e de saída (dd/mm/aaaa).' }}
+        </p>
+      }
+    </aside>
+
+    @if (result(); as r) {
+      <div class="min-w-0">
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="rs-time">
+          <h2 id="rs-time" class="font-semibold text-surface-0-foreground">Tempo de serviço e aviso</h2>
+          <dl class="mt-2 grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-4">
+            <div><dt class="text-muted-foreground">Anos completos</dt><dd class="text-lg font-semibold tabular-nums">{{ r.years }}</dd></div>
+            <div><dt class="text-muted-foreground">Aviso prévio</dt><dd class="text-lg font-semibold tabular-nums">{{ r.noticeDays ? r.noticeDays + ' dias' : '–' }}</dd></div>
+            <div><dt class="text-muted-foreground">Data projetada</dt><dd class="text-lg font-semibold tabular-nums">{{ formatDate(r.projected) }}</dd></div>
+            <div><dt class="text-muted-foreground">Avos de 13º · férias</dt><dd class="text-lg font-semibold tabular-nums">{{ r.thirteenthAvos }}/12 · {{ r.vacationAvos }}/12</dd></div>
+          </dl>
+          <p class="mt-3 text-sm leading-relaxed text-surface-0-foreground">
+            @if (r.paidNoticeDays) {
+              O aviso indenizado de {{ r.paidNoticeDays }} dias projeta o contrato até {{ formatDate(r.projected) }} ({{ weekday(r.projected) }}),
+              data que vai na baixa da carteira e conta para o 13º e as férias.
+            } @else if (reason() === 'sem-justa-causa' || reason() === 'acordo') {
+              Com o aviso trabalhado, o contrato termina no último dia informado.
+            }
+            @if (r.unemploymentInsurance) {
+              Tem direito a <strong>seguro-desemprego</strong> se cumprir a carência (12 meses nos últimos 18 no 1º pedido).
+            }
+          </p>
+        </section>
+      </div>
+    }
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Estimativa para conferência, não substitui o TRCT.</strong> Médias de horas extras e comissões, adicionais,
+    faltas (que reduzem as férias, art. 130), estabilidades (gestante, acidente, CIPA), convenções coletivas e a
+    indenização adicional do art. 9º da Lei 7.238/1984 (dispensa nos 30 dias antes da data-base) mudam os valores.
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar a calculadora de rescisão</h2>
+      <ol>
+        <li>Digite o <strong>último salário</strong> bruto. Se o empregado recebia horas extras ou comissões com habitualidade, some a média delas.</li>
+        <li>Informe a <strong>admissão</strong> e o <strong>último dia trabalhado</strong>. A data de saída já vem com o dia de hoje; os campos de data pulam sozinhos para o próximo ao completar dd/mm/aaaa.</li>
+        <li>Escolha o <strong>motivo</strong> e, quando houver, como foi o <strong>aviso prévio</strong>.</li>
+        <li>Em <em>Mais detalhes</em>, informe férias vencidas, o saldo do FGTS para fins rescisórios (no aplicativo FGTS), dependentes e o adiantamento do 13º.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Verbas rescisórias por motivo de saída</h2>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Verba</th><th scope="col">Sem justa causa</th><th scope="col">Pedido</th><th scope="col">Acordo</th><th scope="col">Justa causa</th><th scope="col">Fim do prazo</th></tr></thead>
+          <tbody>
+            <tr><td>Saldo de salário</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
+            <tr><td>Aviso prévio indenizado</td><td>Sim, proporcional</td><td>Não</td><td>Metade</td><td>Não</td><td>Não</td></tr>
+            <tr><td>13º proporcional</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Não</td><td>Sim</td></tr>
+            <tr><td>Férias proporcionais + 1/3</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Não</td><td>Sim</td></tr>
+            <tr><td>Férias vencidas + 1/3</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
+            <tr><td>Multa do FGTS</td><td>40%</td><td>Não</td><td>20%</td><td>Não</td><td>Não</td></tr>
+            <tr><td>Saque do FGTS</td><td>100%</td><td>Não</td><td>80%</td><td>Não</td><td>100%</td></tr>
+            <tr><td>Seguro-desemprego</td><td>Sim</td><td>Não</td><td>Não</td><td>Não</td><td>Não</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Como cada verba é calculada</h2>
+      <div class="pro-formula">Saldo de salário   = salário ÷ 30 × dias trabalhados no mês
+Aviso prévio       = salário ÷ 30 × (30 + 3 × anos completos), até 90 dias
+13º proporcional   = salário ÷ 12 × meses do ano com 15 dias ou mais
+Férias proporc.    = salário ÷ 12 × meses do período aquisitivo (fração &gt; 14 dias = 1 mês)
+1/3 constitucional = férias ÷ 3
+Multa do FGTS      = 40% × (depósitos do contrato + FGTS da rescisão)</div>
+      <h3>Exemplo: demissão sem justa causa</h3>
+      <p>
+        Salário de R$ 3.000, admissão em 10/03/2020 e último dia em 12/05/2026. São 6 anos completos: aviso de
+        30 + 18 = <strong>48 dias</strong> (R$ 4.800), que projeta o contrato até 29/06/2026. Saldo de salário: 12 dias,
+        R$ 1.200. 13º: janeiro a junho, <strong>6/12</strong> (R$ 1.500). Férias: o período aquisitivo começou em
+        10/03/2026 e vai até 29/06, 3 meses e 20 dias, ou <strong>4/12</strong> (R$ 1.000 + R$ 333,33 de 1/3).
+        INSS e IRRF incidem só sobre o saldo e o 13º.
+      </p>
+    </section>
+
+    <section>
+      <h2>Tabela do aviso prévio proporcional (Lei 12.506/2011)</h2>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Anos completos de empresa</th><th scope="col">Dias de aviso</th></tr></thead>
+          <tbody>
+            @for (row of noticeTable; track row.years) {
+              <tr [class.on]="result()?.years === row.years"><td>{{ row.years === 0 ? 'Menos de 1 ano' : row.years + (row.years === 20 ? ' ou mais' : '') }}</td><td>{{ row.days }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="pro-hint mt-2">Os 3 dias por ano só começam a contar ao completar o primeiro ano de serviço; o máximo de 90 dias chega com 20 anos completos.</p>
+    </section>
+
+    <section>
+      <h2>História: da estabilidade decenal ao acordo de 2017</h2>
+      <p>
+        Quando a CLT foi publicada, em 1943, o empregado com mais de dez anos na mesma empresa tinha
+        <strong>estabilidade</strong>: só podia ser dispensado por falta grave. Quem saía antes recebia uma indenização
+        de um salário por ano trabalhado. Em 1966, a Lei 5.107 criou o FGTS como alternativa e, na prática, as empresas
+        passaram a exigir a opção pelo fundo. A Constituição de 1988 tornou o FGTS obrigatório para todos, acabou com
+        a estabilidade decenal para novos contratos e fixou a multa de 40% (ADCT, art. 10, I).
+      </p>
+      <p>
+        O aviso prévio de 30 dias está na CLT desde a origem, mas a proporcionalidade prevista no art. 7º, XXI, da
+        Constituição só foi regulamentada em 2011, pela Lei 12.506, depois que o STF começou a julgar mandados de
+        injunção sobre o tema. A Reforma Trabalhista (Lei 13.467/2017) trouxe a rescisão por acordo do art. 484-A,
+        unificou o prazo de pagamento em 10 dias e dispensou a homologação no sindicato.
+      </p>
+      <p>
+        Para conferir prazos de reclamação trabalhista ou recursos depois da rescisão, use a
+        <a [routerLink]="'tools/calculadora-de-prazos-processuais' | langLink">calculadora de prazos processuais</a>.
+        O líquido de um mês comum está na <a [routerLink]="'tools/calculadora-de-salario-liquido' | langLink">calculadora de salário líquido</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm" target="_blank" rel="noopener">CLT (Decreto-Lei 5.452/1943)</a>, arts. 146, 147, 477, 482, 484-A e 487.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12506.htm" target="_blank" rel="noopener">Lei 12.506/2011</a>: aviso prévio proporcional.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13467.htm" target="_blank" rel="noopener">Lei 13.467/2017</a> (Reforma Trabalhista).</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l4090.htm" target="_blank" rel="noopener">Lei 4.090/1962</a> (13º salário) e <a href="https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm" target="_blank" rel="noopener">Lei 8.036/1990</a> (FGTS), arts. 18 e 20.</li>
+        <li>TST: Súmulas 171, 261 e 305 e Orientação Jurisprudencial 82 da SDI-1.</li>
+        <li>Tabelas de INSS e IRRF de 2026: Portaria Interministerial MPS/MF nº 13/2026 e Lei 15.270/2025.</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

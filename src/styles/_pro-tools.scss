@@ -12,6 +12,8 @@
 .pro-eyebrow { @apply text-accent; display: inline-flex; align-items: center; gap: .5rem; margin-bottom: .75rem; font-size: .75rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
 .pro-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
 .pro-badges span { @apply bg-accent-50 text-accent-700; padding: .3rem .7rem; border-radius: 999px; font-size: .75rem; font-weight: 550; }
+/* The dark theme's accent-50/700 pair falls just under 4.5:1; use a tinted chip with light text instead. */
+html[data-scheme='dark']:not([data-theme]) .pro-badges span { background: rgb(122 112 225 / .2); color: #d9d6ff; }
 
 .pro-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
 @media (min-width: 960px) {
@@ -118,3 +120,29 @@
 .pro-reading details { @apply border-surface-0-foreground/10; padding: .9rem 0; border-bottom-width: 1px; }
 .pro-reading summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
 .pro-related { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin-top: 1rem; }
+
+/* Shared pieces of the calculators added later: field rows, steppers, money inputs, stacked bars. */
+.pro-f { display: grid; gap: .55rem; padding: .85rem 0; border-top: 1px solid rgb(68 74 81 / .12); }
+.pro-f:first-child { border-top: 0; padding-top: 0; }
+@media (min-width: 640px) {
+  .pro-f { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: center; gap: 1rem; }
+  .pro-f.top { align-items: start; }
+  .pro-f.top > .pro-label { padding-top: .8rem; }
+  .pro-f > .pro-label { flex-direction: column; align-items: flex-start; gap: .1rem; }
+}
+.pro-step { @apply bg-surface-0 border-surface-0-foreground/15; display: inline-flex; align-items: center; border-width: 1px; border-radius: 999px; }
+.pro-step button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; }
+.pro-step button:hover:not(:disabled) { @apply bg-surface-0-foreground/5; }
+.pro-step button:disabled { opacity: .35; }
+.pro-step output { min-width: 2.25rem; text-align: center; font-weight: 650; font-variant-numeric: tabular-nums; }
+.pro-money .pro-input { padding-left: 2.6rem; padding-right: .9rem; }
+.pro-money > span { @apply text-muted-foreground; position: absolute; left: .9rem; pointer-events: none; font-size: .9rem; font-weight: 550; }
+.pro-chip.sm { min-height: 36px; padding: .3rem .75rem; font-size: .8rem; }
+.pro-more { @apply text-accent; display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; font-size: .875rem; font-weight: 600; }
+.pro-bar { display: flex; height: .65rem; overflow: hidden; border-radius: 999px; background: rgb(255 255 255 / .12); }
+.pro-bar > span { height: 100%; transition: width .2s; }
+.pro-legend { display: flex; flex-wrap: wrap; gap: .35rem .9rem; margin-top: .5rem; font-size: .75rem; opacity: .85; }
+.pro-legend i { display: inline-block; width: .6rem; height: .6rem; margin-right: .3rem; border-radius: 2px; vertical-align: -1px; }
+.pro-table tr.on td { background: rgb(122 112 225 / .1); font-weight: 650; }
+.pro-table tfoot td { font-weight: 700; border-top-width: 2px; }
+.pro-formula { @apply bg-surface-1 border-surface-0-foreground/10; margin: 1rem 0; padding: .9rem 1rem; border-width: 1px; border-radius: .8rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }

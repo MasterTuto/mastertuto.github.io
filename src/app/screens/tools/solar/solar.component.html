@@ -1,0 +1,313 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Informe o consumo da conta de luz, a cidade e o tipo de ligação: a calculadora dimensiona o sistema
+      fotovoltaico (kWp, placas, inversor e área), estima a geração mês a mês e calcula a economia e o payback com a
+      regra de transição do Fio B da Lei 14.300/2022.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>27 capitais</span><span>Lei 14.300/2022</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (result(); as r) {
+          <span>{{ r.modules }} placas · payback {{ paybackText(r.payback) }}</span><strong>{{ fmt(r.kwp, 2) }} kWp</strong>
+        } @else {
+          <span>Informe o consumo</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="pro-f top">
+          <div class="flex items-center justify-between gap-3 sm:block">
+            <label class="pro-label" for="sv-consumption">Consumo <small>média mensal</small></label>
+            <div class="pro-segmented w-40 sm:mt-2 sm:w-full" role="group" aria-label="Informar consumo em">
+              <button type="button" [attr.aria-pressed]="!byBill()" (click)="byBill.set(false)">kWh</button>
+              <button type="button" [attr.aria-pressed]="byBill()" (click)="byBill.set(true)">R$</button>
+            </div>
+          </div>
+          <div class="min-w-0">
+            @if (!byBill()) {
+              <div class="pro-input-wrap">
+                <input id="sv-consumption" class="pro-input !pr-20" inputmode="decimal" autocomplete="off" placeholder="ex.: 350"
+                  [value]="consumption()" (input)="consumption.set(val($event))" (focus)="selectOnFocus($event)" [attr.aria-invalid]="belowAvailability()" aria-describedby="sv-cons-hint" />
+                <span class="pro-suffix">kWh/mês</span>
+              </div>
+              <div class="pro-chips mt-2" role="group" aria-label="Consumos comuns">
+                @for (value of consumptionChips; track value) {
+                  <button type="button" class="pro-chip sm" [attr.aria-pressed]="consumptionValue() === value" (click)="consumption.set(value + '')">{{ value }} kWh</button>
+                }
+              </div>
+            } @else {
+              <div class="pro-input-wrap pro-money">
+                <span>R$</span>
+                <input id="sv-consumption" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="valor da conta"
+                  [value]="bill()" (input)="onMoney(bill, $event)" (blur)="tidy(bill)" (focus)="selectOnFocus($event)" aria-describedby="sv-cons-hint" />
+              </div>
+            }
+            <p id="sv-cons-hint" class="pro-hint mt-1.5">
+              @if (belowAvailability()) {
+                <span class="text-red-600">Consumo igual ou abaixo do mínimo da ligação ({{ availability[connection()] }} kWh): não há o que compensar.</span>
+              } @else if (byBill() && consumptionValue() > 0) {
+                ≈ {{ fmt(consumptionValue()) }} kWh/mês a {{ money(tariffValue()) }}/kWh
+              } @else {
+                Some os kWh dos últimos 12 meses da conta e divida por 12.
+              }
+            </p>
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <label class="pro-label" for="sv-city">Cidade <small>irradiação solar</small></label>
+          <div class="flex flex-wrap items-center gap-3">
+            <select id="sv-city" class="pro-select max-w-xs" [value]="city()" (change)="pickCity(val($event))">
+              @for (c of cities; track c.uf) { <option [value]="c.uf" [selected]="c.uf === city()">{{ c.name }} ({{ c.uf }})</option> }
+            </select>
+            <span class="pro-hint">{{ fmt(hspValue(), 2) }} kWh/m²·dia</span>
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="sv-conn">Ligação <small>no padrão de entrada</small></span>
+          <div class="pro-segmented" role="group" aria-labelledby="sv-conn">
+            @for (c of connections; track c.id) {
+              <button type="button" [attr.aria-pressed]="connection() === c.id" (click)="connection.set(c.id)">{{ c.label }}</button>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="sv-module">Módulo</span>
+          <div class="pro-chips" role="group" aria-labelledby="sv-module">
+            @for (value of moduleChips; track value) {
+              <button type="button" class="pro-chip" [attr.aria-pressed]="moduleWp() === value" (click)="moduleWp.set(value)">{{ value }} Wp</button>
+            }
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label">Ajustes <small>opcional</small></span>
+          <div class="min-w-0">
+            <button type="button" class="pro-more" [attr.aria-expanded]="more()" aria-controls="sv-more" (click)="more.set(!more())">
+              {{ more() ? 'Ocultar' : 'Tarifa, preço do sistema, rendimento, consumo diurno…' }}
+              <ng-icon name="tablerChevronDown" aria-hidden="true" [class.rotate-180]="more()" class="transition-transform" />
+            </button>
+            @if (more()) {
+              <div id="sv-more" class="mt-2 grid gap-4">
+                <div class="pro-row">
+                  <div class="pro-field">
+                    <label class="pro-label" for="sv-tariff">Tarifa <small>com impostos</small></label>
+                    <div class="pro-input-wrap">
+                      <input id="sv-tariff" class="pro-input !pr-20" inputmode="decimal" autocomplete="off" [value]="tariff()" (input)="tariff.set(val($event))" (focus)="selectOnFocus($event)" />
+                      <span class="pro-suffix">R$/kWh</span>
+                    </div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="sv-price">Preço do sistema <small>orçamento</small></label>
+                    <div class="pro-input-wrap pro-money"><span>R$</span>
+                      <input id="sv-price" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="estimar" [value]="price()" (input)="onMoney(price, $event)" (blur)="tidy(price)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                </div>
+                <div class="pro-row cols-3">
+                  <div class="pro-field">
+                    <label class="pro-label" for="sv-hsp">HSP <small>kWh/m²·dia</small></label>
+                    <div class="pro-input-wrap"><input id="sv-hsp" class="pro-input" inputmode="decimal" autocomplete="off" [placeholder]="fmt(cityData().hsp, 1)" [value]="hsp()" (input)="hsp.set(val($event))" (focus)="selectOnFocus($event)" /></div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="sv-pr">Rendimento <small>PR</small></label>
+                    <div class="pro-input-wrap"><input id="sv-pr" class="pro-input" inputmode="decimal" autocomplete="off" [value]="pr()" (input)="pr.set(val($event))" (focus)="selectOnFocus($event)" /><span class="pro-suffix">%</span></div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="sv-sim">Uso de dia <small>simultâneo</small></label>
+                    <div class="pro-input-wrap"><input id="sv-sim" class="pro-input" inputmode="decimal" autocomplete="off" [value]="simultaneity()" (input)="simultaneity.set(val($event))" (focus)="selectOnFocus($event)" /><span class="pro-suffix">%</span></div>
+                  </div>
+                </div>
+                <p class="pro-hint -mt-2">HSP com o valor da cidade no SunData (CRESESB) para o seu endereço. Uso de dia: parte da geração consumida na hora (casas: 20–40%; comércio: 50–80%), que não paga Fio B.</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result min-[960px]:row-span-2" aria-live="polite" aria-label="Resultado">
+      @if (result(); as r) {
+        <div class="flex items-start justify-between gap-3">
+          <p class="pro-result-label">Sistema indicado</p>
+          <span class="pro-pill ok">Payback {{ paybackText(r.payback) }}</span>
+        </div>
+        <p class="pro-result-main">{{ fmt(r.kwp, 2) }} <small>kWp</small></p>
+        <p class="pro-result-sub">{{ r.modules }} módulos de {{ moduleWp() }} Wp · gera ≈ {{ fmt(r.monthly) }} kWh/mês</p>
+        <dl class="pro-result-list">
+          <div><dt>Inversor</dt><dd>{{ fmt(r.inverterKw, 1) }} kW <span class="opacity-70">(CC/CA {{ fmt(r.dcAc, 2) }})</span></dd></div>
+          <div><dt>Área de módulos</dt><dd>{{ fmt(r.area, 1) }} m²</dd></div>
+          <div><dt>Energia a compensar</dt><dd>{{ fmt(r.target) }} kWh <span class="opacity-70">({{ percent(r.coverage, 0) }})</span></dd></div>
+          <div><dt>Conta hoje → depois</dt><dd>{{ money(r.billBefore) }} → {{ money(r.billAfter) }}</dd></div>
+          <div><dt>Investimento{{ r.estimatedPrice ? ' estimado' : '' }}</dt><dd>{{ money(r.price) }}</dd></div>
+          <div><dt>Economia no 1º ano</dt><dd>{{ money(r.firstYearSaving) }}</dd></div>
+          <div><dt>Economia em 25 anos</dt><dd>{{ money(r.saving25) }}</dd></div>
+        </dl>
+        @if (r.estimatedPrice) {
+          <p class="mt-3 text-sm leading-relaxed opacity-85">Preço de referência de {{ pricePerWp(r.kwp) }}/Wp instalado. Troque pelo seu orçamento em <em>Ajustes</em>.</p>
+        }
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="pro-btn" (click)="copy()">
+            <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" /> {{ flag.copied() ? 'Copiado' : 'Copiar resumo' }}
+          </button>
+        </div>
+      } @else {
+        <p class="pro-result-label">Sistema indicado</p>
+        <p class="pro-result-empty">
+          {{ belowAvailability() ? 'O consumo não passa do custo de disponibilidade da ligação: um sistema solar não reduziria a conta.' : 'Informe o consumo médio em kWh (está na conta de luz) ou o valor da conta.' }}
+        </p>
+      }
+    </aside>
+
+    @if (result(); as r) {
+      <div class="min-w-0">
+        @if (chart(); as c) {
+          <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="sv-chart">
+            <h2 id="sv-chart" class="font-semibold text-surface-0-foreground">Retorno acumulado em 25 anos</h2>
+            <svg class="mt-3 h-40 w-full" [attr.viewBox]="'0 0 ' + c.width + ' ' + c.height" preserveAspectRatio="none" role="img"
+              [attr.aria-label]="'Fluxo de caixa acumulado: começa em ' + money(-r.price) + ', o sistema se paga em ' + paybackText(r.payback) + ' e chega a ' + money(r.saving25 - r.price) + ' no ano 25'">
+              @for (b of c.bars; track b.label) {
+                <rect [attr.x]="b.x" [attr.y]="b.y" [attr.width]="b.w" [attr.height]="b.h" [attr.fill]="b.positive ? '#16a34a' : '#dc2626'" rx="1" />
+              }
+              <line x1="0" [attr.x2]="c.width" [attr.y1]="c.zero" [attr.y2]="c.zero" stroke="currentColor" stroke-opacity=".35" />
+            </svg>
+            <div class="mt-1 flex justify-between text-xs text-muted-foreground"><span>Investimento</span><span>Ano 25: {{ money(r.saving25 - r.price) }}</span></div>
+            <p class="pro-hint mt-2">Com reajuste de 6% ao ano na tarifa, perda de 0,5% ao ano na geração e o Fio B subindo até 2029. Não inclui troca do inversor (vida útil de 10 a 15 anos) nem manutenção.</p>
+          </section>
+        }
+
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="sv-years">
+          <h2 id="sv-years" class="font-semibold text-surface-0-foreground">Primeiros anos</h2>
+          <div class="pro-table-scroll mt-2">
+            <table class="pro-table">
+              <thead><tr><th scope="col">Ano</th><th scope="col">Geração</th><th scope="col">Economia</th><th scope="col" class="!text-right">Acumulado</th></tr></thead>
+              <tbody>
+                @for (y of r.years.slice(0, 8); track y.year) {
+                  <tr [class.on]="r.payback !== null && $index === floor(r.payback)"><td>{{ y.year }}</td><td>{{ fmt(y.generation) }} kWh</td><td>{{ money(y.saving) }}</td><td class="text-right" [class.text-red-600]="y.cumulative < 0">{{ money(y.cumulative) }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    }
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Pré-dimensionamento.</strong> O projeto final precisa de vistoria do telhado (orientação, inclinação,
+    sombras e estrutura), do padrão de entrada e da aprovação da distribuidora, feita por profissional habilitado com
+    ART/TRT. A irradiação das capitais é uma média anual arredondada; use o SunData para o endereço exato.
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar a calculadora de energia solar</h2>
+      <ol>
+        <li>Pegue a <strong>média de consumo</strong> em kWh dos últimos 12 meses na conta de luz (o histórico vem no verso ou no app da distribuidora). Se preferir, informe o valor da conta em reais.</li>
+        <li>Escolha a <strong>capital</strong> mais próxima: ela define a irradiação solar (HSP). Em <em>Ajustes</em>, digite o HSP exato do seu endereço.</li>
+        <li>Indique o <strong>tipo de ligação</strong>: monofásica (2 fios), bifásica (3) ou trifásica (4). Ele define o consumo mínimo que continua na conta.</li>
+        <li>Escolha a <strong>potência do módulo</strong>. Em 2026, módulos de 580 a 620 Wp são os mais vendidos para telhados residenciais.</li>
+        <li>Veja kWp, placas, inversor, área e payback. Suas escolhas ficam salvas neste navegador para o próximo orçamento.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>A fórmula do dimensionamento fotovoltaico</h2>
+      <div class="pro-formula">Energia a compensar = consumo − custo de disponibilidade (30/50/100 kWh)
+Geração por kWp/mês = HSP × 30,4 dias × PR
+Potência (kWp)      = energia a compensar ÷ geração por kWp
+Módulos             = ⌈ kWp × 1.000 ÷ potência do módulo (Wp) ⌉
+Inversor            = menor padrão ≥ kWp ÷ 1,3
+Área                = kWp ÷ eficiência do módulo (≈ 0,225 kWp/m²)</div>
+      <h3>Exemplo: casa em São Paulo com 350 kWh/mês, ligação bifásica</h3>
+      <p>
+        Energia a compensar: 350 − 50 = 300 kWh. Cada kWp gera 4,7 × 30,4 × 0,80 = 114,4 kWh/mês. Potência:
+        300 ÷ 114,4 = <strong>2,62 kWp</strong>, ou 5 módulos de 610 Wp (3,05 kWp), com inversor de 3 kW e cerca de
+        13,6 m² de módulos. Com tarifa de R$ 0,95/kWh, a economia no primeiro ano fica perto de R$ 3.000.
+      </p>
+    </section>
+
+    <section>
+      <h2>Irradiação solar das capitais</h2>
+      <p>Média diária anual no plano inclinado, arredondada, em kWh/m²·dia (horas de sol pleno):</p>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Capital</th><th scope="col">HSP</th><th scope="col">kWh/mês por kWp</th></tr></thead>
+          <tbody>
+            @for (c of cities; track c.uf) {
+              <tr [class.on]="c.uf === city()"><td>{{ c.name }} ({{ c.uf }})</td><td>{{ fmt(c.hsp, 1) }}</td><td>{{ fmt(c.hsp * 30.4 * 0.8) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="pro-hint mt-2">Geração por kWp com PR de 80%. O Brasil recebe, no lugar menos ensolarado, mais radiação que a Alemanha no mais ensolarado.</p>
+    </section>
+
+    <section>
+      <h2>Lei 14.300/2022 e o Fio B</h2>
+      <p>
+        A geração distribuída começou no Brasil com a Resolução Normativa ANEEL 482/2012, que criou o sistema de
+        compensação: a energia injetada na rede vira crédito de kWh, abatido nos meses seguintes por até 60 meses. Em
+        2015, a REN 687 ampliou a regra para condomínios, autoconsumo remoto e geração compartilhada, e o mercado
+        explodiu: o país passou de alguns milhares de sistemas em 2017 para mais de 3 milhões em 2025.
+      </p>
+      <p>
+        A Lei 14.300/2022 transformou essas regras em lei e criou uma transição. Quem pediu acesso até 7 de janeiro de
+        2023 manteve a compensação integral até 2045. Para os demais, a energia compensada paga uma parte do componente
+        Fio B da tarifa, que remunera a distribuidora pelo uso da rede:
+      </p>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Ano</th>@for (f of fioB; track f.year) { <th scope="col">{{ f.year }}</th> }<th scope="col">2029+</th></tr></thead>
+          <tbody><tr><td>Fio B pago</td>@for (f of fioB; track f.year) { <td>{{ percent(f.share, 0) }}</td> }<td>regra da ANEEL</td></tr></tbody>
+        </table>
+      </div>
+      <p>
+        O Fio B representa, em média, perto de 28% da tarifa de energia, valor usado pela calculadora. Por isso o
+        consumo simultâneo (de dia, enquanto o sol brilha) vale mais do que a energia injetada: ela não passa pela
+        compensação. Ar-condicionado, bombas de piscina e comércio aberto de dia melhoram o retorno.
+      </p>
+      <p>
+        Para ver quanto um ar-condicionado vai consumir antes de dimensionar, use a
+        <a [routerLink]="'tools/calculadora-de-btu' | langLink">calculadora de BTU</a>. Para os cabos entre o inversor e o
+        quadro, a <a [routerLink]="'tools/calculadora-de-bitola-e-queda-de-tensao' | langLink">calculadora de bitola e queda de tensão</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14300.htm" target="_blank" rel="noopener">Lei 14.300/2022</a>, arts. 17 e 27: marco legal da microgeração e minigeração distribuída e transição do Fio B.</li>
+        <li>Resolução Normativa ANEEL 1.000/2021, art. 291: custo de disponibilidade de 30, 50 e 100 kWh.</li>
+        <li><a href="https://cresesb.cepel.br/index.php?section=sundata" target="_blank" rel="noopener">CRESESB/CEPEL, SunData v3</a>: irradiação solar por coordenada.</li>
+        <li>Pereira, E. B. et al. <em>Atlas Brasileiro de Energia Solar</em>, 2ª ed. São José dos Campos: INPE, 2017.</li>
+        <li>ABNT NBR 16690:2019 (instalações elétricas de arranjos fotovoltaicos) e NBR 16274:2014 (comissionamento).</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

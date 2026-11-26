@@ -1,0 +1,357 @@
+<article class="pro-tool" lang="pt-BR">
+  <header class="pro-hero">
+    <h1>{{ tool.name }}</h1>
+    <p>
+      Digite o salário bruto: a calculadora aplica a tabela progressiva do INSS de 2026, o IRRF com a nova isenção
+      até R$ 5.000 da Lei 15.270/2025 e o desconto simplificado quando ele compensa, e mostra o líquido com cada
+      desconto explicado.
+    </p>
+    <div class="pro-badges"><span>Grátis</span><span>Tabelas de 2026</span><span>Sem cadastro</span></div>
+  </header>
+
+  <div class="pro-layout">
+    <div class="min-w-0">
+      <div class="pro-sticky-summary mb-3" aria-hidden="true">
+        @if (result(); as r) {
+          <span>Líquido</span><strong>{{ money(r.net) }}</strong>
+        } @else {
+          <span>Informe o salário</span><strong>–</strong>
+        }
+      </div>
+
+      <div appFormFlow>
+        <div class="pro-f">
+          <label class="pro-label" for="sl-gross">Salário bruto <small>do mês</small></label>
+          <div class="min-w-0">
+            <div class="pro-input-wrap pro-money">
+              <span>R$</span>
+              <input id="sl-gross" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                [value]="gross()" (input)="onMoney(gross, $event)" (blur)="tidy(gross)" (focus)="selectOnFocus($event)" />
+            </div>
+            <div class="pro-chips mt-2" role="group" aria-label="Salários comuns">
+              @for (value of presets; track value) {
+                <button type="button" class="pro-chip sm" [attr.aria-pressed]="grossValue() === value" (click)="setGross(value)">
+                  {{ value === presets[0] ? 'Mínimo · ' : '' }}{{ money(value).replace(',00', '') }}
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="pro-f">
+          <span class="pro-label" id="sl-deps">Dependentes <small>no IR</small></span>
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="pro-step" role="group" aria-labelledby="sl-deps">
+              <button type="button" aria-label="Menos um dependente" [disabled]="dependents() <= 0" (click)="dependents.set(clamp(dependents() - 1, 0, 15))"><ng-icon name="tablerMinus" /></button>
+              <output aria-live="polite">{{ dependents() }}</output>
+              <button type="button" aria-label="Mais um dependente" (click)="dependents.set(clamp(dependents() + 1, 0, 15))"><ng-icon name="tablerPlus" /></button>
+            </div>
+            <span class="pro-hint">{{ money(dependentDeduction) }} por dependente na base do IRRF</span>
+          </div>
+        </div>
+
+        <div class="pro-f top">
+          <span class="pro-label">Outros descontos <small>opcional</small></span>
+          <div class="min-w-0">
+            <button type="button" class="pro-more" [attr.aria-expanded]="more()" aria-controls="sl-more" (click)="more.set(!more())">
+              {{ more() ? 'Ocultar' : extras() ? 'Editar ' + extras() + ' desconto(s)' : 'Vale-transporte, pensão, plano de saúde…' }}
+              <ng-icon name="tablerChevronDown" aria-hidden="true" [class.rotate-180]="more()" class="transition-transform" />
+            </button>
+            @if (more()) {
+              <div id="sl-more" class="mt-2 grid gap-4">
+                <div class="pro-field">
+                  <span class="pro-label" id="sl-vt">Vale-transporte <small>6% do salário</small></span>
+                  <div class="pro-segmented max-w-xs" role="group" aria-labelledby="sl-vt">
+                    <button type="button" [attr.aria-pressed]="!transport()" (click)="transport.set(false)">Não recebe</button>
+                    <button type="button" [attr.aria-pressed]="transport()" (click)="transport.set(true)">Recebe</button>
+                  </div>
+                  @if (transport()) {
+                    <label class="pro-hint mt-1" for="sl-vt-cost">Custo mensal das passagens (o desconto não passa dele; deixe vazio para 6%)</label>
+                    <div class="pro-input-wrap pro-money max-w-xs">
+                      <span>R$</span>
+                      <input id="sl-vt-cost" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="opcional"
+                        [value]="transportCost()" (input)="onMoney(transportCost, $event)" (blur)="tidy(transportCost)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  }
+                </div>
+                <div class="pro-row">
+                  <div class="pro-field">
+                    <label class="pro-label" for="sl-alimony">Pensão alimentícia <small>deduz do IR</small></label>
+                    <div class="pro-input-wrap pro-money">
+                      <span>R$</span>
+                      <input id="sl-alimony" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                        [value]="alimony()" (input)="onMoney(alimony, $event)" (blur)="tidy(alimony)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                  <div class="pro-field">
+                    <label class="pro-label" for="sl-pension">Previdência privada <small>PGBL, deduz do IR</small></label>
+                    <div class="pro-input-wrap pro-money">
+                      <span>R$</span>
+                      <input id="sl-pension" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                        [value]="pension()" (input)="onMoney(pension, $event)" (blur)="tidy(pension)" (focus)="selectOnFocus($event)" />
+                    </div>
+                  </div>
+                </div>
+                <div class="pro-field">
+                  <label class="pro-label" for="sl-other">Outros descontos <small>plano de saúde, VR, empréstimo</small></label>
+                  <div class="pro-input-wrap pro-money max-w-xs">
+                    <span>R$</span>
+                    <input id="sl-other" class="pro-input" inputmode="decimal" autocomplete="off" placeholder="0,00"
+                      [value]="other()" (input)="onMoney(other, $event)" (blur)="tidy(other)" (focus)="selectOnFocus($event)" />
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button type="button" class="pro-btn ghost !min-h-[40px] !px-3 text-sm" (click)="clear()">
+          <ng-icon name="tablerEraser" aria-hidden="true" /> Limpar
+        </button>
+      </div>
+    </div>
+
+    <aside class="pro-result min-[960px]:row-span-2" aria-live="polite" aria-label="Resultado">
+      @if (result(); as r) {
+        <div class="flex items-start justify-between gap-3">
+          <p class="pro-result-label">Salário líquido</p>
+          @if (r.irrf.tax === 0) { <span class="pro-pill ok">Isento de IR</span> }
+          @else { <span class="pro-pill warn">IR {{ percent(r.irrf.tax / r.gross) }}</span> }
+        </div>
+        <p class="pro-result-main">{{ money(r.net) }}</p>
+        <p class="pro-result-sub">{{ percent(r.net / r.gross, 1) }} do bruto de {{ money(r.gross) }}</p>
+        <div class="pro-bar mt-4" aria-hidden="true">
+          @for (part of split(); track part.label) { <span [style.width.%]="part.pct" [style.background]="part.color"></span> }
+        </div>
+        <div class="pro-legend" aria-hidden="true">
+          @for (part of split(); track part.label) { <span><i [style.background]="part.color"></i>{{ part.label }} {{ percent(part.pct / 100, 1) }}</span> }
+        </div>
+        <dl class="pro-result-list">
+          <div><dt>INSS</dt><dd>− {{ money(r.inss.total) }}</dd></div>
+          <div><dt>IRRF</dt><dd>− {{ money(r.irrf.tax) }}</dd></div>
+          @if (r.transport) { <div><dt>Vale-transporte</dt><dd>− {{ money(r.transport) }}</dd></div> }
+          @if (r.alimony) { <div><dt>Pensão alimentícia</dt><dd>− {{ money(r.alimony) }}</dd></div> }
+          @if (r.pension) { <div><dt>Previdência privada</dt><dd>− {{ money(r.pension) }}</dd></div> }
+          @if (r.other) { <div><dt>Outros descontos</dt><dd>− {{ money(r.other) }}</dd></div> }
+          <div><dt>Total de descontos</dt><dd>{{ money(r.discounts) }}</dd></div>
+          <div><dt>FGTS (pago pela empresa)</dt><dd>+ {{ money(r.fgts) }}</dd></div>
+        </dl>
+        @if (r.irrf.reduction > 0) {
+          <p class="mt-3 text-sm leading-relaxed opacity-85">
+            A redução da Lei 15.270/2025 tirou <strong>{{ money(r.irrf.reduction) }}</strong> do imposto deste mês
+            ({{ money(r.irrf.reduction * 13) }} em 12 salários e o 13º).
+          </p>
+        }
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button type="button" class="pro-btn" (click)="copy()">
+            <ng-icon [name]="flag.copied() ? 'tablerCheck' : 'tablerCopy'" aria-hidden="true" /> {{ flag.copied() ? 'Copiado' : 'Copiar resumo' }}
+          </button>
+        </div>
+      } @else {
+        <p class="pro-result-label">Salário líquido</p>
+        <p class="pro-result-empty">Digite o salário bruto do mês, com horas extras e adicionais, para ver o líquido.</p>
+      }
+    </aside>
+
+    @if (result(); as r) {
+      <div class="min-w-0">
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="sl-inss">
+          <h2 id="sl-inss" class="font-semibold text-surface-0-foreground">INSS faixa a faixa</h2>
+          <div class="pro-table-scroll mt-2">
+            <table class="pro-table">
+              <thead><tr><th scope="col">Faixa</th><th scope="col">Alíquota</th><th scope="col">Base na faixa</th><th scope="col" class="!text-right">Desconto</th></tr></thead>
+              <tbody>
+                @for (s of r.inss.slices; track s.rate) {
+                  <tr><td>{{ money(s.from === 0 ? 0 : s.from + 0.01) }} a {{ money(s.to) }}</td><td>{{ percent(s.rate, 1) }}</td><td>{{ money(s.base) }}</td><td class="text-right">{{ money(s.value) }}</td></tr>
+                }
+              </tbody>
+              <tfoot><tr><td colspan="3">Total · alíquota efetiva {{ percent(r.inss.effective) }}</td><td class="text-right">{{ money(r.inss.total) }}</td></tr></tfoot>
+            </table>
+          </div>
+          @if (r.inss.capped) { <p class="pro-hint mt-2">Salário acima do teto de {{ money(ceiling) }}: o desconto fica limitado a {{ money(r.inss.total) }}.</p> }
+        </section>
+
+        <section class="border-t border-surface-0-foreground/10 py-5" aria-labelledby="sl-irrf">
+          <h2 id="sl-irrf" class="font-semibold text-surface-0-foreground">Imposto de Renda retido na fonte</h2>
+          <dl class="mt-2 grid gap-0 text-sm">
+            <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="text-muted-foreground">Rendimento tributável</dt><dd class="tabular-nums">{{ money(r.gross) }}</dd></div>
+            <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2">
+              <dt class="text-muted-foreground">Deduções legais <small>(INSS{{ dependents() ? ', dependentes' : '' }}{{ r.alimony ? ', pensão' : '' }}{{ r.pension ? ', previdência' : '' }})</small></dt>
+              <dd class="tabular-nums" [class.line-through]="r.irrf.method === 'simplified'">− {{ money(r.irrf.legalDeductions) }}</dd>
+            </div>
+            <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2">
+              <dt class="text-muted-foreground">Desconto simplificado</dt>
+              <dd class="tabular-nums" [class.line-through]="r.irrf.method === 'legal'">− {{ money(simplified) }}</dd>
+            </div>
+            <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="font-semibold">Base de cálculo</dt><dd class="font-semibold tabular-nums">{{ money(r.irrf.base) }}</dd></div>
+            <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="text-muted-foreground">Tabela: {{ percent(r.irrf.rate, 1) }} − parcela a deduzir</dt><dd class="tabular-nums">{{ money(r.irrf.tableTax) }}</dd></div>
+            <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="text-muted-foreground">Redução da Lei 15.270/2025</dt><dd class="tabular-nums">− {{ money(r.irrf.reduction) }}</dd></div>
+            <div class="flex justify-between gap-4 py-2"><dt class="font-semibold">IRRF do mês</dt><dd class="font-semibold tabular-nums">{{ money(r.irrf.tax) }}</dd></div>
+          </dl>
+          <p class="pro-hint mt-1">
+            Usamos {{ r.irrf.method === 'simplified' ? 'o desconto simplificado, maior que as deduções legais' : 'as deduções legais, maiores que o desconto simplificado' }}.
+          </p>
+        </section>
+      </div>
+    }
+  </div>
+
+  <p class="pro-notice max-w-3xl">
+    <strong>Estimativa para conferência.</strong> O holerite pode trazer outras verbas (adicional noturno,
+    insalubridade, faltas, DSR, coparticipações) e cada empresa arredonda a seu modo. Para pró-labore, o INSS é de
+    11% até o teto e o desconto simplificado também vale.
+  </p>
+
+  <div class="pro-reading">
+    <section>
+      <h2>Como usar a calculadora de salário líquido</h2>
+      <ol>
+        <li>Digite o <strong>salário bruto</strong> do mês: salário-base mais horas extras, comissões e adicionais. Os atalhos preenchem o salário mínimo de 2026 (R$ 1.621) e os valores-chave da nova isenção (R$ 5.000 e R$ 7.350).</li>
+        <li>Informe os <strong>dependentes</strong> que constam para o Imposto de Renda na empresa.</li>
+        <li>Se quiser, abra <em>Outros descontos</em> para vale-transporte, pensão alimentícia, previdência privada e descontos como plano de saúde.</li>
+        <li>O resultado muda enquanto você digita. Use <em>Copiar resumo</em> para mandar a conta por WhatsApp ou e-mail. Os valores ficam salvos neste navegador.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Como o INSS de 2026 é calculado</h2>
+      <p>
+        Desde a Reforma da Previdência (Emenda Constitucional 103/2019, em vigor a partir de março de 2020), a
+        contribuição do empregado é <strong>progressiva por faixas</strong>, como o Imposto de Renda: cada alíquota
+        incide só sobre a parte do salário que está dentro da sua faixa. Antes, uma única alíquota (8%, 9% ou 11%)
+        valia sobre o salário inteiro, e quem passava de uma faixa para outra podia ganhar menos depois de um aumento.
+      </p>
+      <p>
+        Em 2026 as faixas foram corrigidas em 3,9% pela Portaria Interministerial MPS/MF nº 13, junto com o salário
+        mínimo de R$ 1.621,00 (Decreto 12.797/2025). O teto de contribuição passou a {{ money(ceiling) }}, com
+        desconto máximo de R$ 988,09.
+      </p>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Salário de contribuição</th><th scope="col">Alíquota</th><th scope="col">Desconto máximo na faixa</th></tr></thead>
+          <tbody>
+            @for (b of inssTable; track b.upTo; let i = $index) {
+              <tr><td>{{ rangeLabel(inssTable, i) }}</td><td>{{ percent(b.rate, 1) }}</td><td>{{ money((b.upTo - (i ? inssTable[i - 1].upTo : 0)) * b.rate) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="pro-formula">INSS = Σ (parte do salário dentro da faixa × alíquota da faixa)
+
+Salário de R$ 4.500,00:
+  1.621,00 × 7,5%              = 121,575
+  (2.902,84 − 1.621,00) × 9%   = 115,366
+  (4.354,27 − 2.902,84) × 12%  = 174,172
+  (4.500,00 − 4.354,27) × 14%  =  20,402
+  INSS                         = 431,51 → efetiva 9,59%</div>
+      <p class="pro-hint">As faixas são somadas sem arredondar e o total é arredondado para centavos, como na tabela oficial (que dá R$ 988,09 no teto).</p>
+    </section>
+
+    <section>
+      <h2>Como o Imposto de Renda na fonte é calculado em 2026</h2>
+      <p>
+        O IRRF mensal segue o art. 7º da Lei 7.713/1988 e a tabela progressiva da Lei 9.250/1995, atualizada pela
+        Lei 15.191/2025 (isenção da tabela até R$ 2.428,80). A grande mudança de 2026 veio com a
+        <strong>Lei 15.270/2025</strong>, que criou o art. 3º-A da Lei 9.250: uma <strong>redução do imposto</strong>
+        calculada sobre o rendimento tributável do mês. Ela não mexe na tabela; diminui o imposto que sai dela.
+      </p>
+      <ol>
+        <li><strong>Base de cálculo</strong> = rendimento tributável − deduções. As deduções são o INSS, {{ money(dependentDeduction) }} por dependente, a pensão alimentícia judicial e a previdência privada; ou, se for maior, o desconto simplificado de {{ money(simplified) }}.</li>
+        <li><strong>Imposto da tabela</strong> = base × alíquota da faixa − parcela a deduzir.</li>
+        <li><strong>Redução</strong>: até R$ 5.000,00 de rendimento, até {{ money(reductionMax) }} (o imposto zera); de R$ 5.000,01 a R$ 7.350,00, R$ 978,62 − 0,133145 × rendimento; acima disso, nada.</li>
+        <li><strong>IRRF</strong> = imposto da tabela − redução.</li>
+      </ol>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Base de cálculo mensal</th><th scope="col">Alíquota</th><th scope="col">Parcela a deduzir</th></tr></thead>
+          <tbody>
+            @for (b of irrfTable; track b.upTo; let i = $index) {
+              <tr [class.on]="result()?.irrf?.bracket === i"><td>{{ rangeLabel(irrfTable, i) }}</td><td>{{ b.rate ? percent(b.rate, 1) : 'Isento' }}</td><td>{{ b.deduction ? money(b.deduction) : '–' }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <h3>Exemplo: salário de R$ 6.000,00 sem dependentes</h3>
+      <div class="pro-formula">INSS                         = 641,51
+Deduções legais (641,51) &gt; simplificado (607,20) → usa 641,51
+Base = 6.000,00 − 641,51      = 5.358,49
+Tabela: 5.358,49 × 27,5% − 908,73 = 564,85
+Redução: 978,62 − 0,133145 × 6.000 = 179,75
+IRRF = 564,85 − 179,75        = 385,10
+Líquido = 6.000 − 641,51 − 385,10 = 4.973,39</div>
+    </section>
+
+    <section>
+      <h2>Salário líquido de 2026 por faixa de salário</h2>
+      <p>Valores sem dependentes e sem outros descontos, com o desconto simplificado quando ele é melhor.</p>
+      <div class="pro-table-scroll">
+        <table class="pro-table">
+          <thead><tr><th scope="col">Bruto</th><th scope="col">INSS</th><th scope="col">IRRF</th><th scope="col">Líquido</th><th scope="col">% do bruto</th></tr></thead>
+          <tbody>
+            @for (row of examples; track row.gross) {
+              <tr><td>{{ money(row.gross) }}</td><td>{{ money(row.result.inss.total) }}</td><td>{{ money(row.result.irrf.tax) }}</td><td>{{ money(row.result.net) }}</td><td>{{ percent(row.result.net / row.gross, 1) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Um pouco de história: do imposto de 1922 à isenção de 2026</h2>
+      <p>
+        O Imposto de Renda brasileiro nasceu com a Lei de Orçamento de 1922 e passou a ser cobrado em 1924. A
+        retenção na fonte sobre salários se consolidou nas décadas seguintes e, com a Lei 7.713/1988, ganhou o
+        formato atual: tabela progressiva mensal e ajuste na declaração anual. Durante anos a tabela ficou sem
+        correção (de 2015 a 2023 não mudou), e a faixa de isenção, que já equivaleu a vários salários mínimos,
+        encostou no próprio mínimo.
+      </p>
+      <p>
+        A partir de 2023 a isenção voltou a subir, primeiro com o desconto simplificado mensal e depois com a correção
+        da tabela de 2025. Em novembro de 2025, a Lei 15.270 levou a isenção efetiva para R$ 5.000 por mês e criou
+        uma faixa de transição até R$ 7.350, compensada pela tributação mínima de altas rendas e de dividendos.
+      </p>
+      <p>
+        No INSS, a contribuição do empregado existe desde as Caixas de Aposentadoria e Pensões da Lei Eloy Chaves
+        (1923). O INSS como conhecemos foi criado em 1990, e a Lei 8.212/1991 organizou o custeio. As alíquotas
+        progressivas por faixa são o desenho mais recente, de 2020.
+      </p>
+    </section>
+
+    <section>
+      <h2>Salário líquido não é o custo da empresa</h2>
+      <p>
+        Além do bruto, o empregador paga FGTS de 8%, provisões de 13º e férias com 1/3 e, fora do Simples Nacional,
+        cerca de 28% de encargos sobre a folha. Para ver quanto um empregado custa de verdade, use a
+        <a [routerLink]="'tools/calculadora-de-custo-de-funcionario' | langLink">calculadora de custo de funcionário CLT</a>.
+        Em caso de desligamento, a <a [routerLink]="'tools/calculadora-de-rescisao-trabalhista' | langLink">calculadora de rescisão</a>
+        usa as mesmas tabelas de INSS e IRRF.
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas frequentes</h2>
+      @for (item of faq; track item.question) {
+        <details>
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </section>
+
+    <section>
+      <h2>Fontes</h2>
+      <ul>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15270.htm" target="_blank" rel="noopener">Lei 15.270/2025</a>, que incluiu o art. 3º-A na Lei 9.250/1995 (redução do IRRF a partir de 2026).</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l9250.htm" target="_blank" rel="noopener">Lei 9.250/1995</a>, arts. 3º, 4º e 8º: tabela progressiva, deduções e dependentes.</li>
+        <li>Portaria Interministerial MPS/MF nº 13, de 9 de janeiro de 2026: faixas e teto do INSS de 2026.</li>
+        <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm" target="_blank" rel="noopener">Lei 8.212/1991</a>, art. 20, e Emenda Constitucional 103/2019, art. 28: contribuição progressiva do segurado.</li>
+        <li>Decreto 12.797/2025: salário mínimo de R$ 1.621,00 em 2026.</li>
+        <li><a href="https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas" target="_blank" rel="noopener">Receita Federal: tabelas do Imposto de Renda</a>.</li>
+      </ul>
+    </section>
+  </div>
+
+  <app-pro-tool-footer [slug]="tool.slug" />
+</article>

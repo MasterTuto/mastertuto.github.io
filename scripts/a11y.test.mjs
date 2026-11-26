@@ -27,6 +27,8 @@ const PAGES = [
   '/pt/games/minesweeper/', '/pt/cases/jingle-ia-br/',
   ...SERVICES.map((slug) => `/pt/services/${slug}/`),
   '/en/services/agentes-de-ia/',
+  ...['calculadora-de-salario-liquido', 'calculadora-de-custo-de-funcionario', 'calculadora-de-rescisao-trabalhista',
+    'calculadora-de-honorarios-de-sucumbencia', 'calculadora-de-energia-solar', 'calculadora-luminotecnica'].map((slug) => `/tools/${slug}/`),
 ];
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
