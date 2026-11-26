@@ -76,7 +76,6 @@
     </div>
     @for (item of copy.solution.items; track item; let i = $index) {
       <p class="flex flex-col gap-4 rounded-2xl bg-surface-1 p-6 text-surface-0-foreground shadow-sm md:last:col-span-3">
-        <span class="font-mono text-xs font-semibold text-accent-ink">{{ (i + 1).toString().padStart(2, '0') }}</span>
         <span class="font-medium">{{ item }}</span>
       </p>
     }
@@ -101,7 +100,6 @@
     <ol class="grid items-end gap-4 md:grid-cols-4">
       @for (step of copy.steps.items; track step.title; let i = $index) {
         <li class="flex flex-col gap-2 rounded-t-xl border-t-4 border-accent bg-surface-1 p-5 md:min-h-[var(--h)]" [style.--h]="10 + i * 3 + 'rem'">
-          <span class="font-mono text-xs font-semibold text-accent-ink">{{ i + 1 }}</span>
           <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
           <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
         </li>

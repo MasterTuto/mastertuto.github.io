@@ -1,4 +1,4 @@
-import { LandingContent } from '../landing.model';
+import type { LandingContent } from '../landing.model';
 import { detailsField, nameField } from './common';
 
 /** Words of the blogs-e-portfolios page. */

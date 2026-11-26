@@ -75,7 +75,6 @@
     <ol class="grid gap-6 md:grid-cols-4">
       @for (step of copy.steps.items; track step.title; let i = $index) {
         <li class="flex flex-col gap-3 border-t-2 pt-5" [class.border-accent]="i === copy.steps.items.length - 1" [class.border-surface-0-foreground]="i !== copy.steps.items.length - 1">
-          <span class="font-mono text-sm text-muted-foreground">{{ i + 1 }} / {{ copy.steps.items.length }}</span>
           <span class="font-semibold text-surface-0-foreground">{{ step.title }}</span>
           <span class="text-sm leading-relaxed text-muted-foreground">{{ step.text }}</span>
         </li>
@@ -87,7 +86,7 @@
   <figure bcs-reveal class="mx-auto grid w-full max-w-xl grid-cols-[auto_1fr] items-start gap-x-4 gap-y-1 rounded-2xl bg-surface-1 p-6 shadow-md">
     <span class="row-span-2 grid size-11 place-items-center rounded-xl bg-accent text-xl text-accent-foreground" aria-hidden="true"><ng-icon name="tablerRobot" /></span>
     <blockquote class="order-2 text-xl font-medium leading-snug text-surface-0-foreground">{{ copy.outcome }}</blockquote>
-    <figcaption class="order-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{{ pt ? 'Hoje, 07:00' : 'Today, 7:00 AM' }}</figcaption>
+    <figcaption class="order-1 text-sm text-muted-foreground">{{ pt ? 'Hoje, 07:00' : 'Today, 7:00 AM' }}</figcaption>
   </figure>
 
   <!-- Price and form -->

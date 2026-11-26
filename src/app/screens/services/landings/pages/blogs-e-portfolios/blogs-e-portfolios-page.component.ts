@@ -13,7 +13,6 @@ import { LANDING_PAGE_ICONS, LANDING_PAGE_IMPORTS } from '../../landing-page.imp
   host: { class: 'landing-page' },
 })
 export class BlogsEPortfoliosPageComponent extends LandingPageBase {
-  protected readonly chapter = this.pt ? 'Capítulo' : 'Chapter';
   /** Table of contents: each entry jumps to a chapter of the page. */
   protected readonly contents = [
     { id: 'problema', label: this.copy.problem.title },
