@@ -9,36 +9,24 @@ const baixadaSantista: Region = {
   where: 'na Baixada Santista',
   group: 'baixada',
   isRegion: true,
-  title: 'Nove cidades, uma só região. Seu cliente procura em todas.',
   intro:
-    'Sites, automação e agentes de IA para negócios da Baixada Santista, feitos por quem mora em Santos e conhece o jeito como a região compra e contrata.',
+    'Criação de sites, landing pages, lojas virtuais e sistemas para empresas das nove cidades da Baixada Santista. Sites rápidos, que aparecem no Google e levam o cliente direto para o seu WhatsApp.',
   context:
     'Na Baixada muita gente mora numa cidade, trabalha em outra e contrata serviço na terceira. O movimento muda com a temporada, o porto e o polo industrial, e a busca no Google quase sempre leva o nome da cidade ou do bairro.',
   places: ['Bertioga', 'Guarujá', 'Santos', 'São Vicente', 'Cubatão', 'Praia Grande', 'Mongaguá', 'Itanhaém', 'Peruíbe'],
-  searches: [
-    'eletricista na baixada santista',
-    'contador santos ou são vicente',
-    'manutenção de ar-condicionado praia grande',
-    'fotógrafo de casamento guarujá',
-  ],
   opportunities: [
     {
-      title: 'Uma página para cada cidade que você atende',
+      title: 'Página para cada cidade atendida',
       text: 'Quem atende Santos, São Vicente e Praia Grande precisa aparecer nas três buscas. Páginas por cidade, com bairros e exemplos reais, fazem isso sem parecer spam.',
     },
     {
-      title: 'Temporada sem perder mensagem',
+      title: 'Atendimento automático na temporada',
       text: 'De dezembro a fevereiro a procura sobe nas cidades de praia. Um agente no WhatsApp responde preço e disponibilidade enquanto você está no serviço.',
     },
     {
-      title: 'Empresas que atendem o porto e a indústria',
+      title: 'Sites institucionais para empresas do porto e da indústria',
       text: 'Fornecedores de logística e manutenção vendem para outras empresas. Site institucional claro, portfólio e integrações com o sistema do cliente pesam na escolha.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Para prestadores que atendem várias cidades e dependem do Google e da indicação.' },
-    { slug: 'seo-e-geo', why: 'Páginas por cidade e por bairro, Google Meu Negócio e respostas que as IAs conseguem citar.' },
-    { slug: 'agentes-de-ia', why: 'Atendimento no WhatsApp a qualquer hora, sem perder cliente no pico da temporada.' },
   ],
   segments: ['eletricista', 'ar-condicionado', 'advogado', 'contador', 'fotografo'],
   faq: [
@@ -63,36 +51,24 @@ const bertioga: Region = {
   name: 'Bertioga',
   where: 'em Bertioga',
   group: 'baixada',
-  title: 'O dono da casa está em São Paulo. Ele te procura pelo celular.',
   intro:
-    'Sites e atendimento automático para quem presta serviço em Bertioga, onde boa parte dos clientes tem casa de temporada e contrata à distância.',
+    'Criação de sites para prestadores de serviço, pousadas e comércios de Bertioga, da Riviera de São Lourenço a Boracéia. Site rápido, encontrado no Google e com orçamento direto pelo WhatsApp.',
   context:
     'Bertioga vive de casas de veraneio, condomínios e turismo, da Riviera de São Lourenço a Boracéia. Muitos proprietários moram na capital e procuram jardineiro, piscineiro ou eletricista pela internet antes de descer a serra.',
   places: ['Centro', 'Riviera de São Lourenço', 'Indaiá', 'Maitinga', 'Vista Linda', 'Rio da Praia', 'Costa do Sol', 'Boracéia'],
-  searches: [
-    'jardineiro riviera de são lourenço',
-    'limpeza de casa de praia bertioga',
-    'instalação de ar-condicionado bertioga',
-    'eletricista em bertioga',
-  ],
   opportunities: [
     {
-      title: 'Contratação à distância',
+      title: 'Site para quem contrata à distância',
       text: 'O cliente não está na cidade para pedir indicação ao vizinho. Fotos de trabalhos, preços de referência e avaliações fazem o papel da conversa no portão.',
     },
     {
-      title: 'Manutenção recorrente de casas fechadas',
+      title: 'Planos de manutenção pelo site',
       text: 'Casa de temporada precisa de cuidado o ano todo. Um site com planos mensais e lembretes automáticos no WhatsApp transforma serviço avulso em contrato.',
     },
     {
-      title: 'Pousadas e passeios',
+      title: 'Sites para pousadas e passeios',
       text: 'Quem viaja compara opções no celular. Página rápida, fotos boas e reserva pelo WhatsApp evitam pagar comissão em tudo.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Para prestadores que atendem casas de temporada e condomínios.' },
-    { slug: 'agentes-de-ia', why: 'Responde orçamento e agenda visita enquanto você está em outra casa.' },
-    { slug: 'seo-e-geo', why: 'Aparecer na busca com o nome do bairro ou do condomínio.' },
   ],
   segments: ['jardineiro', 'limpador-de-vidros', 'ar-condicionado', 'pintor'],
   faq: [
@@ -117,36 +93,24 @@ const guaruja: Region = {
   name: 'Guarujá',
   where: 'no Guarujá',
   group: 'baixada',
-  title: 'No Guarujá, a temporada dura três meses. A concorrência, o ano inteiro.',
   intro:
-    'Sites, SEO local e agentes de IA para negócios do Guarujá e de Vicente de Carvalho, do comércio de bairro aos serviços para casas de alto padrão.',
+    'Criação de sites, lojas virtuais e SEO local para empresas do Guarujá e de Vicente de Carvalho. Site profissional, rápido e com orçamento direto pelo WhatsApp.',
   context:
     'O Guarujá tem dois ritmos: o turismo e as casas de veraneio da orla, de Pitangueiras a Pernambuco, e o comércio do dia a dia em Vicente de Carvalho. Os dois procuram serviço no Google, mas com buscas e expectativas bem diferentes.',
   places: ['Pitangueiras', 'Enseada', 'Astúrias', 'Tombo', 'Guaiúba', 'Pernambuco', 'Centro', 'Santa Rosa', 'Vicente de Carvalho', 'Perequê'],
-  searches: [
-    'eletricista enseada guarujá',
-    'limpeza de vidros guarujá',
-    'fotógrafo de família praia guarujá',
-    'contador vicente de carvalho',
-  ],
   opportunities: [
     {
-      title: 'Cliente exigente, decisão pela aparência',
+      title: 'Site profissional para clientes de alto padrão',
       text: 'Quem contrata serviço para casa de alto padrão escolhe pelo cuidado que enxerga. Um site bem feito, rápido e com portfólio já filtra o orçamento.',
     },
     {
-      title: 'Dois públicos, duas páginas',
+      title: 'Páginas para Vicente de Carvalho e para a orla',
       text: 'Morador de Vicente de Carvalho e veranista da Enseada buscam coisas diferentes. Páginas separadas falam com cada um sem confundir o outro.',
     },
     {
-      title: 'Pico de mensagens no fim de semana',
+      title: 'Atendimento automático no WhatsApp',
       text: 'No verão as mensagens chegam todas no sábado. Atendimento automático responde, qualifica e agenda sem você largar o serviço.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Para prestadores que atendem as casas da orla e os condomínios.' },
-    { slug: 'seo-e-geo', why: 'Aparecer quando a busca leva o nome da praia ou do bairro.' },
-    { slug: 'agentes-de-ia', why: 'Para não perder o cliente que chama no sábado de temporada.' },
   ],
   segments: ['limpador-de-vidros', 'jardineiro', 'ar-condicionado', 'eletricista', 'fotografo'],
   faq: [
@@ -171,36 +135,24 @@ const santos: Region = {
   name: 'Santos',
   where: 'em Santos',
   group: 'baixada',
-  title: 'Em Santos, todo mundo indica alguém. Faça o Google indicar você.',
   intro:
-    'Sites, SEO local, automação e agentes de IA para negócios de Santos, feitos por um desenvolvedor que mora na cidade.',
+    'Criação de sites, landing pages, lojas virtuais, sistemas e automação para empresas e profissionais de Santos. Desenvolvedor web da cidade, com atendimento direto pelo WhatsApp.',
   context:
     'Santos concentra o comércio e os serviços da Baixada: clínicas e escritórios no Gonzaga e no Boqueirão, empresas ligadas ao porto no Macuco e no Centro, e prestadores que atendem a ilha inteira. A disputa por atenção é por bairro, e quase sempre começa no Google ou no Maps.',
   places: ['Gonzaga', 'Boqueirão', 'Ponta da Praia', 'Embaré', 'Aparecida', 'José Menino', 'Pompeia', 'Campo Grande', 'Vila Mathias', 'Marapé', 'Macuco', 'Centro'],
-  searches: [
-    'criação de site em santos',
-    'ginecologista no gonzaga',
-    'advogado trabalhista santos',
-    'conserto de ar-condicionado boqueirão',
-  ],
   opportunities: [
     {
-      title: 'Busca por bairro',
+      title: 'SEO local por bairro',
       text: 'Em Santos, ninguém quer atravessar a cidade. Mostrar o bairro onde você atende, com endereço e mapa, decide entre você e o concorrente da outra quadra.',
     },
     {
-      title: 'Empresas do porto e do comércio exterior',
+      title: 'Sites e integrações para empresas do porto',
       text: 'Despachantes, transportadoras e prestadores portuários vendem para outras empresas. Site institucional bilíngue e integrações entre sistemas encurtam a negociação.',
     },
     {
-      title: 'Consultórios e escritórios cheios de mensagem',
+      title: 'Agendamento automático para consultórios e escritórios',
       text: 'Clínicas e escritórios recebem as mesmas perguntas todo dia. Agendamento automático e respostas prontas devolvem horas para a equipe.',
     },
-  ],
-  services: [
-    { slug: 'seo-e-geo', why: 'Aparecer no Google e no Maps quando a busca leva o nome do bairro.' },
-    { slug: 'sites-para-autonomos', why: 'Para profissionais liberais e prestadores que hoje vivem só de indicação.' },
-    { slug: 'integracoes', why: 'Para empresas do porto e do comércio que ainda copiam dados entre sistemas.' },
   ],
   segments: ['advogado', 'ginecologista', 'contador', 'ar-condicionado', 'eletricista'],
   faq: [
@@ -225,36 +177,24 @@ const saoVicente: Region = {
   name: 'São Vicente',
   where: 'em São Vicente',
   group: 'baixada',
-  title: 'Seu cliente mora em São Vicente. O primeiro resultado é de Santos.',
   intro:
-    'Sites e automação para negócios de São Vicente, da ilha à área continental, para que quem mora perto encontre você antes de atravessar o canal.',
+    'Criação de sites para empresas, comércios e prestadores de serviço de São Vicente, da ilha à área continental. Site rápido, que aparece no Google e leva o cliente para o seu WhatsApp.',
   context:
     'A primeira vila do Brasil divide a ilha com Santos e tem um comércio de bairro forte, do Itararé à área continental. Como Santos domina as buscas da região, quem é de São Vicente precisa dizer com todas as letras onde atende.',
   places: ['Centro', 'Itararé', 'Gonzaguinha', 'Boa Vista', 'Vila Valença', 'Parque Bitaru', 'Catiapoã', 'Jardim Independência', 'Humaitá', 'Parque das Bandeiras'],
-  searches: [
-    'pedreiro em são vicente',
-    'banho e tosa itararé',
-    'montador de móveis são vicente',
-    'eletricista área continental são vicente',
-  ],
   opportunities: [
     {
-      title: 'Ganhar do resultado de Santos',
+      title: 'Aparecer na busca com o nome de São Vicente',
       text: 'Para buscas com "São Vicente", um site que cita a cidade, os bairros e mostra trabalhos feitos ali passa na frente de empresas que só falam de Santos.',
     },
     {
-      title: 'Área continental',
+      title: 'Sites para empresas da área continental',
       text: 'Bairros como Humaitá e Parque das Bandeiras ficam longe da ilha e têm poucos prestadores na internet. Quem aparece primeiro ali leva o cliente.',
     },
     {
-      title: 'Negócio de indicação que quer crescer',
+      title: 'Site com botão de WhatsApp para negócios de bairro',
       text: 'Muito serviço na cidade vive do boca a boca. Um site simples com o botão do WhatsApp transforma a indicação em contato com um toque.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Um site simples, rápido e seu, com os bairros que você atende.' },
-    { slug: 'landing-pages', why: 'Para anunciar um serviço ou uma promoção com uma página feita para isso.' },
-    { slug: 'agentes-de-ia', why: 'Respostas automáticas no WhatsApp para preço, horário e endereço.' },
   ],
   segments: ['pedreiro', 'pintor', 'eletricista', 'banho-e-tosa', 'montador-de-moveis'],
   faq: [
@@ -267,8 +207,8 @@ const saoVicente: Region = {
       answer: 'Sim, e vale destacar os bairros de lá: a concorrência na internet é menor e quem mora ali prefere quem está perto.',
     },
     {
-      question: 'Quanto custa um site simples?',
-      answer: 'Sites para autônomos começam em R$ 1.500, com domínio, página de serviços e botão de WhatsApp. O valor exato depende do número de páginas.',
+      question: 'Quanto tempo leva para criar um site em São Vicente?',
+      answer: 'Um site para autônomo ou pequena empresa fica pronto em cerca de uma semana depois da primeira conversa. Lojas virtuais e sistemas levam algumas semanas, entregues por partes.',
     },
   ],
   nearby: ['santos', 'praia-grande', 'cubatao', 'baixada-santista'],
@@ -279,36 +219,24 @@ const cubatao: Region = {
   name: 'Cubatão',
   where: 'em Cubatão',
   group: 'baixada',
-  title: 'Cubatão funciona em turno. Seu processo ainda funciona em planilha.',
   intro:
-    'Sistemas sob medida, automação e sites institucionais para empresas de Cubatão, dos fornecedores do polo industrial ao comércio do Centro.',
+    'Desenvolvimento de sistemas, automação e criação de sites institucionais para empresas de Cubatão, dos fornecedores do polo industrial ao comércio local.',
   context:
     'Cubatão abriga um dos maiores polos industriais do país, com refinaria, siderurgia e fábricas de fertilizantes. Em volta delas existe uma rede de fornecedores de manutenção, transporte e segurança do trabalho que vende para outras empresas e ainda controla muita coisa em planilha.',
   places: ['Centro', 'Vila Nova', 'Jardim Casqueiro', 'Vila Natal', 'Parque Fernando Jorge', 'Vila Couto', 'Jardim Nova República'],
-  searches: [
-    'manutenção industrial cubatão',
-    'empresa de segurança do trabalho cubatão',
-    'contador em cubatão',
-    'eletricista jardim casqueiro',
-  ],
   opportunities: [
     {
-      title: 'Fornecedor que precisa parecer grande',
+      title: 'Site institucional para fornecedores da indústria',
       text: 'Compradores de indústria pesquisam o fornecedor antes da visita técnica. Site institucional com serviços, certificações e obras realizadas pesa na lista de homologação.',
     },
     {
-      title: 'Ordens de serviço fora da planilha',
+      title: 'Sistema de ordens de serviço',
       text: 'Equipes em campo, turnos e relatórios para o cliente: um sistema web simples substitui a planilha compartilhada e o grupo de WhatsApp.',
     },
     {
-      title: 'Relatórios que se montam sozinhos',
+      title: 'Automação de relatórios',
       text: 'Medições, horas e checklists viram relatório em PDF no fim do dia, sem alguém juntar tudo à mão.',
     },
-  ],
-  services: [
-    { slug: 'sistemas-sob-medida', why: 'Ordens de serviço, equipes e relatórios num lugar só, com histórico.' },
-    { slug: 'automacao-de-processos', why: 'Relatórios, cobranças e planilhas atualizados sem trabalho manual.' },
-    { slug: 'sites-para-autonomos', why: 'Para prestadores e comércios que atendem a cidade e os bairros.' },
   ],
   segments: ['eletricista', 'ar-condicionado', 'contador', 'advogado'],
   faq: [
@@ -333,36 +261,24 @@ const praiaGrande: Region = {
   name: 'Praia Grande',
   where: 'na Praia Grande',
   group: 'baixada',
-  title: 'A Praia Grande não para de crescer. Quem chega procura tudo no Google.',
   intro:
-    'Sites, anúncios e atendimento automático para negócios da Praia Grande, uma cidade cheia de prédios novos, moradores recém-chegados e veranistas.',
+    'Criação de sites, landing pages e atendimento automático no WhatsApp para empresas e prestadores de serviço da Praia Grande, do Canto do Forte ao Solemar.',
   context:
     'A Praia Grande é uma das cidades que mais crescem na Baixada, com prédios novos do Canto do Forte ao Solemar. Quem acabou de se mudar ainda não tem a quem pedir indicação: procura reforma, móveis, ar-condicionado e pet shop no celular.',
   places: ['Canto do Forte', 'Boqueirão', 'Guilhermina', 'Aviação', 'Tupi', 'Ocian', 'Mirim', 'Caiçara', 'Real', 'Maracanã', 'Vila Sônia', 'Solemar'],
-  searches: [
-    'montador de móveis praia grande',
-    'pintor de apartamento guilhermina',
-    'instalação de ar-condicionado praia grande',
-    'banho e tosa no boqueirão praia grande',
-  ],
   opportunities: [
     {
-      title: 'Apartamento novo, lista de serviços longa',
+      title: 'Sites para prestadores de serviço residencial',
       text: 'Quem recebe as chaves precisa de montador, pintor, eletricista e ar-condicionado na mesma semana. Aparecer nessa busca é cliente certo.',
     },
     {
-      title: 'Bairros enormes e distantes',
+      title: 'Bairros atendidos no site',
       text: 'Do Canto do Forte ao Solemar são muitos quilômetros de orla. Dizer quais bairros você atende evita orçamento perdido e deslocamento à toa.',
     },
     {
-      title: 'Pico na temporada',
+      title: 'Atendimento automático na temporada',
       text: 'No verão a cidade enche e as mensagens dobram. Atendimento automático no WhatsApp responde enquanto você trabalha.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Para prestadores que atendem os prédios novos e os bairros da orla.' },
-    { slug: 'landing-pages', why: 'Para anúncios de temporada ou de entrega de chaves, com uma oferta só.' },
-    { slug: 'agentes-de-ia', why: 'Responde preço e disponibilidade quando as mensagens se acumulam.' },
   ],
   segments: ['montador-de-moveis', 'pintor', 'ar-condicionado', 'pedreiro', 'banho-e-tosa'],
   faq: [
@@ -387,36 +303,24 @@ const mongagua: Region = {
   name: 'Mongaguá',
   where: 'em Mongaguá',
   group: 'baixada',
-  title: 'Em Mongaguá, quase ninguém está no Google. Comece por aí.',
   intro:
-    'Sites simples e atendimento pelo WhatsApp para prestadores e comércios de Mongaguá, onde aparecer primeiro ainda é fácil.',
+    'Criação de sites para prestadores de serviço e comércios de Mongaguá. Site simples, rápido e seu, que aparece no Google e leva o cliente para o seu WhatsApp.',
   context:
     'Mongaguá é uma cidade de perfil residencial e de veraneio, conhecida pela plataforma de pesca, que enche na temporada. Pouca empresa local tem site, então quem cria uma presença bem feita hoje ocupa o primeiro lugar com pouca disputa.',
   places: ['Centro', 'Agenor de Campos', 'Vera Cruz', 'Itaóca', 'Flórida Mirim', 'Jussara'],
-  searches: [
-    'pedreiro em mongaguá',
-    'eletricista mongaguá',
-    'jardineiro agenor de campos',
-    'pet shop mongaguá',
-  ],
   opportunities: [
     {
-      title: 'Pouca concorrência na internet',
+      title: 'Primeira página do Google com menos concorrência',
       text: 'Em cidades menores, um site com o nome da cidade e dos bairros chega à primeira página muito mais rápido do que em Santos ou na capital.',
     },
     {
-      title: 'Clientes de outras cidades',
+      title: 'Página para cada cidade atendida',
       text: 'Quem atende também Itanhaém e Praia Grande ganha com uma página por cidade, mostrando a região inteira que você cobre.',
     },
     {
-      title: 'Casas de veraneio',
+      title: 'Sites para quem cuida de casas de veraneio',
       text: 'Proprietários que moram fora procuram manutenção e limpeza pela internet antes de chegar. Mostre que você cuida da casa enquanto eles estão longe.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Um site simples e seu, com o nome da cidade e dos bairros.' },
-    { slug: 'seo-e-geo', why: 'Google Meu Negócio e páginas locais para ocupar o primeiro lugar.' },
-    { slug: 'agentes-de-ia', why: 'Respostas automáticas no WhatsApp para não perder quem chama à noite.' },
   ],
   segments: ['pedreiro', 'eletricista', 'jardineiro', 'banho-e-tosa'],
   faq: [
@@ -441,36 +345,24 @@ const itanhaem: Region = {
   name: 'Itanhaém',
   where: 'em Itanhaém',
   group: 'baixada',
-  title: 'Itanhaém tem quase 500 anos. Seu negócio ainda não tem site.',
   intro:
-    'Sites e atendimento automático para negócios de Itanhaém, uma das cidades mais antigas do Brasil e que recebe cada vez mais moradores vindos da capital.',
+    'Criação de sites para empresas, comércios e prestadores de serviço de Itanhaém. Site rápido, que aparece no Google e leva o cliente direto para o seu WhatsApp.',
   context:
     'Fundada no século 16, Itanhaém mistura centro histórico, praias e bairros residenciais que crescem a cada ano, com muitas famílias e aposentados que chegam de outras cidades. São clientes que procuram tudo pela internet e valorizam quem responde rápido.',
   places: ['Centro', 'Satélite', 'Suarão', 'Cibratel', 'Belas Artes', 'Gaivota', 'Loty', 'Praia dos Sonhos', 'Jardim Sabaúna'],
-  searches: [
-    'pedreiro itanhaém',
-    'instalação de ar-condicionado itanhaém',
-    'contador em itanhaém',
-    'banho e tosa cibratel',
-  ],
   opportunities: [
     {
-      title: 'Moradores novos sem indicação',
+      title: 'Sites para prestadores de serviço',
       text: 'Quem acabou de se mudar da capital não conhece ninguém na cidade. O primeiro prestador que aparece no Google com fotos e preço leva o serviço.',
     },
     {
-      title: 'Obras e reformas',
+      title: 'Sites para obras e reformas',
       text: 'Casas novas e reformas em loteamentos geram procura constante por pedreiro, pintor e eletricista, quase sempre com o nome do bairro na busca.',
     },
     {
-      title: 'Responder rápido vale ouro',
+      title: 'Resposta automática no WhatsApp',
       text: 'Cliente que manda mensagem para três prestadores fecha com quem responde primeiro. Respostas automáticas fazem isso por você.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Para prestadores que querem ser achados pelos moradores novos.' },
-    { slug: 'agentes-de-ia', why: 'Resposta imediata no WhatsApp, a qualquer hora.' },
-    { slug: 'seo-e-geo', why: 'Aparecer na busca com o nome do bairro e da cidade.' },
   ],
   segments: ['pedreiro', 'pintor', 'ar-condicionado', 'contador', 'banho-e-tosa'],
   faq: [
@@ -495,36 +387,24 @@ const peruibe: Region = {
   name: 'Peruíbe',
   where: 'em Peruíbe',
   group: 'baixada',
-  title: 'O turista decidiu o passeio antes de chegar a Peruíbe. Ele te encontrou?',
   intro:
-    'Sites, reservas pelo WhatsApp e SEO local para pousadas, passeios e prestadores de Peruíbe, porta de entrada da Juréia.',
+    'Criação de sites para pousadas, passeios, comércios e prestadores de serviço de Peruíbe, com reservas e orçamentos direto pelo WhatsApp.',
   context:
     'Peruíbe vive do turismo de natureza, da Estação Ecológica Juréia-Itatins ao Guaraú, e de uma população que cresce com quem escolhe morar no litoral sul. O visitante planeja tudo pelo celular; o morador procura serviço como em qualquer cidade.',
   places: ['Centro', 'Guaraú', 'Oásis', 'Stella Maris', 'Parque Turístico', 'Caraguava', 'Jardim Ribamar'],
-  searches: [
-    'pousada no guaraú peruíbe',
-    'passeio juréia peruíbe',
-    'fotógrafo em peruíbe',
-    'eletricista peruíbe',
-  ],
   opportunities: [
     {
-      title: 'Reserva direta, sem comissão',
+      title: 'Reservas direto pelo site',
       text: 'Pousadas e passeios pagam comissão alta em plataformas. Um site rápido com fotos, calendário e reserva pelo WhatsApp traz parte desse cliente direto para você.',
     },
     {
-      title: 'Conteúdo que vira busca',
+      title: 'Blog para atrair turistas',
       text: 'Quem planeja a viagem pesquisa trilhas, praias e passeios. Páginas que respondem essas perguntas colocam o seu negócio no caminho do turista.',
     },
     {
-      title: 'Serviços para quem mora',
+      title: 'Sites para prestadores de serviço',
       text: 'Fora da temporada, os moradores procuram reforma, manutenção e serviços pessoais. Um site simples mantém o movimento o ano todo.',
     },
-  ],
-  services: [
-    { slug: 'sites-para-autonomos', why: 'Para pousadas, guias e prestadores que querem ser encontrados antes da viagem.' },
-    { slug: 'blogs-e-portfolios', why: 'Conteúdo sobre a região que atrai quem está planejando a viagem.' },
-    { slug: 'agentes-de-ia', why: 'Responde disponibilidade e preço quando o turista chama fora do horário.' },
   ],
   segments: ['fotografo', 'eletricista', 'jardineiro', 'pedreiro'],
   faq: [
@@ -549,36 +429,24 @@ const saoPaulo: Region = {
   name: 'São Paulo',
   where: 'em São Paulo',
   group: 'sp',
-  title: 'Em São Paulo, o clique é caro. A página precisa pagar por ele.',
   intro:
-    'Landing pages, SEO por bairro, automação e agentes de IA para empresas e profissionais da capital paulista, com atendimento remoto.',
+    'Criação de sites, landing pages, SEO, sistemas e automação para empresas e profissionais de São Paulo, com atendimento remoto e conversa direta com o programador.',
   context:
     'São Paulo é o mercado mais disputado do país: anúncio caro, muitos concorrentes e clientes que comparam três opções antes de responder a uma. A busca é por bairro, por zona ou "perto do metrô", e o que decide é a velocidade da página e da resposta.',
   places: ['Pinheiros', 'Vila Madalena', 'Itaim Bibi', 'Moema', 'Vila Mariana', 'Perdizes', 'Lapa', 'Santana', 'Tatuapé', 'Mooca', 'Butantã', 'Santo Amaro'],
-  searches: [
-    'advogado de família em pinheiros',
-    'ginecologista perto do metrô vila mariana',
-    'contador para pj são paulo',
-    'fotógrafo corporativo zona sul sp',
-  ],
   opportunities: [
     {
-      title: 'Cada real de anúncio medido',
+      title: 'Landing pages para anúncios',
       text: 'Com o clique caro, a página do anúncio precisa carregar rápido, ter uma oferta só e registrar de onde veio cada contato.',
     },
     {
-      title: 'SEO por bairro e por zona',
+      title: 'SEO local por bairro e por zona',
       text: 'Ninguém busca "advogado São Paulo" e liga para o primeiro. Páginas para os bairros e as zonas onde você atende disputam buscas menores e mais decididas.',
     },
     {
-      title: 'Operação maior, mais tarefa repetida',
+      title: 'Automação de processos',
       text: 'Equipes maiores repetem cadastros, cobranças e relatórios. Automação e integrações liberam gente para atender cliente.',
     },
-  ],
-  services: [
-    { slug: 'landing-pages', why: 'Para transformar o clique caro em contato, com medição do anúncio ao WhatsApp.' },
-    { slug: 'seo-e-geo', why: 'Páginas por bairro e zona, e conteúdo que as IAs conseguem citar.' },
-    { slug: 'automacao-de-processos', why: 'Para equipes que gastam horas por semana em tarefas repetidas.' },
   ],
   segments: ['advogado', 'ginecologista', 'contador', 'fotografo'],
   faq: [
@@ -604,36 +472,24 @@ const abcPaulista: Region = {
   where: 'no ABC Paulista',
   group: 'sp',
   isRegion: true,
-  title: 'No ABC, quem fornece para a indústria também é avaliado pelo site.',
   intro:
-    'Sites institucionais, sistemas sob medida e integrações para empresas do ABC Paulista, das fábricas aos prestadores de serviço de cada cidade.',
+    'Criação de sites institucionais, desenvolvimento de sistemas e integrações para empresas de Santo André, São Bernardo, São Caetano, Diadema, Mauá e região.',
   context:
     'O ABC é um dos polos industriais mais tradicionais do país, com uma rede grande de pequenas indústrias, oficinas e fornecedores. Em volta delas, cada cidade tem seu comércio e seus serviços, e as buscas quase sempre levam o nome da cidade.',
   places: ['Santo André', 'São Bernardo do Campo', 'São Caetano do Sul', 'Diadema', 'Mauá', 'Ribeirão Pires', 'Rio Grande da Serra'],
-  searches: [
-    'usinagem são bernardo do campo',
-    'manutenção de ar-condicionado santo andré',
-    'contador em são caetano do sul',
-    'eletricista em diadema',
-  ],
   opportunities: [
     {
-      title: 'Homologação começa no site',
+      title: 'Site institucional para indústrias e fornecedores',
       text: 'O comprador da indústria pesquisa o fornecedor antes de pedir cotação. Site com capacidade produtiva, certificações e clientes atendidos abre a porta.',
     },
     {
-      title: 'Pedidos e ordens fora do e-mail',
+      title: 'Sistema de pedidos integrado ao ERP',
       text: 'Pequenas indústrias controlam pedidos por e-mail e planilha. Um sistema web simples, integrado ao ERP, reduz erro e retrabalho.',
     },
     {
-      title: 'Sete cidades, sete buscas',
+      title: 'Página para cada cidade do ABC',
       text: 'Prestadores que atendem várias cidades do ABC ganham com uma página para cada uma, citando os bairros e os trabalhos feitos ali.',
     },
-  ],
-  services: [
-    { slug: 'sistemas-sob-medida', why: 'Pedidos, ordens de serviço e estoque num sistema feito para a sua operação.' },
-    { slug: 'integracoes', why: 'Site, ERP e WhatsApp conversando, sem digitar o mesmo dado duas vezes.' },
-    { slug: 'sites-para-autonomos', why: 'Para prestadores que atendem uma ou várias cidades do ABC.' },
   ],
   segments: ['eletricista', 'ar-condicionado', 'contador', 'advogado'],
   faq: [
@@ -642,7 +498,7 @@ const abcPaulista: Region = {
       answer: 'Todas: Santo André, São Bernardo do Campo, São Caetano do Sul, Diadema, Mauá, Ribeirão Pires e Rio Grande da Serra. O trabalho é remoto.',
     },
     {
-      question: 'Vocês integram com o ERP que eu já uso?',
+      question: 'Você integra o site com o ERP que eu já uso?',
       answer: 'Na maioria dos casos, sim: Bling, Omie, Tiny e outros sistemas com API. Antes de orçar, verifico o que o seu ERP permite.',
     },
     {

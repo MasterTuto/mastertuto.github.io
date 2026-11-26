@@ -14,14 +14,14 @@
     </div>
     <div class="grid overflow-hidden rounded-xl font-mono text-sm shadow-lg md:grid-cols-2">
       <div class="flex flex-col gap-1.5 bg-muted p-6 text-muted-foreground">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-wider">legacy/</p>
+        <p class="mb-2 font-semibold">legacy/</p>
         <p>{{ copy.hero.note }}</p>
         <p aria-hidden="true">&lt;% if (user != null) &#123; %&gt;</p>
         <p aria-hidden="true" class="pl-4">&lt;%= relatorio.gerar(user) %&gt;</p>
         <p aria-hidden="true">&lt;% &#125; %&gt;</p>
       </div>
       <div aria-hidden="true" class="flex flex-col gap-1.5 bg-primary p-6 text-primary-foreground">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-wider">app/</p>
+        <p class="mb-2 font-semibold">app/</p>
         <p>&#64;if (user()) &#123;</p>
         <p class="pl-4">&lt;app-report [user]="user()" /&gt;</p>
         <p>&#125;</p>

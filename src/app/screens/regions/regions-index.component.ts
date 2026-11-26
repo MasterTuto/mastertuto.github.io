@@ -1,30 +1,30 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { tablerArrowRight, tablerMapPin } from '@ng-icons/tabler-icons';
+import { tablerArrowRight } from '@ng-icons/tabler-icons';
 
 import { regions } from 'src/app/data/regions.data';
 import { LangLinkPipe } from 'src/app/pipes/lang-link/lang-link.pipe';
 import { usePageSeo } from 'src/app/seo/page-seo';
 
-/** /regioes: the Baixada Santista from north to south as a coastline, then São Paulo. */
+/** /regioes: one link per city, anchored with the search term ("Programador em Santos"). */
 @Component({
   selector: 'app-regions-index',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, NgIconComponent, LangLinkPipe],
-  providers: [provideIcons({ tablerArrowRight, tablerMapPin })],
+  providers: [provideIcons({ tablerArrowRight })],
   templateUrl: './regions-index.component.html',
 })
 export class RegionsIndexComponent {
-  readonly overview = regions.find((item) => item.slug === 'baixada-santista')!;
-  readonly coast = regions.filter((item) => item.group === 'baixada' && !item.isRegion);
+  /** The region overview first, then the cities from north to south. */
+  readonly baixada = regions.filter((item) => item.group === 'baixada');
   readonly capital = regions.filter((item) => item.group === 'sp');
 
   constructor() {
     usePageSeo(() => ({
-      title: 'Criação de sites e automação por região: Baixada Santista e São Paulo',
+      title: 'Programador e criação de sites na Baixada Santista, São Paulo e ABC',
       description:
-        'Sites, SEO local, automação e agentes de IA para negócios de Santos, Guarujá, São Vicente, Praia Grande, Cubatão, Bertioga, Mongaguá, Itanhaém, Peruíbe, São Paulo e ABC.',
+        'Programador e criação de sites em Santos, Guarujá, São Vicente, Praia Grande, Cubatão, Bertioga, Mongaguá, Itanhaém, Peruíbe, São Paulo e ABC: serviços, preços e bairros atendidos.',
       path: '/regioes',
       fixedLanguage: 'pt',
       breadcrumbs: [['Início', '/'], ['Por região', '/regioes']],

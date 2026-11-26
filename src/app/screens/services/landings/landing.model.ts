@@ -1,4 +1,4 @@
-import { LandingFormField } from 'src/app/components/landing/whatsapp-form/landing-whatsapp-form.component';
+import type { LandingFormField } from 'src/app/components/landing/whatsapp-form/landing-whatsapp-form.component';
 
 export interface LandingFaqItem {
   readonly question: string;

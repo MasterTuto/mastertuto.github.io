@@ -36,7 +36,7 @@
         <li class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
             <span class="grid size-9 shrink-0 place-items-center rounded-full border-2 border-error-ink font-semibold text-error-ink">{{ i + 1 }}</span>
-            <span class="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{{ stages[i] }}</span>
+            <span class="font-semibold text-surface-0-foreground">{{ stages[i] }}</span>
             <span aria-hidden="true" class="hidden h-px flex-1 bg-surface-0-foreground/15 md:block"></span>
           </div>
           <p class="text-surface-0-foreground">{{ item }}</p>
@@ -89,7 +89,7 @@
   <!-- Price as a receipt, then the form -->
   <section bcs-reveal id="form" class="grid scroll-mt-28 items-start gap-6 lg:grid-cols-[minmax(0,22rem)_1fr]">
     <div class="flex flex-col gap-4 rounded-sm border-2 border-dashed border-surface-0-foreground/20 bg-surface-2 p-6 font-mono text-sm text-surface-0-foreground">
-      <p class="text-center font-semibold uppercase tracking-wider">{{ common.priceLabel }}</p>
+      <p class="text-center font-semibold">{{ common.priceLabel }}</p>
       <ul class="flex flex-col gap-2 border-y border-dashed border-surface-0-foreground/20 py-4">
         @for (item of copy.price.includes; track item) {
           <li class="flex gap-2"><ng-icon name="tablerCheck" class="mt-0.5 shrink-0 text-success-ink" aria-hidden="true" />{{ item }}</li>

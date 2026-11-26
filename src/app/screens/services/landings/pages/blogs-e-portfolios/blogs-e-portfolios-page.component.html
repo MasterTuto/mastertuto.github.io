@@ -2,12 +2,12 @@
 <div class="mx-auto flex w-full max-w-6xl flex-col gap-20 overflow-x-clip px-4 pt-4 md:gap-24">
   <!-- Hero: a title page -->
   <header class="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-    <span class="flex items-center gap-2 rounded-full bg-muted px-4 py-1.5 font-mono text-sm text-muted-foreground">
-      <ng-icon name="tablerX" class="text-error-ink" aria-hidden="true" />
-      <span class="line-through">{{ copy.hero.note }}</span>
-    </span>
     <h1 bcs-text="display">{{ copy.hero.title }}</h1>
     <p bcs-text="lead" tone="muted">{{ copy.hero.subtitle }}</p>
+    <p class="flex items-center gap-2 font-mono text-sm text-muted-foreground">
+      <ng-icon name="tablerX" class="text-error-ink" aria-hidden="true" />
+      <span class="line-through">{{ copy.hero.note }}</span>
+    </p>
     <a bcs-button size="lg" color="accent" routerLink="." fragment="form">
       {{ copy.hero.cta }}
       <ng-icon name="tablerArrowRight" />
@@ -17,7 +17,7 @@
   <div class="grid gap-12 border-t border-surface-0-foreground/10 pt-12 lg:grid-cols-[13rem_1fr] lg:gap-16">
     <!-- Table of contents -->
     <nav class="lg:sticky lg:top-32 lg:self-start" [attr.aria-label]="pt ? 'Nesta página' : 'On this page'">
-      <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{{ pt ? 'Nesta página' : 'On this page' }}</p>
+      <p class="mb-3 font-semibold text-surface-0-foreground">{{ pt ? 'Nesta página' : 'On this page' }}</p>
       <ol class="flex flex-wrap gap-x-6 gap-y-2 text-sm lg:flex-col">
         @for (entry of contents; track entry.id; let i = $index) {
           <li>
@@ -32,7 +32,6 @@
     <article class="flex min-w-0 max-w-[68ch] flex-col gap-16">
       <!-- Chapter 1: problem as numbered notes -->
       <section bcs-reveal id="problema" class="flex scroll-mt-28 flex-col gap-6" aria-labelledby="bp-problem">
-        <p class="font-mono text-sm text-accent-ink">{{ chapter }} 1</p>
         <h2 bcs-text="h2" id="bp-problem">{{ copy.problem.title }}</h2>
         <ol class="flex flex-col gap-4">
           @for (item of copy.problem.items; track item; let i = $index) {
@@ -51,7 +50,6 @@
 
       <!-- Chapter 2: solution, with a drop cap -->
       <section bcs-reveal id="solucao" class="flex scroll-mt-28 flex-col gap-6" aria-labelledby="bp-solution">
-        <p class="font-mono text-sm text-accent-ink">{{ chapter }} 2</p>
         <h2 bcs-text="h2" id="bp-solution">{{ copy.solution.title }}</h2>
         <p class="text-lg leading-relaxed text-surface-0-foreground first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-7xl first-letter:font-semibold first-letter:leading-none first-letter:text-accent-ink">{{ copy.solution.text }}</p>
         <bcs-list [items]="copy.solution.items" marker="dash" />
@@ -65,7 +63,6 @@
 
       <!-- Chapter 3: steps as a table of contents with leaders -->
       <section bcs-reveal id="processo" class="flex scroll-mt-28 flex-col gap-6" aria-labelledby="bp-steps">
-        <p class="font-mono text-sm text-accent-ink">{{ chapter }} 3</p>
         <h2 bcs-text="h2" id="bp-steps">{{ copy.steps.title }}</h2>
         <ol class="flex flex-col gap-6">
           @for (step of copy.steps.items; track step.title; let i = $index) {
@@ -83,7 +80,6 @@
 
       <!-- Chapter 4: price -->
       <section bcs-reveal id="investimento" class="flex scroll-mt-28 flex-col gap-6" aria-labelledby="bp-price">
-        <p class="font-mono text-sm text-accent-ink">{{ chapter }} 4</p>
         <h2 bcs-text="h2" id="bp-price">{{ common.priceLabel }}</h2>
         <div bcs-surface variant="outline" pad="lg">
           <app-landing-price

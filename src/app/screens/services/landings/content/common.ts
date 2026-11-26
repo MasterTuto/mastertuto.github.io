@@ -1,4 +1,4 @@
-import { LandingCommon, LandingLanguage } from '../landing.model';
+import type { LandingCommon, LandingLanguage } from '../landing.model';
 
 export const landingCommon: Readonly<Record<LandingLanguage, LandingCommon>> = {
   pt: {
