@@ -190,7 +190,7 @@
           <h2 id="cf-compare" class="font-semibold text-surface-0-foreground">O mesmo salário em cada regime</h2>
           <div class="mt-3 grid grid-cols-3 divide-x divide-surface-0-foreground/10">
             @for (c of comparison(); track c.id) {
-              <button type="button" class="px-3 text-left first:pl-0" [class.opacity-60]="c.id !== regime()" (click)="regime.set(c.id)" [attr.aria-pressed]="c.id === regime()">
+              <button type="button" class="border-t-2 px-3 pt-2 text-left first:pl-0" [class.border-accent]="c.id === regime()" [class.border-transparent]="c.id !== regime()" (click)="regime.set(c.id)" [attr.aria-pressed]="c.id === regime()">
                 <span class="block text-xs text-muted-foreground">{{ c.label }}</span>
                 <span class="mt-1 block text-lg font-bold tabular-nums tracking-tight text-surface-0-foreground sm:text-2xl">{{ money(c.result!.monthly) }}</span>
                 <span class="block text-sm tabular-nums text-muted-foreground">{{ times(c.result!.multiplier) }}</span>

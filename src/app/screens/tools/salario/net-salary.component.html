@@ -179,11 +179,11 @@
             <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="text-muted-foreground">Rendimento tributável</dt><dd class="tabular-nums">{{ money(r.gross) }}</dd></div>
             <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2">
               <dt class="text-muted-foreground">Deduções legais <small>(INSS{{ dependents() ? ', dependentes' : '' }}{{ r.alimony ? ', pensão' : '' }}{{ r.pension ? ', previdência' : '' }})</small></dt>
-              <dd class="tabular-nums" [class.line-through]="r.irrf.method === 'simplified'" [class.opacity-60]="r.irrf.method === 'simplified'">− {{ money(r.irrf.legalDeductions) }}</dd>
+              <dd class="tabular-nums" [class.line-through]="r.irrf.method === 'simplified'">− {{ money(r.irrf.legalDeductions) }}</dd>
             </div>
             <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2">
               <dt class="text-muted-foreground">Desconto simplificado</dt>
-              <dd class="tabular-nums" [class.line-through]="r.irrf.method === 'legal'" [class.opacity-60]="r.irrf.method === 'legal'">− {{ money(simplified) }}</dd>
+              <dd class="tabular-nums" [class.line-through]="r.irrf.method === 'legal'">− {{ money(simplified) }}</dd>
             </div>
             <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="font-semibold">Base de cálculo</dt><dd class="font-semibold tabular-nums">{{ money(r.irrf.base) }}</dd></div>
             <div class="flex justify-between gap-4 border-b border-surface-0-foreground/10 py-2"><dt class="text-muted-foreground">Tabela: {{ percent(r.irrf.rate, 1) }} − parcela a deduzir</dt><dd class="tabular-nums">{{ money(r.irrf.tableTax) }}</dd></div>

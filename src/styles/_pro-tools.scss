@@ -12,6 +12,8 @@
 .pro-eyebrow { @apply text-accent; display: inline-flex; align-items: center; gap: .5rem; margin-bottom: .75rem; font-size: .75rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
 .pro-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
 .pro-badges span { @apply bg-accent-50 text-accent-700; padding: .3rem .7rem; border-radius: 999px; font-size: .75rem; font-weight: 550; }
+/* The dark theme's accent-50/700 pair falls just under 4.5:1; use a tinted chip with light text instead. */
+html[data-scheme='dark']:not([data-theme]) .pro-badges span { background: rgb(122 112 225 / .2); color: #d9d6ff; }
 
 .pro-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
 @media (min-width: 960px) {
@@ -143,4 +145,4 @@
 .pro-legend i { display: inline-block; width: .6rem; height: .6rem; margin-right: .3rem; border-radius: 2px; vertical-align: -1px; }
 .pro-table tr.on td { background: rgb(122 112 225 / .1); font-weight: 650; }
 .pro-table tfoot td { font-weight: 700; border-top-width: 2px; }
-.pro-formula { @apply bg-surface-1 border-surface-0-foreground/10; overflow-x: auto; margin: 1rem 0; padding: .9rem 1rem; border-width: 1px; border-radius: .8rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; line-height: 1.7; white-space: pre; }
+.pro-formula { @apply bg-surface-1 border-surface-0-foreground/10; margin: 1rem 0; padding: .9rem 1rem; border-width: 1px; border-radius: .8rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }

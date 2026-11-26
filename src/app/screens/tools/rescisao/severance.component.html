@@ -148,7 +148,7 @@
         <p class="pro-result-sub">{{ money(r.gross) }} de verbas − {{ money(r.totalDeductions) }} de descontos</p>
         <dl class="pro-result-list">
           @for (line of r.earnings; track line.id) {
-            <div><dt>{{ line.label }} <span class="opacity-70">· {{ line.reference }}</span></dt><dd>{{ money(line.value) }}</dd></div>
+            <div><dt>{{ line.label }} · {{ line.reference }}</dt><dd>{{ money(line.value) }}</dd></div>
           }
           @for (line of r.deductions; track line.id) {
             <div><dt>{{ line.label }}</dt><dd>− {{ money(line.value) }}</dd></div>
